@@ -12,11 +12,9 @@ website:
       - icon: github
         href: https://github.com/paciorek/r-voleon-2025
     contents:
-      - href: index.qmd
+      - href: index.html
         text: Home / Schedule
-      - href: syllabus.qmd
-        text: Overview
-      - href: prep.qmd
+      - href: prep.html
         text: Preparation
       - section: "Modules"
         contents:
