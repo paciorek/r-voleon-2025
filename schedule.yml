@@ -1,0 +1,45 @@
+- session: 0 (optional)
+  days:
+    - date: "June 24"
+      items:
+        - type: "Module"
+          id: "0"
+          name: "Basic Introduction to R Syntax"
+          href: "./units/intro.html"
+- session: 1
+  days:
+    - date: "June 24"
+      items:
+        - type: "Module"
+          id: "1"
+          name: "Data Structures and Manipulations"
+          href: "./units/data.qmd"
+        - type: "Module"
+          id: "2"
+          name: "Calculations and Efficiency"
+          href: "./units/calculation.qmd"
+        - type: "Module"
+          id: "3"
+          name: "Programming"
+          href: "./units/programming.qmd"
+          
+- session: 2
+  days:
+    - date: "June 26"
+      items:
+        - type: "Module"
+          id: "4"
+          name: "Tidyverse and Data Wrangling
+          href: "./units/tidyverse.qmd"
+        - type: "Module"
+          id: "5"
+          name: "Plotting in ggplot"
+          href: "./units/ggplot.qmd"
+        - type: "Module"
+          id: "6"
+          name: "Analysis and Common Packages"
+          href: "./units/analysis.qmd"
+        - type: "Module"
+          id: "7"
+          name: "Additional Topics"
+          href: "./units/topics.qmd"

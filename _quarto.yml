@@ -1,0 +1,46 @@
+project:
+  type: website
+
+website:
+  site-url: https://paciorek.github.io/r-voleon-2025
+  sidebar:
+    style: docked
+    title: "Voleon R Bootcamp"
+    tools:
+      - icon: github
+        href: https://github.com/paciorek/r-voleon-2025
+    contents:
+      - href: index.qmd
+        text: Home / Schedule
+      - href: syllabus.qmd
+        text: Overview
+      - href: prep.qmd
+        text: Preparation
+      - section: "Modules"
+        contents:
+          - href: units/intro.qmd
+            text: Basic Introduction (Module "0")
+          - href: units/data.qmd
+            text: Data Structures
+          - href: units/calculation.qmd
+            text: Calculation
+          - href: units/programming.qmd
+            text: Programming
+          - href: units/tidyverse.qmd
+            text: Tidyverse
+          - href: units/ggplot.qmd
+            text: Plotting (ggplot)
+          - href: units/analysis
+            text: Analysis/Packages
+          - href: units/topics
+            text: Additional Topics
+          
+
+format:
+  html:
+    theme: cosmo
+    css: assets/styles.css
+    toc: true
+
+
+

@@ -1,0 +1,52 @@
+---
+title: "Preparation
+format:
+  html:
+    theme: cosmo
+    css: ../styles.css
+    toc: true
+    code-copy: true
+    code-block-background: true
+execute:
+  freeze: auto
+---
+
+## Installing R and RStudio
+
+If your version of R is older than 4.0.0, please install the latest version, though you may be fine with older versions.
+
+To install R, see:
+
+  * MacOS: install the R-4.5.0.pkg from https://cran.rstudio.com/bin/macosx
+    - You'll need to choose between the version for the newer M1/M2 Macs (Apple Silicon / ARM) and older Intel-based Macs.
+  * Windows: https://cran.rstudio.com/bin/windows/base/
+  * Linux: https://cran.rstudio.com/bin/linux/
+
+Then install RStudio. To do so, see [https://posit.co/download/rstudio-desktop](https://posit.co/download/rstudio-desktop) and click the blue button to download for your operating system.
+
+Once you have RStudio installed, verify that you can install add-on R packages by installing the `fields` package. In RStudio, go to the `Packages->Install` tab. In the resulting dialog box, enter 'gapminder' (without quotes) in the 'Packages' field. Depending on the location specified in the 'Install to Library' field, you may need to enter your administrator password. To be able to install packages to the directory of an individual user, you may need to do the following:
+
+  * In R, enter the command `Sys.getenv()['R_LIBS_USER']`.
+  * Create the directory specified in the result that R returns, e.g., on a Mac, this might be `~/Library/R/4.3/library`.
+
+R has many, many add-on packages that provide additional functionality. We'll use some of them during the bootcamp, and it's best if you've already installed them (though you can install them as needed).
+
+
+To install the packages for the bootcamp, please run the following command within R:
+
+```
+install.packages(c('chron','colorspace','codetools','DBI','devtools','dichromat','digest','doParallel', 'dplyr', 'fields',
+'foreach', 'gapminder', 'ggplot2','gridExtra','gtable','inline','iterators','knitr','labeling','lattice','lme4','mapproj','maps','munsell',
+'patchwork', 'proftools', 'proto','purrr', 'rbenchmark','RColorBrewer','Rcpp','reshape2','rJava','RSQLite','scales','spam',
+'stringr','tidyr','xlsx','xlsxjars','xtable'), repos = "https://cran.r-project.org")
+```
+
+## Optional Module "0"
+
+This will cover  the basics of R syntax, including basic syntax for programming such a if-then-else, for loops, and defining functions.
+
+If you've never used R, I suggest that you do the following in advance of the first half-day session on June 24:
+
+ 1. Work through module 0 in advance on your own, trying out the basic syntax to start to develop some "muscle memory".
+ 2. (Optionally) If you think it would help to see a demo after you've looked at the syntax yourself, please join us for a module 0 demo I'll present 11 am - noon on Day 1.
+
