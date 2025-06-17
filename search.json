@@ -1,0 +1,82 @@
+[
+  {
+    "objectID": "syllabus.html",
+    "href": "syllabus.html",
+    "title": "Overview",
+    "section": "",
+    "text": "The workshop will focus on skills related to computation, code development, and statistics/data science workflows, including,\n\nopen science workflows and literate programming;\nintroduction to version control, Git and GitHub;\ncode style;\ndebugging;\ntesting;\ncollaboration with Git and GitHub;\nnumerical analysis (random number generation and floating point precision);\npackaging and reproducible environments; and\nautomated workflows.\n\n\n\n\nGoal 1: Emphasize good computational and code development practices (scripting, version control, testing, modularity, defensive programming, documentation, commenting, numerical analysis issues).\nGoal 2: Emphasize good practices for workflows, including reproducibility, automation, isolated environments.\nGoal 3: Provide practice with and introduce key tools for version control, testing, documentation, literate programming (documents with runnable code).",
+    "crumbs": [
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#about-the-computational-skills-workshop",
+    "href": "syllabus.html#about-the-computational-skills-workshop",
+    "title": "Overview",
+    "section": "",
+    "text": "The workshop will focus on skills related to computation, code development, and statistics/data science workflows, including,\n\nopen science workflows and literate programming;\nintroduction to version control, Git and GitHub;\ncode style;\ndebugging;\ntesting;\ncollaboration with Git and GitHub;\nnumerical analysis (random number generation and floating point precision);\npackaging and reproducible environments; and\nautomated workflows.\n\n\n\n\nGoal 1: Emphasize good computational and code development practices (scripting, version control, testing, modularity, defensive programming, documentation, commenting, numerical analysis issues).\nGoal 2: Emphasize good practices for workflows, including reproducibility, automation, isolated environments.\nGoal 3: Provide practice with and introduce key tools for version control, testing, documentation, literate programming (documents with runnable code).",
+    "crumbs": [
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "syllabus.html#optional-introduction-to-computing-and-python",
+    "href": "syllabus.html#optional-introduction-to-computing-and-python",
+    "title": "Overview",
+    "section": "(Optional) Introduction to Computing and Python",
+    "text": "(Optional) Introduction to Computing and Python\nThe optional additional sessions (held Tuesday-Wednesday, August 20-21) provide a basic introduction to computing concepts (e.g., parts of a computer, ideas related to parallelization, introduction to the the shell/command line/terminal) and an introduction to Python.\nThese are intended for those with little experience (or wishing a refresher) with working in a command line context or with using Python, and are particularly important for those taking Statistics 243, which assumes basic knowledge of Python.\nThe introduction to Python will borrow heavily from this Software Carpentry Python lesson, with some additional topics added.",
+    "crumbs": [
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Voleon R Bootcamp",
+    "section": "",
+    "text": "The bootcamp will be a fast-paced introduction to R, with the assumption that attendees have some previous programming experience, such as in Python, R, MATLAB, or Julia.\nPlease check the preparation guide to be prepared in advance.",
+    "crumbs": [
+      "Home / Schedule"
+    ]
+  },
+  {
+    "objectID": "index.html#schedule",
+    "href": "index.html#schedule",
+    "title": "Voleon R Bootcamp",
+    "section": "Schedule",
+    "text": "Schedule\n\n\n   Session 0 (optional)\n\n   \n   \n   \n   \n   \n   \n\n        \n\n           \n           \n           June 24:\n           \n           Module 0 Basic Introduction to R Syntax\n           \n                \n           \n                \n           \n        \n   \n   \n   \n  \n\n   Session 1\n\n   \n   \n   \n   \n   \n   \n\n        \n\n           \n           \n           June 24:\n           \n           Module 1 Data Structures and Manipulations\n           \n                \n           \n                \n           \n        \n\n           \n           \n           Module 2 Calculations and Efficiency\n           \n                \n           \n                \n           \n        \n\n           \n           \n           Module 3 Programming\n           \n                \n           \n                \n           \n        \n   \n   \n   \n  \n\n   Session 2\n\n   \n   \n   \n   \n   \n   \n\n        \n\n           \n           \n           June 26:\n           \n           Module 4 Tidyverse and Data Wrangling\n           \n                \n           \n                \n           \n        \n\n           \n           \n           Module 5 Plotting in ggplot\n           \n                \n           \n                \n           \n        \n\n           \n           \n           Module 6 Analysis and Common Packages\n           \n                \n           \n                \n           \n        \n\n           \n           \n           Module 7 Additional Topics\n           \n                \n           \n                \n           \n        \n   \n   \n   \n  \n\n\nNo matching items",
+    "crumbs": [
+      "Home / Schedule"
+    ]
+  },
+  {
+    "objectID": "prep.html",
+    "href": "prep.html",
+    "title": "Preparation",
+    "section": "",
+    "text": "If your version of R is older than 4.0.0, please install the latest version, though you may be fine with older versions.\nTo install R, see:\n\nMacOS: install the R-4.5.0.pkg from https://cran.rstudio.com/bin/macosx\n\nYou’ll need to choose between the version for the newer M1/M2 Macs (Apple Silicon / ARM) and older Intel-based Macs.\n\nWindows: https://cran.rstudio.com/bin/windows/base/\nLinux: https://cran.rstudio.com/bin/linux/\n\nThen install RStudio. To do so, see https://posit.co/download/rstudio-desktop and click the blue button to download for your operating system.\nOnce you have RStudio installed, verify that you can install add-on R packages by installing the fields package. In RStudio, go to the Packages-&gt;Install tab. In the resulting dialog box, enter ‘gapminder’ (without quotes) in the ‘Packages’ field. Depending on the location specified in the ‘Install to Library’ field, you may need to enter your administrator password. To be able to install packages to the directory of an individual user, you may need to do the following:\n\nIn R, enter the command Sys.getenv()['R_LIBS_USER'].\nCreate the directory specified in the result that R returns, e.g., on a Mac, this might be ~/Library/R/4.3/library.\n\nR has many, many add-on packages that provide additional functionality. We’ll use some of them during the bootcamp, and it’s best if you’ve already installed them (though you can install them as needed).\nTo install the packages for the bootcamp, please run the following command within R:\ninstall.packages(c('chron','colorspace','codetools','DBI','devtools','dichromat','digest','doParallel', 'dplyr', 'fields',\n'foreach', 'gapminder', 'ggplot2','gridExtra','gtable','inline','iterators','knitr','labeling','lattice','lme4','mapproj','maps','munsell',\n'patchwork', 'proftools', 'proto','purrr', 'rbenchmark','RColorBrewer','Rcpp','reshape2','rJava','RSQLite','scales','spam',\n'stringr','tidyr','xlsx','xlsxjars','xtable'), repos = \"https://cran.r-project.org\")",
+    "crumbs": [
+      "Preparation"
+    ]
+  },
+  {
+    "objectID": "prep.html#installing-r-and-rstudio",
+    "href": "prep.html#installing-r-and-rstudio",
+    "title": "Preparation",
+    "section": "",
+    "text": "If your version of R is older than 4.0.0, please install the latest version, though you may be fine with older versions.\nTo install R, see:\n\nMacOS: install the R-4.5.0.pkg from https://cran.rstudio.com/bin/macosx\n\nYou’ll need to choose between the version for the newer M1/M2 Macs (Apple Silicon / ARM) and older Intel-based Macs.\n\nWindows: https://cran.rstudio.com/bin/windows/base/\nLinux: https://cran.rstudio.com/bin/linux/\n\nThen install RStudio. To do so, see https://posit.co/download/rstudio-desktop and click the blue button to download for your operating system.\nOnce you have RStudio installed, verify that you can install add-on R packages by installing the fields package. In RStudio, go to the Packages-&gt;Install tab. In the resulting dialog box, enter ‘gapminder’ (without quotes) in the ‘Packages’ field. Depending on the location specified in the ‘Install to Library’ field, you may need to enter your administrator password. To be able to install packages to the directory of an individual user, you may need to do the following:\n\nIn R, enter the command Sys.getenv()['R_LIBS_USER'].\nCreate the directory specified in the result that R returns, e.g., on a Mac, this might be ~/Library/R/4.3/library.\n\nR has many, many add-on packages that provide additional functionality. We’ll use some of them during the bootcamp, and it’s best if you’ve already installed them (though you can install them as needed).\nTo install the packages for the bootcamp, please run the following command within R:\ninstall.packages(c('chron','colorspace','codetools','DBI','devtools','dichromat','digest','doParallel', 'dplyr', 'fields',\n'foreach', 'gapminder', 'ggplot2','gridExtra','gtable','inline','iterators','knitr','labeling','lattice','lme4','mapproj','maps','munsell',\n'patchwork', 'proftools', 'proto','purrr', 'rbenchmark','RColorBrewer','Rcpp','reshape2','rJava','RSQLite','scales','spam',\n'stringr','tidyr','xlsx','xlsxjars','xtable'), repos = \"https://cran.r-project.org\")",
+    "crumbs": [
+      "Preparation"
+    ]
+  },
+  {
+    "objectID": "prep.html#optional-module-0",
+    "href": "prep.html#optional-module-0",
+    "title": "Preparation",
+    "section": "Optional Module “0”",
+    "text": "Optional Module “0”\nThis will cover the basics of R syntax, including basic syntax for programming such a if-then-else, for loops, and defining functions.\nIf you’ve never used R, I suggest that you do the following in advance of the first half-day session on June 24:\n\nWork through module 0 in advance on your own, trying out the basic syntax to start to develop some “muscle memory”.\n(Optionally) If you think it would help to see a demo after you’ve looked at the syntax yourself, please join us for a module 0 demo I’ll present 11 am - noon on Day 1.",
+    "crumbs": [
+      "Preparation"
+    ]
+  }
+]
