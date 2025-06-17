@@ -1,9 +1,9 @@
 ---
-title: "Preparation
+title: Preparation
 format:
   html:
     theme: cosmo
-    css: ../styles.css
+    css: assets/styles.css
     toc: true
     code-copy: true
     code-block-background: true

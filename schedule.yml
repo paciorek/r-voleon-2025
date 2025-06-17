@@ -1,6 +1,6 @@
 - session: 0 (optional)
   days:
-    - date: "June 24"
+    - date: "June 24 (11 am - noon)"
       items:
         - type: "Module"
           id: "0"
@@ -8,7 +8,7 @@
           href: "./units/intro.html"
 - session: 1
   days:
-    - date: "June 24"
+    - date: "June 24 (1-5 pm)"
       items:
         - type: "Module"
           id: "1"
@@ -25,11 +25,11 @@
           
 - session: 2
   days:
-    - date: "June 26"
+    - date: "June 26 (1-5 pm)"
       items:
         - type: "Module"
           id: "4"
-          name: "Tidyverse and Data Wrangling
+          name: "Tidyverse and Data Wrangling"
           href: "./units/tidyverse.qmd"
         - type: "Module"
           id: "5"

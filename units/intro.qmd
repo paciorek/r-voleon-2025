@@ -1,0 +1,501 @@
+---
+title: "Basic Introduction to R Syntax"
+format:
+  html:
+    theme: cosmo
+    css: assets/styles.css
+    toc: true
+    code-copy: true
+    code-block-background: true
+    code-tools: true
+execute:
+  freeze: auto
+---
+
+```{r chunksetup, include=FALSE, cache=TRUE} 
+# include any code here you don't want to show up in the document,
+# e.g. package and dataset loading
+rm(list=ls())
+```
+
+
+
+# R as a calculator
+
+The syntax for doing interactive calculations in R is similar to other languages such as Python, MATLAB, and Julia, though some of the operators differ.
+
+Here are some examples that you should be able to replicate yourself in a plain R session or in the console/command window of RStudio. The console window will by default be [the left (or perhaps lower left) window pane when you start RStudio](rstudio.png).
+
+```{r, computing}
+#| echo: true
+2 + 2 # add numbers
+2 * pi # multiply by a constant
+7 + runif(1) # add a random number
+3^4 # powers
+sqrt(4^4) # functions
+log(10)
+log(100, base = 10)
+23 %/% 2 
+23 %% 2
+
+# scientific notation
+5000000000 * 1000
+5e9 * 1e3
+```
+
+Think of a mathematical operation you need - can you guess how to do it in R?
+
+Side note to presenter: turn off R Notebook inline view via RStudio -> Preferences -> R Markdown -> Show output inline ...
+
+::: {.callout-tip title="Question"}
+
+How do I calculate the cosine of 2 pi?
+
+1) cosine(2pi)
+2) cosine(2*pi)
+3) cos(2 * pi)
+4) cos(2 x pi)
+5) cos(2*pi)
+6) cos(2 * 3.14159)
+7) cos[2*pi]
+:::
+
+::: {.callout-tip title="Answer" collapse="true"}
+
+- The function name is `cos` not `cosine`.
+- A function call specifies the arguments in parentheses (), not brackets [].
+- Spaces don't generally matter (there are exceptions).
+- `pi` is an object in the R language.
+
+:::
+
+
+::: {.callout-tip title="Question"}
+
+What happens if you do this?
+
+```{r}
+#| eval: false
+cos(2*pi
+```
+:::
+
+::: {.callout-tip title="Answer" collapse="true"}
+
+Since we didn't enter the closing parenthesis, R is waiting for additional input with the "continuation" prompt of `+`.
+
+You can either enter the missing syntax or hit Ctrl-C or esc to kill the partial syntax and return to the usual prompt.
+
+:::
+
+# Assigning values to R objects
+
+A key action in R (similar to other languages) is to store values in the form of R objects, and to examine the value of R objects.
+
+```{r}
+val <- 3
+val
+print(val)
+
+Val <- 7 # case-sensitive!
+print(val)
+print(Val)
+```
+
+Here is some other syntax to create objects. 
+```{r}
+mySeq <- 1:6
+mySeq
+
+years <- seq(1952, 2007, by = 5)
+years
+length(years)
+
+## This is a comment: here is an example of non-numeric data
+country <- rep("Afghanistan", 12)
+country 
+```
+
+R gives us a lot of flexibility (within certain rules) for assigning to (parts of) objects from (parts of) other objects.
+We'll see this through the bootcamp.
+
+# Vectors in R
+
+The most basic form of an R object is a vector (i.e., a 1-dimensional array). The various objects `mySeq`, `years`, `country` are all vectors.
+
+In fact, individual (scalar) values are vectors of length one, so `val` and `Val` from above are also vectors. 
+
+We can concatenate values into a vector with `c()`.
+
+```{r}
+## numeric vector
+nums <- c(1.1, 3, -5.7)
+devs <- rnorm(5)   # Five random normal values.
+devs
+```
+
+This is not valid syntax in R. Let's try it and see what happens.
+
+```{r}
+#| eval: false
+nums <- (1.1, 3, -5.7)
+nums <- [1.1, 3, -5.7]
+```
+
+# Working with indices and subsets
+
+We can subset (aka "slice") using a variety of approaches. 
+
+```{r}
+vals <- 1:12
+
+vals[3]
+vals[3:5]
+vals[c(1, 3, 6)]
+vals[-c(1, 3, 6)]
+vals[c(rep(TRUE, 3), rep(FALSE, 2), TRUE, rep(FALSE, 6))]
+```
+
+We can substitute values into vectors:
+
+```{r}
+vals[4] <- 822.9711
+vals[3:4] <- c(7.5, 2.4)
+vals[2:4] <- 0  # Recycling
+```
+
+The last substutition uses "recycling" to match the left-hand-side extent (3 elements) with the right-hand-side extent (1 element)
+
+
+::: {.callout-tip title="Question"}
+Suppose you have a vetor, such as created like this: `vals <- rnorm(4)`. Which of these will work to extract a subset of a vector?
+
+1) vals[3]
+2) vals[2,3]
+3) vals[c(2,3)]
+4) vals(2,3)
+5) vals[c(FALSE, TRUE, TRUE, FALSE)]
+6) vals[c(f,t,t,f)]
+7) vals(3)
+:::
+
+::: {.callout-tip title="Answer" collapse="true"}
+
+- Subsetting uses square brackets so (4) and (7) don't work.
+- To create a set of indices to use in subsetting/slicing, you need to use `c()`, so (3) and (5) work.
+- Booleans in R use the canonical syntax of TRUE and FALSE, so (5) works but not (6).
+
+:::
+
+# Using functions in R
+
+
+* Functions generally take arguments, some of which are often optional:
+```{r}
+log(10)
+log(10, base = 10)
+```
+
+* We can embed function calls: 
+```{r, hist}
+#| fig-cap: "A histogram"
+hist(rnorm(1000))
+```
+
+* We can (usually) see the code of a function:
+```{r}
+lm
+```
+
+# Getting help about a function
+
+To get information about a function you know exists, use `help` or `?`, e.g., `?lm`. 
+
+```{r}
+#| eval: false
+help(lm)
+?lm
+
+?log
+```
+
+
+# How to be [lazy](http://dilbert.com/strips/comic/2005-05-29/)
+
+If you're starting to type something you've typed before, or the long name of an R object or function, STOP!  You likely don't need to type all of that.
+
+- Tab completion
+- Command history 
+    * up/down arrows
+    * Ctrl-{up arrow} or Command-{up arrow}
+- RStudio: select a line or block for execution
+- For keyboard shortcuts in RStudio see:
+   - `Tools -> Keyboard Shortcuts Help` or
+   - [this](https://appsilon.com/rstudio-shortcuts-and-tips) and [this](https://www.r-bloggers.com/r-studio-shortcuts-and-tips-part-2) blog posts.
+- [Other tips](https://www.r-bloggers.com/tips-and-tricks-in-rstudio-and-r-markdown) for saving time in RStudio and R Markdown
+
+# Managing the workspace
+
+R has functions for learning about the collection of objects in your workspace. Some of this is built in to RStudio (see the Enviornment tab in upper right pane).
+
+```{r}
+## Let's first create a few objects
+x <- rnorm(5)
+y <- c(5L, 2L, 7L)
+z <- list(a = 3, b = c('sam', 'yang'))
+ls()  # search the user workspace (global environment)
+rm(x)    # delete a variable
+ls()
+ls.str() # list and describe variables
+```
+
+# Saving and reloading the workspace
+
+Finally we can save the objects in our R session for later use (or to give to someone else):
+
+```{r}
+ls()
+save.image('intro.Rda')
+rm(list = ls())
+ls()
+load('intro.Rda') 
+# the result of this may not be quite right in the slide version
+ls()
+```
+
+# Packages 
+
+Let's check out the [packages on CRAN](https://cran.r-project.org/web/packages/). In particular check out the [CRAN Task Views](https://cran.r-project.org/web/views/).
+
+Essentially any well-established and many not-so-established statistical methods and other functionality is available in a package. 
+
+If you want to sound like an R expert, make sure to call them *packages* and not *libraries*. A *library* is the location in the directory structure where the packages are installed/stored.
+
+# Using packages
+
+Two steps (similar to Python and Julia):
+
+1. Install the package on your machine
+   - one-time only - the package will be a set of files in the filesystem
+2. Load the package
+   - every time you start R and need to use a given package - the package will be loaded into memory
+
+To install a package, in RStudio, just do `Packages->Install Packages`.
+
+From the command line, you generally will just do
+```{r}
+#| eval: false
+install.packages('gapminder') 
+```
+
+
+If you're on a network and are not the administrator of the machine, you may need to explicitly tell R to install it in a directory you are able to write in:
+```{r}
+#| eval: false
+install.packages('gapminder', lib = file.path('~', 'R'))
+```
+
+If you're using R directly installed on your laptop, now would be a good point to install the various packages we need for the bootcamp, which can be done easily with the following command:
+
+```{r eval=FALSE}
+install.packages(c('chron','colorspace','codetools', 'DBI','devtools',
+                   'dichromat','digest','doFuture','dplyr', 'fields',
+                   'foreach','future.apply', 'gapminder', 'ggplot2',
+                   'gridExtra','gtable','inline','iterators','knitr',
+                   'labeling','lattice','lme4','mapproj','maps','munsell',
+                   'proftools','proto','purrr','R6','rbenchmark',
+                   'RColorBrewer','Rcpp','reshape2','rJava',
+                   'RSQLite', 'scales','spam','stringr','tidyr','xlsx',
+                   'xlsxjars','xtable'))
+```
+
+Note that packages often are dependent on other packages so these dependencies may be installed and loaded automatically. E.g., *fields* depends on *maps* and on *spam*.
+
+# General information about a package
+
+You can use syntax as follows to get a list of the objects in a package and a brief description:
+
+```{r, eval=FALSE}
+library(help = packageName)
+```
+
+On CRAN there often *vignettes* that are an overview and describe usage of a package if you click on a specific package. The *reference manual* is just a single document with the help files for all of the objects/functions in a package, so may be helpful but often it's hard to get the big picture view from that.
+
+# The working directory
+
+To read and write from R, you need to have a firm grasp of where in the computer's filesystem you are reading and writing from. 
+
+```{r}
+#| eval: false
+## What directory does R look for files in (working directory)?
+getwd()
+
+## Changing the working directory (Linux/Mac specific)
+setwd('~/Desktop') # change the working directory
+setwd('/Users/paciorek/Desktop') # absolute path (here on MacOS)
+getwd()
+setwd('r-voleon-2025/units') # relative path
+setwd('../tmp') # relative path, up and back down the tree
+
+## Changing the working directory (Windows specific)
+## Windows - use either \\ or / to indicate directories
+# setwd('C:\\Users\\Your_username\\Desktop\\r-voleon-2025')
+# setwd('..\\r-voleon-2025')
+
+## Changing the working directory (platform-agnostic)
+setwd(file.path('~', 'Desktop', 'r-voleon-2025', 'modules')) # change the working directory
+setwd(file.path('/', 'Users', 'paciorek', 'Desktop', 'r-voleon-2025', 'modules')) # absolute path
+getwd()
+setwd(file.path('..', 'data')) # relative path
+```
+Many errors and much confusion result from you and R not being on the same page in terms of where in the directory structure you are.
+
+In RStudio, you can use `Session -> Set Working Directory` instead of `setwd`.
+
+
+# Writing functions
+
+Here's the syntax for writing our own function.
+
+```{function}
+add_constant <- function(x, constant = 0) {
+   result <- x + constant
+   return(result)
+}
+
+add_constant(7)
+add_constant(7, 5)
+
+add_constant(1:6, 5)
+
+```
+
+# Function arguments
+
+R can match arguments by name (when provided) or by position (the fall-back). It
+also allows one to specify default values so that the user doesn't have to
+explicitly provide all the arguments.
+
+```{r, fun-args0}
+log(100)
+log(100, base = 10)
+log(100, 10)
+log(base = 10, 100)
+log(base = 10, x = 100)
+```
+
+# Branching (if-then-else syntax)
+
+Often we need our code to do different things depending on whether some condition is true or false.
+
+Here's a simple example to illustrate the syntax. Note that the *then* is
+implicit.
+
+```{r, if}
+val <- rnorm(1)
+val
+if (val < 0) {
+  print("val is negative")
+} else {
+  print("val is positive")
+}
+```
+
+We can chain together `if` statements as follows.
+
+```{r, if-chain}
+val <- rnorm(1)
+val
+if (val < -1) {
+  print("val is more than one standard deviation below the mean.")
+} else if (abs(val) <= 1) {
+  print("val is within one standard deviation of the mean.")
+} else {
+  print("val is more than one standard deviation above the mean.")
+}
+```
+
+In general, the `{` brackets are only needed if you have multiple R expressions,
+but R will complain when an `else` starts a line of code, so generally using the
+`{` is good practice. That said, this _works just fine_:
+
+```{r, if-oneline}
+if (val < 0) print("val is negative") else print("val is positive")
+```
+
+# Loops
+
+In many languages, looping (for loops, while loops, etc.) is one of the main
+constructs used to carry out computation. Loops are not emphasized as much in R,
+both because they can be slow and because other syntax (vectorized calls, lapply, etc.) is often cleaner, as we'll see in a later module.
+
+But there are lots of times when using a loop does make sense.
+
+Most of you are probably familiar at least with the basic idea of iterating
+through a series of steps. A **for** loop iterates through a pre-determined number
+of iterations, while a **while** loop iterates until some condition is met. For
+loops are more common in R, but while loops can be handy particularly for things
+like optimization.
+
+Here's some example syntax.
+
+```{r, for-example}
+x <- rnorm(50)
+cnt_neg <- 0
+for(i in seq_along(x)) {
+    if(x[i] < 0) {
+       x[i] <- 0
+       cnt_neg <- cnt_neg + 1
+    }
+}
+cat("Found ", cnt_neg, " negative values.\n")
+```
+
+That said, the canonical way to do that in R is via vectorized operation:
+
+```{r}
+x[x < 0] <- 0
+x
+```
+
+
+# While loop
+
+It's not a particularly interesting example, but we can see the `while` loop
+syntax in the same example. In this case 
+
+```{r, while}
+found <- FALSE
+i <- 1
+while(!found && i <= length(vals)) {
+     if(x[i] > 3) {
+       print(x[i])
+       found <- TRUE
+     }
+     i <- i+1
+}
+```
+
+
+
+# Breakout
+
+Here are some questions to get some practice with the syntax.
+
+1) Create a variable called 'x' that contains the mean of 100 random uniform numbers.
+
+2) Use functions in R to round 'x' to two decimal places and to two significant digits.
+
+3) Make sure you are able to install packages from CRAN. E.g., try to install `gapminder`.
+
+4) Figure out what your current working directory is.
+
+5) Put the `data/cpds.csv` file in some other directory on your computer, such as `Downloads`. Use `setwd()` to set your working directory to be that directory. Read the file in using `read.csv()`.  Now use `setwd()` to point to a different directory such as `Desktop`. Write the data frame out to a file using `write.csv`. You may also want to experiment with figuring out how to write it out without any row names and without quotes on the character strings.
+
+6) Write an R function that will take an input vector and set any negative
+values in the vector to zero.
+
+7) Write an R function that will take an input vector and set any value below a
+threshold to be the value of threshold. Optionally, the function should instead
+set values above a threshold to the value of the threshold.
+
