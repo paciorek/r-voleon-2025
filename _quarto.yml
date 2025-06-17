@@ -2,6 +2,8 @@ project:
   type: website
   render:
     - units/intro.qmd
+    - prep.qmd
+    - index.qmd
 
 website:
   site-url: https://paciorek.github.io/r-voleon-2025
@@ -12,9 +14,9 @@ website:
       - icon: github
         href: https://github.com/paciorek/r-voleon-2025
     contents:
-      - href: index.html
+      - href: index.qmd
         text: Home / Schedule
-      - href: prep.html
+      - href: prep.qmd
         text: Preparation
       - section: "Modules"
         contents:

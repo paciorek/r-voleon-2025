@@ -17,10 +17,10 @@ If your version of R is older than 4.0.0, please install the latest version, tho
 
 To install R, see:
 
-  * MacOS: install the R-4.5.0.pkg from https://cran.rstudio.com/bin/macosx
+  * MacOS: install the R-4.5.0.pkg from [https://cran.rstudio.com/bin/macosx]
     - You'll need to choose between the version for the newer M1/M2 Macs (Apple Silicon / ARM) and older Intel-based Macs.
-  * Windows: https://cran.rstudio.com/bin/windows/base/
-  * Linux: https://cran.rstudio.com/bin/linux/
+  * Windows: [https://cran.rstudio.com/bin/windows/base/]
+  * Linux: [https://cran.rstudio.com/bin/linux/]
 
 Then install RStudio. To do so, see [https://posit.co/download/rstudio-desktop](https://posit.co/download/rstudio-desktop) and click the blue button to download for your operating system.
 
