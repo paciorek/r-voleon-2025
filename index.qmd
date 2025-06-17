@@ -1,0 +1,18 @@
+---
+title: "Voleon R Bootcamp"
+subtitle: "June 2025"
+listing:
+  - id: schedule
+    template: assets/schedule.ejs
+    contents: schedule.yml
+---
+
+The bootcamp will be a fast-paced introduction to R, with the assumption that attendees have some previous programming experience, such as in Python, R, MATLAB, or Julia.
+
+Please check the [preparation guide](prep.qmd) to be prepared in advance.
+
+## Schedule
+
+::: {#schedule}
+:::
+
