@@ -1,6 +1,6 @@
 ---
 title: "Voleon R Bootcamp"
-subtitle: "June 2025"
+subtitle: "June 24 and 26, 2025"
 listing:
   - id: schedule
     template: assets/schedule.ejs
