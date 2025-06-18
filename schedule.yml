@@ -13,15 +13,12 @@
         - type: "Module"
           id: "1"
           name: "Data Structures and Manipulations"
-          href: "./units/data.qmd"
         - type: "Module"
           id: "2"
           name: "Calculations and Efficiency"
-          href: "./units/calculation.qmd"
         - type: "Module"
           id: "3"
           name: "Programming Concepts"
-          href: "./units/programming.qmd"
           
 - session: 2
   days:
@@ -30,16 +27,13 @@
         - type: "Module"
           id: "4"
           name: "Data Wrangling (Tidyverse and data.table)"
-          href: "./units/tidyverse.qmd"
         - type: "Module"
           id: "5"
           name: "Plotting (ggplot)"
-          href: "./units/ggplot.qmd"
         - type: "Module"
           id: "6"
           name: "Analysis and Common Packages"
-          href: "./units/analysis.qmd"
         - type: "Module"
           id: "7"
           name: "Additional Topics: Parallelization, Calling C++, TBD"
-          href: "./units/topics.qmd"
+
