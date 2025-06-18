@@ -190,7 +190,7 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#installing-r-and-rstudio" id="toc-installing-r-and-rstudio" class="nav-link active" data-scroll-target="#installing-r-and-rstudio">Installing R and RStudio</a></li>
-  <li><a href="#optional-module-0" id="toc-optional-module-0" class="nav-link" data-scroll-target="#optional-module-0">Optional Module “0”</a></li>
+  <li><a href="#optional-module-0-r-syntax" id="toc-optional-module-0-r-syntax" class="nav-link" data-scroll-target="#optional-module-0-r-syntax">Optional Module “0”: R syntax</a></li>
   </ul>
 </nav>
     </div>
@@ -218,36 +218,38 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="installing-r-and-rstudio" class="level2">
 <h2 class="anchored" data-anchor-id="installing-r-and-rstudio">Installing R and RStudio</h2>
-<p>If your version of R is older than 4.0.0, please install the latest version, though you may be fine with older versions.</p>
+<p>If your version of R is older than 4.0.0, please install the latest version (R 4.5.1).</p>
 <p>To install R, see:</p>
 <ul>
-<li>MacOS: install the R-4.5.0.pkg from [https://cran.rstudio.com/bin/macosx]
+<li>MacOS: <a href="https://cran.rstudio.com/bin/macosx">https://cran.rstudio.com/bin/macosx</a>.
 <ul>
 <li>You’ll need to choose between the version for the newer M1/M2 Macs (Apple Silicon / ARM) and older Intel-based Macs.</li>
 </ul></li>
-<li>Windows: [https://cran.rstudio.com/bin/windows/base/]</li>
-<li>Linux: [https://cran.rstudio.com/bin/linux/]</li>
+<li>Windows: <a href="https://cran.rstudio.com/bin/windows/base">https://cran.rstudio.com/bin/windows/base/</a></li>
+<li>Linux: <a href="https://cran.rstudio.com/bin/linux/">https://cran.rstudio.com/bin/linux/</a></li>
 </ul>
-<p>Then install RStudio. To do so, see <a href="https://posit.co/download/rstudio-desktop">https://posit.co/download/rstudio-desktop</a> and click the blue button to download for your operating system.</p>
-<p>Once you have RStudio installed, verify that you can install add-on R packages by installing the <code>fields</code> package. In RStudio, go to the <code>Packages-&gt;Install</code> tab. In the resulting dialog box, enter ‘gapminder’ (without quotes) in the ‘Packages’ field. Depending on the location specified in the ‘Install to Library’ field, you may need to enter your administrator password. To be able to install packages to the directory of an individual user, you may need to do the following:</p>
+<p>Then install RStudio. To do so, see <a href="https://posit.co/download/rstudio-desktop">https://posit.co/download/rstudio-desktop</a> and click the blue button to download for your operating system (or in some cases you may need look up the version for your operating system in the table).</p>
+<p>Once you have RStudio installed, verify that you can install add-on R packages by installing the <code>gapminder</code> package. In RStudio, select <code>Tools -&gt; Install Packages</code> in the top menu bar. In the resulting dialog box, enter ‘gapminder’ (without quotes) in the ‘Packages’ field.</p>
+<p>That should just work, but there’s a chance there might be a slight complication. Depending on the location specified in the ‘Install to Library’ field, you may need to enter your administrator password. To be able to install packages to the directory of an individual user, you may need to do the following:</p>
 <ul>
 <li>In R, enter the command <code>Sys.getenv()['R_LIBS_USER']</code>.</li>
-<li>Create the directory specified in the result that R returns, e.g., on a Mac, this might be <code>~/Library/R/4.3/library</code>.</li>
+<li>Create the directory specified in the result that R returns, e.g., on a Mac, this might be <code>~/Library/R/4.5/library</code>.</li>
 </ul>
 <p>R has many, many add-on packages that provide additional functionality. We’ll use some of them during the bootcamp, and it’s best if you’ve already installed them (though you can install them as needed).</p>
-<p>To install the packages for the bootcamp, please run the following command within R:</p>
-<pre><code>install.packages(c('chron','colorspace','codetools','DBI','devtools','dichromat','digest','doParallel', 'dplyr', 'fields',
-'foreach', 'gapminder', 'ggplot2','gridExtra','gtable','inline','iterators','knitr','labeling','lattice','lme4','mapproj','maps','munsell',
-'patchwork', 'proftools', 'proto','purrr', 'rbenchmark','RColorBrewer','Rcpp','reshape2','rJava','RSQLite','scales','spam',
-'stringr','tidyr','xlsx','xlsxjars','xtable'), repos = "https://cran.r-project.org")</code></pre>
+<p>To install the packages for the bootcamp, please run the following command within R (note as of 2025-06-18 – this list will likely change a bit over the next few days):</p>
+<pre><code>install.packages(c('chron','colorspace','codetools','data.table', 'DBI','devtools','dichromat','digest',
+  'dplyr', 'fields', 'future', 'gapminder', 'ggplot2', 'gridExtra','gtable','inline','iterators',
+  'knitr','labeling','lattice','mapproj','maps','munsell', 'patchwork', 'proftools', 'proto', 'rbenchmark',
+  'RColorBrewer','Rcpp','reshape2','rJava','RSQLite','scales','spam', 'stringr','tidyr','xtable'),
+  repos = "https://cran.r-project.org")</code></pre>
 </section>
-<section id="optional-module-0" class="level2">
-<h2 class="anchored" data-anchor-id="optional-module-0">Optional Module “0”</h2>
-<p>This will cover the basics of R syntax, including basic syntax for programming such a if-then-else, for loops, and defining functions.</p>
+<section id="optional-module-0-r-syntax" class="level2">
+<h2 class="anchored" data-anchor-id="optional-module-0-r-syntax">Optional Module “0”: R syntax</h2>
+<p>This module will cover the basics of R syntax, including basic syntax for programming such a if-then-else, for loops, and defining functions.</p>
 <p>If you’ve never used R, I suggest that you do the following in advance of the first half-day session on June 24:</p>
 <ol type="1">
-<li>Work through module 0 in advance on your own, trying out the basic syntax to start to develop some “muscle memory”.</li>
-<li>(Optionally) If you think it would help to see a demo after you’ve looked at the syntax yourself, please join us for a module 0 demo I’ll present 11 am - noon on Day 1.</li>
+<li>Work through <a href="./units/intro.html">module 0</a> in advance on your own, trying out the basic syntax to start to develop some “muscle memory”.</li>
+<li>If you think it would help to see a demo after you’ve looked at the syntax yourself, please join us for the optional module 0 demo that I’ll present 11 am - noon on Day 1.</li>
 </ol>
 
 
