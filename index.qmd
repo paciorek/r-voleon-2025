@@ -9,6 +9,11 @@ listing:
 
 The bootcamp will be a fast-paced introduction to R, with the assumption that attendees have some previous programming experience, such as in Python, R, MATLAB, or Julia.
 
+:::{.callout-warning title="Content under construction"}
+2025-06-18: This site is under construction. The schedule and general topics should be stable but actual content for most units is not yet available.
+:::
+
+
 Please check the [preparation guide](prep.qmd) to be prepared in advance.
 
 ## Schedule

@@ -20,7 +20,7 @@
           href: "./units/calculation.qmd"
         - type: "Module"
           id: "3"
-          name: "Programming"
+          name: "Programming Concepts"
           href: "./units/programming.qmd"
           
 - session: 2
@@ -29,11 +29,11 @@
       items:
         - type: "Module"
           id: "4"
-          name: "Tidyverse and Data Wrangling"
+          name: "Data Wrangling (Tidyverse and data.table)"
           href: "./units/tidyverse.qmd"
         - type: "Module"
           id: "5"
-          name: "Plotting in ggplot"
+          name: "Plotting (ggplot)"
           href: "./units/ggplot.qmd"
         - type: "Module"
           id: "6"
@@ -41,5 +41,5 @@
           href: "./units/analysis.qmd"
         - type: "Module"
           id: "7"
-          name: "Additional Topics"
+          name: "Additional Topics: Parallelization, Calling C++, TBD"
           href: "./units/topics.qmd"
