@@ -13,12 +13,15 @@
         - type: "Module"
           id: "1"
           name: "Data Structures and Manipulations"
-        - type: "Module"
+          href: "./units/data.html"
+       - type: "Module"
           id: "2"
           name: "Calculations and Efficiency"
+          href: "./units/calculation.html"
         - type: "Module"
           id: "3"
           name: "Programming Concepts"
+          href: "./units/programming.html"
           
 - session: 2
   days:

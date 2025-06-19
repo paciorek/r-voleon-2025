@@ -18,11 +18,17 @@ website:
         text: Home / Schedule
       - href: prep.qmd
         text: Preparation
-      - section: "Modules"
+      - section: "Modules (a partial set)"
         contents:
           - href: units/intro.qmd
             text: Basic Introduction (Module "0")
-          
+          - href: units/data.qmd
+            text: Data Structures
+          - href: units/calculation.qmd
+            text: Calculation
+          - href: units/programming.qmd
+            text: Programming
+         
 
 format:
   html:

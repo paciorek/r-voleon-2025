@@ -1,0 +1,557 @@
+---
+title: "Data Structures and Manipulations"
+format:
+  html:
+    theme: cosmo
+    css: ../assets/styles.css
+    toc: true
+    code-copy: true
+    code-block-bg: true
+    code-block-border-left: "#31BAE9"
+    code-tools: true
+execute:
+  freeze: auto
+---
+
+```{r, chunksetup}
+#| include: false
+#| cache: true
+# include any code here you don't want to show up in the document,
+# e.g. package and dataset loading
+rm(list=ls())
+```
+
+# Suggestions on how to get the most out of the bootcamp
+
+I encourage you to:
+
+- Try out the code as we walk through it.
+- Keep your eyes open! -- We'll illustrate a lot of syntax and concepts by example.
+- Try to guess what the syntax means in cases we haven't yet seen that syntax.
+- Play with it and try variations and try to break it and see what happens.
+- Ask questions and comment if something interesting happens as you experiment.
+
+This is a bootcamp. So there may be some pain involved! If you find yourself not following everything, that's ok. You may miss some details, but try to follow the basics and the big picture. 
+
+
+# What is R?
+
+- R is an Open Source (and freely available) environment for statistical computing and graphics
+- It is a full-featured programming language, in particular a scripting language (with similarities to MATLAB, Julia, and Python)
+- It can be run interactively or as a batch/background job
+- R has a variety of built-in as well as community-provided packages that extend its functionality with code and data; see [CRAN](https://cran.r-project.org/web/packages/index.html) for the thousands of add-on packages
+- It is freely-available and modifiable 
+- Available for Windows, Mac OS X, and [Linux](http://dilbert.com/strips/comic/1995-06-24/)
+
+# Why R?
+
+- R is widely used (statisticians, data scientists, scientists, social scientists) and has the widest statistical functionality of any software, plus extensive machine learning functionality.
+  - Extensive, easy-to-use functionality for working with tabular data and for plotting (e.g., the 'tidyverse').
+- Users add functionality via packages all the time.
+- R is free and available on all major platforms.
+- As a scripting language, R is very powerful, flexible, easy to use, automates tasks, and allows for reproducibility.
+- As a language, R can do essentially anything
+- Wide usage helps to improve quality and reduce bugs
+- R can interact with other software, databases, the operating system, the web, etc.
+- R is built on C and can call user-written and external C/C++ code and packages (in particular, see the `Rcpp` R package)
+- Good support for basic parallelization, in particular using the `future` package
+
+# Why Not R?
+
+- Other software is better than R at various tasks:
+  - Machine learning (particularly deep learning): Python (particularly PyTorch)
+  - Automatic differentiation: Python (particularly JAX, PyTorch), Julia
+  - Interacting with GPUs: Python (particularly JAX, PyTorch), Julia
+  - Parallelization: Julia has more integrated, broader CPU-based parallelization support
+  - General "glue" language for interacting with the web and other tools/applications: [Python](http://imgs.xkcd.com/comics/python.png)
+- R can be much slower than compiled languages or Julia (but is often quite fast with good coding practices!)
+- R's packages are only as good as the person who wrote them; no explicit quality control
+- R is a sprawling and unstandardized ecosystem
+
+# Modes of using R
+
+- Using the RStudio GUI, an 'integrated development environment'
+- From the command line in a Linux/Mac terminal window
+- Running an R script in the background on a Linux/Mac machine (perhaps Windows?)
+
+# RStudio and R Markdown
+
+We'll present most of the material from within RStudio, using Quarto Markdown (the successor to R Markdown) documents with embedded R code.
+
+Quarto Markdown is an extension to the Markdown markup language that makes it easy to write HTML in a simple plain text format.
+
+This allows us to both run the R code directly as well as compile on-the-fly to an HTML file that can be used for presentation. All files are available on [GitHub](https://github.com/paciorek/r-voleon-2025).
+
+
+# Starting R and RStudio
+
+The pieces of an RStudio session include:
+
+- The R console
+- Scripts containing your code
+  - The script window also has Notebook capabilities like Jupyter notebooks
+- Help files
+- Graphics windows
+- Workspace containing your objects, which hold data and information
+
+RStudio provides an integrated development environment in which all of these pieces are in a single application and tightly integrated, with a built-in editor for your code/scripts. 
+
+
+# Example dataset
+
+Many of the modules will use a common dataset as an example on which to carry out various operations. We'll focus on dataset of demographic/economic information (population, GDP per capita, life expectancy) for many of the countries in the world every five years, provided by the [Gapminder project](https://www.gapminder.org). The data are available by installing and loading the `gapminder` dataset.
+
+```{r}
+library(gapminder)
+head(gapminder)
+```
+
+# Basic R data structures
+
+- Vectors (of numbers, strings, booleans, etc.)
+- Matrices and arrays
+- Lists (collections of potentially heterogeneous information)
+- Dataframes (for tabular data with heterogeneous column types)
+
+# Vectors 
+
+The most basic form of an R object is a vector. 
+
+We can concatenate values into a vector with `c()` or generate them as a whole:
+
+```{r}
+## numeric vector
+nums <- c(1.1, 3, -5.7)
+devs <- rnorm(5)
+devs
+
+## integer vector
+ints <- c(1L, 5L, -3L) # Force storage as integer not real number.
+## 'L' is for 'long integer' (historical, from C)
+
+## All objects in R belong to a class (more in Unit 3)
+class(devs)
+class(ints)
+
+## Internal representation (in underlying C objects)
+typeof(devs)
+typeof(ints)
+
+## character vector
+chars <- c('hi', 'hallo', "mother's", 'father\'s', 
+   "She said, 'hi'", "He said, \"hi\"" )
+chars
+cat(chars, sep = "\n")
+
+## logical vector
+bools <- c(TRUE, FALSE, TRUE)
+bools
+```
+
+# Working with indices and subsets
+
+As seen in Module 0, we can subset (aka "slice") using a variety of approaches. 
+
+```{r}
+vals <- 1:12
+
+vals[3]
+vals[3:5]
+vals[c(1, 3, 6)]
+vals[-c(1, 3, 6)]
+vals[c(rep(TRUE, 3), rep(FALSE, 2), TRUE, rep(FALSE, 6))]
+```
+
+We can substitute values into vectors:
+
+```{r}
+vals[4] <- 822.9711
+vals[3:4] <- c(7.5, 2.4)
+vals[2:4] <- 0  # Recycling
+```
+
+The last substitution uses "recycling" to match the left-hand-side extent (3 elements) with the right-hand-side extent (1 element)
+
+
+# Lists
+
+Collections of disparate or complicated objects
+
+```{r}
+myList <- list(stuff = 3, mat = matrix(1:4, nrow = 2), 
+   moreStuff = c("china", "japan"), list(5, "bear"))
+myList
+myList[[3]] # result is not (usually) a list (unless you have nested lists)
+identical(myList[[3]], myList$moreStuff)
+myList$moreStuff[2]
+myList[[4]][[2]]
+myList[1:3] # subset of a list is a list
+myList$newOne <- 'more weird stuff'
+names(myList)
+```
+
+Lists can be used as vectors of complicated objects. E.g., suppose you have a linear regression for each value of a stratifying variable. You could have a list of regression fits. Each regression fit will itself be a list (with coeffs, residuals, p-values, R^2), so you'll have a list of lists.
+
+
+::: {.callout-tip title="Question"}
+How would you extract "china" from this list?
+
+```
+myList <- list(stuff = 3, mat = matrix(1:4, nrow = 2), 
+   moreStuff = c("china", "japan"), list(5, "bear"))
+```
+
+Which of these work correctly?
+
+1) myList$moreStuff[1]
+2) myList$moreStuff[[1]]
+3) myList[[1]]
+4) myList[[3]][2]
+5) myList[[3]][1]
+6) myList[3][1]
+7) myList[['moreStuff']][1]
+:::
+
+Lists are just vectors of heterogeneous elements. The `[[` syntax allows you to pick out individual elements.
+
+# Data frames
+
+- Data frames are combinations of vectors of the same length, but can be of different types (unlike matrices)
+- Data frames are what is used for standard rectangular (record by field) datasets, similar to a spreadsheet sheet/page or a database table
+
+
+```{r}
+library(gapminder)
+head(gapminder)
+gapminder$lifeExp[1:10]
+dim(gapminder)
+nrow(gapminder)
+names(gapminder)
+class(gapminder)
+is.matrix(gapminder)
+class(gapminder$year)
+class(gapminder$lifeExp)
+class(gapminder$country)
+```
+
+# Data frames are (special) lists!
+
+```{r}
+is.list(gapminder)
+length(gapminder)
+gapminder[[3]][1:5]
+lapply(gapminder, class) 
+```
+
+`lapply()` is a function used on lists; it works here to apply the `class()` function to each element of the list, which in this case is each field/column.
+
+# Matrices 
+
+If you need to do numeric calculations on an entire non-vector object (dimension > 1), you generally want to use matrices and arrays, not data frames.
+
+- Matrices are two-dimensional collections of values of the same type.
+- We can have numeric, integer, character, or logical matrices.
+- You can't mix types within a matrix.
+
+```{r}
+mat <- matrix(rnorm(12), nrow = 3, ncol = 4)
+mat
+
+## Basic linear algebra
+n <- 4
+A <- matrix(1:16, 4)
+B <- matrix(1, 4, 4)
+
+A %*% B[ , 1]
+A %*% B
+```
+
+
+# Arrays
+
+Arrays are like matrices but can have more or fewer than two dimensions.
+```{r}
+arr <- array(rnorm(12), c(2, 3, 4))
+arr
+```
+
+# Dictionaries
+
+R does not have dictionaries. For collections of key-value pairs, you can instead use named vectors or named lists.
+
+```{r}
+x <- c(3, 5, 7)
+names(x) <- c("sarah", "carlos", "maude")  # Homogeneous
+x['carlos']
+
+x <- list("sarah" = 3, "carlos" = "foo", "maude" = rnorm(4))  # Heterogeneous
+x[['maude']]
+```
+
+However, lookup does NOT use hashing, so it is O(n) cost. One could instead use R's environments for fast hash-based lookup.
+
+# Attributes
+
+Objects have *attributes*.
+
+```{r attr}
+attributes(mat)
+rownames(mat) <- c('first', 'middle', 'last')
+mat
+attributes(mat)
+
+names(attributes(gapminder))
+attributes(gapminder)$names
+attributes(gapminder)$row.names[1:10]
+```
+
+
+# Missing values and other special values
+
+Since it was designed by statisticians, R handles missing values very well relative to other languages.
+
+##  `NA` is a missing value
+
+```{r, fig.cap = ""}
+vec <- rnorm(12)
+vec[c(3, 5)] <- NA
+vec
+length(vec)
+sum(vec)
+sum(vec, na.rm = TRUE)
+hist(vec)
+is.na(vec)
+```
+Be careful because many R functions won't warn you that they are ignoring the missing values.
+
+##  To infinity and beyond
+```{r}
+big <- 1e500 
+big
+big + 7
+```
+
+##  `NaN` stands for Not a Number
+```{r}
+sqrt(-5)
+big - big
+1/0
+```
+
+##  `NULL`
+
+`NA` can hold a place but `NULL` cannot.
+`NULL` is useful for having a function argument default to 'nothing'. See `help(crossprod)`, which can compute either $X^{\top}X$ or $X^{\top}Y$.  
+
+```{r}
+c(3, NA, 7)
+c(3, NULL, 7)
+
+
+mylist <- list(3, 5, 7)
+mylist[[2]] <- NULL
+mylist
+```
+
+
+# Logical vectors and boolean arithmetic
+
+```{r}
+gapminder2007 <- gapminder[gapminder$year == 2007, ]
+
+wealthy <- gapminder2007$gdpPercap > 35000
+healthy <- gapminder2007$lifeExp > 75
+
+head(wealthy)
+table(wealthy)
+
+# note the vectorized boolean arithmetic
+gapminder2007[wealthy & healthy, ]
+gapminder2007[wealthy | healthy, ]
+gapminder2007[wealthy & !healthy, ]
+
+# Numerical computation with booleans
+sum(healthy)
+mean(healthy)
+```
+
+# Converting between different types of objects
+
+You can use the `as()` family of functions.
+
+```{r}
+ints <- 1:10
+as.character(ints)
+as.numeric(c('3.7', '4.8'))
+```
+
+Be careful: R tries to be helpful and convert between types/classes when it thinks it's a good idea. Sometimes it is overly optimistic. 
+
+```{r}
+indices <- c(1.7, 2.3)
+ints[indices]
+ints[0.999999999]
+```
+
+# Factors
+
+A factor is a special data type in R used for categorical data. In some cases it works like magic and in others it is frustrating. 
+
+```{r fac}
+## let's read the Gapminder data from a file with a special argument:
+gapminder <- read.csv(file.path('..', 'data', 'gapminder-FiveYearData.csv'),
+          stringsAsFactors = TRUE) 
+class(gapminder$continent)
+head(gapminder$continent) # What order are the factors in?
+levels(gapminder[["continent"]])  # note alternate way to get the variable
+summary(gapminder$continent)
+```
+
+
+# Strings
+
+R has [lots of functionality for text/string manipulation](http://computing.stat.berkeley.edu/tutorial-string-processing). Usually these are stored as vectors of strings, each string of arbitrary length.
+
+There is some basic string processing syntax here, but most users use the `stringr` package for a nicer user interface.
+
+```{r}
+chars <- c('hi', 'hallo', "mother's", 'father\'s', "He said, \"hi\"" )
+length(chars)
+nchar(chars)
+paste("bill", "clinton", sep = " ")  # paste together a set of strings
+paste(chars, collapse = ' ')  # paste together things from a vector
+
+strsplit("This is the R bootcamp", split = " ")
+
+countries <- as.character(gapminder2007$country)
+substring(countries, 1, 3)
+tmp <- countries
+substring(tmp, 5, 10) <- "______"
+tmp[1:20]
+```
+We can search for patterns in character vectors and replace patterns (both vectorized!)
+```{r}
+indexes <- grep("Korea", countries)
+indexes
+countries[indexes]
+countries2 <- gsub("Korea, Dem. Rep.", "North Korea", countries)
+countries2[indexes]
+```
+
+One can easily use regular expressions with all of R's string processing tools.
+
+# Subsetting
+
+There are many ways to select subsets in R, as we've seen already for vectors. The syntax below is useful for vectors, matrices, data frames, arrays and lists.
+
+```{r}
+vec <- gapminder2007$lifeExp
+mat <- matrix(1:20, 4, 5)
+rownames(mat) <- letters[1:4]
+mat
+```
+## 1) by direct indexing
+
+```{r}
+vec[c(3, 5, 12:14)]
+vec[-c(3,5)]
+gapminder[c(2,4), 5]
+gapminder[c(2,4), 'lifeExp']
+```
+
+## 2) by a vector of logicals
+
+```{r}
+wealthy <- gapminder$gdpPercap > 50000
+gapminder$gdpPercap[wealthy]
+gapminder[wealthy, ]
+```
+
+What happened in the last subsetting operation?
+
+## 3) by a vector of names
+```{r}
+mat[c('a', 'd', 'a'), ]
+```
+
+
+## 4) using *dplyr* tools such as *filter()* and *select()* -- more in Module 4
+
+# Assignment into subsets
+
+We can assign into subsets by using similar syntax, as we saw with vectors.
+
+```{r}
+vec <- rnorm(20)
+vec[c(3, 5, 12:14)] <- 1:5
+vec
+
+mat <- matrix(rnorm(6*5), nrow = 6)
+mat[2, 3:5] <- rnorm(3)
+mat
+mat[mat[,1] > 0, ] <- -Inf
+mat
+```
+
+::: {.callout-tip title="Question"}
+
+Suppose I want to select the 3rd elements from the 2nd and 4th columns of a matrix or dataframe. Which syntax will work?
+
+Here's a test matrix:
+
+```
+mat <- matrix(1:16, nrow = 4, ncol = 4)
+```
+
+1) mat[3, (2, 4)]
+2) mat[c(FALSE, FALSE, TRUE, FALSE), c(FALSE, TRUE, FALSE, TRUE)]
+3) mat[c(FALSE, FALSE, TRUE, FALSE), c(2, 4)]
+4) mat[3, c(2, 4)]
+5) mat(3, c(2, 4))
+6) mat[3, ][c(2, 4)]
+7) mat[ , c(2, 4)][3, ]
+8) mat[ , c(2, 4)][3]
+9) mat[c(2, 4)][3, ]
+
+:::
+
+
+# Breakout
+
+
+### Basics
+
+1) Extract the 5th row from the gapminder dataset.
+
+2) Extract the last row from the gapminder dataset. 
+
+3) Create a boolean (TRUE/FALSE) vector indicating whether total country GDP is greater than 1 trillion dollars. When entering 1 trillion, use R's scientific notation.
+
+4) Count the number of gdpPercap values greater than 50000 in the gapminder dataset.
+
+5) Set all of the gdpPercap values greater than 50000 to NA. You should probably first copy the `gapminder` object and work on the copy so that the dataset is unchanged, so that you preserve the original data to use later.
+
+6) Consider the first row of the gapminder dataset, which has Afghanistan for 1952. How do I create a string "Afghanistan-1952" using `gap$country[1]` and `gap$year[1]`? 
+
+### Using the ideas
+
+7) Create a character string using `paste()` that tells the user how many rows there are in the data frame - do this programmatically such that it would work for any data frame regardless of how many rows it has. The result should look like this: "There are 1704 rows in the dataset"
+
+8) If you didn't do it this way already in problem #2, extract the last row from the gapminder dataset without typing the number '1704'.
+
+9) Create a boolean vector indicating if the life expectancy is greater than 75 and the gdpPercap is less than 10000 and calculate the proportion of all the records these represent.
+
+10) Use that vector to create a new data frame that is a subset of the original data frame.
+
+11) Consider the attributes of the gapminder dataset. What kind of R object is the set of attributes?
+
+### Advanced
+
+12) Consider the following regression model.  Figure out how to extract the $R^2$ and residual standard error and store in new R variables. 
+
+    ```{r}
+    mod <- lm(lifeExp ~ log(gdpPercap), data = gapminder)
+    summ <- summary(mod)
+    ```
+
+13) Create row names for the data frame based on concatenating the Continent, Country, and Year fields.
