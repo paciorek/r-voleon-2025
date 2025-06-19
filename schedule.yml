@@ -14,7 +14,7 @@
           id: "1"
           name: "Data Structures and Manipulations"
           href: "./units/data.html"
-       - type: "Module"
+        - type: "Module"
           id: "2"
           name: "Calculations and Efficiency"
           href: "./units/calculation.html"
