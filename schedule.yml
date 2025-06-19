@@ -30,6 +30,7 @@
         - type: "Module"
           id: "4"
           name: "Data Wrangling (Tidyverse and data.table)"
+          href: "./units/tidyverse.html"
         - type: "Module"
           id: "5"
           name: "Plotting (ggplot)"

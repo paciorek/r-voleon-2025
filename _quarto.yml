@@ -28,6 +28,8 @@ website:
             text: Calculation
           - href: units/programming.qmd
             text: Programming
+          - href: units/tidyverse.qmd
+            text: Data Wrangling
          
 
 format:
