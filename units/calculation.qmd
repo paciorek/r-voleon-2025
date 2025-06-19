@@ -1,15 +1,26 @@
-% R bootcamp, Module 4: Calculations
-% August 2023, UC Berkeley
-% Chris Paciorek
+---
+title: "Calculations and Efficiency"
+format:
+  html:
+    theme: cosmo
+    css: ../assets/styles.css
+    toc: true
+    code-copy: true
+    code-tools: true
+    code-block-bg: true
+    code-block-border-left: "#31BAE9"
+execute:
+  freeze: auto
+---
 
-```{r chunksetup, include=FALSE} 
+```{r, chunksetup}
+#| include: false
 # include any code here you don't want to show up in the document,
 # e.g. package and dataset loading
-library(foreign)
-library(fields)
+rm(list=ls())
 library(gapminder)
-gapminder2007 <- gapminder[gapminder$year == 2007, ]
 ```
+
 
 # Vectorized calculations and comparisons
 
@@ -19,8 +30,13 @@ At the core of R is the idea of doing calculations on entire vectors.
 ## Vectorized arithmetic
 gdpTotal <- gapminder$gdpPercap * gapminder$pop
 
+gapminder2007 <- gapminder[gapminder$year == 2007, ]
+
 ## Vectorized comparisons
 wealthy <- gapminder2007$gdpPercap >= 30000
+
+poorOrWealthy <- gapminder2007$gdpPercap >= 100000 | gapminder2007$gdpPercap < 1000
+asiaWealthy <- gapminder2007$gdpPercap >= 100000 &  gapminder$continent == "Asia"
 
 vec1 <- rnorm(5)
 vec2 <- rnorm(5)
@@ -32,11 +48,6 @@ vec1 != vec2
 ## careful: 
 vec1 = vec2
 identical(vec1, vec2)
-
-## using 'or'
-gapminder$gdpPercap[1:10] >= 100000 | gapminder$gdpPercap[1:10] <= 1000
-## using 'and'
-gapminder$gdpPercap[1:10] >= 100000 & gapminder$continent[1:10] == "Asia"
 ```
 
 # Recycling
@@ -54,41 +65,10 @@ vec10 + vec5
 vec10 + vec3
 ```
 
-**Question**: Tell me what's going on. What choices were made by the R developers?
-
-# Vectorized calculations: quick quiz
-
-**[P](https://www.polleverywhere.com/multiple_choice_polls/UnX1ymqBWe624UwdBnnQB)OLL 4A**: 2^3 is raising 2 to the power 3, so you get 8. 
-
-(respond at [https://pollev.com/chrispaciorek428](https://pollev.com/chrispaciorek428))
-
-What will this return?
-
-`(1:4)^(1:4)`
-
-1) an error
-2) 1, 2, 3, 4
-3) 1, 4, 27, 256
-4) 1, 4, 9, 16
-5) 1, 16, 81, 256
-
-**[P](https://www.polleverywhere.com/multiple_choice_polls/IcuoQWyZ3IUs8A8PBH6eb)OLL 4B**: What will this return?
-
-```
-vec1 <- c(1,2,3,4)
-vec2 <- c(1,2)
-vec1 + vec2
-```
-
-1) 2, 4
-2) 2, 4, 5, 6
-3) 2, 4, 4, 6
-4) an error
+What choices were made by the R developers?
 
 
 # Why vectorize?
-
-As we've seen, R has many functions that allow you to operate on each element of a vector all at once. Here's an example of a statistical calculation with simulated values.
 
 Imagine how this code would look if written using a loop, or three separate loops.
 
@@ -104,29 +84,9 @@ Advantages:
 * easier to code
 * easier to read and understand the code
 
-Sometimes there are surprises in terms of what is fast, as well as tricks for vectorizing things in unexpected ways:
-```{r}
-vals <- rnorm(1e6)
-system.time(trunc <- ifelse(vals > 0, vals, 0))
-system.time(vals <- vals * (vals > 0))
-```
+Vectorized code is generally fast because the underlying loop is executed in compiled C code rather than by the R interpreter.
 
-**Question**: What am I doing with `vals * (vals > 0)` ? What happens behind the scenes in R?
-
-If you use a trick like this, having a comment in your code is a good idea.
-
-# Vectorized functions
-
-Lots of functions in R are vectorized (i.e., they can take a single value or a vector as an input argument), such as some we've already used.
-
-```{r}
-tmp <- as.character(gapminder$year)
-gapminder$year2 <- substring(tmp, 3, 4)
-head(gapminder$year2)
-```
-
-Question: Note the code above runs and the syntax is perfectly good R syntax, but in terms of what it does, there is a bug in it. See if you can see what it is.
-
+We've already seen that lots of functions (and operators) in R are vectorized (i.e., they can take a single value or a vector as an input argument).
 
 # Vectorized vector/matrix calculations
 
@@ -137,6 +97,8 @@ Recall that `+`, `-`,`*`, `/` do vectorized calculations:
 ```{r}
 A <- matrix(1:9, 3)
 B <- matrix(seq(4,36, by = 4), 3)
+
+A*7
 
 A + B
 A + B[ , 1]
@@ -153,14 +115,50 @@ A %*% B
 identical(t(A)%*%A, crossprod(A))
 ```
 
-# Linear algebra (optional)
+Now let's do a bit of manipulation and see if you can infer how R represents matrices internally.
+
+## Matrix (and array) internals
+
+::: {.callout-tip title="Question"}
+
+Consider our matrix 'mat':
+
+```{r}
+mat <- matrix(1:16, nrow = 4, ncol = 4)
+```
+
+Suppose I run this code: `mat[4]`.
+
+What do you think will be returned?
+
+1) 13
+2) 4
+3) 13, 14, 15, 16
+4) 4, 8, 12, 16
+5) an error
+:::
+
+::: {.callout-tip title="Answer" collapse="true"}
+
+Matrices are stored column-major
+
+```{r what_is_a_matrix, eval = FALSE}
+mat[4]
+attributes(mat) <- NULL
+mat
+is.matrix(mat)
+```
+This is like Fortran, MATLAB and Julia but not like C or Python(numpy). 
+:::
+
+# Linear algebra 
 
 R can do essentially any linear algebra you need. It uses system-level packages called BLAS (basic linear algebra subroutines) and LAPACK (linear algebra package). Note that these calculations will be essentially as fast as if you wrote C code because R just calls C and Fortran routines to do the calculations.
 
-The BLAS that comes with R is fairly slow. It's possible to use a faster BLAS, as well as one that uses multiple cores automatically. This can in some cases give you an order of magnitude speedup if your work involves a lot of matrix manipulations/linear algebra. More details in Module 10.
+The BLAS that comes with R is fairly slow. It's possible to use a [faster BLAS, as well as one that uses multiple cores automatically](https://statistics.berkeley.edu/computing/faqs/linear-algebra-and-parallelized-linear-algebra-using-blas). This can in some cases give you an order of magnitude speedup if your work involves a lot of matrix manipulations/linear algebra.
 
 
-# (Advanced) Matrix decompositions
+# Matrix decompositions
 
 Here are some examples of common matrix decompositions: Cholesky decomposition, eigenvalues/eigenvectors, and SVD. These all use BLAS+LAPACK.
 
@@ -179,7 +177,7 @@ U <- chol(R)
 
 devs <- rnorm(100)
 Rinvb <- solve(R, devs)  # R^{-1} b
-Rinv <- solve(R) # R^{-1} -- try to avoid this
+Rinv <- solve(R) # R^{-1} -- try to avoid this (slower and less numerically stable)
 ```
 
 
@@ -198,35 +196,29 @@ for(i in 1:n)
 The same holds for using `rbind()`, `cbind()`, or adding to a list, one element at a time.
 
 
-**Question**: Thoughts on why this are so slow? Think about what R might be doing behind the scenes.
+**Question**: Thoughts on why this are so slow? Think about what R might be doing behind the scenes in terms of storage in memory.
 
 **Note**: This is one area where Python and some other languages handle the situation in a more sophisticated way.
 
 # The answer is to pre-allocate memory
 
-This is not so slow. (Please ignore the for-loop hypocrisy and the fact that I could do this as `vals <- 1:n`.)
+This is not so slow. (Please ignore the fact that this is a silly way to do this in R.)
 
 ```{r}
 n <- 50000
 system.time({
 vals <- rep(0, n)
-# alternatively: vals <- as.numeric(NA); length(vals) <- n
 for(i in 1:n)
       vals[i] <- i
 })
 ```
 
-Here's how to pre-allocate an empty list: 
-```{r}
-vals <- list(); length(vals) <- n
-head(vals)
-```
 
 # apply
 
 Some functions aren't vectorized, or you may want to use a function on every row or column of a matrix/data frame, every element of a list, etc.
 
-For this we use the `apply()` family of functions.
+For this we use the `apply()` family of functions to make our code more readable.
 
 ```{r}
 mat <- matrix(rnorm(100*1000), nr = 100)
@@ -242,7 +234,7 @@ col_sum <- colSums(mat)
 
 # `lapply()` and `sapply()`
 
-These are 'map' operations that apply a function to each element of a list.
+These are "map" operations that apply a function to each element of a list.
 
 ```{r}
 myList <- list(rnorm(3), rnorm(3), rnorm(5))
@@ -250,13 +242,13 @@ lapply(myList, min)
 sapply(myList, min)
 ```
 
+::: {.callout-tip title="Why use lapply and sapply?"}
+
+The *array functions won't generally be faster than loops. Rather, they're generally used in order to have cleaner, more readable code.
+:::
+
+
 Note that we don't generally want to use `apply()` on a data frame. 
-
-Recall that a dataframe is a list, hence this works:
-
-```{r}
-sapply(gapminder, class)
-```
 
 # `lapply()` and `sapply()` with vectors
 
@@ -276,241 +268,191 @@ out <- sapply(1:10, function(x) x^2)
 out
 ```
 
-**[P](https://www.polleverywhere.com/multiple_choice_polls/FnXK4VqjXAnHT0ZZbMXNG)OLL 4C**: What do you think this will return:
+::: {.callout-tip title="Question"}
 
-(respond at [https://pollev.com/chrispaciorek428](https://pollev.com/chrispaciorek428))
+Which of these give exactly this result: `pi`, `2*pi`, `3*pi`, ...?
 
-```
-sapply(1:6, function(n) rnorm(n))
-```
+1) (1:n)*pi
+2) out <- rep(0, n); for(x in 1:n) out <- x*pi
+3) sapply(1:n, function(x) x*pi)
+4) out <- rep(0, n); for(x in 1:n) out[i] <- x*pi
+5) lapply(1:n, function(x) x*pi)
+6) sapply(1:n, "*", pi)
+7) 1:n*pi
+:::
 
-1) a list, like lapply
-2) a vector of 21 (1+2+3+4+5+6) elements
-3) an error
+# When/why are loops in R slow?
 
-
-
-# And more `apply()`s (optional)
-
-There are a bunch of `apply()` variants, as well as parallelized versions of them:
-
-* `tapply()`, `vapply()`, `mapply()`, `rapply()`, `eapply()`
-* for parallelized versions see Module 10 or `?clusterApply`
-
-# Tabulation 
-
-- Sometimes we need to do some basic checking for the number of observations or types of observations in our dataset
-- To do this quickly and easily, `table()` is our friend
-
-```{r table}
-tbl <- table(gapminder$country, gapminder$continent)
-head(tbl)
-rowSums(tbl)[1:20]
-## Here we do a data validity check: all countries should have 12 obs in the same continent
-all(rowSums(tbl) == 12)
-```
-
-
-# Discretization
-
-You may need to discretize a continuous variable [or a discrete variable with many levels], e.g., by life expectancy.
-
-We can use `cut` to do it:
-
-```{r fig.width=9}
-gapminder2007$lifeExpBin <- cut(gapminder2007$lifeExp,
-                                breaks = c(0, 40, 50, 60, 70, 75, 80, Inf))
-tbl <- table(gapminder2007$continent, gapminder2007$lifeExpBin)
-round( prop.table(tbl, margin = 1), 2 )
-```
-
-# Stratified analyses I
-
-Often we want to do individual analyses within subsets or clusters of our data.
-
-As a first step, we might want to just split our dataset by a stratifying variable (perhaps after using `cut` to create a categorical variable).  
-
-```{r, fig.cap ="", fig.width=12}
-subsets <- split(gapminder,  gapminder$year)
-length(subsets)
-dim(subsets[['2007']])
-par(mfrow = c(1,2))
-plot(lifeExp ~ gdpPercap, data = subsets[['1952']], main = '1952')
-abline(h = 0, col = 'grey')
-plot(lifeExp ~ gdpPercap, data = subsets[['2007']], main = '2007')
-abline(h = 0, col = 'grey')
-```
-
-Obviously, we'd want to iterate to improve that plot given the outlier.
-
-**[P](https://www.polleverywhere.com/multiple_choice_polls/rvczm8PGtI3bD2BkcEwvu)OLL 4D**: What kind of object is produced by split, e.g.,
-
-(respond at [https://pollev.com/chrispaciorek428](https://pollev.com/chrispaciorek428))
-
-```
-subsets <- split(gap,  gap$year)
-```
-
-1) a dataframe
-2) a list
-3) a list of lists
-4) a list of dataframes
-5) some new kind of object we haven't encountered yet
-
-# Stratified analyses I - map operations
-
-Once you have the stratified dataset you can use `lapply` to  apply a function to each item in the list.
-
-This is known as a 'map' operation in other languages.
+Consider this code:
 
 ```{r}
-meanfun <- function(sub) {
-   mean(sub$lifeExp)
-}	
-
-meanLifeExpByYear <- sapply(subsets, meanfun)
-names(subsets)
-meanLifeExpByYear
+#| eval: false
+x <- 3
+x*7
+x <- 'hi'
+x*7
 ```
+￼
+Because of dynamic typing, when the interpreter sees `x*7` it needs to check if `x` is something that can be multiplied by 7, including dealing with the fact that `x` could be a vector with many numbers in it. In addition it needs to (using scoping rules) look up the value of `x`. (Consider that `x` might not even exist at the point that `x*7` is called.) Only then can the multiplication happen.
 
-We'll talk in detail about writing functions in Module 5.
-
-# Stratified analyses II (optional)
-
-Often we want to do individual analyses within subsets or clusters of our data. R has a variety of tools for this; for now we'll look at `aggregate()` and `by()`. These are wrappers of `tapply()`. 
-
-## aggregate()
-
-```{r aggregate1}
-gmSmall <- gapminder[ , c('lifeExp', 'gdpPercap')]  # reduce to only numeric columns
-aggregate(gmSmall, by = list(year = gapminder$year), FUN = median, na.rm = TRUE) # na.rm not needed here but illustrates use of additional arguments to FUN
-aggregate(lifeExp ~ year + continent, data = gapminder, FUN = median)
-agg <- aggregate(lifeExp ~ year + continent , data = gapminder, FUN = median)
-xtabs(lifeExp ~ ., data = agg)
-```
-
-Notice the 'long' vs. 'wide' formats. You'll see more about that sort of thing in Module 6.
-
-While you can use `aggregate` for this, many people use `dplyr`, as we'll discuss in Module 6.
-
-## by()
-
-`aggregate()` works fine when the output is univariate, but what about more complicated analyses than computing the median, such as fitting a set of regressions?
+Let’s consider writing a loop:
 
 ```{r}
-out <- by(gapminder, gapminder$year, 
-    function(sub) {
-      lm(lifeExp ~ log(gdpPercap), data = sub)
-    }          
+#| eval: false
+for(i in 1:10) {
+  if(runif(1) > 0) x <- 'hi'
+  if(runif(1) > 0.5) rm(x)
+  x[i] <- exp(x[i])
+}  
+```
+￼
+Because of the dynamic typing and lack of compilation, the interpreter needs to check if x exists, if it is a vector of sufficient length, if it contains numeric values, and it needs to go retrieve the required value, EVERY TIME the `exp()` is executed.
+
+The R interpreter is a C program, so in some sense everything that happens is running as compiled code, but there are lots more things being done to accomplish a given task using interpreted code than if the task had been written directly in code that is compiled. By analogy, consider talking directly to a person in a language you both know compared to talking to a person via an interpreter who has to translate between two languages. Ultimately, the same information gets communicated (hopefully!) but the number of words spoken and time involved is much greater.
+
+
+# When are loops not slow?
+
+When the bulk of the time in the loop involves actual computation rather than checking, e.g., a loop that fits a separate machine learning model at each iteration.
+
+Conclusions: use vectorization when you can, especially when the individual calculations are fast, but don't obsess when the individual calculations are intensive (and often will call out to C directly).
+
+# Some efficiency tips (not R-specific)
+
+- Consider the order of operations:
+  ```{r}
+  n <- 3000
+  A <- matrix(rnorm(n^2),n)
+  B <- matrix(rnorm(n^2),n)
+  x <- rnorm(n)
+  system.time(A %*% B %*% x)
+  system.time(A %*% (B %*% x))
+  ```
+- Avoid duplicated computation
+  - Don't duplicate operations within iterations of a loop unnecessarily (precompute them)
+- Try to work with adjacent elements (in memory) of large vectors/matrices/arrays to [efficiently use the CPU cache](https://computing.stat.berkeley.edu/tutorial-efficient-R/efficiency#6-cache-aware-programming).
+  - In R, generally work column-wise rather than row-wise with matrices
+- In R, look up elements by numerical index rather than by name for O(1) computation
+
+# Timing your code
+
+First, a cautionary note...
+
+> premature optimization is the root of all evil
+>
+> --- Donald Knuth, 1974
+
+There are a few tools in R for timing your code.
+
+```{r}
+#| cache: true
+system.time(mean(rnorm(1e7)))
+
+library(rbenchmark)
+n <- 1000
+x <- matrix(rnorm(n^2), n)
+benchmark(t(x) %*% x,
+          crossprod(x),
+          replications = 5,
+          columns = c('test', 'replications', 'elapsed'))
+```
+
+Consider why the automatic crossproduct may be faster than the manual version. Note that `crossprod` calls out directly to a linear algebra system routine.
+
+# Microbenchmark
+
+To time code that runs very quickly, you should use the microbenchmark package. Of course one would generally only care about accurately timing quick calculations if a larger operation does the quick calculation very many times. Here’s a comparison of different ways of accessing an element of a dataframe.
+
+```{r}
+library(microbenchmark)
+df <- data.frame(vals = 1:3, labs = c('a','b','c'))
+vec <- c("a"=5, "b" = 7, "c" = 9)
+microbenchmark(
+  df[2,1],
+  df$vals[2],
+  df[2, 'vals'],
+  vec[2],
+  vec["b"]
 )
-length(out)
-summary(out[['2007']])
-summary(out[['1952']])
 ```
 
-This is handy, but it's just slightly simpler syntax than using `split` followed by `lapply`
+# Memory use
 
-# Sorting
+You should know how much memory (RAM) the computer you are using has and keep in mind how big your objects are and how much memory you code might use. All objects in R are stored in RAM unlike a database or certain tools for working with big data (e.g., Python's Dask package and certain R packages).
 
-`sort()` applied to a vector does what you expect.
+If in total, the jobs on a machine approach the physical RAM, the machine may (depending on how it is set up) start to use the hard disk as 'virtual memory'. This is called *paging* or *swapping*, and once this happens you're often toast (i.e., your code may take essentially forever to finish). And if paging doesn't happen, your job will die with an out-of-memory (OOM) error.
 
-Sorting a matrix or dataframe based on one or more columns is a somewhat manual process, but once you get the hang of it, it's not bad.
+You can assess memory use with `top` or `ps` or `free` in Linux/Mac or the Task Manager in Windows.
+
+Often it's a good idea to roughly estimate how much memory an object will take up even before creating it in R. You can do this with some simple arithmetic. 
+
 
 ```{r}
-ord <- order(gapminder$year, gapminder$lifeExp, decreasing = TRUE)
-ord[1:5]
-gm_ord <- gapminder[ord, ]
-head(gm_ord)
+x <- matrix(rnorm(1e6*10), 1e6)
+object.size(x)
+1e6 * 10 *8/ 1e6  # direct calculation of Mb
+print(object.size(x), units = 'auto')
 ```
 
-You could of course write your own *sort* function that uses `order()`. More in Module 5.
+# Garbage collection
 
-Or, most people probably use `dplyr::arrange`. More in Module 6.
-
-# Joining/Merging Data
-
-We often need to combine data across multiple data frames, merging on common fields (i.e., *keys*). In database terminology, this is a *join* operation.
-
-Suppose that our dataset did not have 'continent' in it, but that we had a separate data frame that matches country to continent.
-
-```{r} 
-# ignore the 'wizard' behind the curtain...
-c2c <- unique(gapminder[ , c('country', 'continent')])
-gapminderSave <- gapminder
-gapminder <- gapminder[ , -which(names(gapminder) == "continent")]
-
-# Now our gapminder dataset doesn't have continent
-head(gapminder)
-```
-
-## using `dplyr`'s join functions
-
-The `dplyr` package (to be discussed in detail in Module 6) provides a variety of *join* operations like those used in databases.
-
-Now let's add the continent info in:
+A variable is just a name that references a location (object) in memory. When a name is used for a different object, the memory for the old object is freed to be used again.
 
 ```{r}
-head(c2c)
-head(gapminder)
-
-library(dplyr)
-
-gapminder <- inner_join(gapminder, c2c, by = "country")
-
-dim(gapminderSave)
-dim(gapminder)
-identical(gapminderSave, gapminder)
-identical(gapminderSave, gapminder[ , names(gapminderSave)])
+library(pryr)
+x <- rnorm(1e8)
+object.size(x)
+mem_used()
+x <- "hello"
+mem_used()
 ```
 
-You can also do *left*, *right*, and *full* joins. 
+# Copy-on-modify
 
-## Using `merge` (optional)
+The *semantics* of R say that `<-` creates a new copy of an object.
 
-Alternatively, we could use the base R function, merge().
-
-Now let's add the continent info in:
+The *implementation* in the R interpreter  is that copies are only made when needed.
 
 ```{r}
-gapminder <- gapminder[ , -which(names(gapminder) == "continent")]  ## reset
+library(pryr)
+system.time(x <- rnorm(1e8))
+object.size(x)
+mem_used()
+system.time(y <- x)
+mem_used()
+address(x)
+address(y)
 
-head(c2c)
-head(gapminder)
-
-gapminder <- merge(gapminder, c2c, by.x = 'country', by.y = 'country',
-                   all.x = TRUE, all.y = FALSE)
-
-dim(gapminderSave)
-dim(gapminder)
-identical(gapminderSave, gapminder)
-identical(as.data.frame(gapminderSave), gapminder[ , names(gapminderSave)])
+system.time(x[1] <- 3)  # Clearly more time than just modifying one element!
+mem_used()
+address(x)
+address(y)
 ```
 
-What's the deal with the `all.x` and `all.y`? They allow one to request the equivalent of left, right, and full joins.  We can tell R whether we want to keep all of the `x` observations, all the `y` observations, or neither, or both, when there may be rows in either of the datasets that don't match the other dataset.
+Internally R manages this by keeping track of how many variables (references) there are to a given object in memory.
+
+
+# Memory and lists
+
+[R plays various games with lists and character strings (essentially copy-on-change) to avoid redundant copies of identical data](https://stat243.berkeley.edu/stat243-fall-2022/units/unit5-programming.html#how-lists-are-stored). We won't go into details.
 
 # Breakout
 
 ### Basics
 
-1) Create a vector that concatenates the country and year to create a 'country-year' variable in a vectorized way using the string processing functions.
+1) Create a vector of GDP per capita in units of Euros rather than dollars.
 
-2) Use `table()` to figure out the number of countries available for each continent.
+2) Create a vector that concatenates the country and year to create a 'country-year' variable in a vectorized way using the string processing functions.
+
+3) Use `table()` to figure out the number of countries available for each continent.
 
 ### Using the ideas
 
-3) Explain the steps of what this code is doing: `tmp <- gapminder[ , -which(names(gapminder) == "continent")]`.
+4) Explain the steps of what this code is doing: `tmp <- gapminder[ , -which(names(gapminder) == "continent")]`.
 
-4) Compute the number of NAs in each column of the gapminder dataset using `sapply()` and making use of the `is.na()` function. It's possible to do this without writing a function (which is a topic we'll cover in Module 5).
+5) Compute the number of NAs in each column of the gapminder dataset using `sapply()` and making use of the `is.na()` function. It's possible to do this without writing a function.
 
-5) Discretize gdpPercap into some bins and create a gdpPercap_binned variable. Count the number of values in each bin.
-
-6) Create a boxplot of life expectancy by binned gdpPercap.
- 
-7) Create a dataframe that has the total (i.e., world) population across all the countries for each year.
-
-8) Merge the info from problem 7 back into the original gapminder dataset. Now plot life expectancy as a function of world population. 
-
-9)  Suppose we have two categorical variables and we conduct a hypothesis test of independence. The chi-square statistic is: 
+6)  Suppose we have two categorical variables and we conduct a hypothesis test of independence. The chi-square statistic is: 
 
 $$
 \chi^2 = \sum_{i=1}^{n}\sum_{j=1}^{m} \frac{(y_{ij} - e_{ij})^2}{e_{ij}}, 
@@ -531,9 +473,7 @@ Compute the statistic without *any* loops as follows:
 
 ### Advanced 
 
-10) For each combination of year and continent, find the 95th percentile of life expectancy. 
-
-11) Here's a cool trick to pull off a particular element of a list of lists:
+7) Here's a cool trick to pull off a particular element of a list of lists:
 
 ```{r}
 params <- list(a = list(mn = 7, sd = 3), b = list(mn = 6,sd = 1), 

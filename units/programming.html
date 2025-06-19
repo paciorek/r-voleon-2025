@@ -1,0 +1,2035 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Programming Concepts and Tools</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="programming_files/libs/clipboard/clipboard.min.js"></script>
+<script src="programming_files/libs/quarto-html/quarto.js"></script>
+<script src="programming_files/libs/quarto-html/popper.min.js"></script>
+<script src="programming_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="programming_files/libs/quarto-html/anchor.min.js"></script>
+<link href="programming_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="programming_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="programming_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="programming_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="programming_files/libs/bootstrap/bootstrap-694e49c76f91d91140b872e73c709757.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#r-is-a-functional-language" id="toc-r-is-a-functional-language" class="nav-link active" data-scroll-target="#r-is-a-functional-language">R is a functional language</a></li>
+  <li><a href="#using-functions" id="toc-using-functions" class="nav-link" data-scroll-target="#using-functions">Using functions</a></li>
+  <li><a href="#function-arguments" id="toc-function-arguments" class="nav-link" data-scroll-target="#function-arguments">Function arguments</a></li>
+  <li><a href="#what-is-the-argument-for" id="toc-what-is-the-argument-for" class="nav-link" data-scroll-target="#what-is-the-argument-for">What is the “…” argument for?</a></li>
+  <li><a href="#pass-by-value" id="toc-pass-by-value" class="nav-link" data-scroll-target="#pass-by-value">Pass-by-value</a></li>
+  <li><a href="#call-by-value" id="toc-call-by-value" class="nav-link" data-scroll-target="#call-by-value">Call-by-value</a></li>
+  <li><a href="#variable-scope-and-global-variables" id="toc-variable-scope-and-global-variables" class="nav-link" data-scroll-target="#variable-scope-and-global-variables">Variable scope and global variables</a></li>
+  <li><a href="#why-does-scoping-work-that-way" id="toc-why-does-scoping-work-that-way" class="nav-link" data-scroll-target="#why-does-scoping-work-that-way">Why does scoping work that way?</a></li>
+  <li><a href="#object-oriented-programming-oop-in-r" id="toc-object-oriented-programming-oop-in-r" class="nav-link" data-scroll-target="#object-oriented-programming-oop-in-r">Object-oriented programming (OOP) in R</a></li>
+  <li><a href="#basics-of-object-oriented-programming-oop" id="toc-basics-of-object-oriented-programming-oop" class="nav-link" data-scroll-target="#basics-of-object-oriented-programming-oop">Basics of object-oriented programming (OOP)</a></li>
+  <li><a href="#working-with-s3-classes-and-methods" id="toc-working-with-s3-classes-and-methods" class="nav-link" data-scroll-target="#working-with-s3-classes-and-methods">Working with S3 classes and methods</a></li>
+  <li><a href="#more-on-working-with-s3-classes-and-methods" id="toc-more-on-working-with-s3-classes-and-methods" class="nav-link" data-scroll-target="#more-on-working-with-s3-classes-and-methods">More on working with S3 classes and methods</a></li>
+  <li><a href="#making-your-own-s3-classobjectmethod" id="toc-making-your-own-s3-classobjectmethod" class="nav-link" data-scroll-target="#making-your-own-s3-classobjectmethod">Making your own S3 class/object/method</a></li>
+  <li><a href="#brief-introduction-to-r6-classes" id="toc-brief-introduction-to-r6-classes" class="nav-link" data-scroll-target="#brief-introduction-to-r6-classes">Brief introduction to R6 Classes</a></li>
+  <li><a href="#error-and-warning-messages" id="toc-error-and-warning-messages" class="nav-link" data-scroll-target="#error-and-warning-messages">Error and warning messages</a></li>
+  <li><a href="#catching-errors" id="toc-catching-errors" class="nav-link" data-scroll-target="#catching-errors">‘Catching’ errors</a></li>
+  <li><a href="#why-we-need-to-try" id="toc-why-we-need-to-try" class="nav-link" data-scroll-target="#why-we-need-to-try">Why we need to <code>try()</code></a></li>
+  <li><a href="#how-we-can-try-harder" id="toc-how-we-can-try-harder" class="nav-link" data-scroll-target="#how-we-can-try-harder">How we can <code>try()</code> harder</a></li>
+  <li><a href="#debugging" id="toc-debugging" class="nav-link" data-scroll-target="#debugging">Debugging</a></li>
+  <li><a href="#testing" id="toc-testing" class="nav-link" data-scroll-target="#testing">Testing</a></li>
+  <li><a href="#breakout" id="toc-breakout" class="nav-link" data-scroll-target="#breakout">Breakout</a>
+  <ul class="collapse">
+  <li><a href="#basics" id="toc-basics" class="nav-link" data-scroll-target="#basics">Basics</a></li>
+  <li><a href="#using-the-ideas" id="toc-using-the-ideas" class="nav-link" data-scroll-target="#using-the-ideas">Using the ideas</a></li>
+  <li><a href="#advanced" id="toc-advanced" class="nav-link" data-scroll-target="#advanced">Advanced</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Programming Concepts and Tools</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="r-is-a-functional-language" class="level1">
+<h1>R is a functional language</h1>
+<p>Functions are one of the most important constructs in R (and many other languages). They allow you to modularize your code - encapsulating a set of repeatable operations as an individual function call.</p>
+<ul>
+<li>Operations are carried out with functions. Functions take objects as inputs and return objects as outputs.</li>
+<li>An analysis can be considered a pipeline of function calls, with output from a function used later in a subsequent operation as input to another function.</li>
+<li>Functions themselves are objects with a class and that you can manipulate:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>median</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>function (x, na.rm = FALSE, ...) 
+UseMethod("median")
+&lt;bytecode: 0x60d1fa905a10&gt;
+&lt;environment: namespace:stats&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">args</span>(median)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>function (x, na.rm = FALSE, ...) 
+NULL</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(median)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "function"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>myfun <span class="ot">&lt;-</span> median</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(<span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">6</span>)), myfun)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 3
+
+[[2]]
+[1] 4</code></pre>
+</div>
+</div>
+</section>
+<section id="using-functions" class="level1">
+<h1>Using functions</h1>
+<p>You should rely heavily on functions rather than having long sets of expressions in R scripts.</p>
+<p>Functions have many important advantages:</p>
+<ul>
+<li>They reduce bugs by avoiding having multiple instances of the same functionality.</li>
+<li>They reduce time involved in coding by eliminating redundancy.</li>
+<li>They make for cleaner and more easily-readable code.</li>
+</ul>
+<p>A basic goal is writing functions is <em>modularity</em>.</p>
+<p>In general, a function should</p>
+<ul>
+<li>be fairly short,</li>
+<li>be focused and specific in what it does,</li>
+<li>be designed so that it can be used in combination with other functions to carry out more complicated operations,</li>
+<li>generally make use only of arguments to the function and internal variables.</li>
+</ul>
+</section>
+<section id="function-arguments" class="level1">
+<h1>Function arguments</h1>
+<p>R can match arguments by name (when provided) or by position (the fall-back). It also allows one to specify default values so that the user doesn’t have to explicitly provide all the arguments.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.60517</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">100</span>, <span class="at">base =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">100</span>, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="at">base =</span> <span class="dv">10</span>, <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="at">base =</span> <span class="dv">10</span>, <span class="at">x =</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+</section>
+<section id="what-is-the-argument-for" class="level1">
+<h1>What is the “…” argument for?</h1>
+<p>The <code>...</code> construct allows a function to take an unspecified number of arguments, e.g.,</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>function (...)  .Primitive("c")</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>sum</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>function (..., na.rm = FALSE)  .Primitive("sum")</code></pre>
+</div>
+</div>
+<p>Using <code>...</code> as one of the arguments to a function allows a function to pass along user-provided arguments without specifying explicitly what the user might provide.</p>
+<p>Here’s an example of tailoring some plotting specifications that I use a lot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>pplot <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, ...) {</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="fl">0.6</span>, ...)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pplot</span>(gapminder<span class="sc">$</span>gdpPercap, gapminder<span class="sc">$</span>lifeExp,  <span class="at">xlab =</span> <span class="st">'gdpPercap (log $)'</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">ylab =</span> <span class="st">'life expectancy (years)'</span>, <span class="at">log =</span> <span class="st">'x'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="programming_files/figure-html/usedots-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="pass-by-value" class="level1">
+<h1>Pass-by-value</h1>
+<p>Functions in R are (roughly) <em>pass-by-value</em> and not <em>pass-by-reference</em>. This means that if you modify an argument inside the function it will not change the original value outside the function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>myfun <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>      x[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(x)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>}      </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>new_x <span class="ot">&lt;-</span> <span class="fu">myfun</span>(x)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(new_x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.00000000 0.04495925 0.41429472</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -1.49975664  0.04495925  0.41429472</code></pre>
+</div>
+</div>
+<p>This protects you from a major potential source of side effects. (There are exceptions to this rule.)</p>
+</section>
+<section id="call-by-value" class="level1">
+<h1>Call-by-value</h1>
+<p>In actuality, functions in R are <em>call-by-value</em>.</p>
+<p>This behavior is equivalent to copy-on-modify discussed in Unit 2.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pryr)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">exists</span>(<span class="st">'y'</span>)) <span class="fu">rm</span>(y)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">print_mem =</span> <span class="cn">FALSE</span>){</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(print_mem) <span class="fu">print</span>(<span class="fu">mem_used</span>())</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Address of x from `address()`:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">address</span>(x))  <span class="co"># address() is wrong here!</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Address of x from `inspect()`:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">.Internal</span>(<span class="fu">inspect</span>(x)))</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    x[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">7</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(print_mem) <span class="fu">print</span>(<span class="fu">mem_used</span>())</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Address of x after modification:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(x)</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>y[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.3408515  1.4442336  0.9755286</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Address of y:</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Address of y:</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">address</span>(y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "0x60d1fed2f4f8"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">f</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Address of x from `address()`:
+[1] "0x60d1fdef4c38"
+Address of x from `inspect()`:
+@60d1fed2f4f8 14 REALSXP g0c5 [REF(3)] (len=10, tl=0) -0.340851,1.44423,0.975529,-0.651286,-0.517029,...
+ [1] -0.3408515  1.4442336  0.9755286 -0.6512864 -0.5170294 -0.2892016
+ [7]  1.8911776  0.9452972  0.5889776 -0.5632244
+Address of x after modification:</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>z[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7.0000000 1.4442336 0.9755286</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Address of z:</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Address of z:</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">address</span>(z))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "0x60d1fed3b958"</code></pre>
+</div>
+</div>
+<p>Strangely, <code>address</code> gives the wrong answer when used inside <code>f</code> above. I’m not sure what is going on, but using <code>.Internal(inspect)</code> or trying this with a large value of <code>n</code> and seeing that memory use does not increase confirms that copy-on-modify is working.</p>
+</section>
+<section id="variable-scope-and-global-variables" class="level1">
+<h1>Variable scope and global variables</h1>
+<p>In general functions should not make use of variables from outside the function. (However, for quick-and-dirty work and in some other circumstances, one may do this.) This provides modularity and reduces bugs and surprises.</p>
+<p>If R can’t find a variable that is used in a function based on the function arguments and variables defined locally in the function, it goes and looks elsewhere following a set of rules called <em>lexical scoping</em>.</p>
+<p>(This type of scoping has to do with R’s roots (and explains why R is very similar to other languages for functional programming) - we won’t go into details here but certainly worth looking into as you start using R more.)</p>
+<p>Basically this means that it looks for variables relative to where the function is defined (not relative to where the function is called).</p>
+<p>This can get involved, but a couple brief examples illustrate the basic idea.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(y) {</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(x <span class="sc">+</span> y)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="cf">function</span>(y) {</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">f</span>(y))</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="fu">g</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="cf">function</span>(y) {</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="cf">function</span>(y) {</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">return</span>(x <span class="sc">+</span> y)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">f</span>(y))</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="fu">g</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11</code></pre>
+</div>
+</div>
+<p>Note that <code>x</code> is used as a global variable here, which in general is bad practice.</p>
+</section>
+<section id="why-does-scoping-work-that-way" class="level1">
+<h1>Why does scoping work that way?</h1>
+<p>Consider the <code>lm</code> function. It uses <code>lm.fit</code> for its actual computation.</p>
+<p>Suppose scoping depended on where the function (<code>lm</code> in this case) is called <strong>from</strong>? What would happen now:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">5</span>)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">5</span>)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>lm.fit <span class="ot">&lt;-</span> <span class="cf">function</span>(...) <span class="fu">print</span>(<span class="st">'Better luck next time, sucker.'</span>)</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lm.fit</span>()</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(y<span class="sc">~</span>x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>R’s scoping, in combination with package namespaces (collections of variables associated with a package) protects against this kind of problem.</p>
+</section>
+<section id="object-oriented-programming-oop-in-r" class="level1">
+<h1>Object-oriented programming (OOP) in R</h1>
+<p>Confusingly, R has three (well, actually five) different systems for OOP. This can be confusing, but they get the job done for a lot of tasks.</p>
+<ul>
+<li>S3: informal system used for <code>lm()</code>, <code>glm()</code>, and many other core features in R in the <em>stats</em> package</li>
+<li>S4 (and R7): more formal system, used with <em>lme4</em></li>
+<li>R6 (and Reference Classes): new systems allowing for passing objects by reference, with R6 similar to OOP in other languages</li>
+</ul>
+<p>For most users, I think it’s enough to understand two of the systems:</p>
+<ul>
+<li>To understand how base R works, it’s helpful to understand S3.</li>
+<li>To use OOP in a fashion similar to Python and C++, I suggest using R6.</li>
+</ul>
+</section>
+<section id="basics-of-object-oriented-programming-oop" class="level1">
+<h1>Basics of object-oriented programming (OOP)</h1>
+<p>The basic idea is that coding is structured around <em>objects</em>, which belong to a <em>class</em>, and <em>methods</em> that operate on objects in the class.</p>
+<p>Objects are like lists, but with methods that are specifically associated with particular classes.</p>
+<p>Objects have fields, analogous to the components of a list.</p>
+</section>
+<section id="working-with-s3-classes-and-methods" class="level1">
+<h1>Working with S3 classes and methods</h1>
+<p>S3 objects are generally built upon lists.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(gapminder<span class="sc">$</span>lifeExp <span class="sc">~</span> <span class="fu">log</span>(gapminder<span class="sc">$</span>gdpPercap))</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "lm"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.list</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "coefficients"  "residuals"     "effects"       "rank"         
+ [5] "fitted.values" "assign"        "qr"            "df.residual"  
+ [9] "xlevels"       "call"          "terms"         "model"        </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>mod<span class="sc">$</span>coefficients</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             (Intercept) log(gapminder$gdpPercap) 
+               -9.100889                 8.405085 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>mod[[<span class="st">'coefficients'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             (Intercept) log(gapminder$gdpPercap) 
+               -9.100889                 8.405085 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>mod[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             (Intercept) log(gapminder$gdpPercap) 
+               -9.100889                 8.405085 </code></pre>
+</div>
+</div>
+<p>The magic of R’s S3 OOP approach here is that ‘generic’ methods (i.e., functions) can be tailored to work specifically with specific kinds of objects. This has been called “functional OOP” because the generic methods look like regular functions. It’s basically how Julia works as well.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gapminder<span class="sc">$</span>lifeExp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  23.60   48.20   60.71   59.47   70.85   82.60 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = gapminder$lifeExp ~ log(gapminder$gdpPercap))
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-32.778  -4.204   1.212   4.658  19.285 
+
+Coefficients:
+                         Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)               -9.1009     1.2277  -7.413 1.93e-13 ***
+log(gapminder$gdpPercap)   8.4051     0.1488  56.500  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 7.62 on 1702 degrees of freedom
+Multiple R-squared:  0.6522,    Adjusted R-squared:  0.652 
+F-statistic:  3192 on 1 and 1702 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p><strong>Question</strong>: What do you think R is doing behind the scenes?</p>
+<p>Consider <code>summary.lm</code>.</p>
+</section>
+<section id="more-on-working-with-s3-classes-and-methods" class="level1">
+<h1>More on working with S3 classes and methods</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(methods)</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>yb <span class="ot">&lt;-</span> gapminder<span class="sc">$</span>lifeExp <span class="sc">&gt;</span> <span class="dv">75</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>yc <span class="ot">&lt;-</span> gapminder<span class="sc">$</span>lifeExp</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">log</span>(gapminder<span class="sc">$</span>gdpPercap)</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(yc <span class="sc">~</span> x)</span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(yb <span class="sc">~</span> x, <span class="at">family =</span> binomial)</span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>mod2<span class="sc">$</span>residuals[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>] <span class="co"># access field with list-like syntax</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        1         2         3         4         5         6         7         8 
+-1.000026 -1.000031 -1.000035 -1.000033 -1.000022 -1.000027 -1.000054 -1.000035 
+        9        10        11        12        13        14        15        16 
+-1.000015 -1.000014 -1.000021 -1.000053 -1.000258 -1.000477 -1.000832 -1.001461 
+       17        18        19        20 
+-1.002613 -1.003204 -1.003496 -1.003838 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "glm" "lm" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is</span>(mod2, <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.list</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mod2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "coefficients"      "residuals"         "fitted.values"    
+ [4] "effects"           "R"                 "rank"             
+ [7] "qr"                "family"            "linear.predictors"
+[10] "deviance"          "aic"               "null.deviance"    
+[13] "iter"              "weights"           "prior.weights"    
+[16] "df.residual"       "df.null"           "y"                
+[19] "converged"         "boundary"          "model"            
+[22] "call"              "formula"           "terms"            
+[25] "data"              "offset"            "control"          
+[28] "method"            "contrasts"         "xlevels"          </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(<span class="at">class =</span> <span class="st">"glm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] add1           anova          coerce         confint        cooks.distance
+ [6] deviance       drop1          effects        extractAIC     family        
+[11] formula        influence      initialize     logLik         model.frame   
+[16] nobs           predict        print          profile        residuals     
+[21] rstandard      rstudent       show           sigma          slotsFromS3   
+[26] summary        vcov           weights       
+see '?methods' for accessing help and source code</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(predict)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] predict.ar*                predict.Arima*            
+ [3] predict.arima0*            predict.glm               
+ [5] predict.HoltWinters*       predict.lm                
+ [7] predict.loess*             predict.mlm*              
+ [9] predict.nls*               predict.poly*             
+[11] predict.ppr*               predict.prcomp*           
+[13] predict.princomp*          predict.smooth.spline*    
+[15] predict.smooth.spline.fit* predict.StructTS*         
+see '?methods' for accessing help and source code</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>predict</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>function (object, ...) 
+UseMethod("predict")
+&lt;bytecode: 0x60d1fa96c018&gt;
+&lt;environment: namespace:stats&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># predict.glm</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>When <code>predict()</code> is called on a GLM object, it first calls the generic <code>predict()</code>, which then recognizes that the first argument is of the class <em>glm</em> and immediately calls the right class-specific method, <code>predict.glm()</code> in this case.</p>
+</section>
+<section id="making-your-own-s3-classobjectmethod" class="level1">
+<h1>Making your own S3 class/object/method</h1>
+<p>Making an object and class-specific methods under S3 is simple.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>rboot2025 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">month =</span> <span class="st">'August'</span>, <span class="at">year =</span> <span class="dv">2025</span>, </span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">instructor =</span> <span class="st">'Paciorek'</span>, <span class="at">attendance =</span> <span class="dv">100</span>)</span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(rboot2025) <span class="ot">&lt;-</span> <span class="st">"workshop"</span></span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>rboot2025</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$month
+[1] "August"
+
+$year
+[1] 2025
+
+$instructor
+[1] "Paciorek"
+
+$attendance
+[1] 100
+
+attr(,"class")
+[1] "workshop"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is</span>(rboot2025, <span class="st">"workshop"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>rboot2025<span class="sc">$</span>instructor </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Paciorek"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>print.workshop <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">with</span>(x,</span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">cat</span>(<span class="st">"A workshop held in "</span>, month, <span class="st">" "</span>, year, <span class="st">"; taught by "</span>, instructor, <span class="st">".</span><span class="sc">\n</span><span class="st">The attendance was "</span>, attendance, <span class="st">".</span><span class="sc">\n</span><span class="st">"</span>, <span class="at">sep =</span> <span class="st">""</span>))</span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">invisible</span>(x)</span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a><span class="co"># doesn't execute correctly in the slide creation, so comment out here:</span></span>
+<span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a><span class="co"># rboot2025 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that we rely on the generic <code>print()</code> already existing in R. Otherwise we’d need to create it.</p>
+</section>
+<section id="brief-introduction-to-r6-classes" class="level1">
+<h1>Brief introduction to R6 Classes</h1>
+<p>R6 classes are a somewhat-recent feature in R that provides object-oriented programming with behavior more like in other languages like Python and C++.</p>
+<p>Here’s an extended example that simulates random time series.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(R6)</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>tsSimClass <span class="ot">&lt;-</span> <span class="fu">R6Class</span>(<span class="st">"tsSimClass"</span>,</span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>    <span class="do">## Class for holding time series simulators</span></span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">public =</span> <span class="fu">list</span>(</span>
+<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a>        <span class="do">## Public methods (and possibly fields) are the user-facing interface.</span></span>
+<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">initialize =</span> <span class="cf">function</span>(times, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">corParam =</span> <span class="dv">1</span>){</span>
+<span id="cb89-8"><a href="#cb89-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">library</span>(fields)</span>
+<span id="cb89-9"><a href="#cb89-9" aria-hidden="true" tabindex="-1"></a>            <span class="fu">stopifnot</span>(<span class="fu">is.numeric</span>(corParam), <span class="fu">length</span>(corParam) <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb89-10"><a href="#cb89-10" aria-hidden="true" tabindex="-1"></a>            <span class="fu">stopifnot</span>(<span class="fu">is.numeric</span>(times))</span>
+<span id="cb89-11"><a href="#cb89-11" aria-hidden="true" tabindex="-1"></a>            private<span class="sc">$</span>times <span class="ot">&lt;-</span> times</span>
+<span id="cb89-12"><a href="#cb89-12" aria-hidden="true" tabindex="-1"></a>            private<span class="sc">$</span>n <span class="ot">&lt;-</span> <span class="fu">length</span>(times)</span>
+<span id="cb89-13"><a href="#cb89-13" aria-hidden="true" tabindex="-1"></a>            private<span class="sc">$</span>mean <span class="ot">&lt;-</span> mean</span>
+<span id="cb89-14"><a href="#cb89-14" aria-hidden="true" tabindex="-1"></a>            private<span class="sc">$</span>corParam <span class="ot">&lt;-</span> corParam</span>
+<span id="cb89-15"><a href="#cb89-15" aria-hidden="true" tabindex="-1"></a>            private<span class="sc">$</span>currentU <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb89-16"><a href="#cb89-16" aria-hidden="true" tabindex="-1"></a>            private<span class="sc">$</span><span class="fu">calcMats</span>()</span>
+<span id="cb89-17"><a href="#cb89-17" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb89-18"><a href="#cb89-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-19"><a href="#cb89-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">simulate =</span> <span class="cf">function</span>() {</span>
+<span id="cb89-20"><a href="#cb89-20" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span>(<span class="sc">!</span>private<span class="sc">$</span>currentU)</span>
+<span id="cb89-21"><a href="#cb89-21" aria-hidden="true" tabindex="-1"></a>                private<span class="sc">$</span><span class="fu">calcMats</span>()</span>
+<span id="cb89-22"><a href="#cb89-22" aria-hidden="true" tabindex="-1"></a>            <span class="do">## analogous to mu+sigma*z for generating N(mu, sigma^2)</span></span>
+<span id="cb89-23"><a href="#cb89-23" aria-hidden="true" tabindex="-1"></a>            <span class="fu">return</span>(private<span class="sc">$</span>mean <span class="sc">+</span> <span class="fu">crossprod</span>(private<span class="sc">$</span>U, <span class="fu">rnorm</span>(private<span class="sc">$</span>n)))</span>
+<span id="cb89-24"><a href="#cb89-24" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb89-25"><a href="#cb89-25" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb89-26"><a href="#cb89-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">changeTimes =</span> <span class="cf">function</span>(newTimes){</span>
+<span id="cb89-27"><a href="#cb89-27" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Modifies a private member field (i.e., a 'setter') and recalculates.</span></span>
+<span id="cb89-28"><a href="#cb89-28" aria-hidden="true" tabindex="-1"></a>            private<span class="sc">$</span>times <span class="ot">&lt;-</span> newTimes</span>
+<span id="cb89-29"><a href="#cb89-29" aria-hidden="true" tabindex="-1"></a>            private<span class="sc">$</span><span class="fu">calcMats</span>()</span>
+<span id="cb89-30"><a href="#cb89-30" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb89-31"><a href="#cb89-31" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb89-32"><a href="#cb89-32" aria-hidden="true" tabindex="-1"></a>        <span class="at">getTimes =</span> <span class="cf">function</span>(){</span>
+<span id="cb89-33"><a href="#cb89-33" aria-hidden="true" tabindex="-1"></a>            <span class="co"># A 'getter' method</span></span>
+<span id="cb89-34"><a href="#cb89-34" aria-hidden="true" tabindex="-1"></a>            <span class="fu">return</span>(private<span class="sc">$</span>times)</span>
+<span id="cb89-35"><a href="#cb89-35" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb89-36"><a href="#cb89-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-37"><a href="#cb89-37" aria-hidden="true" tabindex="-1"></a>        <span class="at">print =</span> <span class="cf">function</span>(){ <span class="co"># 'print' method</span></span>
+<span id="cb89-38"><a href="#cb89-38" aria-hidden="true" tabindex="-1"></a>            <span class="fu">cat</span>(<span class="st">"R6 Object of class 'tsSimClass' with "</span>,</span>
+<span id="cb89-39"><a href="#cb89-39" aria-hidden="true" tabindex="-1"></a>                private<span class="sc">$</span>n, <span class="st">" time points.</span><span class="sc">\n</span><span class="st">"</span>, <span class="at">sep =</span> <span class="st">''</span>)</span>
+<span id="cb89-40"><a href="#cb89-40" aria-hidden="true" tabindex="-1"></a>            <span class="fu">invisible</span>(self)</span>
+<span id="cb89-41"><a href="#cb89-41" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb89-42"><a href="#cb89-42" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb89-43"><a href="#cb89-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-44"><a href="#cb89-44" aria-hidden="true" tabindex="-1"></a>    <span class="do">## Private methods and functions not accessible externally</span></span>
+<span id="cb89-45"><a href="#cb89-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">private =</span> <span class="fu">list</span>(</span>
+<span id="cb89-46"><a href="#cb89-46" aria-hidden="true" tabindex="-1"></a>        <span class="at">calcMats =</span> <span class="cf">function</span>() {</span>
+<span id="cb89-47"><a href="#cb89-47" aria-hidden="true" tabindex="-1"></a>            <span class="do">## Calculates correlation matrix and Cholesky factor.</span></span>
+<span id="cb89-48"><a href="#cb89-48" aria-hidden="true" tabindex="-1"></a>            <span class="do">## Caches results of expensive computation.</span></span>
+<span id="cb89-49"><a href="#cb89-49" aria-hidden="true" tabindex="-1"></a>            lagMat <span class="ot">&lt;-</span> fields<span class="sc">::</span><span class="fu">rdist</span>(private<span class="sc">$</span>times) <span class="co"># local variable</span></span>
+<span id="cb89-50"><a href="#cb89-50" aria-hidden="true" tabindex="-1"></a>            corMat <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="sc">-</span>lagMat<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> private<span class="sc">$</span>corParam<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb89-51"><a href="#cb89-51" aria-hidden="true" tabindex="-1"></a>            private<span class="sc">$</span>U <span class="ot">&lt;-</span> <span class="fu">chol</span>(corMat) <span class="co"># square root matrix</span></span>
+<span id="cb89-52"><a href="#cb89-52" aria-hidden="true" tabindex="-1"></a>            <span class="fu">cat</span>(<span class="st">"Done updating correlation matrix and Cholesky factor.</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb89-53"><a href="#cb89-53" aria-hidden="true" tabindex="-1"></a>            private<span class="sc">$</span>currentU <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb89-54"><a href="#cb89-54" aria-hidden="true" tabindex="-1"></a>            <span class="fu">invisible</span>(self)</span>
+<span id="cb89-55"><a href="#cb89-55" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb89-56"><a href="#cb89-56" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Internal (private) fields not directly accessible from outside the object</span></span>
+<span id="cb89-57"><a href="#cb89-57" aria-hidden="true" tabindex="-1"></a>        <span class="at">n =</span> <span class="cn">NULL</span>, </span>
+<span id="cb89-58"><a href="#cb89-58" aria-hidden="true" tabindex="-1"></a>        <span class="at">times =</span> <span class="cn">NULL</span>,</span>
+<span id="cb89-59"><a href="#cb89-59" aria-hidden="true" tabindex="-1"></a>        <span class="at">mean =</span> <span class="cn">NULL</span>,</span>
+<span id="cb89-60"><a href="#cb89-60" aria-hidden="true" tabindex="-1"></a>        <span class="at">corParam =</span> <span class="cn">NULL</span>,</span>
+<span id="cb89-61"><a href="#cb89-61" aria-hidden="true" tabindex="-1"></a>        <span class="at">U =</span> <span class="cn">NULL</span>,</span>
+<span id="cb89-62"><a href="#cb89-62" aria-hidden="true" tabindex="-1"></a>        <span class="at">currentU =</span> <span class="cn">FALSE</span></span>
+<span id="cb89-63"><a href="#cb89-63" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb89-64"><a href="#cb89-64" aria-hidden="true" tabindex="-1"></a>)   </span>
+<span id="cb89-65"><a href="#cb89-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-66"><a href="#cb89-66" aria-hidden="true" tabindex="-1"></a>my_ts <span class="ot">&lt;-</span> tsSimClass<span class="sc">$</span><span class="fu">new</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: spam</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Spam version 2.11-1 (2025-01-20) is loaded.
+Type 'help( Spam)' or 'demo( spam)' for a short introduction 
+and overview of this package.
+Help for individual functions is also obtained by adding the
+suffix '.spam' to the function name, e.g. 'help( chol.spam)'.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'spam'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    backsolve, forwardsolve</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: viridisLite</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Try help(fields) to get started.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Done updating correlation matrix and Cholesky factor.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>my_ts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R6 Object of class 'tsSimClass' with 100 time points.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> my_ts<span class="sc">$</span><span class="fu">simulate</span>()   <span class="co"># Generate a time series.</span></span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(my_ts<span class="sc">$</span><span class="fu">getTimes</span>(), y, <span class="at">type =</span> <span class="st">'l'</span>, <span class="at">xlab =</span> <span class="st">'time'</span>,</span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">ylab =</span> <span class="st">'process values'</span>)</span>
+<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a><span class="do">## We can't directly access private fields or methods.</span></span>
+<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a><span class="do">## These will fail:</span></span>
+<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a><span class="co"># my_ts$times</span></span>
+<span id="cb99-8"><a href="#cb99-8" aria-hidden="true" tabindex="-1"></a><span class="co"># my_ts$calcMats()</span></span>
+<span id="cb99-9"><a href="#cb99-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-10"><a href="#cb99-10" aria-hidden="true" tabindex="-1"></a>my_ts <span class="ot">&lt;-</span> tsSimClass<span class="sc">$</span><span class="fu">new</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Done updating correlation matrix and Cholesky factor.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> my_ts<span class="sc">$</span><span class="fu">simulate</span>()   <span class="co"># generate a second time series</span></span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(my_ts<span class="sc">$</span><span class="fu">getTimes</span>(), y, <span class="at">col =</span> <span class="st">'red'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="programming_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="error-and-warning-messages" class="level1">
+<h1>Error and warning messages</h1>
+<p>When you write your own functions, and particularly for distributing to others, it’s a good idea to:</p>
+<ul>
+<li>Check for possible errors (particularly in the input arguments) and give the user an informative error message,</li>
+<li>Warn them if you’re detect or do something they might not have anticipated,</li>
+</ul>
+<p>We can use <code>stop()</code> and <code>warning()</code> to do this. They’re the same functions that are being called when you see an error message or a warning in reaction to your own work in R.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>mysqrt <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">is.list</span>(x)) {</span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">warning</span>(<span class="st">"x is a list; converting to a vector"</span>)</span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">unlist</span>(x)</span>
+<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.numeric</span>(x)) {</span>
+<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"What is the square root of 'sarah'?"</span>)</span>
+<span id="cb102-8"><a href="#cb102-8" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb102-9"><a href="#cb102-9" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">any</span>(x <span class="sc">&lt;</span> <span class="dv">0</span>)) {</span>
+<span id="cb102-10"><a href="#cb102-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">warning</span>(<span class="st">"mysqrt: found negative values; proceeding anyway"</span>)</span>
+<span id="cb102-11"><a href="#cb102-11" aria-hidden="true" tabindex="-1"></a>        x[x <span class="sc">&gt;=</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> (x[x <span class="sc">&gt;=</span> <span class="dv">0</span>])<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb102-12"><a href="#cb102-12" aria-hidden="true" tabindex="-1"></a>        x[x <span class="sc">&lt;</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="cn">NaN</span></span>
+<span id="cb102-13"><a href="#cb102-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(x)</span>
+<span id="cb102-14"><a href="#cb102-14" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> <span class="fu">return</span>(x<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>))</span>
+<span id="cb102-15"><a href="#cb102-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb102-16"><a href="#cb102-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb102-17"><a href="#cb102-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-18"><a href="#cb102-18" aria-hidden="true" tabindex="-1"></a><span class="fu">mysqrt</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.000000 1.414214 1.732051</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mysqrt</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="sc">-</span><span class="dv">7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in mysqrt(c(5, -7)): mysqrt: found negative values; proceeding anyway</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.236068      NaN</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mysqrt</span>(<span class="fu">c</span>(<span class="st">'asdf'</span>, <span class="st">'sdf'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in mysqrt(c("asdf", "sdf")): What is the square root of 'sarah'?</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mysqrt</span>(<span class="fu">list</span>(<span class="dv">5</span>, <span class="dv">3</span>, <span class="st">'ab'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in mysqrt(list(5, 3, "ab")): x is a list; converting to a vector</code></pre>
+</div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in mysqrt(list(5, 3, "ab")): What is the square root of 'sarah'?</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="sc">-</span><span class="dv">7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in sqrt(c(5, -7)): NaNs produced</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.236068      NaN</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="st">'asdf'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in sqrt("asdf"): non-numeric argument to mathematical function</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">list</span>(<span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in sqrt(list(5, 3, 2)): non-numeric argument to mathematical function</code></pre>
+</div>
+</div>
+<p>So we’ve done something similar to what <code>sqrt()</code> actually does in R.</p>
+</section>
+<section id="catching-errors" class="level1">
+<h1>‘Catching’ errors</h1>
+<p>When you automate analyses, sometimes an R function call will fail. But you don’t want all of your analyses to grind to a halt because one failed. Rather, you want to catch the error, record that it failed, and move on.</p>
+<p>For me this is most critical when I’m doing stratified analyses or sequential operations.</p>
+<p>The <code>try()</code> function is a powerful tool here.</p>
+</section>
+<section id="why-we-need-to-try" class="level1">
+<h1>Why we need to <code>try()</code></h1>
+<p>Suppose we tried to do a stratified analysis of life expectancy on GDP within continents, for 2007. I’m going to do this as a for loop for pedagogical reasons, but it would be better to do this with dplyr/lapply type tools.</p>
+<p>For the purpose of illustration, I’m going to monkey a bit with the data such that there is an error in fitting Oceania. This is artificial, but when you stratify data into smaller groups it’s not uncommon that the analysis can fail for one of the groups (often because of small sample size or missing data).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a>fakedat <span class="ot">&lt;-</span> gapminder[gapminder<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">2007</span>, ]</span>
+<span id="cb119-3"><a href="#cb119-3" aria-hidden="true" tabindex="-1"></a>fakedat<span class="sc">$</span>gdpPercap[fakedat<span class="sc">$</span>continent <span class="sc">==</span> <span class="st">'Oceania'</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb119-4"><a href="#cb119-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-5"><a href="#cb119-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(cont <span class="cf">in</span> <span class="fu">c</span>(<span class="st">'Asia'</span>, <span class="st">'Oceania'</span>, <span class="st">'Europe'</span>, <span class="st">'Americas'</span>, <span class="st">'Africa'</span>)) {</span>
+<span id="cb119-6"><a href="#cb119-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cat</span>(<span class="st">"Fitting model for continent "</span>, cont, <span class="st">".</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb119-7"><a href="#cb119-7" aria-hidden="true" tabindex="-1"></a>      tmp <span class="ot">&lt;-</span> <span class="fu">subset</span>(fakedat, continent <span class="sc">==</span> cont)</span>
+<span id="cb119-8"><a href="#cb119-8" aria-hidden="true" tabindex="-1"></a>      mod[[cont]] <span class="ot">&lt;-</span> <span class="fu">lm</span>(lifeExp <span class="sc">~</span> <span class="fu">log</span>(gdpPercap), <span class="at">data =</span> tmp)</span>
+<span id="cb119-9"><a href="#cb119-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Fitting model for continent  Asia .
+Fitting model for continent  Oceania .</code></pre>
+</div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...): 0 (non-NA) cases</code></pre>
+</div>
+</div>
+<p>What happened?</p>
+</section>
+<section id="how-we-can-try-harder" class="level1">
+<h1>How we can <code>try()</code> harder</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a>fakedat <span class="ot">&lt;-</span> gapminder[gapminder<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">2007</span>, ]</span>
+<span id="cb122-3"><a href="#cb122-3" aria-hidden="true" tabindex="-1"></a>fakedat<span class="sc">$</span>gdpPercap[fakedat<span class="sc">$</span>continent <span class="sc">==</span> <span class="st">'Oceania'</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb122-4"><a href="#cb122-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-5"><a href="#cb122-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(cont <span class="cf">in</span> <span class="fu">c</span>(<span class="st">'Asia'</span>, <span class="st">'Oceania'</span>, <span class="st">'Europe'</span>, <span class="st">'Americas'</span>, <span class="st">'Africa'</span>)) {</span>
+<span id="cb122-6"><a href="#cb122-6" aria-hidden="true" tabindex="-1"></a>       <span class="fu">cat</span>(<span class="st">"Fitting model for continent "</span>, cont, <span class="st">".</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb122-7"><a href="#cb122-7" aria-hidden="true" tabindex="-1"></a>       tmp <span class="ot">&lt;-</span> <span class="fu">subset</span>(fakedat, continent <span class="sc">==</span> cont)</span>
+<span id="cb122-8"><a href="#cb122-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-9"><a href="#cb122-9" aria-hidden="true" tabindex="-1"></a>       <span class="co"># Run without error-ing out.</span></span>
+<span id="cb122-10"><a href="#cb122-10" aria-hidden="true" tabindex="-1"></a>       curMod <span class="ot">&lt;-</span> <span class="fu">try</span>(<span class="fu">lm</span>(lifeExp <span class="sc">~</span> <span class="fu">log</span>(gdpPercap), <span class="at">data =</span> tmp))</span>
+<span id="cb122-11"><a href="#cb122-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-12"><a href="#cb122-12" aria-hidden="true" tabindex="-1"></a>       <span class="co"># Catch the error.</span></span>
+<span id="cb122-13"><a href="#cb122-13" aria-hidden="true" tabindex="-1"></a>       <span class="cf">if</span>(<span class="fu">is</span>(curMod, <span class="st">"try-error"</span>)) mod[[cont]] <span class="ot">&lt;-</span> <span class="cn">NA</span> </span>
+<span id="cb122-14"><a href="#cb122-14" aria-hidden="true" tabindex="-1"></a>           <span class="cf">else</span> mod[[cont]] <span class="ot">&lt;-</span> curMod            </span>
+<span id="cb122-15"><a href="#cb122-15" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Fitting model for continent  Asia .
+Fitting model for continent  Oceania .
+Error in lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) : 
+  0 (non-NA) cases
+Fitting model for continent  Europe .
+Fitting model for continent  Americas .
+Fitting model for continent  Africa .</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a>mod[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = lifeExp ~ log(gdpPercap), data = tmp)
+
+Coefficients:
+   (Intercept)  log(gdpPercap)  
+        25.650           5.157  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a>mod[[<span class="dv">2</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+</div>
+</section>
+<section id="debugging" class="level1">
+<h1>Debugging</h1>
+<p>As a scripting language, R essentially has a debugger working automatically by virtue of you often being able to easily run code line by line.</p>
+<p>But there is an official debugger and other tools that greatly help in figuring out problems, particularly for more complicated situations.</p>
+<p>Let’s briefly see these in action. I’ll demo this in a very basic way, but hopefully this will give you an idea of the power of these tools.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a>buggyFun <span class="ot">&lt;-</span> <span class="cf">function</span>(myDF) {</span>
+<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">print</span>(<span class="fu">names</span>(myDF))</span>
+<span id="cb128-3"><a href="#cb128-3" aria-hidden="true" tabindex="-1"></a>   myDF<span class="sc">$</span>id <span class="ot">&lt;-</span> <span class="fu">seq_len</span>(<span class="fu">nrow</span>(myDF))</span>
+<span id="cb128-4"><a href="#cb128-4" aria-hidden="true" tabindex="-1"></a>   sums <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(myDF)</span>
+<span id="cb128-5"><a href="#cb128-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">return</span>(sums)</span>
+<span id="cb128-6"><a href="#cb128-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb128-7"><a href="#cb128-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-8"><a href="#cb128-8" aria-hidden="true" tabindex="-1"></a><span class="fu">buggyFun</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "country"   "continent" "year"      "lifeExp"   "pop"       "gdpPercap"</code></pre>
+</div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in base::rowSums(x, na.rm = na.rm, dims = dims, ...): 'x' must be numeric</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb131"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Here are the commands we'll use in the demo.</span></span>
+<span id="cb131-2"><a href="#cb131-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="cn">FALSE</span>) {</span>
+<span id="cb131-3"><a href="#cb131-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">traceback</span>()</span>
+<span id="cb131-4"><a href="#cb131-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">debug</span>(buggyFun)</span>
+<span id="cb131-5"><a href="#cb131-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">buggyFun</span>(gapminder)</span>
+<span id="cb131-6"><a href="#cb131-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb131-7"><a href="#cb131-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">undebug</span>(buggyFun)</span>
+<span id="cb131-8"><a href="#cb131-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">options</span>(<span class="at">error =</span> recover)</span>
+<span id="cb131-9"><a href="#cb131-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">buggyFun</span>(gapminder)</span>
+<span id="cb131-10"><a href="#cb131-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li><p>We can use <code>debug()</code> to step through a function line by line</p></li>
+<li><p>After an error occurs, we can use <code>traceback()</code> to look at the <em>call stack</em> (the series of nested function calls) to determine the steps leading to the error. (Note that Python error message show the stack. R’s do not.)</p></li>
+<li><p>More helpfully, if we set <code>options(error = recover)</code> before running code, we can go into the function call in which the error occurred</p></li>
+<li><p>We can insert <code>browser()</code> inside a function to set breakpoints and R will stop there and allow us to proceed with debugging statements</p></li>
+<li><p>You can temporarily insert code into a function (including built-in functions) with <code>trace(fxnName, edit = TRUE)</code></p></li>
+</ol>
+<p>These tools are integrated into RStudio as a visual debugger.</p>
+</section>
+<section id="testing" class="level1">
+<h1>Testing</h1>
+<p>Testing should be performed on multiple levels and begun as early as possible in the development process. For programs that accept input either from a user or file, it is important that the code validates the input is what it expects to receive. Tests that ensure individual code elements (e.g., functions, classes, and class methods) behave correctly are called <em>unit tests</em>. Writing unit tests early in the process of implementing new functionality helps you think about what you want a piece of code to do, rather than just how it does it. This practice improves code quality by focusing your attention on use cases rather than getting lost in implementation details.</p>
+<p>The <em>testthat</em> package is very helpful for setting up tests.</p>
+<p>For automated testing (continuous integration), many developers use GitHub Actions to run a test suite automatically (e.g., for each pull request or each commit). Here’s an <a href="https://github.com/nimble-dev/nimbleHMC/blob/master/.github/workflows/tests.yaml">example</a> from an R package that I am a developer of. One creates a configuration (yaml) file and then GitHub runs the action automatically, giving the results in the <a href="https://github.com/nimble-dev/nimbleHMC/actions">Actions tab</a>.</p>
+</section>
+<section id="breakout" class="level1">
+<h1>Breakout</h1>
+<section id="basics" class="level3">
+<h3 class="anchored" data-anchor-id="basics">Basics</h3>
+<ol type="1">
+<li>Write an R function that will take an input vector and set any negative values in the vector to zero.</li>
+</ol>
+</section>
+<section id="using-the-ideas" class="level3">
+<h3 class="anchored" data-anchor-id="using-the-ideas">Using the ideas</h3>
+<ol start="2" type="1">
+<li><p>Write an R function that will take an input vector and set any value below a threshold to be the value of threshold. Optionally, the function should instead set values above a threshold to the value of the threshold.</p></li>
+<li><p>Augment your function so that it checks that the input is a numeric vector and return an error if not. (See the help information for <code>stop()</code> (or <code>stopifnot()</code>.)</p></li>
+<li><p>Figure out what <code>invisible()</code> does and why it is useful when writing functions. Use <code>invisible()</code> in your function from just above.</p></li>
+</ol>
+</section>
+<section id="advanced" class="level3">
+<h3 class="anchored" data-anchor-id="advanced">Advanced</h3>
+<ol start="5" type="1">
+<li><p>Explore scoping in the following code. Explain why the result is 11 and not 3. Note that <code>funGenerator()</code> returns a function as the return object, consistent with the idea that functions are objects in R. This is an example of what is called a <em>closure</em> in R. Basically, the function contains object(s) enclosed with and accessible to the function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>funGenerator <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb132-2"><a href="#cb132-2" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb132-3"><a href="#cb132-3" aria-hidden="true" tabindex="-1"></a>  g <span class="ot">&lt;-</span> <span class="cf">function</span>(y) {</span>
+<span id="cb132-4"><a href="#cb132-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(x <span class="sc">+</span> y)</span>
+<span id="cb132-5"><a href="#cb132-5" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb132-6"><a href="#cb132-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(g)</span>
+<span id="cb132-7"><a href="#cb132-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb132-8"><a href="#cb132-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-9"><a href="#cb132-9" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb132-10"><a href="#cb132-10" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">funGenerator</span>()</span>
+<span id="cb132-11"><a href="#cb132-11" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11</code></pre>
+</div>
+</div></li>
+</ol>
+<!-- -->
+
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb134" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb134-2"><a href="#cb134-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Programming Concepts and Tools"</span></span>
+<span id="cb134-3"><a href="#cb134-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb134-4"><a href="#cb134-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb134-5"><a href="#cb134-5" aria-hidden="true" tabindex="-1"></a><span class="co">    theme: cosmo</span></span>
+<span id="cb134-6"><a href="#cb134-6" aria-hidden="true" tabindex="-1"></a><span class="co">    css: ../assets/styles.css</span></span>
+<span id="cb134-7"><a href="#cb134-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb134-8"><a href="#cb134-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
+<span id="cb134-9"><a href="#cb134-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-block-bg: true</span></span>
+<span id="cb134-10"><a href="#cb134-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-block-border-left: "#31BAE9"</span></span>
+<span id="cb134-11"><a href="#cb134-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb134-12"><a href="#cb134-12" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
+<span id="cb134-13"><a href="#cb134-13" aria-hidden="true" tabindex="-1"></a><span class="co">  freeze: auto</span></span>
+<span id="cb134-14"><a href="#cb134-14" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb134-15"><a href="#cb134-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-16"><a href="#cb134-16" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, chunksetup}</span></span>
+<span id="cb134-17"><a href="#cb134-17" aria-hidden="true" tabindex="-1"></a><span class="in">#| include: false</span></span>
+<span id="cb134-18"><a href="#cb134-18" aria-hidden="true" tabindex="-1"></a><span class="in"># include any code here you don't want to show up in the document,</span></span>
+<span id="cb134-19"><a href="#cb134-19" aria-hidden="true" tabindex="-1"></a><span class="in"># e.g. package and dataset loading</span></span>
+<span id="cb134-20"><a href="#cb134-20" aria-hidden="true" tabindex="-1"></a><span class="in">rm(list=ls())</span></span>
+<span id="cb134-21"><a href="#cb134-21" aria-hidden="true" tabindex="-1"></a><span class="in">library(gapminder)</span></span>
+<span id="cb134-22"><a href="#cb134-22" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb134-23"><a href="#cb134-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-24"><a href="#cb134-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-25"><a href="#cb134-25" aria-hidden="true" tabindex="-1"></a><span class="fu"># R is a functional language</span></span>
+<span id="cb134-26"><a href="#cb134-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-27"><a href="#cb134-27" aria-hidden="true" tabindex="-1"></a>Functions are one of the most important constructs in R (and many other</span>
+<span id="cb134-28"><a href="#cb134-28" aria-hidden="true" tabindex="-1"></a>languages). They allow you to modularize your code - encapsulating a set of</span>
+<span id="cb134-29"><a href="#cb134-29" aria-hidden="true" tabindex="-1"></a>repeatable operations as an individual function call.</span>
+<span id="cb134-30"><a href="#cb134-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-31"><a href="#cb134-31" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Operations are carried out with functions. Functions take objects as inputs and return objects as outputs. </span>
+<span id="cb134-32"><a href="#cb134-32" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>An analysis can be considered a pipeline of function calls, with output from a function used later in a subsequent operation as input to another function.</span>
+<span id="cb134-33"><a href="#cb134-33" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Functions themselves are objects with a class and that you can manipulate: </span>
+<span id="cb134-34"><a href="#cb134-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-37"><a href="#cb134-37" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb134-38"><a href="#cb134-38" aria-hidden="true" tabindex="-1"></a>median</span>
+<span id="cb134-39"><a href="#cb134-39" aria-hidden="true" tabindex="-1"></a><span class="fu">args</span>(median)</span>
+<span id="cb134-40"><a href="#cb134-40" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(median)</span>
+<span id="cb134-41"><a href="#cb134-41" aria-hidden="true" tabindex="-1"></a>myfun <span class="ot">&lt;-</span> median</span>
+<span id="cb134-42"><a href="#cb134-42" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(<span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">6</span>)), myfun)</span>
+<span id="cb134-43"><a href="#cb134-43" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb134-44"><a href="#cb134-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-45"><a href="#cb134-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-46"><a href="#cb134-46" aria-hidden="true" tabindex="-1"></a><span class="fu"># Using functions</span></span>
+<span id="cb134-47"><a href="#cb134-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-48"><a href="#cb134-48" aria-hidden="true" tabindex="-1"></a>You should rely heavily on functions rather than having long sets of</span>
+<span id="cb134-49"><a href="#cb134-49" aria-hidden="true" tabindex="-1"></a>expressions in R scripts.</span>
+<span id="cb134-50"><a href="#cb134-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-51"><a href="#cb134-51" aria-hidden="true" tabindex="-1"></a>Functions have many important advantages:</span>
+<span id="cb134-52"><a href="#cb134-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-53"><a href="#cb134-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>They reduce bugs by avoiding having multiple instances of the same</span>
+<span id="cb134-54"><a href="#cb134-54" aria-hidden="true" tabindex="-1"></a>  functionality.</span>
+<span id="cb134-55"><a href="#cb134-55" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>They reduce time involved in coding by eliminating redundancy.</span>
+<span id="cb134-56"><a href="#cb134-56" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>They make for cleaner and more easily-readable code.</span>
+<span id="cb134-57"><a href="#cb134-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-58"><a href="#cb134-58" aria-hidden="true" tabindex="-1"></a>A basic goal is writing functions is *modularity*.</span>
+<span id="cb134-59"><a href="#cb134-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-60"><a href="#cb134-60" aria-hidden="true" tabindex="-1"></a>In general, a function should</span>
+<span id="cb134-61"><a href="#cb134-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-62"><a href="#cb134-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>be fairly short,</span>
+<span id="cb134-63"><a href="#cb134-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>be focused and specific in what it does,</span>
+<span id="cb134-64"><a href="#cb134-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>be designed so that it can be used in combination with other functions to</span>
+<span id="cb134-65"><a href="#cb134-65" aria-hidden="true" tabindex="-1"></a>  carry out more complicated operations,</span>
+<span id="cb134-66"><a href="#cb134-66" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>generally make use only of arguments to the function and internal variables.</span>
+<span id="cb134-67"><a href="#cb134-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-68"><a href="#cb134-68" aria-hidden="true" tabindex="-1"></a><span class="fu"># Function arguments</span></span>
+<span id="cb134-69"><a href="#cb134-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-70"><a href="#cb134-70" aria-hidden="true" tabindex="-1"></a>R can match arguments by name (when provided) or by position (the fall-back). It</span>
+<span id="cb134-71"><a href="#cb134-71" aria-hidden="true" tabindex="-1"></a>also allows one to specify default values so that the user doesn't have to</span>
+<span id="cb134-72"><a href="#cb134-72" aria-hidden="true" tabindex="-1"></a>explicitly provide all the arguments.</span>
+<span id="cb134-73"><a href="#cb134-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-74"><a href="#cb134-74" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fun-args0}</span></span>
+<span id="cb134-75"><a href="#cb134-75" aria-hidden="true" tabindex="-1"></a><span class="in">log(100)</span></span>
+<span id="cb134-76"><a href="#cb134-76" aria-hidden="true" tabindex="-1"></a><span class="in">log(100, base = 10)</span></span>
+<span id="cb134-77"><a href="#cb134-77" aria-hidden="true" tabindex="-1"></a><span class="in">log(100, 10)</span></span>
+<span id="cb134-78"><a href="#cb134-78" aria-hidden="true" tabindex="-1"></a><span class="in">log(base = 10, 100)</span></span>
+<span id="cb134-79"><a href="#cb134-79" aria-hidden="true" tabindex="-1"></a><span class="in">log(base = 10, x = 100)</span></span>
+<span id="cb134-80"><a href="#cb134-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb134-81"><a href="#cb134-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-82"><a href="#cb134-82" aria-hidden="true" tabindex="-1"></a><span class="fu"># What is the "..." argument for?</span></span>
+<span id="cb134-83"><a href="#cb134-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-84"><a href="#cb134-84" aria-hidden="true" tabindex="-1"></a>The <span class="in">`...`</span> construct allows a function to take an unspecified number of arguments, e.g.,</span>
+<span id="cb134-85"><a href="#cb134-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-86"><a href="#cb134-86" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, dotdotdot}</span></span>
+<span id="cb134-87"><a href="#cb134-87" aria-hidden="true" tabindex="-1"></a><span class="in">c</span></span>
+<span id="cb134-88"><a href="#cb134-88" aria-hidden="true" tabindex="-1"></a><span class="in">sum</span></span>
+<span id="cb134-89"><a href="#cb134-89" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb134-90"><a href="#cb134-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-91"><a href="#cb134-91" aria-hidden="true" tabindex="-1"></a>Using <span class="in">`...`</span> as one of the arguments to a function allows a function to pass</span>
+<span id="cb134-92"><a href="#cb134-92" aria-hidden="true" tabindex="-1"></a>along user-provided arguments without specifying explicitly what the user might</span>
+<span id="cb134-93"><a href="#cb134-93" aria-hidden="true" tabindex="-1"></a>provide.</span>
+<span id="cb134-94"><a href="#cb134-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-95"><a href="#cb134-95" aria-hidden="true" tabindex="-1"></a>Here's an example of tailoring some plotting specifications that I use a lot. </span>
+<span id="cb134-96"><a href="#cb134-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-97"><a href="#cb134-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-98"><a href="#cb134-98" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, usedots, fig.cap = ""}</span></span>
+<span id="cb134-99"><a href="#cb134-99" aria-hidden="true" tabindex="-1"></a><span class="in">pplot &lt;- function(x, y, ...) {</span></span>
+<span id="cb134-100"><a href="#cb134-100" aria-hidden="true" tabindex="-1"></a><span class="in">      plot(x, y, pch = 16, cex = 0.6, ...)</span></span>
+<span id="cb134-101"><a href="#cb134-101" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb134-102"><a href="#cb134-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-103"><a href="#cb134-103" aria-hidden="true" tabindex="-1"></a><span class="in">pplot(gapminder$gdpPercap, gapminder$lifeExp,  xlab = 'gdpPercap (log $)',</span></span>
+<span id="cb134-104"><a href="#cb134-104" aria-hidden="true" tabindex="-1"></a><span class="in">      ylab = 'life expectancy (years)', log = 'x')</span></span>
+<span id="cb134-105"><a href="#cb134-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb134-106"><a href="#cb134-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-107"><a href="#cb134-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-108"><a href="#cb134-108" aria-hidden="true" tabindex="-1"></a><span class="fu"># Pass-by-value</span></span>
+<span id="cb134-109"><a href="#cb134-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-110"><a href="#cb134-110" aria-hidden="true" tabindex="-1"></a>Functions in R are (roughly) *pass-by-value* and not *pass-by-reference*. This</span>
+<span id="cb134-111"><a href="#cb134-111" aria-hidden="true" tabindex="-1"></a>means that if you modify an argument inside the function it will not change the</span>
+<span id="cb134-112"><a href="#cb134-112" aria-hidden="true" tabindex="-1"></a>original value outside the function. </span>
+<span id="cb134-113"><a href="#cb134-113" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, pass-by-value}</span></span>
+<span id="cb134-114"><a href="#cb134-114" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;- rnorm(3)</span></span>
+<span id="cb134-115"><a href="#cb134-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-116"><a href="#cb134-116" aria-hidden="true" tabindex="-1"></a><span class="in">myfun &lt;- function(x) {</span></span>
+<span id="cb134-117"><a href="#cb134-117" aria-hidden="true" tabindex="-1"></a><span class="in">      x[1] &lt;- 0</span></span>
+<span id="cb134-118"><a href="#cb134-118" aria-hidden="true" tabindex="-1"></a><span class="in">      return(x)</span></span>
+<span id="cb134-119"><a href="#cb134-119" aria-hidden="true" tabindex="-1"></a><span class="in">}      </span></span>
+<span id="cb134-120"><a href="#cb134-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-121"><a href="#cb134-121" aria-hidden="true" tabindex="-1"></a><span class="in">new_x &lt;- myfun(x)</span></span>
+<span id="cb134-122"><a href="#cb134-122" aria-hidden="true" tabindex="-1"></a><span class="in">print(new_x)</span></span>
+<span id="cb134-123"><a href="#cb134-123" aria-hidden="true" tabindex="-1"></a><span class="in">print(x)</span></span>
+<span id="cb134-124"><a href="#cb134-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb134-125"><a href="#cb134-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-126"><a href="#cb134-126" aria-hidden="true" tabindex="-1"></a>This protects you from a major potential</span>
+<span id="cb134-127"><a href="#cb134-127" aria-hidden="true" tabindex="-1"></a>source of side effects. (There are exceptions to this rule.)</span>
+<span id="cb134-128"><a href="#cb134-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-129"><a href="#cb134-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-130"><a href="#cb134-130" aria-hidden="true" tabindex="-1"></a><span class="fu"># Call-by-value</span></span>
+<span id="cb134-131"><a href="#cb134-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-132"><a href="#cb134-132" aria-hidden="true" tabindex="-1"></a>In actuality, functions in R are *call-by-value*.</span>
+<span id="cb134-133"><a href="#cb134-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-134"><a href="#cb134-134" aria-hidden="true" tabindex="-1"></a>This behavior is equivalent to copy-on-modify discussed in Unit 2.</span>
+<span id="cb134-135"><a href="#cb134-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-138"><a href="#cb134-138" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb134-139"><a href="#cb134-139" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pryr)</span>
+<span id="cb134-140"><a href="#cb134-140" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">exists</span>(<span class="st">'y'</span>)) <span class="fu">rm</span>(y)</span>
+<span id="cb134-141"><a href="#cb134-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-142"><a href="#cb134-142" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">print_mem =</span> <span class="cn">FALSE</span>){</span>
+<span id="cb134-143"><a href="#cb134-143" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(print_mem) <span class="fu">print</span>(<span class="fu">mem_used</span>())</span>
+<span id="cb134-144"><a href="#cb134-144" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Address of x from `address()`:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb134-145"><a href="#cb134-145" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">address</span>(x))  <span class="co"># address() is wrong here!</span></span>
+<span id="cb134-146"><a href="#cb134-146" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Address of x from `inspect()`:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb134-147"><a href="#cb134-147" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">.Internal</span>(<span class="fu">inspect</span>(x)))</span>
+<span id="cb134-148"><a href="#cb134-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-149"><a href="#cb134-149" aria-hidden="true" tabindex="-1"></a>    x[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">7</span></span>
+<span id="cb134-150"><a href="#cb134-150" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(print_mem) <span class="fu">print</span>(<span class="fu">mem_used</span>())</span>
+<span id="cb134-151"><a href="#cb134-151" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Address of x after modification:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb134-152"><a href="#cb134-152" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(x)</span>
+<span id="cb134-153"><a href="#cb134-153" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb134-154"><a href="#cb134-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-155"><a href="#cb134-155" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb134-156"><a href="#cb134-156" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb134-157"><a href="#cb134-157" aria-hidden="true" tabindex="-1"></a>y[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb134-158"><a href="#cb134-158" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Address of y:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb134-159"><a href="#cb134-159" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">address</span>(y))</span>
+<span id="cb134-160"><a href="#cb134-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-161"><a href="#cb134-161" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">f</span>(y)</span>
+<span id="cb134-162"><a href="#cb134-162" aria-hidden="true" tabindex="-1"></a>z[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb134-163"><a href="#cb134-163" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Address of z:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb134-164"><a href="#cb134-164" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">address</span>(z))</span>
+<span id="cb134-165"><a href="#cb134-165" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb134-166"><a href="#cb134-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-167"><a href="#cb134-167" aria-hidden="true" tabindex="-1"></a>Strangely, <span class="in">`address`</span> gives the wrong answer when used inside <span class="in">`f`</span> above. I'm not sure what is going on, but</span>
+<span id="cb134-168"><a href="#cb134-168" aria-hidden="true" tabindex="-1"></a>using <span class="in">`.Internal(inspect)`</span> or trying this with a large value of <span class="in">`n`</span> and seeing that memory use does not increase</span>
+<span id="cb134-169"><a href="#cb134-169" aria-hidden="true" tabindex="-1"></a>confirms that copy-on-modify is working.</span>
+<span id="cb134-170"><a href="#cb134-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-171"><a href="#cb134-171" aria-hidden="true" tabindex="-1"></a><span class="fu"># Variable scope and global variables</span></span>
+<span id="cb134-172"><a href="#cb134-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-173"><a href="#cb134-173" aria-hidden="true" tabindex="-1"></a>In general functions should not make use of variables from outside the function.</span>
+<span id="cb134-174"><a href="#cb134-174" aria-hidden="true" tabindex="-1"></a>(However, for quick-and-dirty work and in some other circumstances, one may do</span>
+<span id="cb134-175"><a href="#cb134-175" aria-hidden="true" tabindex="-1"></a>this.) This provides modularity and reduces bugs and surprises.</span>
+<span id="cb134-176"><a href="#cb134-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-177"><a href="#cb134-177" aria-hidden="true" tabindex="-1"></a>If R can't find a variable that is used in a function based on the function</span>
+<span id="cb134-178"><a href="#cb134-178" aria-hidden="true" tabindex="-1"></a>arguments and variables defined locally in the function, it goes and looks</span>
+<span id="cb134-179"><a href="#cb134-179" aria-hidden="true" tabindex="-1"></a>elsewhere following a set of rules called *lexical scoping*.</span>
+<span id="cb134-180"><a href="#cb134-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-181"><a href="#cb134-181" aria-hidden="true" tabindex="-1"></a>(This type of</span>
+<span id="cb134-182"><a href="#cb134-182" aria-hidden="true" tabindex="-1"></a>scoping has to do with R's roots (and explains why R is very similar to other</span>
+<span id="cb134-183"><a href="#cb134-183" aria-hidden="true" tabindex="-1"></a>languages for functional programming) - we won't go into details here but</span>
+<span id="cb134-184"><a href="#cb134-184" aria-hidden="true" tabindex="-1"></a>certainly worth looking into as you start using R more.)</span>
+<span id="cb134-185"><a href="#cb134-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-186"><a href="#cb134-186" aria-hidden="true" tabindex="-1"></a>Basically this means that it looks for variables relative to where the function</span>
+<span id="cb134-187"><a href="#cb134-187" aria-hidden="true" tabindex="-1"></a>is defined (not relative to where the function is called).</span>
+<span id="cb134-188"><a href="#cb134-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-189"><a href="#cb134-189" aria-hidden="true" tabindex="-1"></a>This can get involved, but a couple brief examples illustrate the basic idea.</span>
+<span id="cb134-190"><a href="#cb134-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-191"><a href="#cb134-191" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, scoping}</span></span>
+<span id="cb134-192"><a href="#cb134-192" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;- 2</span></span>
+<span id="cb134-193"><a href="#cb134-193" aria-hidden="true" tabindex="-1"></a><span class="in">f &lt;- function(y) {</span></span>
+<span id="cb134-194"><a href="#cb134-194" aria-hidden="true" tabindex="-1"></a><span class="in">    return(x + y)</span></span>
+<span id="cb134-195"><a href="#cb134-195" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb134-196"><a href="#cb134-196" aria-hidden="true" tabindex="-1"></a><span class="in">f(1)</span></span>
+<span id="cb134-197"><a href="#cb134-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-198"><a href="#cb134-198" aria-hidden="true" tabindex="-1"></a><span class="in">g &lt;- function(y) {</span></span>
+<span id="cb134-199"><a href="#cb134-199" aria-hidden="true" tabindex="-1"></a><span class="in">  x &lt;- 10</span></span>
+<span id="cb134-200"><a href="#cb134-200" aria-hidden="true" tabindex="-1"></a><span class="in">  return(f(y))</span></span>
+<span id="cb134-201"><a href="#cb134-201" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb134-202"><a href="#cb134-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-203"><a href="#cb134-203" aria-hidden="true" tabindex="-1"></a><span class="in">g(1)</span></span>
+<span id="cb134-204"><a href="#cb134-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-205"><a href="#cb134-205" aria-hidden="true" tabindex="-1"></a><span class="in">g &lt;- function(y) {</span></span>
+<span id="cb134-206"><a href="#cb134-206" aria-hidden="true" tabindex="-1"></a><span class="in">  f &lt;- function(y) {</span></span>
+<span id="cb134-207"><a href="#cb134-207" aria-hidden="true" tabindex="-1"></a><span class="in">     return(x + y)</span></span>
+<span id="cb134-208"><a href="#cb134-208" aria-hidden="true" tabindex="-1"></a><span class="in">  }</span></span>
+<span id="cb134-209"><a href="#cb134-209" aria-hidden="true" tabindex="-1"></a><span class="in">  x &lt;- 10</span></span>
+<span id="cb134-210"><a href="#cb134-210" aria-hidden="true" tabindex="-1"></a><span class="in">  return(f(y))</span></span>
+<span id="cb134-211"><a href="#cb134-211" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb134-212"><a href="#cb134-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-213"><a href="#cb134-213" aria-hidden="true" tabindex="-1"></a><span class="in">g(1)</span></span>
+<span id="cb134-214"><a href="#cb134-214" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb134-215"><a href="#cb134-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-216"><a href="#cb134-216" aria-hidden="true" tabindex="-1"></a>Note that <span class="in">`x`</span> is used as a global variable here, which in general is bad</span>
+<span id="cb134-217"><a href="#cb134-217" aria-hidden="true" tabindex="-1"></a>practice.</span>
+<span id="cb134-218"><a href="#cb134-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-219"><a href="#cb134-219" aria-hidden="true" tabindex="-1"></a><span class="fu"># Why does scoping work that way?</span></span>
+<span id="cb134-220"><a href="#cb134-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-221"><a href="#cb134-221" aria-hidden="true" tabindex="-1"></a>Consider the <span class="in">`lm`</span> function. It uses <span class="in">`lm.fit`</span> for its actual computation.</span>
+<span id="cb134-222"><a href="#cb134-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-223"><a href="#cb134-223" aria-hidden="true" tabindex="-1"></a>Suppose scoping depended on where the function (<span class="in">`lm`</span> in this case) is called **from**?</span>
+<span id="cb134-224"><a href="#cb134-224" aria-hidden="true" tabindex="-1"></a>What would happen now:</span>
+<span id="cb134-225"><a href="#cb134-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-226"><a href="#cb134-226" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, lm-scope, eval = FALSE}</span></span>
+<span id="cb134-227"><a href="#cb134-227" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;- rnorm(5)</span></span>
+<span id="cb134-228"><a href="#cb134-228" aria-hidden="true" tabindex="-1"></a><span class="in">y &lt;- rnorm(5)</span></span>
+<span id="cb134-229"><a href="#cb134-229" aria-hidden="true" tabindex="-1"></a><span class="in">lm(y ~ x)</span></span>
+<span id="cb134-230"><a href="#cb134-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-231"><a href="#cb134-231" aria-hidden="true" tabindex="-1"></a><span class="in">lm.fit &lt;- function(...) print('Better luck next time, sucker.')</span></span>
+<span id="cb134-232"><a href="#cb134-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-233"><a href="#cb134-233" aria-hidden="true" tabindex="-1"></a><span class="in">lm.fit()</span></span>
+<span id="cb134-234"><a href="#cb134-234" aria-hidden="true" tabindex="-1"></a><span class="in">lm(y~x)</span></span>
+<span id="cb134-235"><a href="#cb134-235" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb134-236"><a href="#cb134-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-237"><a href="#cb134-237" aria-hidden="true" tabindex="-1"></a>R's scoping, in combination with package namespaces (collections of variables associated with a package) protects against this kind of problem.</span>
+<span id="cb134-238"><a href="#cb134-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-239"><a href="#cb134-239" aria-hidden="true" tabindex="-1"></a><span class="fu"># Object-oriented programming (OOP) in R</span></span>
+<span id="cb134-240"><a href="#cb134-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-241"><a href="#cb134-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-242"><a href="#cb134-242" aria-hidden="true" tabindex="-1"></a>Confusingly, R has three (well, actually five) different systems for OOP. This can be confusing, but they get the job done for a lot of tasks.</span>
+<span id="cb134-243"><a href="#cb134-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-244"><a href="#cb134-244" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>S3: informal system used for <span class="in">`lm()`</span>, <span class="in">`glm()`</span>, and many other core features in R in the *stats* package</span>
+<span id="cb134-245"><a href="#cb134-245" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>S4 (and R7): more formal system, used with *lme4* </span>
+<span id="cb134-246"><a href="#cb134-246" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R6 (and Reference Classes): new systems allowing for passing objects by reference, with R6 similar to OOP in other languages</span>
+<span id="cb134-247"><a href="#cb134-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-248"><a href="#cb134-248" aria-hidden="true" tabindex="-1"></a>For most users, I think it's enough to understand two of the systems:</span>
+<span id="cb134-249"><a href="#cb134-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-250"><a href="#cb134-250" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>To understand how base R works, it's helpful to understand S3.</span>
+<span id="cb134-251"><a href="#cb134-251" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>To use OOP in a fashion similar to Python and C++, I suggest using R6.</span>
+<span id="cb134-252"><a href="#cb134-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-253"><a href="#cb134-253" aria-hidden="true" tabindex="-1"></a><span class="fu"># Basics of object-oriented programming (OOP)</span></span>
+<span id="cb134-254"><a href="#cb134-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-255"><a href="#cb134-255" aria-hidden="true" tabindex="-1"></a>The basic idea is that coding is structured around *objects*, which belong to a *class*, and *methods* that operate on objects in the class.</span>
+<span id="cb134-256"><a href="#cb134-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-257"><a href="#cb134-257" aria-hidden="true" tabindex="-1"></a>Objects are like lists, but with methods that are specifically associated with particular classes.</span>
+<span id="cb134-258"><a href="#cb134-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-259"><a href="#cb134-259" aria-hidden="true" tabindex="-1"></a>Objects have fields, analogous to the components of a list. </span>
+<span id="cb134-260"><a href="#cb134-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-261"><a href="#cb134-261" aria-hidden="true" tabindex="-1"></a><span class="fu"># Working with S3 classes and methods</span></span>
+<span id="cb134-262"><a href="#cb134-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-263"><a href="#cb134-263" aria-hidden="true" tabindex="-1"></a>S3 objects are generally built upon lists.</span>
+<span id="cb134-264"><a href="#cb134-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-267"><a href="#cb134-267" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb134-268"><a href="#cb134-268" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(gapminder<span class="sc">$</span>lifeExp <span class="sc">~</span> <span class="fu">log</span>(gapminder<span class="sc">$</span>gdpPercap))</span>
+<span id="cb134-269"><a href="#cb134-269" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mod)</span>
+<span id="cb134-270"><a href="#cb134-270" aria-hidden="true" tabindex="-1"></a><span class="fu">is.list</span>(mod)</span>
+<span id="cb134-271"><a href="#cb134-271" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mod)</span>
+<span id="cb134-272"><a href="#cb134-272" aria-hidden="true" tabindex="-1"></a>mod<span class="sc">$</span>coefficients</span>
+<span id="cb134-273"><a href="#cb134-273" aria-hidden="true" tabindex="-1"></a>mod[[<span class="st">'coefficients'</span>]]</span>
+<span id="cb134-274"><a href="#cb134-274" aria-hidden="true" tabindex="-1"></a>mod[[<span class="dv">1</span>]]</span>
+<span id="cb134-275"><a href="#cb134-275" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb134-276"><a href="#cb134-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-277"><a href="#cb134-277" aria-hidden="true" tabindex="-1"></a>The magic of R's S3 OOP approach here is that 'generic' methods (i.e., functions) can be tailored to work specifically with specific kinds of objects. This has been called "functional OOP" because the generic methods look like regular functions. It's basically how Julia works as well.</span>
+<span id="cb134-278"><a href="#cb134-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-281"><a href="#cb134-281" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb134-282"><a href="#cb134-282" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gapminder<span class="sc">$</span>lifeExp)</span>
+<span id="cb134-283"><a href="#cb134-283" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span>
+<span id="cb134-284"><a href="#cb134-284" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb134-285"><a href="#cb134-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-286"><a href="#cb134-286" aria-hidden="true" tabindex="-1"></a>**Question**: What do you think R is doing behind the scenes?</span>
+<span id="cb134-287"><a href="#cb134-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-288"><a href="#cb134-288" aria-hidden="true" tabindex="-1"></a>Consider <span class="in">`summary.lm`</span>.</span>
+<span id="cb134-289"><a href="#cb134-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-290"><a href="#cb134-290" aria-hidden="true" tabindex="-1"></a><span class="fu"># More on working with S3 classes and methods </span></span>
+<span id="cb134-291"><a href="#cb134-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-294"><a href="#cb134-294" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb134-295"><a href="#cb134-295" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(methods)</span>
+<span id="cb134-296"><a href="#cb134-296" aria-hidden="true" tabindex="-1"></a>yb <span class="ot">&lt;-</span> gapminder<span class="sc">$</span>lifeExp <span class="sc">&gt;</span> <span class="dv">75</span></span>
+<span id="cb134-297"><a href="#cb134-297" aria-hidden="true" tabindex="-1"></a>yc <span class="ot">&lt;-</span> gapminder<span class="sc">$</span>lifeExp</span>
+<span id="cb134-298"><a href="#cb134-298" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">log</span>(gapminder<span class="sc">$</span>gdpPercap)</span>
+<span id="cb134-299"><a href="#cb134-299" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(yc <span class="sc">~</span> x)</span>
+<span id="cb134-300"><a href="#cb134-300" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(yb <span class="sc">~</span> x, <span class="at">family =</span> binomial)</span>
+<span id="cb134-301"><a href="#cb134-301" aria-hidden="true" tabindex="-1"></a>mod2<span class="sc">$</span>residuals[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>] <span class="co"># access field with list-like syntax</span></span>
+<span id="cb134-302"><a href="#cb134-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-303"><a href="#cb134-303" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mod2)</span>
+<span id="cb134-304"><a href="#cb134-304" aria-hidden="true" tabindex="-1"></a><span class="fu">is</span>(mod2, <span class="st">"lm"</span>)</span>
+<span id="cb134-305"><a href="#cb134-305" aria-hidden="true" tabindex="-1"></a><span class="fu">is.list</span>(mod2)</span>
+<span id="cb134-306"><a href="#cb134-306" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mod2)</span>
+<span id="cb134-307"><a href="#cb134-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-308"><a href="#cb134-308" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(<span class="at">class =</span> <span class="st">"glm"</span>)</span>
+<span id="cb134-309"><a href="#cb134-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-310"><a href="#cb134-310" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(predict)</span>
+<span id="cb134-311"><a href="#cb134-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-312"><a href="#cb134-312" aria-hidden="true" tabindex="-1"></a>predict</span>
+<span id="cb134-313"><a href="#cb134-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-314"><a href="#cb134-314" aria-hidden="true" tabindex="-1"></a><span class="co"># predict.glm</span></span>
+<span id="cb134-315"><a href="#cb134-315" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb134-316"><a href="#cb134-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-317"><a href="#cb134-317" aria-hidden="true" tabindex="-1"></a>When <span class="in">`predict()`</span> is called on a GLM object, it first calls the generic <span class="in">`predict()`</span>, which then recognizes that the first argument is of the class *glm* and immediately calls the right class-specific method, <span class="in">`predict.glm()`</span> in this case.</span>
+<span id="cb134-318"><a href="#cb134-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-319"><a href="#cb134-319" aria-hidden="true" tabindex="-1"></a><span class="fu"># Making your own S3 class/object/method</span></span>
+<span id="cb134-320"><a href="#cb134-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-321"><a href="#cb134-321" aria-hidden="true" tabindex="-1"></a>Making an object and class-specific methods under S3 is simple. </span>
+<span id="cb134-322"><a href="#cb134-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-325"><a href="#cb134-325" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb134-326"><a href="#cb134-326" aria-hidden="true" tabindex="-1"></a>rboot2025 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">month =</span> <span class="st">'August'</span>, <span class="at">year =</span> <span class="dv">2025</span>, </span>
+<span id="cb134-327"><a href="#cb134-327" aria-hidden="true" tabindex="-1"></a>  <span class="at">instructor =</span> <span class="st">'Paciorek'</span>, <span class="at">attendance =</span> <span class="dv">100</span>)</span>
+<span id="cb134-328"><a href="#cb134-328" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(rboot2025) <span class="ot">&lt;-</span> <span class="st">"workshop"</span></span>
+<span id="cb134-329"><a href="#cb134-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-330"><a href="#cb134-330" aria-hidden="true" tabindex="-1"></a>rboot2025</span>
+<span id="cb134-331"><a href="#cb134-331" aria-hidden="true" tabindex="-1"></a><span class="fu">is</span>(rboot2025, <span class="st">"workshop"</span>)</span>
+<span id="cb134-332"><a href="#cb134-332" aria-hidden="true" tabindex="-1"></a>rboot2025<span class="sc">$</span>instructor </span>
+<span id="cb134-333"><a href="#cb134-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-334"><a href="#cb134-334" aria-hidden="true" tabindex="-1"></a>print.workshop <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb134-335"><a href="#cb134-335" aria-hidden="true" tabindex="-1"></a>    <span class="fu">with</span>(x,</span>
+<span id="cb134-336"><a href="#cb134-336" aria-hidden="true" tabindex="-1"></a>       <span class="fu">cat</span>(<span class="st">"A workshop held in "</span>, month, <span class="st">" "</span>, year, <span class="st">"; taught by "</span>, instructor, <span class="st">".</span><span class="sc">\n</span><span class="st">The attendance was "</span>, attendance, <span class="st">".</span><span class="sc">\n</span><span class="st">"</span>, <span class="at">sep =</span> <span class="st">""</span>))</span>
+<span id="cb134-337"><a href="#cb134-337" aria-hidden="true" tabindex="-1"></a>    <span class="fu">invisible</span>(x)</span>
+<span id="cb134-338"><a href="#cb134-338" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb134-339"><a href="#cb134-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-340"><a href="#cb134-340" aria-hidden="true" tabindex="-1"></a><span class="co"># doesn't execute correctly in the slide creation, so comment out here:</span></span>
+<span id="cb134-341"><a href="#cb134-341" aria-hidden="true" tabindex="-1"></a><span class="co"># rboot2025 </span></span>
+<span id="cb134-342"><a href="#cb134-342" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb134-343"><a href="#cb134-343" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb134-344"><a href="#cb134-344" aria-hidden="true" tabindex="-1"></a>Note that we rely on the generic <span class="in">`print()`</span> already existing in R. Otherwise we'd need to create it.</span>
+<span id="cb134-345"><a href="#cb134-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-346"><a href="#cb134-346" aria-hidden="true" tabindex="-1"></a><span class="fu"># Brief introduction to R6 Classes</span></span>
+<span id="cb134-347"><a href="#cb134-347" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-348"><a href="#cb134-348" aria-hidden="true" tabindex="-1"></a>R6 classes are a somewhat-recent feature in R that provides object-oriented programming with behavior more like in other languages like Python and C++.</span>
+<span id="cb134-349"><a href="#cb134-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-350"><a href="#cb134-350" aria-hidden="true" tabindex="-1"></a>Here's an extended example that simulates random time series. </span>
+<span id="cb134-351"><a href="#cb134-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-352"><a href="#cb134-352" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.cap = "", fig.width = 7}</span></span>
+<span id="cb134-353"><a href="#cb134-353" aria-hidden="true" tabindex="-1"></a><span class="in">library(R6)</span></span>
+<span id="cb134-354"><a href="#cb134-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-355"><a href="#cb134-355" aria-hidden="true" tabindex="-1"></a><span class="in">tsSimClass &lt;- R6Class("tsSimClass",</span></span>
+<span id="cb134-356"><a href="#cb134-356" aria-hidden="true" tabindex="-1"></a><span class="in">    ## Class for holding time series simulators</span></span>
+<span id="cb134-357"><a href="#cb134-357" aria-hidden="true" tabindex="-1"></a><span class="in">    public = list(</span></span>
+<span id="cb134-358"><a href="#cb134-358" aria-hidden="true" tabindex="-1"></a><span class="in">        ## Public methods (and possibly fields) are the user-facing interface.</span></span>
+<span id="cb134-359"><a href="#cb134-359" aria-hidden="true" tabindex="-1"></a><span class="in">        initialize = function(times, mean = 0, corParam = 1){</span></span>
+<span id="cb134-360"><a href="#cb134-360" aria-hidden="true" tabindex="-1"></a><span class="in">            library(fields)</span></span>
+<span id="cb134-361"><a href="#cb134-361" aria-hidden="true" tabindex="-1"></a><span class="in">            stopifnot(is.numeric(corParam), length(corParam) == 1)</span></span>
+<span id="cb134-362"><a href="#cb134-362" aria-hidden="true" tabindex="-1"></a><span class="in">            stopifnot(is.numeric(times))</span></span>
+<span id="cb134-363"><a href="#cb134-363" aria-hidden="true" tabindex="-1"></a><span class="in">            private$times &lt;- times</span></span>
+<span id="cb134-364"><a href="#cb134-364" aria-hidden="true" tabindex="-1"></a><span class="in">            private$n &lt;- length(times)</span></span>
+<span id="cb134-365"><a href="#cb134-365" aria-hidden="true" tabindex="-1"></a><span class="in">            private$mean &lt;- mean</span></span>
+<span id="cb134-366"><a href="#cb134-366" aria-hidden="true" tabindex="-1"></a><span class="in">            private$corParam &lt;- corParam</span></span>
+<span id="cb134-367"><a href="#cb134-367" aria-hidden="true" tabindex="-1"></a><span class="in">            private$currentU &lt;- FALSE</span></span>
+<span id="cb134-368"><a href="#cb134-368" aria-hidden="true" tabindex="-1"></a><span class="in">            private$calcMats()</span></span>
+<span id="cb134-369"><a href="#cb134-369" aria-hidden="true" tabindex="-1"></a><span class="in">        },</span></span>
+<span id="cb134-370"><a href="#cb134-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-371"><a href="#cb134-371" aria-hidden="true" tabindex="-1"></a><span class="in">        simulate = function() {</span></span>
+<span id="cb134-372"><a href="#cb134-372" aria-hidden="true" tabindex="-1"></a><span class="in">            if(!private$currentU)</span></span>
+<span id="cb134-373"><a href="#cb134-373" aria-hidden="true" tabindex="-1"></a><span class="in">                private$calcMats()</span></span>
+<span id="cb134-374"><a href="#cb134-374" aria-hidden="true" tabindex="-1"></a><span class="in">            ## analogous to mu+sigma*z for generating N(mu, sigma^2)</span></span>
+<span id="cb134-375"><a href="#cb134-375" aria-hidden="true" tabindex="-1"></a><span class="in">            return(private$mean + crossprod(private$U, rnorm(private$n)))</span></span>
+<span id="cb134-376"><a href="#cb134-376" aria-hidden="true" tabindex="-1"></a><span class="in">        },</span></span>
+<span id="cb134-377"><a href="#cb134-377" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
+<span id="cb134-378"><a href="#cb134-378" aria-hidden="true" tabindex="-1"></a><span class="in">        changeTimes = function(newTimes){</span></span>
+<span id="cb134-379"><a href="#cb134-379" aria-hidden="true" tabindex="-1"></a><span class="in">            # Modifies a private member field (i.e., a 'setter') and recalculates.</span></span>
+<span id="cb134-380"><a href="#cb134-380" aria-hidden="true" tabindex="-1"></a><span class="in">            private$times &lt;- newTimes</span></span>
+<span id="cb134-381"><a href="#cb134-381" aria-hidden="true" tabindex="-1"></a><span class="in">            private$calcMats()</span></span>
+<span id="cb134-382"><a href="#cb134-382" aria-hidden="true" tabindex="-1"></a><span class="in">        },</span></span>
+<span id="cb134-383"><a href="#cb134-383" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
+<span id="cb134-384"><a href="#cb134-384" aria-hidden="true" tabindex="-1"></a><span class="in">        getTimes = function(){</span></span>
+<span id="cb134-385"><a href="#cb134-385" aria-hidden="true" tabindex="-1"></a><span class="in">            # A 'getter' method</span></span>
+<span id="cb134-386"><a href="#cb134-386" aria-hidden="true" tabindex="-1"></a><span class="in">            return(private$times)</span></span>
+<span id="cb134-387"><a href="#cb134-387" aria-hidden="true" tabindex="-1"></a><span class="in">        },</span></span>
+<span id="cb134-388"><a href="#cb134-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-389"><a href="#cb134-389" aria-hidden="true" tabindex="-1"></a><span class="in">        print = function(){ # 'print' method</span></span>
+<span id="cb134-390"><a href="#cb134-390" aria-hidden="true" tabindex="-1"></a><span class="in">            cat("R6 Object of class 'tsSimClass' with ",</span></span>
+<span id="cb134-391"><a href="#cb134-391" aria-hidden="true" tabindex="-1"></a><span class="in">                private$n, " time points.\n", sep = '')</span></span>
+<span id="cb134-392"><a href="#cb134-392" aria-hidden="true" tabindex="-1"></a><span class="in">            invisible(self)</span></span>
+<span id="cb134-393"><a href="#cb134-393" aria-hidden="true" tabindex="-1"></a><span class="in">        }</span></span>
+<span id="cb134-394"><a href="#cb134-394" aria-hidden="true" tabindex="-1"></a><span class="in">    ),</span></span>
+<span id="cb134-395"><a href="#cb134-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-396"><a href="#cb134-396" aria-hidden="true" tabindex="-1"></a><span class="in">    ## Private methods and functions not accessible externally</span></span>
+<span id="cb134-397"><a href="#cb134-397" aria-hidden="true" tabindex="-1"></a><span class="in">    private = list(</span></span>
+<span id="cb134-398"><a href="#cb134-398" aria-hidden="true" tabindex="-1"></a><span class="in">        calcMats = function() {</span></span>
+<span id="cb134-399"><a href="#cb134-399" aria-hidden="true" tabindex="-1"></a><span class="in">            ## Calculates correlation matrix and Cholesky factor.</span></span>
+<span id="cb134-400"><a href="#cb134-400" aria-hidden="true" tabindex="-1"></a><span class="in">            ## Caches results of expensive computation.</span></span>
+<span id="cb134-401"><a href="#cb134-401" aria-hidden="true" tabindex="-1"></a><span class="in">            lagMat &lt;- fields::rdist(private$times) # local variable</span></span>
+<span id="cb134-402"><a href="#cb134-402" aria-hidden="true" tabindex="-1"></a><span class="in">            corMat &lt;- exp(-lagMat^2 / private$corParam^2)</span></span>
+<span id="cb134-403"><a href="#cb134-403" aria-hidden="true" tabindex="-1"></a><span class="in">            private$U &lt;- chol(corMat) # square root matrix</span></span>
+<span id="cb134-404"><a href="#cb134-404" aria-hidden="true" tabindex="-1"></a><span class="in">            cat("Done updating correlation matrix and Cholesky factor.\n")</span></span>
+<span id="cb134-405"><a href="#cb134-405" aria-hidden="true" tabindex="-1"></a><span class="in">            private$currentU &lt;- TRUE</span></span>
+<span id="cb134-406"><a href="#cb134-406" aria-hidden="true" tabindex="-1"></a><span class="in">            invisible(self)</span></span>
+<span id="cb134-407"><a href="#cb134-407" aria-hidden="true" tabindex="-1"></a><span class="in">        },</span></span>
+<span id="cb134-408"><a href="#cb134-408" aria-hidden="true" tabindex="-1"></a><span class="in">        # Internal (private) fields not directly accessible from outside the object</span></span>
+<span id="cb134-409"><a href="#cb134-409" aria-hidden="true" tabindex="-1"></a><span class="in">        n = NULL, </span></span>
+<span id="cb134-410"><a href="#cb134-410" aria-hidden="true" tabindex="-1"></a><span class="in">        times = NULL,</span></span>
+<span id="cb134-411"><a href="#cb134-411" aria-hidden="true" tabindex="-1"></a><span class="in">        mean = NULL,</span></span>
+<span id="cb134-412"><a href="#cb134-412" aria-hidden="true" tabindex="-1"></a><span class="in">        corParam = NULL,</span></span>
+<span id="cb134-413"><a href="#cb134-413" aria-hidden="true" tabindex="-1"></a><span class="in">        U = NULL,</span></span>
+<span id="cb134-414"><a href="#cb134-414" aria-hidden="true" tabindex="-1"></a><span class="in">        currentU = FALSE</span></span>
+<span id="cb134-415"><a href="#cb134-415" aria-hidden="true" tabindex="-1"></a><span class="in">    )</span></span>
+<span id="cb134-416"><a href="#cb134-416" aria-hidden="true" tabindex="-1"></a><span class="in">)   </span></span>
+<span id="cb134-417"><a href="#cb134-417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-418"><a href="#cb134-418" aria-hidden="true" tabindex="-1"></a><span class="in">my_ts &lt;- tsSimClass$new(1:100, 2, 1)</span></span>
+<span id="cb134-419"><a href="#cb134-419" aria-hidden="true" tabindex="-1"></a><span class="in">my_ts</span></span>
+<span id="cb134-420"><a href="#cb134-420" aria-hidden="true" tabindex="-1"></a><span class="in">set.seed(1)</span></span>
+<span id="cb134-421"><a href="#cb134-421" aria-hidden="true" tabindex="-1"></a><span class="in">y &lt;- my_ts$simulate()   # Generate a time series.</span></span>
+<span id="cb134-422"><a href="#cb134-422" aria-hidden="true" tabindex="-1"></a><span class="in">plot(my_ts$getTimes(), y, type = 'l', xlab = 'time',</span></span>
+<span id="cb134-423"><a href="#cb134-423" aria-hidden="true" tabindex="-1"></a><span class="in">      ylab = 'process values')</span></span>
+<span id="cb134-424"><a href="#cb134-424" aria-hidden="true" tabindex="-1"></a><span class="in">## We can't directly access private fields or methods.</span></span>
+<span id="cb134-425"><a href="#cb134-425" aria-hidden="true" tabindex="-1"></a><span class="in">## These will fail:</span></span>
+<span id="cb134-426"><a href="#cb134-426" aria-hidden="true" tabindex="-1"></a><span class="in"># my_ts$times</span></span>
+<span id="cb134-427"><a href="#cb134-427" aria-hidden="true" tabindex="-1"></a><span class="in"># my_ts$calcMats()</span></span>
+<span id="cb134-428"><a href="#cb134-428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-429"><a href="#cb134-429" aria-hidden="true" tabindex="-1"></a><span class="in">my_ts &lt;- tsSimClass$new(1:100, 2, 3)</span></span>
+<span id="cb134-430"><a href="#cb134-430" aria-hidden="true" tabindex="-1"></a><span class="in">set.seed(1)</span></span>
+<span id="cb134-431"><a href="#cb134-431" aria-hidden="true" tabindex="-1"></a><span class="in">y &lt;- my_ts$simulate()   # generate a second time series</span></span>
+<span id="cb134-432"><a href="#cb134-432" aria-hidden="true" tabindex="-1"></a><span class="in">lines(my_ts$getTimes(), y, col = 'red')</span></span>
+<span id="cb134-433"><a href="#cb134-433" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb134-434"><a href="#cb134-434" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-435"><a href="#cb134-435" aria-hidden="true" tabindex="-1"></a><span class="fu"># Error and warning messages</span></span>
+<span id="cb134-436"><a href="#cb134-436" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-437"><a href="#cb134-437" aria-hidden="true" tabindex="-1"></a>When you write your own functions, and particularly for distributing to others, it's a good idea to:</span>
+<span id="cb134-438"><a href="#cb134-438" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-439"><a href="#cb134-439" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Check for possible errors (particularly in the input arguments) and give the user an informative error message,</span>
+<span id="cb134-440"><a href="#cb134-440" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Warn them if you're detect or do something they might not have anticipated,</span>
+<span id="cb134-441"><a href="#cb134-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-442"><a href="#cb134-442" aria-hidden="true" tabindex="-1"></a>We can use <span class="in">`stop()`</span> and <span class="in">`warning()`</span> to do this. They're the same functions that are being called when you see an error message or a warning in reaction to your own work in R.</span>
+<span id="cb134-443"><a href="#cb134-443" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-444"><a href="#cb134-444" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, error=TRUE}</span></span>
+<span id="cb134-445"><a href="#cb134-445" aria-hidden="true" tabindex="-1"></a><span class="in">mysqrt &lt;- function(x) {</span></span>
+<span id="cb134-446"><a href="#cb134-446" aria-hidden="true" tabindex="-1"></a><span class="in">  if(is.list(x)) {</span></span>
+<span id="cb134-447"><a href="#cb134-447" aria-hidden="true" tabindex="-1"></a><span class="in">    warning("x is a list; converting to a vector")</span></span>
+<span id="cb134-448"><a href="#cb134-448" aria-hidden="true" tabindex="-1"></a><span class="in">    x &lt;- unlist(x)</span></span>
+<span id="cb134-449"><a href="#cb134-449" aria-hidden="true" tabindex="-1"></a><span class="in">  }</span></span>
+<span id="cb134-450"><a href="#cb134-450" aria-hidden="true" tabindex="-1"></a><span class="in">  if(!is.numeric(x)) {</span></span>
+<span id="cb134-451"><a href="#cb134-451" aria-hidden="true" tabindex="-1"></a><span class="in">    stop("What is the square root of 'sarah'?")</span></span>
+<span id="cb134-452"><a href="#cb134-452" aria-hidden="true" tabindex="-1"></a><span class="in">  } else {</span></span>
+<span id="cb134-453"><a href="#cb134-453" aria-hidden="true" tabindex="-1"></a><span class="in">      if(any(x &lt; 0)) {</span></span>
+<span id="cb134-454"><a href="#cb134-454" aria-hidden="true" tabindex="-1"></a><span class="in">        warning("mysqrt: found negative values; proceeding anyway")</span></span>
+<span id="cb134-455"><a href="#cb134-455" aria-hidden="true" tabindex="-1"></a><span class="in">        x[x &gt;= 0] &lt;- (x[x &gt;= 0])^(1/2)</span></span>
+<span id="cb134-456"><a href="#cb134-456" aria-hidden="true" tabindex="-1"></a><span class="in">        x[x &lt; 0] &lt;- NaN</span></span>
+<span id="cb134-457"><a href="#cb134-457" aria-hidden="true" tabindex="-1"></a><span class="in">        return(x)</span></span>
+<span id="cb134-458"><a href="#cb134-458" aria-hidden="true" tabindex="-1"></a><span class="in">      } else return(x^(1/2))</span></span>
+<span id="cb134-459"><a href="#cb134-459" aria-hidden="true" tabindex="-1"></a><span class="in">  }</span></span>
+<span id="cb134-460"><a href="#cb134-460" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb134-461"><a href="#cb134-461" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-462"><a href="#cb134-462" aria-hidden="true" tabindex="-1"></a><span class="in">mysqrt(c(1, 2, 3))</span></span>
+<span id="cb134-463"><a href="#cb134-463" aria-hidden="true" tabindex="-1"></a><span class="in">mysqrt(c(5, -7))</span></span>
+<span id="cb134-464"><a href="#cb134-464" aria-hidden="true" tabindex="-1"></a><span class="in">mysqrt(c('asdf', 'sdf'))</span></span>
+<span id="cb134-465"><a href="#cb134-465" aria-hidden="true" tabindex="-1"></a><span class="in">mysqrt(list(5, 3, 'ab'))</span></span>
+<span id="cb134-466"><a href="#cb134-466" aria-hidden="true" tabindex="-1"></a><span class="in">sqrt(c(5, -7))</span></span>
+<span id="cb134-467"><a href="#cb134-467" aria-hidden="true" tabindex="-1"></a><span class="in">sqrt('asdf')</span></span>
+<span id="cb134-468"><a href="#cb134-468" aria-hidden="true" tabindex="-1"></a><span class="in">sqrt(list(5, 3, 2))</span></span>
+<span id="cb134-469"><a href="#cb134-469" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb134-470"><a href="#cb134-470" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-471"><a href="#cb134-471" aria-hidden="true" tabindex="-1"></a>So we've done something similar to what <span class="in">`sqrt()`</span> actually does in R.</span>
+<span id="cb134-472"><a href="#cb134-472" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-473"><a href="#cb134-473" aria-hidden="true" tabindex="-1"></a><span class="fu"># 'Catching' errors</span></span>
+<span id="cb134-474"><a href="#cb134-474" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-475"><a href="#cb134-475" aria-hidden="true" tabindex="-1"></a>When you automate analyses, sometimes an R function call will fail. But you don't want all of your analyses to grind to a halt because one failed. Rather, you want to catch the error, record that it failed, and move on.</span>
+<span id="cb134-476"><a href="#cb134-476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-477"><a href="#cb134-477" aria-hidden="true" tabindex="-1"></a>For me this is most critical when I'm doing stratified analyses or sequential operations.</span>
+<span id="cb134-478"><a href="#cb134-478" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-479"><a href="#cb134-479" aria-hidden="true" tabindex="-1"></a>The <span class="in">`try()`</span> function is a powerful tool here.</span>
+<span id="cb134-480"><a href="#cb134-480" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-481"><a href="#cb134-481" aria-hidden="true" tabindex="-1"></a><span class="fu"># Why we need to `try()`</span></span>
+<span id="cb134-482"><a href="#cb134-482" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-483"><a href="#cb134-483" aria-hidden="true" tabindex="-1"></a>Suppose we tried to do a stratified analysis of life expectancy on GDP within continents, for 2007. I'm going to do this as a for loop for pedagogical reasons, but it would be better to do this with dplyr/lapply type tools.</span>
+<span id="cb134-484"><a href="#cb134-484" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-485"><a href="#cb134-485" aria-hidden="true" tabindex="-1"></a>For the purpose of illustration, I'm going to monkey a bit with the data such that there is an error in fitting Oceania. This is artificial, but when you stratify data into smaller groups it's not uncommon that the analysis can fail for one of the groups (often because of small sample size or missing data).</span>
+<span id="cb134-486"><a href="#cb134-486" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-487"><a href="#cb134-487" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-488"><a href="#cb134-488" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, error=TRUE}</span></span>
+<span id="cb134-489"><a href="#cb134-489" aria-hidden="true" tabindex="-1"></a><span class="in">mod &lt;- list()</span></span>
+<span id="cb134-490"><a href="#cb134-490" aria-hidden="true" tabindex="-1"></a><span class="in">fakedat &lt;- gapminder[gapminder$year == 2007, ]</span></span>
+<span id="cb134-491"><a href="#cb134-491" aria-hidden="true" tabindex="-1"></a><span class="in">fakedat$gdpPercap[fakedat$continent == 'Oceania'] &lt;- NA</span></span>
+<span id="cb134-492"><a href="#cb134-492" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-493"><a href="#cb134-493" aria-hidden="true" tabindex="-1"></a><span class="in">for(cont in c('Asia', 'Oceania', 'Europe', 'Americas', 'Africa')) {</span></span>
+<span id="cb134-494"><a href="#cb134-494" aria-hidden="true" tabindex="-1"></a><span class="in">      cat("Fitting model for continent ", cont, ".\n")</span></span>
+<span id="cb134-495"><a href="#cb134-495" aria-hidden="true" tabindex="-1"></a><span class="in">      tmp &lt;- subset(fakedat, continent == cont)</span></span>
+<span id="cb134-496"><a href="#cb134-496" aria-hidden="true" tabindex="-1"></a><span class="in">      mod[[cont]] &lt;- lm(lifeExp ~ log(gdpPercap), data = tmp)</span></span>
+<span id="cb134-497"><a href="#cb134-497" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb134-498"><a href="#cb134-498" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb134-499"><a href="#cb134-499" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-500"><a href="#cb134-500" aria-hidden="true" tabindex="-1"></a>What happened?</span>
+<span id="cb134-501"><a href="#cb134-501" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-502"><a href="#cb134-502" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-503"><a href="#cb134-503" aria-hidden="true" tabindex="-1"></a><span class="fu"># How we can `try()` harder</span></span>
+<span id="cb134-504"><a href="#cb134-504" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-507"><a href="#cb134-507" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb134-508"><a href="#cb134-508" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb134-509"><a href="#cb134-509" aria-hidden="true" tabindex="-1"></a>fakedat <span class="ot">&lt;-</span> gapminder[gapminder<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">2007</span>, ]</span>
+<span id="cb134-510"><a href="#cb134-510" aria-hidden="true" tabindex="-1"></a>fakedat<span class="sc">$</span>gdpPercap[fakedat<span class="sc">$</span>continent <span class="sc">==</span> <span class="st">'Oceania'</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb134-511"><a href="#cb134-511" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-512"><a href="#cb134-512" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(cont <span class="cf">in</span> <span class="fu">c</span>(<span class="st">'Asia'</span>, <span class="st">'Oceania'</span>, <span class="st">'Europe'</span>, <span class="st">'Americas'</span>, <span class="st">'Africa'</span>)) {</span>
+<span id="cb134-513"><a href="#cb134-513" aria-hidden="true" tabindex="-1"></a>       <span class="fu">cat</span>(<span class="st">"Fitting model for continent "</span>, cont, <span class="st">".</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb134-514"><a href="#cb134-514" aria-hidden="true" tabindex="-1"></a>       tmp <span class="ot">&lt;-</span> <span class="fu">subset</span>(fakedat, continent <span class="sc">==</span> cont)</span>
+<span id="cb134-515"><a href="#cb134-515" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-516"><a href="#cb134-516" aria-hidden="true" tabindex="-1"></a>       <span class="co"># Run without error-ing out.</span></span>
+<span id="cb134-517"><a href="#cb134-517" aria-hidden="true" tabindex="-1"></a>       curMod <span class="ot">&lt;-</span> <span class="fu">try</span>(<span class="fu">lm</span>(lifeExp <span class="sc">~</span> <span class="fu">log</span>(gdpPercap), <span class="at">data =</span> tmp))</span>
+<span id="cb134-518"><a href="#cb134-518" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-519"><a href="#cb134-519" aria-hidden="true" tabindex="-1"></a>       <span class="co"># Catch the error.</span></span>
+<span id="cb134-520"><a href="#cb134-520" aria-hidden="true" tabindex="-1"></a>       <span class="cf">if</span>(<span class="fu">is</span>(curMod, <span class="st">"try-error"</span>)) mod[[cont]] <span class="ot">&lt;-</span> <span class="cn">NA</span> </span>
+<span id="cb134-521"><a href="#cb134-521" aria-hidden="true" tabindex="-1"></a>           <span class="cf">else</span> mod[[cont]] <span class="ot">&lt;-</span> curMod            </span>
+<span id="cb134-522"><a href="#cb134-522" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb134-523"><a href="#cb134-523" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-524"><a href="#cb134-524" aria-hidden="true" tabindex="-1"></a>mod[[<span class="dv">1</span>]]</span>
+<span id="cb134-525"><a href="#cb134-525" aria-hidden="true" tabindex="-1"></a>mod[[<span class="dv">2</span>]]</span>
+<span id="cb134-526"><a href="#cb134-526" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb134-527"><a href="#cb134-527" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-528"><a href="#cb134-528" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-529"><a href="#cb134-529" aria-hidden="true" tabindex="-1"></a><span class="fu"># Debugging</span></span>
+<span id="cb134-530"><a href="#cb134-530" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-531"><a href="#cb134-531" aria-hidden="true" tabindex="-1"></a>As a scripting language, R essentially has a debugger working automatically by virtue of you often being able to easily run code line by line.</span>
+<span id="cb134-532"><a href="#cb134-532" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-533"><a href="#cb134-533" aria-hidden="true" tabindex="-1"></a>But there is an official debugger and other tools that greatly help in figuring</span>
+<span id="cb134-534"><a href="#cb134-534" aria-hidden="true" tabindex="-1"></a>out problems, particularly for more complicated situations.</span>
+<span id="cb134-535"><a href="#cb134-535" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-536"><a href="#cb134-536" aria-hidden="true" tabindex="-1"></a>Let's briefly see these in action. I'll demo this in a very basic way, but hopefully this</span>
+<span id="cb134-537"><a href="#cb134-537" aria-hidden="true" tabindex="-1"></a>will give you an idea of the power of these tools.</span>
+<span id="cb134-538"><a href="#cb134-538" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-539"><a href="#cb134-539" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, error=TRUE}</span></span>
+<span id="cb134-540"><a href="#cb134-540" aria-hidden="true" tabindex="-1"></a><span class="in">buggyFun &lt;- function(myDF) {</span></span>
+<span id="cb134-541"><a href="#cb134-541" aria-hidden="true" tabindex="-1"></a><span class="in">   print(names(myDF))</span></span>
+<span id="cb134-542"><a href="#cb134-542" aria-hidden="true" tabindex="-1"></a><span class="in">   myDF$id &lt;- seq_len(nrow(myDF))</span></span>
+<span id="cb134-543"><a href="#cb134-543" aria-hidden="true" tabindex="-1"></a><span class="in">   sums &lt;- rowSums(myDF)</span></span>
+<span id="cb134-544"><a href="#cb134-544" aria-hidden="true" tabindex="-1"></a><span class="in">   return(sums)</span></span>
+<span id="cb134-545"><a href="#cb134-545" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb134-546"><a href="#cb134-546" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-547"><a href="#cb134-547" aria-hidden="true" tabindex="-1"></a><span class="in">buggyFun(gapminder)</span></span>
+<span id="cb134-548"><a href="#cb134-548" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-549"><a href="#cb134-549" aria-hidden="true" tabindex="-1"></a><span class="in">## Here are the commands we'll use in the demo.</span></span>
+<span id="cb134-550"><a href="#cb134-550" aria-hidden="true" tabindex="-1"></a><span class="in">if(FALSE) {</span></span>
+<span id="cb134-551"><a href="#cb134-551" aria-hidden="true" tabindex="-1"></a><span class="in">  traceback()</span></span>
+<span id="cb134-552"><a href="#cb134-552" aria-hidden="true" tabindex="-1"></a><span class="in">  debug(buggyFun)</span></span>
+<span id="cb134-553"><a href="#cb134-553" aria-hidden="true" tabindex="-1"></a><span class="in">  buggyFun(gapminder)</span></span>
+<span id="cb134-554"><a href="#cb134-554" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-555"><a href="#cb134-555" aria-hidden="true" tabindex="-1"></a><span class="in">  undebug(buggyFun)</span></span>
+<span id="cb134-556"><a href="#cb134-556" aria-hidden="true" tabindex="-1"></a><span class="in">  options(error = recover)</span></span>
+<span id="cb134-557"><a href="#cb134-557" aria-hidden="true" tabindex="-1"></a><span class="in">  buggyFun(gapminder)</span></span>
+<span id="cb134-558"><a href="#cb134-558" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb134-559"><a href="#cb134-559" aria-hidden="true" tabindex="-1"></a><span class="in">```</span>    </span>
+<span id="cb134-560"><a href="#cb134-560" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-561"><a href="#cb134-561" aria-hidden="true" tabindex="-1"></a>1) We can use <span class="in">`debug()`</span> to step through a function line by line</span>
+<span id="cb134-562"><a href="#cb134-562" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-563"><a href="#cb134-563" aria-hidden="true" tabindex="-1"></a>2) After an error occurs, we can use <span class="in">`traceback()`</span> to look at the *call stack* (the series of nested function calls) to determine the steps leading to the error. (Note that Python error message show the stack. R's do not.)</span>
+<span id="cb134-564"><a href="#cb134-564" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-565"><a href="#cb134-565" aria-hidden="true" tabindex="-1"></a>3) More helpfully, if we set <span class="in">`options(error = recover)`</span> before running code, we can go into the function call in which the error occurred</span>
+<span id="cb134-566"><a href="#cb134-566" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-567"><a href="#cb134-567" aria-hidden="true" tabindex="-1"></a>4) We can insert <span class="in">`browser()`</span> inside a function to set breakpoints and R will stop there and allow us to proceed with debugging statements</span>
+<span id="cb134-568"><a href="#cb134-568" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-569"><a href="#cb134-569" aria-hidden="true" tabindex="-1"></a>5) You can temporarily insert code into a function (including built-in functions) with <span class="in">`trace(fxnName, edit = TRUE)`</span></span>
+<span id="cb134-570"><a href="#cb134-570" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-571"><a href="#cb134-571" aria-hidden="true" tabindex="-1"></a>These tools are integrated into RStudio as a visual debugger.</span>
+<span id="cb134-572"><a href="#cb134-572" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-573"><a href="#cb134-573" aria-hidden="true" tabindex="-1"></a><span class="fu"># Testing</span></span>
+<span id="cb134-574"><a href="#cb134-574" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-575"><a href="#cb134-575" aria-hidden="true" tabindex="-1"></a>Testing should be performed on multiple levels and begun as early as possible</span>
+<span id="cb134-576"><a href="#cb134-576" aria-hidden="true" tabindex="-1"></a>in the development process.  For programs that accept input either from a user</span>
+<span id="cb134-577"><a href="#cb134-577" aria-hidden="true" tabindex="-1"></a>or file, it is important that the code validates the input is what</span>
+<span id="cb134-578"><a href="#cb134-578" aria-hidden="true" tabindex="-1"></a>it expects to receive. Tests that ensure individual code elements (e.g., functions,</span>
+<span id="cb134-579"><a href="#cb134-579" aria-hidden="true" tabindex="-1"></a>classes, and class methods) behave correctly are called *unit tests*.</span>
+<span id="cb134-580"><a href="#cb134-580" aria-hidden="true" tabindex="-1"></a>Writing unit tests early in the process of implementing new functionality</span>
+<span id="cb134-581"><a href="#cb134-581" aria-hidden="true" tabindex="-1"></a>helps you think about what you want a piece of code to do, rather than just how</span>
+<span id="cb134-582"><a href="#cb134-582" aria-hidden="true" tabindex="-1"></a>it does it. This practice improves code quality by focusing your attention</span>
+<span id="cb134-583"><a href="#cb134-583" aria-hidden="true" tabindex="-1"></a>on use cases rather than getting lost in implementation details.</span>
+<span id="cb134-584"><a href="#cb134-584" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-585"><a href="#cb134-585" aria-hidden="true" tabindex="-1"></a>The *testthat* package is very helpful for setting up tests.</span>
+<span id="cb134-586"><a href="#cb134-586" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-587"><a href="#cb134-587" aria-hidden="true" tabindex="-1"></a>For automated testing (continuous integration), many developers use GitHub Actions to run a test suite automatically (e.g., for each pull request or each commit). Here's an <span class="co">[</span><span class="ot">example</span><span class="co">](https://github.com/nimble-dev/nimbleHMC/blob/master/.github/workflows/tests.yaml)</span> from an R package that I am a developer of. One creates a configuration (yaml) file and then GitHub runs the action automatically, giving the results in the <span class="co">[</span><span class="ot">Actions tab</span><span class="co">](https://github.com/nimble-dev/nimbleHMC/actions)</span>.</span>
+<span id="cb134-588"><a href="#cb134-588" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-589"><a href="#cb134-589" aria-hidden="true" tabindex="-1"></a><span class="fu"># Breakout</span></span>
+<span id="cb134-590"><a href="#cb134-590" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-591"><a href="#cb134-591" aria-hidden="true" tabindex="-1"></a><span class="fu">### Basics</span></span>
+<span id="cb134-592"><a href="#cb134-592" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-593"><a href="#cb134-593" aria-hidden="true" tabindex="-1"></a>1) Write an R function that will take an input vector and set any negative</span>
+<span id="cb134-594"><a href="#cb134-594" aria-hidden="true" tabindex="-1"></a>values in the vector to zero.</span>
+<span id="cb134-595"><a href="#cb134-595" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-596"><a href="#cb134-596" aria-hidden="true" tabindex="-1"></a><span class="fu">### Using the ideas</span></span>
+<span id="cb134-597"><a href="#cb134-597" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-598"><a href="#cb134-598" aria-hidden="true" tabindex="-1"></a>2) Write an R function that will take an input vector and set any value below a</span>
+<span id="cb134-599"><a href="#cb134-599" aria-hidden="true" tabindex="-1"></a>threshold to be the value of threshold. Optionally, the function should instead</span>
+<span id="cb134-600"><a href="#cb134-600" aria-hidden="true" tabindex="-1"></a>set values above a threshold to the value of the threshold.</span>
+<span id="cb134-601"><a href="#cb134-601" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-602"><a href="#cb134-602" aria-hidden="true" tabindex="-1"></a>3) Augment your function so that it checks that the input is a numeric vector</span>
+<span id="cb134-603"><a href="#cb134-603" aria-hidden="true" tabindex="-1"></a>and return an error if not. (See the help information for <span class="in">`stop()`</span> (or <span class="in">`stopifnot()`</span>.)</span>
+<span id="cb134-604"><a href="#cb134-604" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-605"><a href="#cb134-605" aria-hidden="true" tabindex="-1"></a>4) Figure out what <span class="in">`invisible()`</span> does and why it is useful when writing</span>
+<span id="cb134-606"><a href="#cb134-606" aria-hidden="true" tabindex="-1"></a>functions. Use <span class="in">`invisible()`</span> in your function from just above.</span>
+<span id="cb134-607"><a href="#cb134-607" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-608"><a href="#cb134-608" aria-hidden="true" tabindex="-1"></a><span class="fu">### Advanced</span></span>
+<span id="cb134-609"><a href="#cb134-609" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-610"><a href="#cb134-610" aria-hidden="true" tabindex="-1"></a>5) Explore scoping in the following code. Explain why the result is 11 and not 3. Note that <span class="in">`funGenerator()`</span> returns a function as the return object,</span>
+<span id="cb134-611"><a href="#cb134-611" aria-hidden="true" tabindex="-1"></a>consistent with the idea that functions are objects in R. This is an example of</span>
+<span id="cb134-612"><a href="#cb134-612" aria-hidden="true" tabindex="-1"></a>what is called a *closure* in R. Basically, the function contains object(s)</span>
+<span id="cb134-613"><a href="#cb134-613" aria-hidden="true" tabindex="-1"></a>enclosed with and accessible to the function.</span>
+<span id="cb134-614"><a href="#cb134-614" aria-hidden="true" tabindex="-1"></a>   <span class="in">```{r, closure-scoping}</span></span>
+<span id="cb134-615"><a href="#cb134-615" aria-hidden="true" tabindex="-1"></a><span class="in">   funGenerator &lt;- function(x) {</span></span>
+<span id="cb134-616"><a href="#cb134-616" aria-hidden="true" tabindex="-1"></a><span class="in">     x &lt;- 10</span></span>
+<span id="cb134-617"><a href="#cb134-617" aria-hidden="true" tabindex="-1"></a><span class="in">     g &lt;- function(y) {</span></span>
+<span id="cb134-618"><a href="#cb134-618" aria-hidden="true" tabindex="-1"></a><span class="in">       return(x + y)</span></span>
+<span id="cb134-619"><a href="#cb134-619" aria-hidden="true" tabindex="-1"></a><span class="in">     }</span></span>
+<span id="cb134-620"><a href="#cb134-620" aria-hidden="true" tabindex="-1"></a><span class="in">     return(g)</span></span>
+<span id="cb134-621"><a href="#cb134-621" aria-hidden="true" tabindex="-1"></a><span class="in">   }</span></span>
+<span id="cb134-622"><a href="#cb134-622" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-623"><a href="#cb134-623" aria-hidden="true" tabindex="-1"></a><span class="in">   x &lt;- 2</span></span>
+<span id="cb134-624"><a href="#cb134-624" aria-hidden="true" tabindex="-1"></a><span class="in">   f &lt;- funGenerator()</span></span>
+<span id="cb134-625"><a href="#cb134-625" aria-hidden="true" tabindex="-1"></a><span class="in">   f(1)</span></span>
+<span id="cb134-626"><a href="#cb134-626" aria-hidden="true" tabindex="-1"></a><span class="in">   ```</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
