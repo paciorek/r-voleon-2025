@@ -37,7 +37,9 @@ website:
             text: Data Wrangling
           - href: units/ggplot.qmd
             text: Plotting (ggplot)
-         
+          - href: units/analysis.qmd
+            text: Basic Analysis/Useful Packages
+          
 
 format:
   html:

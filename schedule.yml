@@ -38,6 +38,7 @@
         - type: "Module"
           id: "6"
           name: "Analysis and Common Packages"
+          href: "./units/analysis.html"
         - type: "Module"
           id: "7"
           name: "Additional Topics: Parallelization, Calling C++, TBD"
