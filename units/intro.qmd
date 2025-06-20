@@ -509,7 +509,5 @@ Here are some questions to get some practice with the syntax.
 6) Write an R function that will take an input vector and set any negative
 values in the vector to zero.
 
-7) Write an R function that will take an input vector and set any value below a
-threshold to be the value of threshold. Optionally, the function should instead
-set values above a threshold to the value of the threshold.
+
 
