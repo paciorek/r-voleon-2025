@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://paciorek.github.io/r-voleon-2025/units/ggplot.html</loc>
-    <lastmod>2025-06-20T20:52:25.646Z</lastmod>
+    <loc>https://paciorek.github.io/r-voleon-2025/units/analysis.html</loc>
+    <lastmod>2025-06-20T22:16:27.476Z</lastmod>
   </url>
   <url>
-    <loc>https://paciorek.github.io/r-voleon-2025/units/programming.html</loc>
-    <lastmod>2025-06-20T20:27:39.353Z</lastmod>
-  </url>
-  <url>
-    <loc>https://paciorek.github.io/r-voleon-2025/units/data.html</loc>
-    <lastmod>2025-06-19T21:30:06.509Z</lastmod>
-  </url>
-  <url>
-    <loc>https://paciorek.github.io/r-voleon-2025/units/intro.html</loc>
-    <lastmod>2025-06-20T20:25:23.545Z</lastmod>
+    <loc>https://paciorek.github.io/r-voleon-2025/units/tidyverse.html</loc>
+    <lastmod>2025-06-20T19:29:32.969Z</lastmod>
   </url>
   <url>
     <loc>https://paciorek.github.io/r-voleon-2025/units/calculation.html</loc>
     <lastmod>2025-06-20T19:35:20.145Z</lastmod>
   </url>
   <url>
-    <loc>https://paciorek.github.io/r-voleon-2025/units/tidyverse.html</loc>
-    <lastmod>2025-06-20T19:29:32.969Z</lastmod>
+    <loc>https://paciorek.github.io/r-voleon-2025/units/intro.html</loc>
+    <lastmod>2025-06-20T20:25:23.545Z</lastmod>
+  </url>
+  <url>
+    <loc>https://paciorek.github.io/r-voleon-2025/units/data.html</loc>
+    <lastmod>2025-06-19T21:30:06.509Z</lastmod>
+  </url>
+  <url>
+    <loc>https://paciorek.github.io/r-voleon-2025/units/programming.html</loc>
+    <lastmod>2025-06-20T20:27:39.353Z</lastmod>
+  </url>
+  <url>
+    <loc>https://paciorek.github.io/r-voleon-2025/units/ggplot.html</loc>
+    <lastmod>2025-06-20T21:01:51.563Z</lastmod>
   </url>
 </urlset>

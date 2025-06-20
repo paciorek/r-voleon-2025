@@ -199,6 +199,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Plotting (ggplot)</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../units/analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basic Analysis/Useful Packages</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -1289,7 +1295,8 @@ ggplot extensions
 <section id="advanced" class="level3">
 <h3 class="anchored" data-anchor-id="advanced">Advanced</h3>
 <ol start="6" type="1">
-<li><p>Using the data for 2007, recreate as much as you can of <a href="https://s3-eu-west-1.amazonaws.com/static.gapminder.org/GapminderMedia/wp-uploads/20161019161829/screenshot2016.jpg">this famous Gapminder plot</a>, where the colors are different continents. (Don’t worry about the ‘2015’ in the background and ignore the ‘play’ button at the bottom.)</p></li>
+<li><p>Try to create a facsimile of the <a href="https://s3-eu-west-1.amazonaws.com/static.gapminder.org/GapminderMedia/wp-uploads/20161019161829/screenshot2016.jpg">famous gapminder plot</a> without looking at my code by using a ChatBot, providing it with information about the gapminder dataframe. For simplicity just try to create a static image (ignoring the ‘play’ button at bottom) for a single year such a 2007.</p></li>
+<li><p>Alternatively (to #6), using the data for 2007, without using a ChatBot, recreate as much as you can of <a href="https://s3-eu-west-1.amazonaws.com/static.gapminder.org/GapminderMedia/wp-uploads/20161019161829/screenshot2016.jpg">this famous Gapminder plot</a>, where the colors are different continents. (Don’t worry about the ‘2015’ in the background and ignore the ‘play’ button at the bottom.)</p></li>
 <li><p>Create a “trellis” plot where, for a given year, each panel uses a) hollow circles to plot lifeExp as a function of log(gdpPercap), and b) a red loess smoother without standard errors to plot the trend. Turn off the grey background. Figure out how to use partially-transparent points to reduce the effect of the overplotting of points.</p></li>
 <li><p>In the following code, I try to plot the life expectancy over time, one line per country but where the color is by continent (in the module, we saw how to have the color vary by country).</p>
 <div class="cell">
@@ -1297,7 +1304,6 @@ ggplot extensions
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> continent))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This doesn’t work. See if you can understand why and how to fix it. Hint, look up “group” in the ggplot2 help information in R.</p></li>
-<li><p>Try to create a facsimile of the <a href="https://s3-eu-west-1.amazonaws.com/static.gapminder.org/GapminderMedia/wp-uploads/20161019161829/screenshot2016.jpg">famous gapminder plot</a> without looking at my code by using a ChatBot, providing it with information about the gapminder dataframe.</p></li>
 </ol>
 
 
@@ -2426,20 +2432,20 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb64-659"><a href="#cb64-659" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb64-660"><a href="#cb64-660" aria-hidden="true" tabindex="-1"></a><span class="fu">### Advanced</span></span>
 <span id="cb64-661"><a href="#cb64-661" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-662"><a href="#cb64-662" aria-hidden="true" tabindex="-1"></a>6) Using the data for 2007, recreate as much as you can of <span class="co">[</span><span class="ot">this famous Gapminder plot</span><span class="co">](https://s3-eu-west-1.amazonaws.com/static.gapminder.org/GapminderMedia/wp-uploads/20161019161829/screenshot2016.jpg)</span>, where the colors are different continents. (Don't worry about the '2015' in the background and ignore the 'play' button at the bottom.)</span>
+<span id="cb64-662"><a href="#cb64-662" aria-hidden="true" tabindex="-1"></a>6) Try to create a facsimile of the <span class="co">[</span><span class="ot">famous gapminder plot</span><span class="co">](https://s3-eu-west-1.amazonaws.com/static.gapminder.org/GapminderMedia/wp-uploads/20161019161829/screenshot2016.jpg)</span> without looking at my code by using a ChatBot, providing it with information about the gapminder dataframe. For simplicity just try to create a static image  (ignoring the 'play' button at bottom) for a single year such a 2007.</span>
 <span id="cb64-663"><a href="#cb64-663" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-664"><a href="#cb64-664" aria-hidden="true" tabindex="-1"></a>7) Create a "trellis" plot where, for a given year, each panel uses a) hollow circles to plot lifeExp as a function of log(gdpPercap), and b) a red loess smoother without standard errors to plot the trend. Turn off the grey background. Figure out how to use partially-transparent points to reduce the effect of the overplotting of points.</span>
+<span id="cb64-664"><a href="#cb64-664" aria-hidden="true" tabindex="-1"></a>7) Alternatively (to #6), using the data for 2007, without using a ChatBot, recreate as much as you can of <span class="co">[</span><span class="ot">this famous Gapminder plot</span><span class="co">](https://s3-eu-west-1.amazonaws.com/static.gapminder.org/GapminderMedia/wp-uploads/20161019161829/screenshot2016.jpg)</span>, where the colors are different continents. (Don't worry about the '2015' in the background and ignore the 'play' button at the bottom.)</span>
 <span id="cb64-665"><a href="#cb64-665" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-666"><a href="#cb64-666" aria-hidden="true" tabindex="-1"></a>8) In the following code, I try to plot the life expectancy over time, one line per country but where the color is by continent (in the module, we saw how to have the color vary by country).</span>
+<span id="cb64-666"><a href="#cb64-666" aria-hidden="true" tabindex="-1"></a>7) Create a "trellis" plot where, for a given year, each panel uses a) hollow circles to plot lifeExp as a function of log(gdpPercap), and b) a red loess smoother without standard errors to plot the trend. Turn off the grey background. Figure out how to use partially-transparent points to reduce the effect of the overplotting of points.</span>
 <span id="cb64-667"><a href="#cb64-667" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-668"><a href="#cb64-668" aria-hidden="true" tabindex="-1"></a>   <span class="in">```{r, fig.cap="", eval=FALSE}</span></span>
-<span id="cb64-669"><a href="#cb64-669" aria-hidden="true" tabindex="-1"></a><span class="in">   ggplot(data = gapminder, aes(x = year, y = lifeExp)) +</span></span>
-<span id="cb64-670"><a href="#cb64-670" aria-hidden="true" tabindex="-1"></a><span class="in">               geom_line(aes(color = continent))</span></span>
-<span id="cb64-671"><a href="#cb64-671" aria-hidden="true" tabindex="-1"></a><span class="in">   ```</span></span>
-<span id="cb64-672"><a href="#cb64-672" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-673"><a href="#cb64-673" aria-hidden="true" tabindex="-1"></a>   This doesn't work. See if you can understand why and how to fix it. Hint, look up "group" in the ggplot2 help information in R.</span>
+<span id="cb64-668"><a href="#cb64-668" aria-hidden="true" tabindex="-1"></a>8) In the following code, I try to plot the life expectancy over time, one line per country but where the color is by continent (in the module, we saw how to have the color vary by country).</span>
+<span id="cb64-669"><a href="#cb64-669" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-670"><a href="#cb64-670" aria-hidden="true" tabindex="-1"></a>   <span class="in">```{r, fig.cap="", eval=FALSE}</span></span>
+<span id="cb64-671"><a href="#cb64-671" aria-hidden="true" tabindex="-1"></a><span class="in">   ggplot(data = gapminder, aes(x = year, y = lifeExp)) +</span></span>
+<span id="cb64-672"><a href="#cb64-672" aria-hidden="true" tabindex="-1"></a><span class="in">               geom_line(aes(color = continent))</span></span>
+<span id="cb64-673"><a href="#cb64-673" aria-hidden="true" tabindex="-1"></a><span class="in">   ```</span></span>
 <span id="cb64-674"><a href="#cb64-674" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-675"><a href="#cb64-675" aria-hidden="true" tabindex="-1"></a>9) Try to create a facsimile of the <span class="co">[</span><span class="ot">famous gapminder plot</span><span class="co">](https://s3-eu-west-1.amazonaws.com/static.gapminder.org/GapminderMedia/wp-uploads/20161019161829/screenshot2016.jpg)</span> without looking at my code by using a ChatBot, providing it with information about the gapminder dataframe. </span>
+<span id="cb64-675"><a href="#cb64-675" aria-hidden="true" tabindex="-1"></a>   This doesn't work. See if you can understand why and how to fix it. Hint, look up "group" in the ggplot2 help information in R.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
