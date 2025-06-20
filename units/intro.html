@@ -193,6 +193,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Data Wrangling</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../units/ggplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plotting (ggplot)</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -264,7 +270,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span> <span class="sc">+</span> <span class="fu">runif</span>(<span class="dv">1</span>) <span class="co"># add a random number</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 7.033968</code></pre>
+<pre><code>[1] 7.272233</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">^</span><span class="dv">4</span> <span class="co"># powers</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -442,7 +448,7 @@ Answer
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>devs <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">5</span>)   <span class="co"># Five random normal values.</span></span>
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>devs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  0.1924972 -0.1377301  0.1474978  0.3407089 -1.2388568</code></pre>
+<pre><code>[1] -0.1927843  0.0610672  0.1713915 -0.8269416  1.5466082</code></pre>
 </div>
 </div>
 <p>This is not valid syntax in R. Let’s try it and see what happens.</p>
@@ -639,7 +645,7 @@ Answer
         z$qr &lt;- NULL
     z
 }
-&lt;bytecode: 0x64713ac60048&gt;
+&lt;bytecode: 0x561baa5e65e8&gt;
 &lt;environment: namespace:stats&gt;</code></pre>
 </div>
 </div>
@@ -698,7 +704,7 @@ Answer
 <div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls.str</span>() <span class="co"># list and describe variables</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>country :  chr [1:12] "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
-devs :  num [1:5] 0.192 -0.138 0.147 0.341 -1.239
+devs :  num [1:5] -0.1928 0.0611 0.1714 -0.8269 1.5466
 letters :  chr [1:26] "a" "β" "β" "β" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" ...
 mySeq :  int [1:6] 1 2 3 4 5 6
 nums :  num [1:3] 1.1 3 -5.7
@@ -871,7 +877,7 @@ z : List of 2
 <div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>val <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>)</span>
 <span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.150713</code></pre>
+<pre><code>[1] 0.7125626</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (val <span class="sc">&lt;</span> <span class="dv">0</span>) {</span>
 <span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"val is negative"</span>)</span>
@@ -887,7 +893,7 @@ z : List of 2
 <div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>val <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>)</span>
 <span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -2.527514</code></pre>
+<pre><code>[1] 1.484164</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (val <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">1</span>) {</span>
 <span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"val is more than one standard deviation below the mean."</span>)</span>
@@ -897,14 +903,14 @@ z : List of 2
 <span id="cb105-6"><a href="#cb105-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"val is more than one standard deviation above the mean."</span>)</span>
 <span id="cb105-7"><a href="#cb105-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "val is more than one standard deviation below the mean."</code></pre>
+<pre><code>[1] "val is more than one standard deviation above the mean."</code></pre>
 </div>
 </div>
 <p>In general, the <code>{</code> brackets are only needed if you have multiple R expressions, but R will complain when an <code>else</code> starts a line of code, so generally using the <code>{</code> is good practice. That said, this works fine:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (val <span class="sc">&lt;</span> <span class="dv">0</span>) <span class="fu">print</span>(<span class="st">"val is negative"</span>) <span class="cf">else</span> <span class="fu">print</span>(<span class="st">"val is positive"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "val is negative"</code></pre>
+<pre><code>[1] "val is positive"</code></pre>
 </div>
 </div>
 </section>
@@ -933,14 +939,14 @@ z : List of 2
 <div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>x[x <span class="sc">&lt;</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
 <span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 0.00000000 0.07596879 0.48418148 0.00000000 0.00000000 0.00000000
- [7] 0.45486078 0.00000000 0.00000000 1.13972924 0.32959917 2.05184836
-[13] 0.00000000 1.31646905 1.35659407 0.31938015 1.00773167 0.24778961
-[19] 1.65300638 0.11336720 0.00000000 0.82571697 1.89281700 0.00000000
-[25] 0.65064985 1.69338335 0.00000000 0.57480828 0.19419652 1.74348765
-[31] 0.00000000 0.43492883 0.00000000 0.00000000 0.00000000 0.00000000
-[37] 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
-[43] 0.39862841 0.00000000 0.18822336 0.00000000 1.62842929 1.64377335
+<pre><code> [1] 0.88396397 0.00000000 0.60483686 0.00000000 0.83383318 0.00000000
+ [7] 0.45711187 2.14040299 0.08423647 0.00000000 0.00000000 0.00000000
+[13] 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 1.13725714
+[19] 0.31852197 0.00000000 1.81075437 0.69258035 1.15986076 0.00000000
+[25] 0.00000000 0.18994907 0.29151414 0.37995253 0.32582228 1.67392382
+[31] 0.28741274 0.00000000 0.35424149 0.00000000 0.00000000 0.00000000
+[37] 0.00000000 1.11939523 0.60009551 0.52870974 1.04200533 1.68369280
+[43] 0.00000000 0.00000000 0.00000000 1.19501950 0.22611202 0.00000000
 [49] 0.00000000 0.00000000</code></pre>
 </div>
 </div>
@@ -960,7 +966,7 @@ z : List of 2
 <span id="cb113-9"><a href="#cb113-9" aria-hidden="true" tabindex="-1"></a>     i <span class="ot">&lt;-</span> i<span class="sc">+</span><span class="dv">1</span></span>
 <span id="cb113-10"><a href="#cb113-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.051848</code></pre>
+<pre><code>[1] 2.140403</code></pre>
 </div>
 </div>
 </section>
@@ -974,7 +980,6 @@ z : List of 2
 <li><p>Figure out what your current working directory is.</p></li>
 <li><p>Put the <code>data/cpds.csv</code> file in some other directory on your computer, such as <code>Downloads</code>. Use <code>setwd()</code> to set your working directory to be that directory. Read the file in using <code>read.csv()</code>. Now use <code>setwd()</code> to point to a different directory such as <code>Desktop</code>. Write the data frame out to a file using <code>write.csv</code> (you’ll probably need to look at the help information). You may also want to experiment with figuring out how to write it out without any row names and without quotes on the character strings.</p></li>
 <li><p>Write an R function that will take an input vector and set any negative values in the vector to zero.</p></li>
-<li><p>Write an R function that will take an input vector and set any value below a threshold to be the value of threshold. Optionally, the function should instead set values above a threshold to the value of the threshold.</p></li>
 </ol>
 
 
@@ -1962,9 +1967,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb115-543"><a href="#cb115-543" aria-hidden="true" tabindex="-1"></a><span class="at">6) Write an R function that will take an input vector and set any negative</span></span>
 <span id="cb115-544"><a href="#cb115-544" aria-hidden="true" tabindex="-1"></a><span class="at">values in the vector to zero.</span></span>
 <span id="cb115-545"><a href="#cb115-545" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-546"><a href="#cb115-546" aria-hidden="true" tabindex="-1"></a><span class="at">7) Write an R function that will take an input vector and set any value below a</span></span>
-<span id="cb115-547"><a href="#cb115-547" aria-hidden="true" tabindex="-1"></a><span class="at">threshold to be the value of threshold. Optionally, the function should instead</span></span>
-<span id="cb115-548"><a href="#cb115-548" aria-hidden="true" tabindex="-1"></a><span class="at">set values above a threshold to the value of the threshold.</span></span>
+<span id="cb115-546"><a href="#cb115-546" aria-hidden="true" tabindex="-1"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
