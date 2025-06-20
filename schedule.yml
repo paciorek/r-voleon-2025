@@ -34,6 +34,7 @@
         - type: "Module"
           id: "5"
           name: "Plotting (ggplot)"
+          href: "./units/ggplot.html"
         - type: "Module"
           id: "6"
           name: "Analysis and Common Packages"

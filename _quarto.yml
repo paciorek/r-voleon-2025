@@ -35,6 +35,8 @@ website:
             text: Programming
           - href: units/tidyverse.qmd
             text: Data Wrangling
+          - href: units/ggplot.qmd
+            text: Plotting (ggplot)
          
 
 format:
