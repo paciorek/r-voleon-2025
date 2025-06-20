@@ -15,7 +15,6 @@ execute:
 
 ```{r, chunksetup}
 #| include: false
-#| cache: true
 # include any code here you don't want to show up in the document,
 # e.g. package and dataset loading
 rm(list=ls())
@@ -75,7 +74,7 @@ How do I calculate the cosine of 2 pi?
 
 ::: {.callout-tip title="Question"}
 
-What happens if you do this?
+What happens if you do this (hitting enter/return after "pi")?
 
 ```{r}
 #| eval: false
@@ -87,7 +86,12 @@ cos(2*pi
 
 Since we didn't enter the closing parenthesis, R is waiting for additional input with the "continuation" prompt of `+`.
 
-You can either enter the missing syntax or hit Ctrl-C or esc to kill the partial syntax and return to the usual prompt.
+```
+> cos(2*pi
++ 
+```
+
+You can either enter the missing syntax or hit `Ctrl-C` or `Esc` to kill the partial syntax and return to the usual prompt.
 
 :::
 
@@ -98,7 +102,7 @@ A key action in R (similar to other languages) is to store values in the form of
 ```{r}
 val <- 3
 val
-print(val)
+print(val)  # The same as just typing `val`
 
 Val <- 7 # case-sensitive!
 print(val)
@@ -124,7 +128,7 @@ We'll see this through the bootcamp.
 
 # Vectors in R
 
-The most basic form of an R object is a vector (i.e., a 1-dimensional array). The various objects `mySeq`, `years`, `country` are all vectors.
+The most basic form of an R object is a vector (i.e., a 1-dimensional array). The various objects `mySeq`, `years`, `country` from above are all vectors.
 
 In fact, individual (scalar) values are vectors of length one, so `val` and `Val` from above are also vectors. 
 
@@ -150,28 +154,28 @@ nums <- [1.1, 3, -5.7]
 We can subset (aka "slice") using a variety of approaches. 
 
 ```{r}
-vals <- 1:12
+letters
 
-vals[3]
-vals[3:5]
-vals[c(1, 3, 6)]
-vals[-c(1, 3, 6)]
-vals[c(rep(TRUE, 3), rep(FALSE, 2), TRUE, rep(FALSE, 6))]
+letters[3]
+letters[3:5]
+letters[c(1, 3, 6)]
+letters[-c(1, 3, 6)]
+letters[c(rep(TRUE, 6), rep(FALSE, 19), TRUE)]
 ```
 
 We can substitute values into vectors:
 
 ```{r}
-vals[4] <- 822.9711
-vals[3:4] <- c(7.5, 2.4)
-vals[2:4] <- 0  # Recycling
+letters[2] <- "β"
+letters[3:4] <- c("d","c")
+letters[2:4] <- "β" # Recycling
 ```
 
 The last substutition uses "recycling" to match the left-hand-side extent (3 elements) with the right-hand-side extent (1 element)
 
 
 ::: {.callout-tip title="Question"}
-Suppose you have a vetor, such as created like this: `vals <- rnorm(4)`. Which of these will work to extract a subset of a vector?
+Suppose you have a vector, such `vals <- rnorm(4)`. Which of these will work to extract a subset of a vector?
 
 1) vals[3]
 2) vals[2,3]
@@ -185,7 +189,7 @@ Suppose you have a vetor, such as created like this: `vals <- rnorm(4)`. Which o
 ::: {.callout-tip title="Answer" collapse="true"}
 
 - Subsetting uses square brackets so (4) and (7) don't work.
-- To create a set of indices to use in subsetting/slicing, you need to use `c()`, so (3) and (5) work.
+- To create a set of indices to use in subsetting/slicing, you need to use `c()` to create a *vector* of indices, so (3) and (5) work.
 - Booleans in R use the canonical syntax of TRUE and FALSE, so (5) works but not (6).
 
 :::
@@ -212,7 +216,7 @@ lm
 
 # Getting help about a function
 
-To get information about a function you know exists, use `help` or `?`, e.g., `?lm`. 
+To get information about a function you know exists, use `help` or `?`, e.g., `?lm` or  (results not shown). 
 
 ```{r}
 #| eval: false
@@ -223,15 +227,15 @@ help(lm)
 ```
 
 
-# How to be [lazy](http://dilbert.com/strips/comic/2005-05-29/)
+# How to be lazy (aka efficient)
 
 If you're starting to type something you've typed before, or the long name of an R object or function, STOP!  You likely don't need to type all of that.
 
-- Tab completion
-- Command history 
+- Tab completion: type a few letters of an object/function and hit `Tab` for autocompletion
+- Command history: recover and reuse/edit previous commands used 
     * up/down arrows
     * Ctrl-{up arrow} or Command-{up arrow}
-- RStudio: select a line or block for execution
+- RStudio: select a line or block for execution via `Ctrl-Enter`
 - For keyboard shortcuts in RStudio see:
    - `Tools -> Keyboard Shortcuts Help` or
    - [this](https://appsilon.com/rstudio-shortcuts-and-tips) and [this](https://www.r-bloggers.com/r-studio-shortcuts-and-tips-part-2) blog posts.
@@ -241,11 +245,17 @@ If you're starting to type something you've typed before, or the long name of an
 
 R has functions for learning about the collection of objects in your workspace. Some of this is built in to RStudio (see the Enviornment tab in upper right pane).
 
+Let's first create a few objects.
+
 ```{r}
-## Let's first create a few objects
 x <- rnorm(5)
 y <- c(5L, 2L, 7L)
 z <- list(a = 3, b = c('sam', 'yang'))
+```
+
+Now let's see the objects in our workspace and delete one of them.
+
+```{r}
 ls()  # search the user workspace (global environment)
 rm(x)    # delete a variable
 ls()
@@ -254,7 +264,7 @@ ls.str() # list and describe variables
 
 # Saving and reloading the workspace
 
-Finally we can save the objects in our R session for later use (or to give to someone else):
+Finally we can save the objects in our R session in a compact, binary format for later use (or to give to someone else):
 
 ```{r}
 ls()
@@ -322,11 +332,11 @@ You can use syntax as follows to get a list of the objects in a package and a br
 library(help = packageName)
 ```
 
-On CRAN there often *vignettes* that are an overview and describe usage of a package if you click on a specific package. The *reference manual* is just a single document with the help files for all of the objects/functions in a package, so may be helpful but often it's hard to get the big picture view from that.
+On CRAN there often *vignettes* that are an overview and describe usage of a package if you click on a specific package. The *reference manual* is just a single document with the help files for all of the objects/functions in a package. That may be helpful, but often it's hard to get the big picture view from that.
 
 # The working directory
 
-To read and write from R, you need to have a firm grasp of where in the computer's filesystem you are reading and writing from. 
+To read and write from R, you need to have a firm grasp of where in the computer's filesystem you are reading and writing from. Here's some syntax (results not shown and will vary by machine).
 
 ```{r}
 #| eval: false
@@ -358,9 +368,9 @@ In RStudio, you can use `Session -> Set Working Directory` instead of `setwd`.
 
 # Writing functions
 
-Here's the syntax for writing our own function.
+Here's an example of the syntax for writing our own function.
 
-```{function}
+```{r, function}
 add_constant <- function(x, constant = 0) {
    result <- x + constant
    return(result)
@@ -383,7 +393,7 @@ explicitly provide all the arguments.
 log(100)
 log(100, base = 10)
 log(100, 10)
-log(base = 10, 100)
+log(base = 10, 100)  # This is a bit unusual and wouldn't work in Python.
 log(base = 10, x = 100)
 ```
 
@@ -420,7 +430,7 @@ if (val < -1) {
 
 In general, the `{` brackets are only needed if you have multiple R expressions,
 but R will complain when an `else` starts a line of code, so generally using the
-`{` is good practice. That said, this _works just fine_:
+`{` is good practice. That said, this works fine:
 
 ```{r, if-oneline}
 if (val < 0) print("val is negative") else print("val is positive")
@@ -468,10 +478,11 @@ It's not a particularly interesting example, but we can see the `while` loop
 syntax in the same example. In this case 
 
 ```{r, while}
+vals <- rnorm(100)
 found <- FALSE
 i <- 1
 while(!found && i <= length(vals)) {
-     if(x[i] > 3) {
+     if(x[i] > 2) {
        print(x[i])
        found <- TRUE
      }
@@ -493,7 +504,7 @@ Here are some questions to get some practice with the syntax.
 
 4) Figure out what your current working directory is.
 
-5) Put the `data/cpds.csv` file in some other directory on your computer, such as `Downloads`. Use `setwd()` to set your working directory to be that directory. Read the file in using `read.csv()`.  Now use `setwd()` to point to a different directory such as `Desktop`. Write the data frame out to a file using `write.csv`. You may also want to experiment with figuring out how to write it out without any row names and without quotes on the character strings.
+5) Put the `data/cpds.csv` file in some other directory on your computer, such as `Downloads`. Use `setwd()` to set your working directory to be that directory. Read the file in using `read.csv()`.  Now use `setwd()` to point to a different directory such as `Desktop`. Write the data frame out to a file using `write.csv` (you'll probably need to look at the help information). You may also want to experiment with figuring out how to write it out without any row names and without quotes on the character strings.
 
 6) Write an R function that will take an input vector and set any negative
 values in the vector to zero.
