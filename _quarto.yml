@@ -2,8 +2,13 @@ project:
   type: website
   render:
     - units/intro.qmd
-    - prep.qmd
-    - index.qmd
+    - units/data.qmd
+    - units/calculation.qmd
+    - units/programming.qmd
+    - units/tidyverse.qmd
+    - units/ggplot.qmd
+    - units/analysis.qmd
+    - units/topics.qmd
 
 website:
   site-url: https://paciorek.github.io/r-voleon-2025

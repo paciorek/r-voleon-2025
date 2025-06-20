@@ -21,8 +21,9 @@ rm(list=ls())
 library(gapminder)
 ```
 
+# Working with vectors and matrices
 
-# Vectorized calculations and comparisons
+## Vectorized calculations and comparisons
 
 At the core of R is the idea of doing calculations on entire vectors.
 
@@ -50,7 +51,7 @@ vec1 = vec2
 identical(vec1, vec2)
 ```
 
-# Recycling
+## Recycling
 
 An important related concept is that of recycling
 ```{r}
@@ -68,7 +69,7 @@ vec10 + vec3
 What choices were made by the R developers?
 
 
-# Why vectorize?
+## Why vectorize?
 
 Imagine how this code would look if written using a loop, or three separate loops.
 
@@ -88,9 +89,7 @@ Vectorized code is generally fast because the underlying loop is executed in com
 
 We've already seen that lots of functions (and operators) in R are vectorized (i.e., they can take a single value or a vector as an input argument).
 
-# Vectorized vector/matrix calculations
-
-## Vectorized arithmetic 
+## Vectorization with matrices
 
 Recall that `+`, `-`,`*`, `/` do vectorized calculations:
 
@@ -151,14 +150,14 @@ is.matrix(mat)
 This is like Fortran, MATLAB and Julia but not like C or Python(numpy). 
 :::
 
-# Linear algebra 
+## Linear algebra 
 
 R can do essentially any linear algebra you need. It uses system-level packages called BLAS (basic linear algebra subroutines) and LAPACK (linear algebra package). Note that these calculations will be essentially as fast as if you wrote C code because R just calls C and Fortran routines to do the calculations.
 
 The BLAS that comes with R is fairly slow. It's possible to use a [faster BLAS, as well as one that uses multiple cores automatically](https://statistics.berkeley.edu/computing/faqs/linear-algebra-and-parallelized-linear-algebra-using-blas). This can in some cases give you an order of magnitude speedup if your work involves a lot of matrix manipulations/linear algebra.
 
 
-# Matrix decompositions
+## Matrix decompositions
 
 Here are some examples of common matrix decompositions: Cholesky decomposition, eigenvalues/eigenvectors, and SVD. These all use BLAS+LAPACK.
 
@@ -180,8 +179,9 @@ Rinvb <- solve(R, devs)  # R^{-1} b
 Rinv <- solve(R) # R^{-1} -- try to avoid this (slower and less numerically stable)
 ```
 
+# Efficiency
 
-# Pre-allocation
+## Pre-allocation
 
 This is slow.
 ```{r cache=TRUE}
@@ -200,7 +200,7 @@ The same holds for using `rbind()`, `cbind()`, or adding to a list, one element 
 
 **Note**: This is one area where Python and some other languages handle the situation in a more sophisticated way.
 
-# The answer is to pre-allocate memory
+## The answer is to pre-allocate memory
 
 This is not so slow. (Please ignore the fact that this is a silly way to do this in R.)
 
@@ -214,7 +214,7 @@ for(i in 1:n)
 ```
 
 
-# apply
+## apply
 
 Some functions aren't vectorized, or you may want to use a function on every row or column of a matrix/data frame, every element of a list, etc.
 
@@ -232,7 +232,7 @@ row_mean <- rowMeans(mat)
 col_sum <- colSums(mat)
 ```
 
-# `lapply()` and `sapply()`
+## `lapply()` and `sapply()`
 
 These are "map" operations that apply a function to each element of a list.
 
@@ -250,7 +250,7 @@ The *array functions won't generally be faster than loops. Rather, they're gener
 
 Note that we don't generally want to use `apply()` on a data frame. 
 
-# `lapply()` and `sapply()` with vectors
+## `lapply()` and `sapply()` with vectors
 
 You can use `lapply()` and `sapply()` on regular vectors, such as vectors of indices, which can come in handy. This is a bit silly but it illustrates the idea:
 
@@ -281,7 +281,7 @@ Which of these give exactly this result: `pi`, `2*pi`, `3*pi`, ...?
 7) 1:n*pi
 :::
 
-# When/why are loops in R slow?
+## When/why are loops in R slow?
 
 Consider this code:
 
@@ -311,13 +311,13 @@ Because of the dynamic typing and lack of compilation, the interpreter needs to 
 The R interpreter is a C program, so in some sense everything that happens is running as compiled code, but there are lots more things being done to accomplish a given task using interpreted code than if the task had been written directly in code that is compiled. By analogy, consider talking directly to a person in a language you both know compared to talking to a person via an interpreter who has to translate between two languages. Ultimately, the same information gets communicated (hopefully!) but the number of words spoken and time involved is much greater.
 
 
-# When are loops not slow?
+## When are loops not slow?
 
 When the bulk of the time in the loop involves actual computation rather than checking, e.g., a loop that fits a separate machine learning model at each iteration.
 
 Conclusions: use vectorization when you can, especially when the individual calculations are fast, but don't obsess when the individual calculations are intensive (and often will call out to C directly).
 
-# Some efficiency tips (not R-specific)
+## Some efficiency tips (not R-specific)
 
 - Consider the order of operations:
   ```{r}
@@ -334,7 +334,7 @@ Conclusions: use vectorization when you can, especially when the individual calc
   - In R, generally work column-wise rather than row-wise with matrices
 - In R, look up elements by numerical index rather than by name for O(1) computation
 
-# Timing your code
+## Timing your code
 
 First, a cautionary note...
 
@@ -359,7 +359,7 @@ benchmark(t(x) %*% x,
 
 Consider why the automatic crossproduct may be faster than the manual version. Note that `crossprod` calls out directly to a linear algebra system routine.
 
-# Microbenchmark
+## Microbenchmark
 
 To time code that runs very quickly, you should use the microbenchmark package. Of course one would generally only care about accurately timing quick calculations if a larger operation does the quick calculation very many times. Here’s a comparison of different ways of accessing an element of a dataframe.
 
@@ -376,7 +376,9 @@ microbenchmark(
 )
 ```
 
-# Memory use
+# Memory
+
+## Memory use
 
 You should know how much memory (RAM) the computer you are using has and keep in mind how big your objects are and how much memory you code might use. All objects in R are stored in RAM unlike a database or certain tools for working with big data (e.g., Python's Dask package and certain R packages).
 
@@ -394,7 +396,7 @@ object.size(x)
 print(object.size(x), units = 'auto')
 ```
 
-# Garbage collection
+## Garbage collection
 
 A variable is just a name that references a location (object) in memory. When a name is used for a different object, the memory for the old object is freed to be used again.
 
@@ -407,7 +409,7 @@ x <- "hello"
 mem_used()
 ```
 
-# Copy-on-modify
+## Copy-on-modify
 
 The *semantics* of R say that `<-` creates a new copy of an object.
 
@@ -432,7 +434,7 @@ address(y)
 Internally R manages this by keeping track of how many variables (references) there are to a given object in memory.
 
 
-# Memory and lists
+## Memory and lists
 
 [R plays various games with lists and character strings (essentially copy-on-change) to avoid redundant copies of identical data](https://stat243.berkeley.edu/stat243-fall-2022/units/unit5-programming.html#how-lists-are-stored). We won't go into details.
 

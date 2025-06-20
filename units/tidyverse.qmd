@@ -14,7 +14,7 @@ execute:
 ---
 
 
-```{r chunksetup}
+```{r, chunksetup}
 #| include: false
 # include any code here you don't want to show up in the document,
 # e.g. package and dataset loading
@@ -31,7 +31,7 @@ A lot of analysis time in many cases is spent on manipulating tabular data. The 
 The [`tidyverse`](https://www.tidyverse.org/) is a suite of packages designed 
 specifically to help with both these steps; some of which we will be introducing in this module. These are by no means the only packages out there for data wrangling but they are  popular for their readable, straightforward syntax and sensible default behaviors.
 
-An alternative for working quickly with very large datasets is the `data.table` package. It's fast, but the syntax is not so nice.
+An alternative for working quickly with very large datasets is the `data.table` package. It's fast and a good choice. While the core syntax is not as nice, one can also use dplyr syntax with data.table objects.
 
 # Data frame manipulation using `dplyr`
 
