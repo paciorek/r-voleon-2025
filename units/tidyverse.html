@@ -256,8 +256,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#using-dplyr-syntax-with-data.table" id="toc-using-dplyr-syntax-with-data.table" class="nav-link" data-scroll-target="#using-dplyr-syntax-with-data.table">Using dplyr syntax with data.table</a></li>
   <li><a href="#working-with-data-on-disk" id="toc-working-with-data-on-disk" class="nav-link" data-scroll-target="#working-with-data-on-disk">Working with data on disk</a></li>
   </ul></li>
-  <li><a href="#databases" id="toc-databases" class="nav-link" data-scroll-target="#databases">Databases</a></li>
+  <li><a href="#databases" id="toc-databases" class="nav-link" data-scroll-target="#databases">Databases</a>
+  <ul class="collapse">
   <li><a href="#database-example" id="toc-database-example" class="nav-link" data-scroll-target="#database-example">Database example</a></li>
+  </ul></li>
   <li><a href="#breakout" id="toc-breakout" class="nav-link" data-scroll-target="#breakout">Breakout</a>
   <ul class="collapse">
   <li><a href="#dplyr" id="toc-dplyr" class="nav-link" data-scroll-target="#dplyr"><code>dplyr</code></a></li>
@@ -962,7 +964,7 @@ Answer
 <span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(air <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="fu">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>, <span class="st">'airline.csv'</span>))) <span class="co"># 0.1 sec.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.537   0.018   0.236 </code></pre>
+  0.553   0.025   0.250 </code></pre>
 </div>
 </div>
 <p>We’ll compare the time for reading to <code>read.csv</code> and <code>readr::read_csv</code>.</p>
@@ -977,19 +979,19 @@ Answer
 <span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(air <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>, <span class="st">'airline.csv'</span>)))  <span class="co"># 5.6 sec.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  3.766   0.113   3.879 </code></pre>
+  4.004   0.109   4.119 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(air <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>, <span class="st">'airline.csv'</span>),</span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">colClasses =</span> col_types))   <span class="co"># 1.5 sec.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  1.637   0.018   1.656 </code></pre>
+  1.704   0.022   1.732 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(air <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="fu">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>, <span class="st">'airline.csv'</span>),</span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">col_types =</span> <span class="st">"iiiiiiiiciciiiiicciiiiciiiiii"</span>))  <span class="co"># 0.9 sec.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  3.326   0.144   1.190 </code></pre>
+  3.491   0.168   1.405 </code></pre>
 </div>
 </div>
 <p>It doesn’t make much difference for that small-ish (50 MB) file, but <code>fread</code> should be fast for much larger files, including reading from zipped files or online files.</p>
@@ -1019,18 +1021,18 @@ Answer
 <span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(sub <span class="ot">&lt;-</span> air[Dest <span class="sc">==</span> <span class="st">"BOS"</span>])  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.025   0.000   0.013 </code></pre>
+  0.027   0.000   0.016 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Now set index and subset</span></span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">setindex</span>(air, Dest))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.010   0.000   0.003 </code></pre>
+  0.010   0.000   0.004 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(sub2 <span class="ot">&lt;-</span> air[Dest <span class="sc">==</span> <span class="st">"BOS"</span>]) <span class="co"># essentially instantaneous</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.005   0.000   0.003 </code></pre>
+  0.007   0.000   0.005 </code></pre>
 </div>
 </div>
 <p>data.table has a lot of functionality and can be used to do a variety of sophisticated queries and manipulations (including aggregation operations), but it has its own somewhat involved syntax and concepts. The above just scratches the surface of what you can do with it.</p>
@@ -1045,12 +1047,12 @@ Answer
 <span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(result <span class="ot">&lt;-</span> air[ , .(<span class="at">meanDelayByDest =</span> <span class="fu">mean</span>(DepDelay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), <span class="at">by =</span> Dest])  <span class="co"># 0.008 sec.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.043   0.000   0.012 </code></pre>
+  0.042   0.000   0.012 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(result <span class="ot">&lt;-</span> air <span class="sc">|&gt;</span> <span class="fu">group_by</span>(Dest) <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">meanDepDelay =</span> <span class="fu">mean</span>(DepDelay)))   <span class="co"># 0.019 sec.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.015   0.000   0.015 </code></pre>
+  0.015   0.000   0.014 </code></pre>
 </div>
 </div>
 <p>Instead, one can also use <code>dtplyr</code> to set use a data table as a back end for dplyr manipulations. Using <code>lazy_dt</code> allows dtplyr to do some optimization as it generates the translation from dplyr syntax to data table syntax, though this simple example doesn’t illustrate the usefulness of that (and using <code>system.time</code> for fine differentiation of timing is not generally a good idea).</p>
@@ -1060,7 +1062,7 @@ Answer
 <span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(result <span class="ot">&lt;-</span> lazy_air <span class="sc">|&gt;</span> <span class="fu">group_by</span>(Dest) <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">meanDepDelay =</span> <span class="fu">mean</span>(DepDelay))) <span class="co"># 0.007</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.005   0.000   0.005 </code></pre>
+  0.005   0.000   0.006 </code></pre>
 </div>
 </div>
 <p>Finally the <code>tidytable</code> package (not shown) also allows you to use dplyr syntax as well as other tidyverse syntax, such as <code>tidyr</code> functions.</p>
@@ -1083,9 +1085,8 @@ Answer
 <p>The <em>DBI</em> package provides a front-end for manipulating databases from a variety of DBMS (MySQL, DuckDB, SQLite, Oracle, among others).</p>
 <p>DuckDB is a nice alternative to SQLite for a simple database (just a single file) that is fast to use for data analysis work (it uses columnar storage).</p>
 <p>Basically, you tell the package what DBMS is being used on the back-end, link to the actual database, and then you can use the standard functions in the package regardless of the back-end.</p>
-</section>
-<section id="database-example" class="level1">
-<h1>Database example</h1>
+<section id="database-example" class="level2">
+<h2 class="anchored" data-anchor-id="database-example">Database example</h2>
 <p>You can get an example database of information about Stack Overflow questions and answers from <a href="http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.duckdb">http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.duckdb</a>. Stack Overflow is a website where programmers and software users can pose questions and get answers to technical problems.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(duckdb)  <span class="co"># DBI is a dependency</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1128,6 +1129,7 @@ Answer
 </div>
 <div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(db)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
 </section>
 <section id="breakout" class="level1">
 <h1>Breakout</h1>
@@ -2243,7 +2245,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb91-666"><a href="#cb91-666" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb91-667"><a href="#cb91-667" aria-hidden="true" tabindex="-1"></a>Basically, you tell the package what DBMS is being used on the back-end, link to the actual database, and then you can use the standard functions in the package regardless of the back-end. </span>
 <span id="cb91-668"><a href="#cb91-668" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-669"><a href="#cb91-669" aria-hidden="true" tabindex="-1"></a><span class="fu"># Database example</span></span>
+<span id="cb91-669"><a href="#cb91-669" aria-hidden="true" tabindex="-1"></a><span class="fu">## Database example</span></span>
 <span id="cb91-670"><a href="#cb91-670" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb91-671"><a href="#cb91-671" aria-hidden="true" tabindex="-1"></a>You can get an example database of information about Stack Overflow questions and answers from <span class="co">[</span><span class="ot">http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.duckdb</span><span class="co">](http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.duckdb)</span>. Stack Overflow is a website where programmers and software users can pose questions and get answers to technical problems.</span>
 <span id="cb91-672"><a href="#cb91-672" aria-hidden="true" tabindex="-1"></a></span>
