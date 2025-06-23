@@ -603,6 +603,47 @@ Some alternatives include:
 
 Or you may need to move to another language, such as using Dask in Python, or database/data lake functionality provided by clould providers.
 
+# Databases
+
+These days, most people interact with databases from a language like R or Python.
+
+R has the capability to read and write from a variety of relational database management systems (DBMS). Basically a database is a collection of rectangular format datasets (tables). Some of these tables have fields in common so it makes sense to merge (i.e., join) information from multiple tables. E.g., you might have a database with a table of student information, a table of teacher information and a table of school information. 
+
+The *DBI* package provides a front-end for manipulating databases from a variety of DBMS (MySQL, DuckDB, SQLite, Oracle, among others).
+
+DuckDB is a nice alternative to SQLite for a simple database (just a single file) that is fast to use for data analysis work (it uses columnar storage).
+
+Basically, you tell the package what DBMS is being used on the back-end, link to the actual database, and then you can use the standard functions in the package regardless of the back-end. 
+
+# Database example
+
+You can get an example database of information about Stack Overflow questions and answers from [http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2021.duckdb](http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2021.duckdb). Stack Overflow is a website where programmers and software users can pose questions and get answers to technical problems.
+
+
+```{r}
+library(RSQLite)  # DBI is a dependency
+dbfile <- file.path("..", "data", "stackoverflow-2021.duckdb")
+db <- dbConnect(duckdb(), dbname = dbfile)  # This will vary depending on the back-end database
+## stackoverflow-2021.db is an DuckDB database
+
+## The syntax below works regardless of the back-end database.
+
+## metadata
+dbListTables(db)
+dbListFields(db, "questions")
+
+## A simple filter operation:
+popular <- dbGetQuery(db, "select * from questions 
+   where viewcount > 10000")
+## A join followed by a filter operation:
+popularR <- dbGetQuery(db, "select * from questions join questions_tags
+   on questions.questionid = questions_tags.questionid
+   where viewcount > 10000 and
+   tag = 'r'")
+
+dbDisconnect(db)
+```
+
 
 # Breakout
 
