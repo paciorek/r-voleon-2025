@@ -41,5 +41,6 @@
           href: "./units/analysis.html"
         - type: "Module"
           id: "7"
-          name: "Additional Topics: Parallelization, Calling C++, TBD"
+          name: "Speeding Up R: Parallelization and Rcpp"
+          href: "./units/speed.html"
 

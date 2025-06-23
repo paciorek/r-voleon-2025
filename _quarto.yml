@@ -8,7 +8,7 @@ project:
     - units/tidyverse.qmd
     - units/ggplot.qmd
     - units/analysis.qmd
-    - units/topics.qmd
+    - units/speed.qmd
     - prep.qmd
     - syllabus.qmd
     - index.qmd
@@ -26,7 +26,7 @@ website:
         text: Home / Schedule
       - href: prep.qmd
         text: Preparation
-      - section: "Modules (a partial set)"
+      - section: "Modules"
         contents:
           - href: units/intro.qmd
             text: Basic Introduction (Module "0")
@@ -42,6 +42,8 @@ website:
             text: Plotting (ggplot)
           - href: units/analysis.qmd
             text: Basic Analysis/Useful Packages
+          - href: units/speed.qmd
+            text: Parallelization/Rcpp
           
 
 format:
