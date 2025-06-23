@@ -331,6 +331,16 @@ window.Quarto = {
 <li>Ask questions and comment if something interesting happens as you experiment.</li>
 </ul>
 <p>This is a bootcamp. So there may be some pain involved! If you find yourself not following everything, that’s ok. You may miss some details, but try to follow the basics and the big picture.</p>
+<p>What about using a ChatBot?</p>
+<ul>
+<li>Great for getting initial syntax (so we’ll focus on concepts)</li>
+<li>Great for translating between languages</li>
+<li>Can hallucinate syntax</li>
+<li>How much and what do we need to learn ourselves?
+<ul>
+<li>For now, knowledgeable humans still need to review, revise, debug. Right?</li>
+</ul></li>
+</ul>
 </section>
 <section id="what-is-r" class="level1">
 <h1>What is R?</h1>
@@ -445,7 +455,7 @@ window.Quarto = {
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>devs <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">5</span>)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>devs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  0.1505508 -1.5696629  0.9028124  0.2561223  0.5479186</code></pre>
+<pre><code>[1]  1.04516058 -0.03763157 -0.22055965  0.01706605 -1.97102849</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## integer vector</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ints <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>L, <span class="dv">5</span>L, <span class="sc">-</span><span class="dv">3</span>L) <span class="co"># Force storage as integer not real number.</span></span>
@@ -726,10 +736,10 @@ $gdpPercap
 <div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">12</span>), <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">4</span>)</span>
 <span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>mat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           [,1]       [,2]        [,3]       [,4]
-[1,]  0.1666926 -0.1350175 -0.64427191 -0.1201622
-[2,] -1.1329633 -0.1611429 -0.02733954 -0.7573866
-[3,] -0.3473649  0.1461355  0.56348320  0.6727923</code></pre>
+<pre><code>           [,1]       [,2]       [,3]       [,4]
+[1,]  0.4896124 -0.9208910 -1.1884172 -1.6276036
+[2,] -1.3112041 -0.1100885  0.3182333 -1.0269114
+[3,] -1.1364096  1.2102654 -0.9854634 -0.7792454</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Basic linear algebra</span></span>
 <span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">4</span></span>
@@ -763,27 +773,27 @@ $gdpPercap
 <div class="cell-output cell-output-stdout">
 <pre><code>, , 1
 
-           [,1]       [,2]        [,3]
-[1,]  0.4268326  1.9054525 -0.01781535
-[2,] -0.9312078 -0.1661122 -0.50656861
+         [,1]      [,2]        [,3]
+[1,] 0.704287 0.2946375  1.86227278
+[2,] 1.430662 0.2312704 -0.07392677
 
 , , 2
 
-           [,1]       [,2]       [,3]
-[1,] -0.7013177 -0.1142758  1.2692519
-[2,] -0.3818200  0.3150590 -0.3171893
+           [,1]       [,2]      [,3]
+[1,] 0.04111435  0.3294072 0.1741718
+[2,] 0.09864504 -1.0811865 1.1266186
 
 , , 3
 
-           [,1]       [,2]        [,3]
-[1,]  0.4268326  1.9054525 -0.01781535
-[2,] -0.9312078 -0.1661122 -0.50656861
+         [,1]      [,2]        [,3]
+[1,] 0.704287 0.2946375  1.86227278
+[2,] 1.430662 0.2312704 -0.07392677
 
 , , 4
 
-           [,1]       [,2]       [,3]
-[1,] -0.7013177 -0.1142758  1.2692519
-[2,] -0.3818200  0.3150590 -0.3171893</code></pre>
+           [,1]       [,2]      [,3]
+[1,] 0.04111435  0.3294072 0.1741718
+[2,] 0.09864504 -1.0811865 1.1266186</code></pre>
 </div>
 </div>
 </section>
@@ -801,7 +811,7 @@ $gdpPercap
 <div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">"sarah"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"carlos"</span> <span class="ot">=</span> <span class="st">"foo"</span>, <span class="st">"maude"</span> <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">4</span>))  <span class="co"># Heterogeneous</span></span>
 <span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>x[[<span class="st">'maude'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  1.2679071 -0.2791713 -1.1353775  0.9676211</code></pre>
+<pre><code>[1]  0.06673215  0.13984796 -1.89433413 -0.01587353</code></pre>
 </div>
 </div>
 <p>However, lookup does NOT use hashing, so it is O(n) cost. One could instead use R’s environments for fast hash-based lookup.</p>
@@ -818,10 +828,10 @@ $gdpPercap
 <div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(mat) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'first'</span>, <span class="st">'middle'</span>, <span class="st">'last'</span>)</span>
 <span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>mat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>             [,1]       [,2]        [,3]       [,4]
-first   0.1666926 -0.1350175 -0.64427191 -0.1201622
-middle -1.1329633 -0.1611429 -0.02733954 -0.7573866
-last   -0.3473649  0.1461355  0.56348320  0.6727923</code></pre>
+<pre><code>             [,1]       [,2]       [,3]       [,4]
+first   0.4896124 -0.9208910 -1.1884172 -1.6276036
+middle -1.3112041 -0.1100885  0.3182333 -1.0269114
+last   -1.1364096  1.2102654 -0.9854634 -0.7792454</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(mat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -859,8 +869,8 @@ NULL</code></pre>
 <span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>vec[<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>)] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
 <span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>vec</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] -0.6566294  0.2426315         NA  0.8514452         NA -0.7750995
- [7]  1.3294132 -0.8845329  1.7296348  0.6734486 -0.5340408  0.5857650</code></pre>
+<pre><code> [1] -0.3848068  0.2008003         NA  0.8924384         NA  0.9387817
+ [7]  1.1936894 -0.4364204  0.3636581  1.4700999 -0.1274402  0.3295658</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(vec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -872,7 +882,7 @@ NULL</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(vec, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.562036</code></pre>
+<pre><code>[1] 4.440366</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(vec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1243,33 +1253,33 @@ a    1    5    9   13   17</code></pre>
 <span id="cb191-2"><a href="#cb191-2" aria-hidden="true" tabindex="-1"></a>vec[<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">12</span><span class="sc">:</span><span class="dv">14</span>)] <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span>
 <span id="cb191-3"><a href="#cb191-3" aria-hidden="true" tabindex="-1"></a>vec</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] -0.6841839  0.5325407  1.0000000  0.6146369  2.0000000  0.6976120
- [7]  1.2732914 -0.4167823 -1.2464454  1.8642745 -0.5649381  3.0000000
-[13]  4.0000000  5.0000000 -1.5324428  0.2374587  1.1010775  1.3056292
-[19] -0.2152968 -0.6584000</code></pre>
+<pre><code> [1] -0.10348598 -0.19711812  1.00000000  0.86175555  2.00000000  0.61561296
+ [7] -1.17994918  1.77088569 -0.57195198  0.05821516 -0.04656239  3.00000000
+[13]  4.00000000  5.00000000 -1.68996897  0.28360294  1.40876049 -0.36984051
+[19] -0.86946461  1.15434656</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb193"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb193-1"><a href="#cb193-1" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">6</span><span class="sc">*</span><span class="dv">5</span>), <span class="at">nrow =</span> <span class="dv">6</span>)</span>
 <span id="cb193-2"><a href="#cb193-2" aria-hidden="true" tabindex="-1"></a>mat[<span class="dv">2</span>, <span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>)</span>
 <span id="cb193-3"><a href="#cb193-3" aria-hidden="true" tabindex="-1"></a>mat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           [,1]       [,2]       [,3]        [,4]       [,5]
-[1,] -0.4716173  0.1446485 -1.1029422 -0.93974099 0.08260646
-[2,]  0.9731988 -1.3764353 -0.9074446 -0.04778549 0.61800052
-[3,] -0.1323919 -0.4779016  0.9405089  1.84543775 0.34498988
-[4,]  0.1557734 -1.4935704  1.4957760  0.62041263 0.16201880
-[5,] -0.1040914 -0.7359108 -1.0312287 -1.44891413 0.17313153
-[6,] -0.2629278 -0.9667743  1.1406051 -0.79179185 0.02117420</code></pre>
+<pre><code>           [,1]       [,2]       [,3]        [,4]        [,5]
+[1,] -0.9302555 -0.3971309 -0.6960548  1.11741292  1.28173550
+[2,]  0.4893728  1.0695032 -1.0248511 -2.51613986  0.09530221
+[3,] -0.2176812 -1.1679594  0.3081765  2.26738594 -0.55801164
+[4,] -0.4849468  0.9352054  1.5406532 -1.38884669  0.71746060
+[5,]  0.7781573  0.3631866  0.6731727  0.06559643  1.93228540
+[6,] -0.8409723  0.5637175  0.2130024  1.38104882 -0.87035856</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb195"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb195-1"><a href="#cb195-1" aria-hidden="true" tabindex="-1"></a>mat[mat[,<span class="dv">1</span>] <span class="sc">&gt;</span> <span class="dv">0</span>, ] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="cn">Inf</span></span>
 <span id="cb195-2"><a href="#cb195-2" aria-hidden="true" tabindex="-1"></a>mat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           [,1]       [,2]       [,3]       [,4]       [,5]
-[1,] -0.4716173  0.1446485 -1.1029422 -0.9397410 0.08260646
-[2,]       -Inf       -Inf       -Inf       -Inf       -Inf
-[3,] -0.1323919 -0.4779016  0.9405089  1.8454378 0.34498988
-[4,]       -Inf       -Inf       -Inf       -Inf       -Inf
-[5,] -0.1040914 -0.7359108 -1.0312287 -1.4489141 0.17313153
-[6,] -0.2629278 -0.9667743  1.1406051 -0.7917918 0.02117420</code></pre>
+<pre><code>           [,1]       [,2]       [,3]      [,4]       [,5]
+[1,] -0.9302555 -0.3971309 -0.6960548  1.117413  1.2817355
+[2,]       -Inf       -Inf       -Inf      -Inf       -Inf
+[3,] -0.2176812 -1.1679594  0.3081765  2.267386 -0.5580116
+[4,] -0.4849468  0.9352054  1.5406532 -1.388847  0.7174606
+[5,]       -Inf       -Inf       -Inf      -Inf       -Inf
+[6,] -0.8409723  0.5637175  0.2130024  1.381049 -0.8703586</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Question">
@@ -1841,532 +1851,541 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb199-31"><a href="#cb199-31" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Play with it and try variations and try to break it and see what happens.</span>
 <span id="cb199-32"><a href="#cb199-32" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Ask questions and comment if something interesting happens as you experiment.</span>
 <span id="cb199-33"><a href="#cb199-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-34"><a href="#cb199-34" aria-hidden="true" tabindex="-1"></a>This is a bootcamp. So there may be some pain involved! If you find yourself not following everything, that's ok. You may miss some details, but try to follow the basics and the big picture. </span>
+<span id="cb199-34"><a href="#cb199-34" aria-hidden="true" tabindex="-1"></a>This is a bootcamp. So there may be some pain involved! If you find yourself not following everything, that's ok. You may miss some details, but try to follow the basics and the big picture.</span>
 <span id="cb199-35"><a href="#cb199-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-36"><a href="#cb199-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-37"><a href="#cb199-37" aria-hidden="true" tabindex="-1"></a><span class="fu"># What is R?</span></span>
-<span id="cb199-38"><a href="#cb199-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-39"><a href="#cb199-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>R is an Open Source (and freely available) environment for statistical computing and graphics</span>
-<span id="cb199-40"><a href="#cb199-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>It is a full-featured programming language, in particular a scripting language (with similarities to MATLAB, Julia, and Python)</span>
-<span id="cb199-41"><a href="#cb199-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>It can be run interactively or as a batch/background job</span>
-<span id="cb199-42"><a href="#cb199-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>R has a variety of built-in as well as community-provided packages that extend its functionality with code and data; see <span class="co">[</span><span class="ot">CRAN</span><span class="co">](https://cran.r-project.org/web/packages/index.html)</span> for the thousands of add-on packages</span>
-<span id="cb199-43"><a href="#cb199-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>It is freely-available and modifiable </span>
-<span id="cb199-44"><a href="#cb199-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Available for Windows, Mac OS X, and <span class="co">[</span><span class="ot">Linux</span><span class="co">](http://dilbert.com/strips/comic/1995-06-24/)</span></span>
+<span id="cb199-36"><a href="#cb199-36" aria-hidden="true" tabindex="-1"></a>What about using a ChatBot?</span>
+<span id="cb199-37"><a href="#cb199-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-38"><a href="#cb199-38" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Great for getting initial syntax (so we'll focus on concepts)</span>
+<span id="cb199-39"><a href="#cb199-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Great for translating between languages</span>
+<span id="cb199-40"><a href="#cb199-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Can hallucinate syntax</span>
+<span id="cb199-41"><a href="#cb199-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>How much and what do we need to learn ourselves?</span>
+<span id="cb199-42"><a href="#cb199-42" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>For now, knowledgeable humans still need to review, revise, debug. Right?</span>
+<span id="cb199-43"><a href="#cb199-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-44"><a href="#cb199-44" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb199-45"><a href="#cb199-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-46"><a href="#cb199-46" aria-hidden="true" tabindex="-1"></a><span class="fu"># Why R?</span></span>
+<span id="cb199-46"><a href="#cb199-46" aria-hidden="true" tabindex="-1"></a><span class="fu"># What is R?</span></span>
 <span id="cb199-47"><a href="#cb199-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-48"><a href="#cb199-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>R is widely used (statisticians, data scientists, scientists, social scientists) and has the widest statistical functionality of any software, plus extensive machine learning functionality.</span>
-<span id="cb199-49"><a href="#cb199-49" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Extensive, easy-to-use functionality for working with tabular data and for plotting (e.g., the 'tidyverse').</span>
-<span id="cb199-50"><a href="#cb199-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Users add functionality via packages all the time.</span>
-<span id="cb199-51"><a href="#cb199-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>R is free and available on all major platforms.</span>
-<span id="cb199-52"><a href="#cb199-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>As a scripting language, R is very powerful, flexible, easy to use, automates tasks, and allows for reproducibility.</span>
-<span id="cb199-53"><a href="#cb199-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>As a language, R can do essentially anything</span>
-<span id="cb199-54"><a href="#cb199-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Wide usage helps to improve quality and reduce bugs</span>
-<span id="cb199-55"><a href="#cb199-55" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>R can interact with other software, databases, the operating system, the web, etc.</span>
-<span id="cb199-56"><a href="#cb199-56" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>R is built on C and can call user-written and external C/C++ code and packages (in particular, see the <span class="in">`Rcpp`</span> R package)</span>
-<span id="cb199-57"><a href="#cb199-57" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Good support for basic parallelization, in particular using the <span class="in">`future`</span> package</span>
-<span id="cb199-58"><a href="#cb199-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-59"><a href="#cb199-59" aria-hidden="true" tabindex="-1"></a><span class="fu"># Why Not R?</span></span>
-<span id="cb199-60"><a href="#cb199-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-61"><a href="#cb199-61" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Other software is better than R at various tasks:</span>
-<span id="cb199-62"><a href="#cb199-62" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Machine learning (particularly deep learning): Python (particularly PyTorch)</span>
-<span id="cb199-63"><a href="#cb199-63" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Automatic differentiation: Python (particularly JAX, PyTorch), Julia</span>
-<span id="cb199-64"><a href="#cb199-64" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Interacting with GPUs: Python (particularly JAX, PyTorch), Julia</span>
-<span id="cb199-65"><a href="#cb199-65" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Parallelization: Julia has more integrated, broader CPU-based parallelization support</span>
-<span id="cb199-66"><a href="#cb199-66" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>General "glue" language for interacting with the web and other tools/applications: <span class="co">[</span><span class="ot">Python</span><span class="co">](http://imgs.xkcd.com/comics/python.png)</span></span>
-<span id="cb199-67"><a href="#cb199-67" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>R can be much slower than compiled languages or Julia (but is often quite fast with good coding practices!)</span>
-<span id="cb199-68"><a href="#cb199-68" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>R's packages are only as good as the person who wrote them; no explicit quality control</span>
-<span id="cb199-69"><a href="#cb199-69" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>R is a sprawling and unstandardized ecosystem</span>
-<span id="cb199-70"><a href="#cb199-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-71"><a href="#cb199-71" aria-hidden="true" tabindex="-1"></a><span class="fu"># Modes of using R</span></span>
-<span id="cb199-72"><a href="#cb199-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-73"><a href="#cb199-73" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Using the RStudio GUI, an *integrated development environment*</span>
-<span id="cb199-74"><a href="#cb199-74" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>With VS Code, including a debugger</span>
-<span id="cb199-75"><a href="#cb199-75" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>In a Jupyter notebook, including a debugger</span>
-<span id="cb199-76"><a href="#cb199-76" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>From the command line in a Linux/Mac terminal window</span>
-<span id="cb199-77"><a href="#cb199-77" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Running an R script in the background on a Linux/Mac machine (perhaps Windows?)</span>
-<span id="cb199-78"><a href="#cb199-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-79"><a href="#cb199-79" aria-hidden="true" tabindex="-1"></a><span class="fu"># RStudio and R Markdown</span></span>
-<span id="cb199-80"><a href="#cb199-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-81"><a href="#cb199-81" aria-hidden="true" tabindex="-1"></a>We'll present most of the material from within RStudio, using Quarto Markdown (the successor to R Markdown) documents with embedded R code.</span>
-<span id="cb199-82"><a href="#cb199-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-83"><a href="#cb199-83" aria-hidden="true" tabindex="-1"></a>Quarto Markdown is an extension to the Markdown markup language that makes it easy to write HTML in a simple plain text format.</span>
-<span id="cb199-84"><a href="#cb199-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-85"><a href="#cb199-85" aria-hidden="true" tabindex="-1"></a>This allows us to both run the R code directly as well as compile on-the-fly to an HTML file that can be used for presentation. All files are available on <span class="co">[</span><span class="ot">GitHub</span><span class="co">](https://github.com/paciorek/r-voleon-2025)</span>.</span>
-<span id="cb199-86"><a href="#cb199-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-48"><a href="#cb199-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>R is an Open Source (and freely available) environment for statistical computing and graphics</span>
+<span id="cb199-49"><a href="#cb199-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>It is a full-featured programming language, in particular a scripting language (with similarities to MATLAB, Julia, and Python)</span>
+<span id="cb199-50"><a href="#cb199-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>It can be run interactively or as a batch/background job</span>
+<span id="cb199-51"><a href="#cb199-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>R has a variety of built-in as well as community-provided packages that extend its functionality with code and data; see <span class="co">[</span><span class="ot">CRAN</span><span class="co">](https://cran.r-project.org/web/packages/index.html)</span> for the thousands of add-on packages</span>
+<span id="cb199-52"><a href="#cb199-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>It is freely-available and modifiable </span>
+<span id="cb199-53"><a href="#cb199-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Available for Windows, Mac OS X, and <span class="co">[</span><span class="ot">Linux</span><span class="co">](http://dilbert.com/strips/comic/1995-06-24/)</span></span>
+<span id="cb199-54"><a href="#cb199-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-55"><a href="#cb199-55" aria-hidden="true" tabindex="-1"></a><span class="fu"># Why R?</span></span>
+<span id="cb199-56"><a href="#cb199-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-57"><a href="#cb199-57" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>R is widely used (statisticians, data scientists, scientists, social scientists) and has the widest statistical functionality of any software, plus extensive machine learning functionality.</span>
+<span id="cb199-58"><a href="#cb199-58" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Extensive, easy-to-use functionality for working with tabular data and for plotting (e.g., the 'tidyverse').</span>
+<span id="cb199-59"><a href="#cb199-59" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Users add functionality via packages all the time.</span>
+<span id="cb199-60"><a href="#cb199-60" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>R is free and available on all major platforms.</span>
+<span id="cb199-61"><a href="#cb199-61" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>As a scripting language, R is very powerful, flexible, easy to use, automates tasks, and allows for reproducibility.</span>
+<span id="cb199-62"><a href="#cb199-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>As a language, R can do essentially anything</span>
+<span id="cb199-63"><a href="#cb199-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Wide usage helps to improve quality and reduce bugs</span>
+<span id="cb199-64"><a href="#cb199-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>R can interact with other software, databases, the operating system, the web, etc.</span>
+<span id="cb199-65"><a href="#cb199-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>R is built on C and can call user-written and external C/C++ code and packages (in particular, see the <span class="in">`Rcpp`</span> R package)</span>
+<span id="cb199-66"><a href="#cb199-66" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Good support for basic parallelization, in particular using the <span class="in">`future`</span> package</span>
+<span id="cb199-67"><a href="#cb199-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-68"><a href="#cb199-68" aria-hidden="true" tabindex="-1"></a><span class="fu"># Why Not R?</span></span>
+<span id="cb199-69"><a href="#cb199-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-70"><a href="#cb199-70" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Other software is better than R at various tasks:</span>
+<span id="cb199-71"><a href="#cb199-71" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Machine learning (particularly deep learning): Python (particularly PyTorch)</span>
+<span id="cb199-72"><a href="#cb199-72" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Automatic differentiation: Python (particularly JAX, PyTorch), Julia</span>
+<span id="cb199-73"><a href="#cb199-73" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Interacting with GPUs: Python (particularly JAX, PyTorch), Julia</span>
+<span id="cb199-74"><a href="#cb199-74" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Parallelization: Julia has more integrated, broader CPU-based parallelization support</span>
+<span id="cb199-75"><a href="#cb199-75" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>General "glue" language for interacting with the web and other tools/applications: <span class="co">[</span><span class="ot">Python</span><span class="co">](http://imgs.xkcd.com/comics/python.png)</span></span>
+<span id="cb199-76"><a href="#cb199-76" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>R can be much slower than compiled languages or Julia (but is often quite fast with good coding practices!)</span>
+<span id="cb199-77"><a href="#cb199-77" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>R's packages are only as good as the person who wrote them; no explicit quality control</span>
+<span id="cb199-78"><a href="#cb199-78" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>R is a sprawling and unstandardized ecosystem</span>
+<span id="cb199-79"><a href="#cb199-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-80"><a href="#cb199-80" aria-hidden="true" tabindex="-1"></a><span class="fu"># Modes of using R</span></span>
+<span id="cb199-81"><a href="#cb199-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-82"><a href="#cb199-82" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Using the RStudio GUI, an *integrated development environment*</span>
+<span id="cb199-83"><a href="#cb199-83" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>With VS Code, including a debugger</span>
+<span id="cb199-84"><a href="#cb199-84" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>In a Jupyter notebook, including a debugger</span>
+<span id="cb199-85"><a href="#cb199-85" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>From the command line in a Linux/Mac terminal window</span>
+<span id="cb199-86"><a href="#cb199-86" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Running an R script in the background on a Linux/Mac machine (perhaps Windows?)</span>
 <span id="cb199-87"><a href="#cb199-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-88"><a href="#cb199-88" aria-hidden="true" tabindex="-1"></a><span class="fu"># Starting R and RStudio</span></span>
+<span id="cb199-88"><a href="#cb199-88" aria-hidden="true" tabindex="-1"></a><span class="fu"># RStudio and R Markdown</span></span>
 <span id="cb199-89"><a href="#cb199-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-90"><a href="#cb199-90" aria-hidden="true" tabindex="-1"></a>The pieces of an RStudio session include:</span>
+<span id="cb199-90"><a href="#cb199-90" aria-hidden="true" tabindex="-1"></a>We'll present most of the material from within RStudio, using Quarto Markdown (the successor to R Markdown) documents with embedded R code.</span>
 <span id="cb199-91"><a href="#cb199-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-92"><a href="#cb199-92" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The R console</span>
-<span id="cb199-93"><a href="#cb199-93" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Scripts containing your code</span>
-<span id="cb199-94"><a href="#cb199-94" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>The script window also has Notebook capabilities like Jupyter notebooks</span>
-<span id="cb199-95"><a href="#cb199-95" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Help files</span>
-<span id="cb199-96"><a href="#cb199-96" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Graphics windows</span>
-<span id="cb199-97"><a href="#cb199-97" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Workspace containing your objects, which hold data and information</span>
+<span id="cb199-92"><a href="#cb199-92" aria-hidden="true" tabindex="-1"></a>Quarto Markdown is an extension to the Markdown markup language that makes it easy to write HTML in a simple plain text format.</span>
+<span id="cb199-93"><a href="#cb199-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-94"><a href="#cb199-94" aria-hidden="true" tabindex="-1"></a>This allows us to both run the R code directly as well as compile on-the-fly to an HTML file that can be used for presentation. All files are available on <span class="co">[</span><span class="ot">GitHub</span><span class="co">](https://github.com/paciorek/r-voleon-2025)</span>.</span>
+<span id="cb199-95"><a href="#cb199-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-96"><a href="#cb199-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-97"><a href="#cb199-97" aria-hidden="true" tabindex="-1"></a><span class="fu"># Starting R and RStudio</span></span>
 <span id="cb199-98"><a href="#cb199-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-99"><a href="#cb199-99" aria-hidden="true" tabindex="-1"></a>RStudio provides an integrated development environment in which all of these pieces are in a single application and tightly integrated, with a built-in editor for your code/scripts. </span>
+<span id="cb199-99"><a href="#cb199-99" aria-hidden="true" tabindex="-1"></a>The pieces of an RStudio session include:</span>
 <span id="cb199-100"><a href="#cb199-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-101"><a href="#cb199-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-102"><a href="#cb199-102" aria-hidden="true" tabindex="-1"></a><span class="fu"># Example dataset</span></span>
-<span id="cb199-103"><a href="#cb199-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-104"><a href="#cb199-104" aria-hidden="true" tabindex="-1"></a>Many of the modules will use a common dataset as an example on which to carry out various operations. We'll focus on dataset of demographic/economic information (population, GDP per capita, life expectancy) for many of the countries in the world every five years, provided by the <span class="co">[</span><span class="ot">Gapminder project</span><span class="co">](https://www.gapminder.org)</span>. The data are available by installing and loading the <span class="in">`gapminder`</span> dataset.</span>
-<span id="cb199-105"><a href="#cb199-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-108"><a href="#cb199-108" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb199-109"><a href="#cb199-109" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
-<span id="cb199-110"><a href="#cb199-110" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gapminder)</span>
-<span id="cb199-111"><a href="#cb199-111" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-101"><a href="#cb199-101" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The R console</span>
+<span id="cb199-102"><a href="#cb199-102" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Scripts containing your code</span>
+<span id="cb199-103"><a href="#cb199-103" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>The script window also has Notebook capabilities like Jupyter notebooks</span>
+<span id="cb199-104"><a href="#cb199-104" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Help files</span>
+<span id="cb199-105"><a href="#cb199-105" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Graphics windows</span>
+<span id="cb199-106"><a href="#cb199-106" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Workspace containing your objects, which hold data and information</span>
+<span id="cb199-107"><a href="#cb199-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-108"><a href="#cb199-108" aria-hidden="true" tabindex="-1"></a>RStudio provides an integrated development environment in which all of these pieces are in a single application and tightly integrated, with a built-in editor for your code/scripts. </span>
+<span id="cb199-109"><a href="#cb199-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-110"><a href="#cb199-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-111"><a href="#cb199-111" aria-hidden="true" tabindex="-1"></a><span class="fu"># Example dataset</span></span>
 <span id="cb199-112"><a href="#cb199-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-113"><a href="#cb199-113" aria-hidden="true" tabindex="-1"></a><span class="fu"># Basic R data structures</span></span>
+<span id="cb199-113"><a href="#cb199-113" aria-hidden="true" tabindex="-1"></a>Many of the modules will use a common dataset as an example on which to carry out various operations. We'll focus on dataset of demographic/economic information (population, GDP per capita, life expectancy) for many of the countries in the world every five years, provided by the <span class="co">[</span><span class="ot">Gapminder project</span><span class="co">](https://www.gapminder.org)</span>. The data are available by installing and loading the <span class="in">`gapminder`</span> dataset.</span>
 <span id="cb199-114"><a href="#cb199-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-115"><a href="#cb199-115" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Vectors (of numbers, strings, booleans, etc.)</span>
-<span id="cb199-116"><a href="#cb199-116" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Matrices and arrays</span>
-<span id="cb199-117"><a href="#cb199-117" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Lists (collections of potentially heterogeneous information)</span>
-<span id="cb199-118"><a href="#cb199-118" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Dataframes (for tabular data with heterogeneous column types)</span>
-<span id="cb199-119"><a href="#cb199-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-120"><a href="#cb199-120" aria-hidden="true" tabindex="-1"></a><span class="fu"># Vectors </span></span>
+<span id="cb199-117"><a href="#cb199-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb199-118"><a href="#cb199-118" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
+<span id="cb199-119"><a href="#cb199-119" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gapminder)</span>
+<span id="cb199-120"><a href="#cb199-120" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb199-121"><a href="#cb199-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-122"><a href="#cb199-122" aria-hidden="true" tabindex="-1"></a>The most basic form of an R object is a vector. </span>
+<span id="cb199-122"><a href="#cb199-122" aria-hidden="true" tabindex="-1"></a><span class="fu"># Basic R data structures</span></span>
 <span id="cb199-123"><a href="#cb199-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-124"><a href="#cb199-124" aria-hidden="true" tabindex="-1"></a>We can concatenate values into a vector with <span class="in">`c()`</span> or generate them as a whole:</span>
-<span id="cb199-125"><a href="#cb199-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-128"><a href="#cb199-128" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb199-129"><a href="#cb199-129" aria-hidden="true" tabindex="-1"></a><span class="do">## numeric vector</span></span>
-<span id="cb199-130"><a href="#cb199-130" aria-hidden="true" tabindex="-1"></a>nums <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.1</span>, <span class="dv">3</span>, <span class="sc">-</span><span class="fl">5.7</span>)</span>
-<span id="cb199-131"><a href="#cb199-131" aria-hidden="true" tabindex="-1"></a>devs <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">5</span>)</span>
-<span id="cb199-132"><a href="#cb199-132" aria-hidden="true" tabindex="-1"></a>devs</span>
-<span id="cb199-133"><a href="#cb199-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-134"><a href="#cb199-134" aria-hidden="true" tabindex="-1"></a><span class="do">## integer vector</span></span>
-<span id="cb199-135"><a href="#cb199-135" aria-hidden="true" tabindex="-1"></a>ints <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>L, <span class="dv">5</span>L, <span class="sc">-</span><span class="dv">3</span>L) <span class="co"># Force storage as integer not real number.</span></span>
-<span id="cb199-136"><a href="#cb199-136" aria-hidden="true" tabindex="-1"></a><span class="do">## 'L' is for 'long integer' (historical, from C)</span></span>
-<span id="cb199-137"><a href="#cb199-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-138"><a href="#cb199-138" aria-hidden="true" tabindex="-1"></a><span class="do">## All objects in R belong to a class (more in Unit 3)</span></span>
-<span id="cb199-139"><a href="#cb199-139" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(devs)</span>
-<span id="cb199-140"><a href="#cb199-140" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(ints)</span>
-<span id="cb199-141"><a href="#cb199-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-142"><a href="#cb199-142" aria-hidden="true" tabindex="-1"></a><span class="do">## Internal representation (in underlying C objects)</span></span>
-<span id="cb199-143"><a href="#cb199-143" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(devs)</span>
-<span id="cb199-144"><a href="#cb199-144" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(ints)</span>
-<span id="cb199-145"><a href="#cb199-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-146"><a href="#cb199-146" aria-hidden="true" tabindex="-1"></a><span class="do">## character vector</span></span>
-<span id="cb199-147"><a href="#cb199-147" aria-hidden="true" tabindex="-1"></a>chars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'hi'</span>, <span class="st">'hallo'</span>, <span class="st">"mother's"</span>, <span class="st">'father</span><span class="sc">\'</span><span class="st">s'</span>, </span>
-<span id="cb199-148"><a href="#cb199-148" aria-hidden="true" tabindex="-1"></a>   <span class="st">"She said, 'hi'"</span>, <span class="st">"He said, </span><span class="sc">\"</span><span class="st">hi</span><span class="sc">\"</span><span class="st">"</span> )</span>
-<span id="cb199-149"><a href="#cb199-149" aria-hidden="true" tabindex="-1"></a>chars</span>
-<span id="cb199-150"><a href="#cb199-150" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(chars, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb199-151"><a href="#cb199-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-152"><a href="#cb199-152" aria-hidden="true" tabindex="-1"></a><span class="do">## logical vector</span></span>
-<span id="cb199-153"><a href="#cb199-153" aria-hidden="true" tabindex="-1"></a>bools <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
-<span id="cb199-154"><a href="#cb199-154" aria-hidden="true" tabindex="-1"></a>bools</span>
-<span id="cb199-155"><a href="#cb199-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb199-156"><a href="#cb199-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-157"><a href="#cb199-157" aria-hidden="true" tabindex="-1"></a><span class="fu"># Working with indices and subsets</span></span>
-<span id="cb199-158"><a href="#cb199-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-159"><a href="#cb199-159" aria-hidden="true" tabindex="-1"></a>As seen in Module 0, we can subset (aka "slice") using a variety of approaches. </span>
+<span id="cb199-124"><a href="#cb199-124" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Vectors (of numbers, strings, booleans, etc.)</span>
+<span id="cb199-125"><a href="#cb199-125" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Matrices and arrays</span>
+<span id="cb199-126"><a href="#cb199-126" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Lists (collections of potentially heterogeneous information)</span>
+<span id="cb199-127"><a href="#cb199-127" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Dataframes (for tabular data with heterogeneous column types)</span>
+<span id="cb199-128"><a href="#cb199-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-129"><a href="#cb199-129" aria-hidden="true" tabindex="-1"></a><span class="fu"># Vectors </span></span>
+<span id="cb199-130"><a href="#cb199-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-131"><a href="#cb199-131" aria-hidden="true" tabindex="-1"></a>The most basic form of an R object is a vector. </span>
+<span id="cb199-132"><a href="#cb199-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-133"><a href="#cb199-133" aria-hidden="true" tabindex="-1"></a>We can concatenate values into a vector with <span class="in">`c()`</span> or generate them as a whole:</span>
+<span id="cb199-134"><a href="#cb199-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-137"><a href="#cb199-137" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb199-138"><a href="#cb199-138" aria-hidden="true" tabindex="-1"></a><span class="do">## numeric vector</span></span>
+<span id="cb199-139"><a href="#cb199-139" aria-hidden="true" tabindex="-1"></a>nums <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.1</span>, <span class="dv">3</span>, <span class="sc">-</span><span class="fl">5.7</span>)</span>
+<span id="cb199-140"><a href="#cb199-140" aria-hidden="true" tabindex="-1"></a>devs <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">5</span>)</span>
+<span id="cb199-141"><a href="#cb199-141" aria-hidden="true" tabindex="-1"></a>devs</span>
+<span id="cb199-142"><a href="#cb199-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-143"><a href="#cb199-143" aria-hidden="true" tabindex="-1"></a><span class="do">## integer vector</span></span>
+<span id="cb199-144"><a href="#cb199-144" aria-hidden="true" tabindex="-1"></a>ints <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>L, <span class="dv">5</span>L, <span class="sc">-</span><span class="dv">3</span>L) <span class="co"># Force storage as integer not real number.</span></span>
+<span id="cb199-145"><a href="#cb199-145" aria-hidden="true" tabindex="-1"></a><span class="do">## 'L' is for 'long integer' (historical, from C)</span></span>
+<span id="cb199-146"><a href="#cb199-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-147"><a href="#cb199-147" aria-hidden="true" tabindex="-1"></a><span class="do">## All objects in R belong to a class (more in Unit 3)</span></span>
+<span id="cb199-148"><a href="#cb199-148" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(devs)</span>
+<span id="cb199-149"><a href="#cb199-149" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(ints)</span>
+<span id="cb199-150"><a href="#cb199-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-151"><a href="#cb199-151" aria-hidden="true" tabindex="-1"></a><span class="do">## Internal representation (in underlying C objects)</span></span>
+<span id="cb199-152"><a href="#cb199-152" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(devs)</span>
+<span id="cb199-153"><a href="#cb199-153" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(ints)</span>
+<span id="cb199-154"><a href="#cb199-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-155"><a href="#cb199-155" aria-hidden="true" tabindex="-1"></a><span class="do">## character vector</span></span>
+<span id="cb199-156"><a href="#cb199-156" aria-hidden="true" tabindex="-1"></a>chars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'hi'</span>, <span class="st">'hallo'</span>, <span class="st">"mother's"</span>, <span class="st">'father</span><span class="sc">\'</span><span class="st">s'</span>, </span>
+<span id="cb199-157"><a href="#cb199-157" aria-hidden="true" tabindex="-1"></a>   <span class="st">"She said, 'hi'"</span>, <span class="st">"He said, </span><span class="sc">\"</span><span class="st">hi</span><span class="sc">\"</span><span class="st">"</span> )</span>
+<span id="cb199-158"><a href="#cb199-158" aria-hidden="true" tabindex="-1"></a>chars</span>
+<span id="cb199-159"><a href="#cb199-159" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(chars, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
 <span id="cb199-160"><a href="#cb199-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-163"><a href="#cb199-163" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb199-164"><a href="#cb199-164" aria-hidden="true" tabindex="-1"></a>vals <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span></span>
+<span id="cb199-161"><a href="#cb199-161" aria-hidden="true" tabindex="-1"></a><span class="do">## logical vector</span></span>
+<span id="cb199-162"><a href="#cb199-162" aria-hidden="true" tabindex="-1"></a>bools <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb199-163"><a href="#cb199-163" aria-hidden="true" tabindex="-1"></a>bools</span>
+<span id="cb199-164"><a href="#cb199-164" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb199-165"><a href="#cb199-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-166"><a href="#cb199-166" aria-hidden="true" tabindex="-1"></a>vals[<span class="dv">3</span>]</span>
-<span id="cb199-167"><a href="#cb199-167" aria-hidden="true" tabindex="-1"></a>vals[<span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>]</span>
-<span id="cb199-168"><a href="#cb199-168" aria-hidden="true" tabindex="-1"></a>vals[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>)]</span>
-<span id="cb199-169"><a href="#cb199-169" aria-hidden="true" tabindex="-1"></a>vals[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>)]</span>
-<span id="cb199-170"><a href="#cb199-170" aria-hidden="true" tabindex="-1"></a>vals[<span class="fu">c</span>(<span class="fu">rep</span>(<span class="cn">TRUE</span>, <span class="dv">3</span>), <span class="fu">rep</span>(<span class="cn">FALSE</span>, <span class="dv">2</span>), <span class="cn">TRUE</span>, <span class="fu">rep</span>(<span class="cn">FALSE</span>, <span class="dv">6</span>))]</span>
-<span id="cb199-171"><a href="#cb199-171" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb199-172"><a href="#cb199-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-173"><a href="#cb199-173" aria-hidden="true" tabindex="-1"></a>We can substitute values into vectors:</span>
+<span id="cb199-166"><a href="#cb199-166" aria-hidden="true" tabindex="-1"></a><span class="fu"># Working with indices and subsets</span></span>
+<span id="cb199-167"><a href="#cb199-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-168"><a href="#cb199-168" aria-hidden="true" tabindex="-1"></a>As seen in Module 0, we can subset (aka "slice") using a variety of approaches. </span>
+<span id="cb199-169"><a href="#cb199-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-172"><a href="#cb199-172" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb199-173"><a href="#cb199-173" aria-hidden="true" tabindex="-1"></a>vals <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span></span>
 <span id="cb199-174"><a href="#cb199-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-177"><a href="#cb199-177" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb199-178"><a href="#cb199-178" aria-hidden="true" tabindex="-1"></a>vals[<span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="fl">822.9711</span></span>
-<span id="cb199-179"><a href="#cb199-179" aria-hidden="true" tabindex="-1"></a>vals[<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">7.5</span>, <span class="fl">2.4</span>)</span>
-<span id="cb199-180"><a href="#cb199-180" aria-hidden="true" tabindex="-1"></a>vals[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="dv">0</span>  <span class="co"># Recycling</span></span>
-<span id="cb199-181"><a href="#cb199-181" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb199-182"><a href="#cb199-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-183"><a href="#cb199-183" aria-hidden="true" tabindex="-1"></a>The last substitution uses "recycling" to match the left-hand-side extent (3 elements) with the right-hand-side extent (1 element)</span>
-<span id="cb199-184"><a href="#cb199-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-185"><a href="#cb199-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-186"><a href="#cb199-186" aria-hidden="true" tabindex="-1"></a><span class="fu"># Lists</span></span>
-<span id="cb199-187"><a href="#cb199-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-188"><a href="#cb199-188" aria-hidden="true" tabindex="-1"></a>Collections of disparate or complicated objects</span>
-<span id="cb199-189"><a href="#cb199-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-192"><a href="#cb199-192" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb199-193"><a href="#cb199-193" aria-hidden="true" tabindex="-1"></a>myList <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">stuff =</span> <span class="dv">3</span>, <span class="at">mat =</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">2</span>), </span>
-<span id="cb199-194"><a href="#cb199-194" aria-hidden="true" tabindex="-1"></a>   <span class="at">moreStuff =</span> <span class="fu">c</span>(<span class="st">"china"</span>, <span class="st">"japan"</span>), <span class="fu">list</span>(<span class="dv">5</span>, <span class="st">"bear"</span>))</span>
-<span id="cb199-195"><a href="#cb199-195" aria-hidden="true" tabindex="-1"></a>myList</span>
-<span id="cb199-196"><a href="#cb199-196" aria-hidden="true" tabindex="-1"></a>myList[[<span class="dv">3</span>]] <span class="co"># result is not (usually) a list (unless you have nested lists)</span></span>
-<span id="cb199-197"><a href="#cb199-197" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(myList[[<span class="dv">3</span>]], myList<span class="sc">$</span>moreStuff)</span>
-<span id="cb199-198"><a href="#cb199-198" aria-hidden="true" tabindex="-1"></a>myList<span class="sc">$</span>moreStuff[<span class="dv">2</span>]</span>
-<span id="cb199-199"><a href="#cb199-199" aria-hidden="true" tabindex="-1"></a>myList[[<span class="dv">4</span>]][[<span class="dv">2</span>]]</span>
-<span id="cb199-200"><a href="#cb199-200" aria-hidden="true" tabindex="-1"></a>myList[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="co"># subset of a list is a list</span></span>
-<span id="cb199-201"><a href="#cb199-201" aria-hidden="true" tabindex="-1"></a>myList<span class="sc">$</span>newOne <span class="ot">&lt;-</span> <span class="st">'more weird stuff'</span></span>
-<span id="cb199-202"><a href="#cb199-202" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(myList)</span>
-<span id="cb199-203"><a href="#cb199-203" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb199-204"><a href="#cb199-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-205"><a href="#cb199-205" aria-hidden="true" tabindex="-1"></a>Lists can be used as vectors of complicated objects. E.g., suppose you have a linear regression for each value of a stratifying variable. You could have a list of regression fits. Each regression fit will itself be a list (with coeffs, residuals, p-values, R^2), so you'll have a list of lists.</span>
-<span id="cb199-206"><a href="#cb199-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-207"><a href="#cb199-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-208"><a href="#cb199-208" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Question"}</span>
-<span id="cb199-209"><a href="#cb199-209" aria-hidden="true" tabindex="-1"></a>How would you extract "china" from this list?</span>
-<span id="cb199-210"><a href="#cb199-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-211"><a href="#cb199-211" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb199-212"><a href="#cb199-212" aria-hidden="true" tabindex="-1"></a><span class="in">myList &lt;- list(stuff = 3, mat = matrix(1:4, nrow = 2), </span></span>
-<span id="cb199-213"><a href="#cb199-213" aria-hidden="true" tabindex="-1"></a><span class="in">   moreStuff = c("china", "japan"), list(5, "bear"))</span></span>
-<span id="cb199-214"><a href="#cb199-214" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-175"><a href="#cb199-175" aria-hidden="true" tabindex="-1"></a>vals[<span class="dv">3</span>]</span>
+<span id="cb199-176"><a href="#cb199-176" aria-hidden="true" tabindex="-1"></a>vals[<span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb199-177"><a href="#cb199-177" aria-hidden="true" tabindex="-1"></a>vals[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>)]</span>
+<span id="cb199-178"><a href="#cb199-178" aria-hidden="true" tabindex="-1"></a>vals[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>)]</span>
+<span id="cb199-179"><a href="#cb199-179" aria-hidden="true" tabindex="-1"></a>vals[<span class="fu">c</span>(<span class="fu">rep</span>(<span class="cn">TRUE</span>, <span class="dv">3</span>), <span class="fu">rep</span>(<span class="cn">FALSE</span>, <span class="dv">2</span>), <span class="cn">TRUE</span>, <span class="fu">rep</span>(<span class="cn">FALSE</span>, <span class="dv">6</span>))]</span>
+<span id="cb199-180"><a href="#cb199-180" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-181"><a href="#cb199-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-182"><a href="#cb199-182" aria-hidden="true" tabindex="-1"></a>We can substitute values into vectors:</span>
+<span id="cb199-183"><a href="#cb199-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-186"><a href="#cb199-186" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb199-187"><a href="#cb199-187" aria-hidden="true" tabindex="-1"></a>vals[<span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="fl">822.9711</span></span>
+<span id="cb199-188"><a href="#cb199-188" aria-hidden="true" tabindex="-1"></a>vals[<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">7.5</span>, <span class="fl">2.4</span>)</span>
+<span id="cb199-189"><a href="#cb199-189" aria-hidden="true" tabindex="-1"></a>vals[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="dv">0</span>  <span class="co"># Recycling</span></span>
+<span id="cb199-190"><a href="#cb199-190" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-191"><a href="#cb199-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-192"><a href="#cb199-192" aria-hidden="true" tabindex="-1"></a>The last substitution uses "recycling" to match the left-hand-side extent (3 elements) with the right-hand-side extent (1 element)</span>
+<span id="cb199-193"><a href="#cb199-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-194"><a href="#cb199-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-195"><a href="#cb199-195" aria-hidden="true" tabindex="-1"></a><span class="fu"># Lists</span></span>
+<span id="cb199-196"><a href="#cb199-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-197"><a href="#cb199-197" aria-hidden="true" tabindex="-1"></a>Collections of disparate or complicated objects</span>
+<span id="cb199-198"><a href="#cb199-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-201"><a href="#cb199-201" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb199-202"><a href="#cb199-202" aria-hidden="true" tabindex="-1"></a>myList <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">stuff =</span> <span class="dv">3</span>, <span class="at">mat =</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">2</span>), </span>
+<span id="cb199-203"><a href="#cb199-203" aria-hidden="true" tabindex="-1"></a>   <span class="at">moreStuff =</span> <span class="fu">c</span>(<span class="st">"china"</span>, <span class="st">"japan"</span>), <span class="fu">list</span>(<span class="dv">5</span>, <span class="st">"bear"</span>))</span>
+<span id="cb199-204"><a href="#cb199-204" aria-hidden="true" tabindex="-1"></a>myList</span>
+<span id="cb199-205"><a href="#cb199-205" aria-hidden="true" tabindex="-1"></a>myList[[<span class="dv">3</span>]] <span class="co"># result is not (usually) a list (unless you have nested lists)</span></span>
+<span id="cb199-206"><a href="#cb199-206" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(myList[[<span class="dv">3</span>]], myList<span class="sc">$</span>moreStuff)</span>
+<span id="cb199-207"><a href="#cb199-207" aria-hidden="true" tabindex="-1"></a>myList<span class="sc">$</span>moreStuff[<span class="dv">2</span>]</span>
+<span id="cb199-208"><a href="#cb199-208" aria-hidden="true" tabindex="-1"></a>myList[[<span class="dv">4</span>]][[<span class="dv">2</span>]]</span>
+<span id="cb199-209"><a href="#cb199-209" aria-hidden="true" tabindex="-1"></a>myList[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="co"># subset of a list is a list</span></span>
+<span id="cb199-210"><a href="#cb199-210" aria-hidden="true" tabindex="-1"></a>myList<span class="sc">$</span>newOne <span class="ot">&lt;-</span> <span class="st">'more weird stuff'</span></span>
+<span id="cb199-211"><a href="#cb199-211" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(myList)</span>
+<span id="cb199-212"><a href="#cb199-212" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-213"><a href="#cb199-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-214"><a href="#cb199-214" aria-hidden="true" tabindex="-1"></a>Lists can be used as vectors of complicated objects. E.g., suppose you have a linear regression for each value of a stratifying variable. You could have a list of regression fits. Each regression fit will itself be a list (with coeffs, residuals, p-values, R^2), so you'll have a list of lists.</span>
 <span id="cb199-215"><a href="#cb199-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-216"><a href="#cb199-216" aria-hidden="true" tabindex="-1"></a>Which of these work correctly?</span>
-<span id="cb199-217"><a href="#cb199-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-218"><a href="#cb199-218" aria-hidden="true" tabindex="-1"></a>1) myList$moreStuff<span class="co">[</span><span class="ot">1</span><span class="co">]</span></span>
-<span id="cb199-219"><a href="#cb199-219" aria-hidden="true" tabindex="-1"></a>2) myList$moreStuff[<span class="co">[</span><span class="ot">1</span><span class="co">]</span>]</span>
-<span id="cb199-220"><a href="#cb199-220" aria-hidden="true" tabindex="-1"></a>3) myList[<span class="co">[</span><span class="ot">1</span><span class="co">]</span>]</span>
-<span id="cb199-221"><a href="#cb199-221" aria-hidden="true" tabindex="-1"></a>4) myList[<span class="co">[</span><span class="ot">3</span><span class="co">]</span>]<span class="co">[</span><span class="ot">2</span><span class="co">]</span></span>
-<span id="cb199-222"><a href="#cb199-222" aria-hidden="true" tabindex="-1"></a>5) myList[<span class="co">[</span><span class="ot">3</span><span class="co">]</span>]<span class="co">[</span><span class="ot">1</span><span class="co">]</span></span>
-<span id="cb199-223"><a href="#cb199-223" aria-hidden="true" tabindex="-1"></a>6) myList<span class="co">[</span><span class="ot">3</span><span class="co">][1]</span></span>
-<span id="cb199-224"><a href="#cb199-224" aria-hidden="true" tabindex="-1"></a>7) myList[<span class="co">[</span><span class="ot">'moreStuff'</span><span class="co">]</span>]<span class="co">[</span><span class="ot">1</span><span class="co">]</span></span>
-<span id="cb199-225"><a href="#cb199-225" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb199-216"><a href="#cb199-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-217"><a href="#cb199-217" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Question"}</span>
+<span id="cb199-218"><a href="#cb199-218" aria-hidden="true" tabindex="-1"></a>How would you extract "china" from this list?</span>
+<span id="cb199-219"><a href="#cb199-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-220"><a href="#cb199-220" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-221"><a href="#cb199-221" aria-hidden="true" tabindex="-1"></a><span class="in">myList &lt;- list(stuff = 3, mat = matrix(1:4, nrow = 2), </span></span>
+<span id="cb199-222"><a href="#cb199-222" aria-hidden="true" tabindex="-1"></a><span class="in">   moreStuff = c("china", "japan"), list(5, "bear"))</span></span>
+<span id="cb199-223"><a href="#cb199-223" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-224"><a href="#cb199-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-225"><a href="#cb199-225" aria-hidden="true" tabindex="-1"></a>Which of these work correctly?</span>
 <span id="cb199-226"><a href="#cb199-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-227"><a href="#cb199-227" aria-hidden="true" tabindex="-1"></a>Lists are just vectors of heterogeneous elements. The <span class="in">`[[`</span> syntax allows you to pick out individual elements.</span>
-<span id="cb199-228"><a href="#cb199-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-229"><a href="#cb199-229" aria-hidden="true" tabindex="-1"></a><span class="fu"># Data frames</span></span>
-<span id="cb199-230"><a href="#cb199-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-231"><a href="#cb199-231" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Data frames are combinations of vectors of the same length, but can be of different types (unlike matrices)</span>
-<span id="cb199-232"><a href="#cb199-232" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Data frames are what is used for standard rectangular (record by field) datasets, similar to a spreadsheet sheet/page or a database table</span>
-<span id="cb199-233"><a href="#cb199-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-234"><a href="#cb199-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-237"><a href="#cb199-237" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb199-238"><a href="#cb199-238" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
-<span id="cb199-239"><a href="#cb199-239" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gapminder)</span>
-<span id="cb199-240"><a href="#cb199-240" aria-hidden="true" tabindex="-1"></a>gapminder<span class="sc">$</span>lifeExp[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span>
-<span id="cb199-241"><a href="#cb199-241" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(gapminder)</span>
-<span id="cb199-242"><a href="#cb199-242" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(gapminder)</span>
-<span id="cb199-243"><a href="#cb199-243" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(gapminder)</span>
-<span id="cb199-244"><a href="#cb199-244" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gapminder)</span>
-<span id="cb199-245"><a href="#cb199-245" aria-hidden="true" tabindex="-1"></a><span class="fu">is.matrix</span>(gapminder)</span>
-<span id="cb199-246"><a href="#cb199-246" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gapminder<span class="sc">$</span>year)</span>
-<span id="cb199-247"><a href="#cb199-247" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gapminder<span class="sc">$</span>lifeExp)</span>
-<span id="cb199-248"><a href="#cb199-248" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gapminder<span class="sc">$</span>country)</span>
-<span id="cb199-249"><a href="#cb199-249" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb199-250"><a href="#cb199-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-251"><a href="#cb199-251" aria-hidden="true" tabindex="-1"></a><span class="fu"># Data frames are (special) lists!</span></span>
-<span id="cb199-252"><a href="#cb199-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-255"><a href="#cb199-255" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb199-256"><a href="#cb199-256" aria-hidden="true" tabindex="-1"></a><span class="fu">is.list</span>(gapminder)</span>
-<span id="cb199-257"><a href="#cb199-257" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(gapminder)</span>
-<span id="cb199-258"><a href="#cb199-258" aria-hidden="true" tabindex="-1"></a>gapminder[[<span class="dv">3</span>]][<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
-<span id="cb199-259"><a href="#cb199-259" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(gapminder, class) </span>
-<span id="cb199-260"><a href="#cb199-260" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-227"><a href="#cb199-227" aria-hidden="true" tabindex="-1"></a>1) myList$moreStuff<span class="co">[</span><span class="ot">1</span><span class="co">]</span></span>
+<span id="cb199-228"><a href="#cb199-228" aria-hidden="true" tabindex="-1"></a>2) myList$moreStuff[<span class="co">[</span><span class="ot">1</span><span class="co">]</span>]</span>
+<span id="cb199-229"><a href="#cb199-229" aria-hidden="true" tabindex="-1"></a>3) myList[<span class="co">[</span><span class="ot">1</span><span class="co">]</span>]</span>
+<span id="cb199-230"><a href="#cb199-230" aria-hidden="true" tabindex="-1"></a>4) myList[<span class="co">[</span><span class="ot">3</span><span class="co">]</span>]<span class="co">[</span><span class="ot">2</span><span class="co">]</span></span>
+<span id="cb199-231"><a href="#cb199-231" aria-hidden="true" tabindex="-1"></a>5) myList[<span class="co">[</span><span class="ot">3</span><span class="co">]</span>]<span class="co">[</span><span class="ot">1</span><span class="co">]</span></span>
+<span id="cb199-232"><a href="#cb199-232" aria-hidden="true" tabindex="-1"></a>6) myList<span class="co">[</span><span class="ot">3</span><span class="co">][1]</span></span>
+<span id="cb199-233"><a href="#cb199-233" aria-hidden="true" tabindex="-1"></a>7) myList[<span class="co">[</span><span class="ot">'moreStuff'</span><span class="co">]</span>]<span class="co">[</span><span class="ot">1</span><span class="co">]</span></span>
+<span id="cb199-234"><a href="#cb199-234" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb199-235"><a href="#cb199-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-236"><a href="#cb199-236" aria-hidden="true" tabindex="-1"></a>Lists are just vectors of heterogeneous elements. The <span class="in">`[[`</span> syntax allows you to pick out individual elements.</span>
+<span id="cb199-237"><a href="#cb199-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-238"><a href="#cb199-238" aria-hidden="true" tabindex="-1"></a><span class="fu"># Data frames</span></span>
+<span id="cb199-239"><a href="#cb199-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-240"><a href="#cb199-240" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Data frames are combinations of vectors of the same length, but can be of different types (unlike matrices)</span>
+<span id="cb199-241"><a href="#cb199-241" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Data frames are what is used for standard rectangular (record by field) datasets, similar to a spreadsheet sheet/page or a database table</span>
+<span id="cb199-242"><a href="#cb199-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-243"><a href="#cb199-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-246"><a href="#cb199-246" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb199-247"><a href="#cb199-247" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
+<span id="cb199-248"><a href="#cb199-248" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gapminder)</span>
+<span id="cb199-249"><a href="#cb199-249" aria-hidden="true" tabindex="-1"></a>gapminder<span class="sc">$</span>lifeExp[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span>
+<span id="cb199-250"><a href="#cb199-250" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(gapminder)</span>
+<span id="cb199-251"><a href="#cb199-251" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(gapminder)</span>
+<span id="cb199-252"><a href="#cb199-252" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(gapminder)</span>
+<span id="cb199-253"><a href="#cb199-253" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gapminder)</span>
+<span id="cb199-254"><a href="#cb199-254" aria-hidden="true" tabindex="-1"></a><span class="fu">is.matrix</span>(gapminder)</span>
+<span id="cb199-255"><a href="#cb199-255" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gapminder<span class="sc">$</span>year)</span>
+<span id="cb199-256"><a href="#cb199-256" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gapminder<span class="sc">$</span>lifeExp)</span>
+<span id="cb199-257"><a href="#cb199-257" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gapminder<span class="sc">$</span>country)</span>
+<span id="cb199-258"><a href="#cb199-258" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-259"><a href="#cb199-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-260"><a href="#cb199-260" aria-hidden="true" tabindex="-1"></a><span class="fu"># Data frames are (special) lists!</span></span>
 <span id="cb199-261"><a href="#cb199-261" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-262"><a href="#cb199-262" aria-hidden="true" tabindex="-1"></a><span class="in">`lapply()`</span> is a function used on lists; it works here to apply the <span class="in">`class()`</span> function to each element of the list, which in this case is each field/column.</span>
-<span id="cb199-263"><a href="#cb199-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-264"><a href="#cb199-264" aria-hidden="true" tabindex="-1"></a><span class="fu"># Matrices </span></span>
-<span id="cb199-265"><a href="#cb199-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-266"><a href="#cb199-266" aria-hidden="true" tabindex="-1"></a>If you need to do numeric calculations on an entire non-vector object (dimension &gt; 1), you generally want to use matrices and arrays, not data frames.</span>
-<span id="cb199-267"><a href="#cb199-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-268"><a href="#cb199-268" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Matrices are two-dimensional collections of values of the same type.</span>
-<span id="cb199-269"><a href="#cb199-269" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>We can have numeric, integer, character, or logical matrices.</span>
-<span id="cb199-270"><a href="#cb199-270" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>You can't mix types within a matrix.</span>
-<span id="cb199-271"><a href="#cb199-271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-274"><a href="#cb199-274" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb199-275"><a href="#cb199-275" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">12</span>), <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">4</span>)</span>
-<span id="cb199-276"><a href="#cb199-276" aria-hidden="true" tabindex="-1"></a>mat</span>
-<span id="cb199-277"><a href="#cb199-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-278"><a href="#cb199-278" aria-hidden="true" tabindex="-1"></a><span class="do">## Basic linear algebra</span></span>
-<span id="cb199-279"><a href="#cb199-279" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb199-280"><a href="#cb199-280" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">16</span>, <span class="dv">4</span>)</span>
-<span id="cb199-281"><a href="#cb199-281" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">4</span>)</span>
-<span id="cb199-282"><a href="#cb199-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-283"><a href="#cb199-283" aria-hidden="true" tabindex="-1"></a>A <span class="sc">%*%</span> B[ , <span class="dv">1</span>]</span>
-<span id="cb199-284"><a href="#cb199-284" aria-hidden="true" tabindex="-1"></a>A <span class="sc">%*%</span> B</span>
-<span id="cb199-285"><a href="#cb199-285" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-264"><a href="#cb199-264" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb199-265"><a href="#cb199-265" aria-hidden="true" tabindex="-1"></a><span class="fu">is.list</span>(gapminder)</span>
+<span id="cb199-266"><a href="#cb199-266" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(gapminder)</span>
+<span id="cb199-267"><a href="#cb199-267" aria-hidden="true" tabindex="-1"></a>gapminder[[<span class="dv">3</span>]][<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb199-268"><a href="#cb199-268" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(gapminder, class) </span>
+<span id="cb199-269"><a href="#cb199-269" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-270"><a href="#cb199-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-271"><a href="#cb199-271" aria-hidden="true" tabindex="-1"></a><span class="in">`lapply()`</span> is a function used on lists; it works here to apply the <span class="in">`class()`</span> function to each element of the list, which in this case is each field/column.</span>
+<span id="cb199-272"><a href="#cb199-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-273"><a href="#cb199-273" aria-hidden="true" tabindex="-1"></a><span class="fu"># Matrices </span></span>
+<span id="cb199-274"><a href="#cb199-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-275"><a href="#cb199-275" aria-hidden="true" tabindex="-1"></a>If you need to do numeric calculations on an entire non-vector object (dimension &gt; 1), you generally want to use matrices and arrays, not data frames.</span>
+<span id="cb199-276"><a href="#cb199-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-277"><a href="#cb199-277" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Matrices are two-dimensional collections of values of the same type.</span>
+<span id="cb199-278"><a href="#cb199-278" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>We can have numeric, integer, character, or logical matrices.</span>
+<span id="cb199-279"><a href="#cb199-279" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>You can't mix types within a matrix.</span>
+<span id="cb199-280"><a href="#cb199-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-283"><a href="#cb199-283" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb199-284"><a href="#cb199-284" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">12</span>), <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">4</span>)</span>
+<span id="cb199-285"><a href="#cb199-285" aria-hidden="true" tabindex="-1"></a>mat</span>
 <span id="cb199-286"><a href="#cb199-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-287"><a href="#cb199-287" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-288"><a href="#cb199-288" aria-hidden="true" tabindex="-1"></a><span class="fu"># Arrays</span></span>
-<span id="cb199-289"><a href="#cb199-289" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-290"><a href="#cb199-290" aria-hidden="true" tabindex="-1"></a>Arrays are like matrices but can have more or fewer than two dimensions.</span>
-<span id="cb199-293"><a href="#cb199-293" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb199-294"><a href="#cb199-294" aria-hidden="true" tabindex="-1"></a>arr <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="fu">rnorm</span>(<span class="dv">12</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span>
-<span id="cb199-295"><a href="#cb199-295" aria-hidden="true" tabindex="-1"></a>arr</span>
-<span id="cb199-296"><a href="#cb199-296" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb199-297"><a href="#cb199-297" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-298"><a href="#cb199-298" aria-hidden="true" tabindex="-1"></a><span class="fu"># Dictionaries</span></span>
-<span id="cb199-299"><a href="#cb199-299" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-300"><a href="#cb199-300" aria-hidden="true" tabindex="-1"></a>R does not have dictionaries. For collections of key-value pairs, you can instead use named vectors or named lists.</span>
-<span id="cb199-301"><a href="#cb199-301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-304"><a href="#cb199-304" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb199-305"><a href="#cb199-305" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>)</span>
-<span id="cb199-306"><a href="#cb199-306" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(x) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"sarah"</span>, <span class="st">"carlos"</span>, <span class="st">"maude"</span>)  <span class="co"># Homogeneous</span></span>
-<span id="cb199-307"><a href="#cb199-307" aria-hidden="true" tabindex="-1"></a>x[<span class="st">'carlos'</span>]</span>
+<span id="cb199-287"><a href="#cb199-287" aria-hidden="true" tabindex="-1"></a><span class="do">## Basic linear algebra</span></span>
+<span id="cb199-288"><a href="#cb199-288" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb199-289"><a href="#cb199-289" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">16</span>, <span class="dv">4</span>)</span>
+<span id="cb199-290"><a href="#cb199-290" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">4</span>)</span>
+<span id="cb199-291"><a href="#cb199-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-292"><a href="#cb199-292" aria-hidden="true" tabindex="-1"></a>A <span class="sc">%*%</span> B[ , <span class="dv">1</span>]</span>
+<span id="cb199-293"><a href="#cb199-293" aria-hidden="true" tabindex="-1"></a>A <span class="sc">%*%</span> B</span>
+<span id="cb199-294"><a href="#cb199-294" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-295"><a href="#cb199-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-296"><a href="#cb199-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-297"><a href="#cb199-297" aria-hidden="true" tabindex="-1"></a><span class="fu"># Arrays</span></span>
+<span id="cb199-298"><a href="#cb199-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-299"><a href="#cb199-299" aria-hidden="true" tabindex="-1"></a>Arrays are like matrices but can have more or fewer than two dimensions.</span>
+<span id="cb199-302"><a href="#cb199-302" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb199-303"><a href="#cb199-303" aria-hidden="true" tabindex="-1"></a>arr <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="fu">rnorm</span>(<span class="dv">12</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span>
+<span id="cb199-304"><a href="#cb199-304" aria-hidden="true" tabindex="-1"></a>arr</span>
+<span id="cb199-305"><a href="#cb199-305" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-306"><a href="#cb199-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-307"><a href="#cb199-307" aria-hidden="true" tabindex="-1"></a><span class="fu"># Dictionaries</span></span>
 <span id="cb199-308"><a href="#cb199-308" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-309"><a href="#cb199-309" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">"sarah"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"carlos"</span> <span class="ot">=</span> <span class="st">"foo"</span>, <span class="st">"maude"</span> <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">4</span>))  <span class="co"># Heterogeneous</span></span>
-<span id="cb199-310"><a href="#cb199-310" aria-hidden="true" tabindex="-1"></a>x[[<span class="st">'maude'</span>]]</span>
-<span id="cb199-311"><a href="#cb199-311" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb199-312"><a href="#cb199-312" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-313"><a href="#cb199-313" aria-hidden="true" tabindex="-1"></a>However, lookup does NOT use hashing, so it is O(n) cost. One could instead use R's environments for fast hash-based lookup.</span>
-<span id="cb199-314"><a href="#cb199-314" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-315"><a href="#cb199-315" aria-hidden="true" tabindex="-1"></a><span class="fu"># Attributes</span></span>
-<span id="cb199-316"><a href="#cb199-316" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-317"><a href="#cb199-317" aria-hidden="true" tabindex="-1"></a>Objects have *attributes*.</span>
-<span id="cb199-318"><a href="#cb199-318" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-319"><a href="#cb199-319" aria-hidden="true" tabindex="-1"></a><span class="in">```{r attr}</span></span>
-<span id="cb199-320"><a href="#cb199-320" aria-hidden="true" tabindex="-1"></a><span class="in">attributes(mat)</span></span>
-<span id="cb199-321"><a href="#cb199-321" aria-hidden="true" tabindex="-1"></a><span class="in">rownames(mat) &lt;- c('first', 'middle', 'last')</span></span>
-<span id="cb199-322"><a href="#cb199-322" aria-hidden="true" tabindex="-1"></a><span class="in">mat</span></span>
-<span id="cb199-323"><a href="#cb199-323" aria-hidden="true" tabindex="-1"></a><span class="in">attributes(mat)</span></span>
-<span id="cb199-324"><a href="#cb199-324" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-325"><a href="#cb199-325" aria-hidden="true" tabindex="-1"></a><span class="in">names(attributes(gapminder))</span></span>
-<span id="cb199-326"><a href="#cb199-326" aria-hidden="true" tabindex="-1"></a><span class="in">attributes(gapminder)$names</span></span>
-<span id="cb199-327"><a href="#cb199-327" aria-hidden="true" tabindex="-1"></a><span class="in">attributes(gapminder)$row.names[1:10]</span></span>
-<span id="cb199-328"><a href="#cb199-328" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb199-329"><a href="#cb199-329" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-330"><a href="#cb199-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-331"><a href="#cb199-331" aria-hidden="true" tabindex="-1"></a><span class="fu"># Missing values and other special values</span></span>
-<span id="cb199-332"><a href="#cb199-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-333"><a href="#cb199-333" aria-hidden="true" tabindex="-1"></a>Since it was designed by statisticians, R handles missing values very well relative to other languages.</span>
-<span id="cb199-334"><a href="#cb199-334" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-335"><a href="#cb199-335" aria-hidden="true" tabindex="-1"></a><span class="fu">##  `NA` is a missing value</span></span>
-<span id="cb199-336"><a href="#cb199-336" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-337"><a href="#cb199-337" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.cap = ""}</span></span>
-<span id="cb199-338"><a href="#cb199-338" aria-hidden="true" tabindex="-1"></a><span class="in">vec &lt;- rnorm(12)</span></span>
-<span id="cb199-339"><a href="#cb199-339" aria-hidden="true" tabindex="-1"></a><span class="in">vec[c(3, 5)] &lt;- NA</span></span>
-<span id="cb199-340"><a href="#cb199-340" aria-hidden="true" tabindex="-1"></a><span class="in">vec</span></span>
-<span id="cb199-341"><a href="#cb199-341" aria-hidden="true" tabindex="-1"></a><span class="in">length(vec)</span></span>
-<span id="cb199-342"><a href="#cb199-342" aria-hidden="true" tabindex="-1"></a><span class="in">sum(vec)</span></span>
-<span id="cb199-343"><a href="#cb199-343" aria-hidden="true" tabindex="-1"></a><span class="in">sum(vec, na.rm = TRUE)</span></span>
-<span id="cb199-344"><a href="#cb199-344" aria-hidden="true" tabindex="-1"></a><span class="in">hist(vec)</span></span>
-<span id="cb199-345"><a href="#cb199-345" aria-hidden="true" tabindex="-1"></a><span class="in">is.na(vec)</span></span>
-<span id="cb199-346"><a href="#cb199-346" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb199-347"><a href="#cb199-347" aria-hidden="true" tabindex="-1"></a>Be careful because many R functions won't warn you that they are ignoring the missing values.</span>
-<span id="cb199-348"><a href="#cb199-348" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-349"><a href="#cb199-349" aria-hidden="true" tabindex="-1"></a><span class="fu">##  To infinity and beyond</span></span>
-<span id="cb199-352"><a href="#cb199-352" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb199-353"><a href="#cb199-353" aria-hidden="true" tabindex="-1"></a>big <span class="ot">&lt;-</span> <span class="fl">1e500</span> </span>
-<span id="cb199-354"><a href="#cb199-354" aria-hidden="true" tabindex="-1"></a>big</span>
-<span id="cb199-355"><a href="#cb199-355" aria-hidden="true" tabindex="-1"></a>big <span class="sc">+</span> <span class="dv">7</span></span>
-<span id="cb199-356"><a href="#cb199-356" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-309"><a href="#cb199-309" aria-hidden="true" tabindex="-1"></a>R does not have dictionaries. For collections of key-value pairs, you can instead use named vectors or named lists.</span>
+<span id="cb199-310"><a href="#cb199-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-313"><a href="#cb199-313" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb199-314"><a href="#cb199-314" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>)</span>
+<span id="cb199-315"><a href="#cb199-315" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(x) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"sarah"</span>, <span class="st">"carlos"</span>, <span class="st">"maude"</span>)  <span class="co"># Homogeneous</span></span>
+<span id="cb199-316"><a href="#cb199-316" aria-hidden="true" tabindex="-1"></a>x[<span class="st">'carlos'</span>]</span>
+<span id="cb199-317"><a href="#cb199-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-318"><a href="#cb199-318" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">"sarah"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"carlos"</span> <span class="ot">=</span> <span class="st">"foo"</span>, <span class="st">"maude"</span> <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">4</span>))  <span class="co"># Heterogeneous</span></span>
+<span id="cb199-319"><a href="#cb199-319" aria-hidden="true" tabindex="-1"></a>x[[<span class="st">'maude'</span>]]</span>
+<span id="cb199-320"><a href="#cb199-320" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-321"><a href="#cb199-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-322"><a href="#cb199-322" aria-hidden="true" tabindex="-1"></a>However, lookup does NOT use hashing, so it is O(n) cost. One could instead use R's environments for fast hash-based lookup.</span>
+<span id="cb199-323"><a href="#cb199-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-324"><a href="#cb199-324" aria-hidden="true" tabindex="-1"></a><span class="fu"># Attributes</span></span>
+<span id="cb199-325"><a href="#cb199-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-326"><a href="#cb199-326" aria-hidden="true" tabindex="-1"></a>Objects have *attributes*.</span>
+<span id="cb199-327"><a href="#cb199-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-328"><a href="#cb199-328" aria-hidden="true" tabindex="-1"></a><span class="in">```{r attr}</span></span>
+<span id="cb199-329"><a href="#cb199-329" aria-hidden="true" tabindex="-1"></a><span class="in">attributes(mat)</span></span>
+<span id="cb199-330"><a href="#cb199-330" aria-hidden="true" tabindex="-1"></a><span class="in">rownames(mat) &lt;- c('first', 'middle', 'last')</span></span>
+<span id="cb199-331"><a href="#cb199-331" aria-hidden="true" tabindex="-1"></a><span class="in">mat</span></span>
+<span id="cb199-332"><a href="#cb199-332" aria-hidden="true" tabindex="-1"></a><span class="in">attributes(mat)</span></span>
+<span id="cb199-333"><a href="#cb199-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-334"><a href="#cb199-334" aria-hidden="true" tabindex="-1"></a><span class="in">names(attributes(gapminder))</span></span>
+<span id="cb199-335"><a href="#cb199-335" aria-hidden="true" tabindex="-1"></a><span class="in">attributes(gapminder)$names</span></span>
+<span id="cb199-336"><a href="#cb199-336" aria-hidden="true" tabindex="-1"></a><span class="in">attributes(gapminder)$row.names[1:10]</span></span>
+<span id="cb199-337"><a href="#cb199-337" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-338"><a href="#cb199-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-339"><a href="#cb199-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-340"><a href="#cb199-340" aria-hidden="true" tabindex="-1"></a><span class="fu"># Missing values and other special values</span></span>
+<span id="cb199-341"><a href="#cb199-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-342"><a href="#cb199-342" aria-hidden="true" tabindex="-1"></a>Since it was designed by statisticians, R handles missing values very well relative to other languages.</span>
+<span id="cb199-343"><a href="#cb199-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-344"><a href="#cb199-344" aria-hidden="true" tabindex="-1"></a><span class="fu">##  `NA` is a missing value</span></span>
+<span id="cb199-345"><a href="#cb199-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-346"><a href="#cb199-346" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.cap = ""}</span></span>
+<span id="cb199-347"><a href="#cb199-347" aria-hidden="true" tabindex="-1"></a><span class="in">vec &lt;- rnorm(12)</span></span>
+<span id="cb199-348"><a href="#cb199-348" aria-hidden="true" tabindex="-1"></a><span class="in">vec[c(3, 5)] &lt;- NA</span></span>
+<span id="cb199-349"><a href="#cb199-349" aria-hidden="true" tabindex="-1"></a><span class="in">vec</span></span>
+<span id="cb199-350"><a href="#cb199-350" aria-hidden="true" tabindex="-1"></a><span class="in">length(vec)</span></span>
+<span id="cb199-351"><a href="#cb199-351" aria-hidden="true" tabindex="-1"></a><span class="in">sum(vec)</span></span>
+<span id="cb199-352"><a href="#cb199-352" aria-hidden="true" tabindex="-1"></a><span class="in">sum(vec, na.rm = TRUE)</span></span>
+<span id="cb199-353"><a href="#cb199-353" aria-hidden="true" tabindex="-1"></a><span class="in">hist(vec)</span></span>
+<span id="cb199-354"><a href="#cb199-354" aria-hidden="true" tabindex="-1"></a><span class="in">is.na(vec)</span></span>
+<span id="cb199-355"><a href="#cb199-355" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-356"><a href="#cb199-356" aria-hidden="true" tabindex="-1"></a>Be careful because many R functions won't warn you that they are ignoring the missing values.</span>
 <span id="cb199-357"><a href="#cb199-357" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-358"><a href="#cb199-358" aria-hidden="true" tabindex="-1"></a><span class="fu">##  `NaN` stands for Not a Number</span></span>
+<span id="cb199-358"><a href="#cb199-358" aria-hidden="true" tabindex="-1"></a><span class="fu">##  To infinity and beyond</span></span>
 <span id="cb199-361"><a href="#cb199-361" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb199-362"><a href="#cb199-362" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="sc">-</span><span class="dv">5</span>)</span>
-<span id="cb199-363"><a href="#cb199-363" aria-hidden="true" tabindex="-1"></a>big <span class="sc">-</span> big</span>
-<span id="cb199-364"><a href="#cb199-364" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">/</span><span class="dv">0</span></span>
+<span id="cb199-362"><a href="#cb199-362" aria-hidden="true" tabindex="-1"></a>big <span class="ot">&lt;-</span> <span class="fl">1e500</span> </span>
+<span id="cb199-363"><a href="#cb199-363" aria-hidden="true" tabindex="-1"></a>big</span>
+<span id="cb199-364"><a href="#cb199-364" aria-hidden="true" tabindex="-1"></a>big <span class="sc">+</span> <span class="dv">7</span></span>
 <span id="cb199-365"><a href="#cb199-365" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb199-366"><a href="#cb199-366" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-367"><a href="#cb199-367" aria-hidden="true" tabindex="-1"></a><span class="fu">##  `NULL`</span></span>
-<span id="cb199-368"><a href="#cb199-368" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-369"><a href="#cb199-369" aria-hidden="true" tabindex="-1"></a><span class="in">`NA`</span> can hold a place but <span class="in">`NULL`</span> cannot.</span>
-<span id="cb199-370"><a href="#cb199-370" aria-hidden="true" tabindex="-1"></a><span class="in">`NULL`</span> is useful for having a function argument default to 'nothing'. See <span class="in">`help(crossprod)`</span>, which can compute either $X^{\top}X$ or $X^{\top}Y$.  </span>
-<span id="cb199-371"><a href="#cb199-371" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-374"><a href="#cb199-374" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb199-375"><a href="#cb199-375" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">3</span>, <span class="cn">NA</span>, <span class="dv">7</span>)</span>
-<span id="cb199-376"><a href="#cb199-376" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">3</span>, <span class="cn">NULL</span>, <span class="dv">7</span>)</span>
+<span id="cb199-367"><a href="#cb199-367" aria-hidden="true" tabindex="-1"></a><span class="fu">##  `NaN` stands for Not a Number</span></span>
+<span id="cb199-370"><a href="#cb199-370" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb199-371"><a href="#cb199-371" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="sc">-</span><span class="dv">5</span>)</span>
+<span id="cb199-372"><a href="#cb199-372" aria-hidden="true" tabindex="-1"></a>big <span class="sc">-</span> big</span>
+<span id="cb199-373"><a href="#cb199-373" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">/</span><span class="dv">0</span></span>
+<span id="cb199-374"><a href="#cb199-374" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-375"><a href="#cb199-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-376"><a href="#cb199-376" aria-hidden="true" tabindex="-1"></a><span class="fu">##  `NULL`</span></span>
 <span id="cb199-377"><a href="#cb199-377" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-378"><a href="#cb199-378" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-379"><a href="#cb199-379" aria-hidden="true" tabindex="-1"></a>mylist <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>)</span>
-<span id="cb199-380"><a href="#cb199-380" aria-hidden="true" tabindex="-1"></a>mylist[[<span class="dv">2</span>]] <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb199-381"><a href="#cb199-381" aria-hidden="true" tabindex="-1"></a>mylist</span>
-<span id="cb199-382"><a href="#cb199-382" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb199-383"><a href="#cb199-383" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-384"><a href="#cb199-384" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-385"><a href="#cb199-385" aria-hidden="true" tabindex="-1"></a><span class="fu"># Logical vectors and boolean arithmetic</span></span>
+<span id="cb199-378"><a href="#cb199-378" aria-hidden="true" tabindex="-1"></a><span class="in">`NA`</span> can hold a place but <span class="in">`NULL`</span> cannot.</span>
+<span id="cb199-379"><a href="#cb199-379" aria-hidden="true" tabindex="-1"></a><span class="in">`NULL`</span> is useful for having a function argument default to 'nothing'. See <span class="in">`help(crossprod)`</span>, which can compute either $X^{\top}X$ or $X^{\top}Y$.  </span>
+<span id="cb199-380"><a href="#cb199-380" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-383"><a href="#cb199-383" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb199-384"><a href="#cb199-384" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">3</span>, <span class="cn">NA</span>, <span class="dv">7</span>)</span>
+<span id="cb199-385"><a href="#cb199-385" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">3</span>, <span class="cn">NULL</span>, <span class="dv">7</span>)</span>
 <span id="cb199-386"><a href="#cb199-386" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-389"><a href="#cb199-389" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb199-390"><a href="#cb199-390" aria-hidden="true" tabindex="-1"></a>gapminder2007 <span class="ot">&lt;-</span> gapminder[gapminder<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">2007</span>, ]</span>
-<span id="cb199-391"><a href="#cb199-391" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-392"><a href="#cb199-392" aria-hidden="true" tabindex="-1"></a>wealthy <span class="ot">&lt;-</span> gapminder2007<span class="sc">$</span>gdpPercap <span class="sc">&gt;</span> <span class="dv">35000</span></span>
-<span id="cb199-393"><a href="#cb199-393" aria-hidden="true" tabindex="-1"></a>healthy <span class="ot">&lt;-</span> gapminder2007<span class="sc">$</span>lifeExp <span class="sc">&gt;</span> <span class="dv">75</span></span>
-<span id="cb199-394"><a href="#cb199-394" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-395"><a href="#cb199-395" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wealthy)</span>
-<span id="cb199-396"><a href="#cb199-396" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(wealthy)</span>
-<span id="cb199-397"><a href="#cb199-397" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-398"><a href="#cb199-398" aria-hidden="true" tabindex="-1"></a><span class="co"># note the vectorized boolean arithmetic</span></span>
-<span id="cb199-399"><a href="#cb199-399" aria-hidden="true" tabindex="-1"></a>gapminder2007[wealthy <span class="sc">&amp;</span> healthy, ]</span>
-<span id="cb199-400"><a href="#cb199-400" aria-hidden="true" tabindex="-1"></a>gapminder2007[wealthy <span class="sc">|</span> healthy, ]</span>
-<span id="cb199-401"><a href="#cb199-401" aria-hidden="true" tabindex="-1"></a>gapminder2007[wealthy <span class="sc">&amp;</span> <span class="sc">!</span>healthy, ]</span>
-<span id="cb199-402"><a href="#cb199-402" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-403"><a href="#cb199-403" aria-hidden="true" tabindex="-1"></a><span class="co"># Numerical computation with booleans</span></span>
-<span id="cb199-404"><a href="#cb199-404" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(healthy)</span>
-<span id="cb199-405"><a href="#cb199-405" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(healthy)</span>
-<span id="cb199-406"><a href="#cb199-406" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb199-407"><a href="#cb199-407" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-408"><a href="#cb199-408" aria-hidden="true" tabindex="-1"></a><span class="fu"># Converting between different types of objects</span></span>
-<span id="cb199-409"><a href="#cb199-409" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-410"><a href="#cb199-410" aria-hidden="true" tabindex="-1"></a>You can use the <span class="in">`as()`</span> family of functions.</span>
+<span id="cb199-387"><a href="#cb199-387" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-388"><a href="#cb199-388" aria-hidden="true" tabindex="-1"></a>mylist <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>)</span>
+<span id="cb199-389"><a href="#cb199-389" aria-hidden="true" tabindex="-1"></a>mylist[[<span class="dv">2</span>]] <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb199-390"><a href="#cb199-390" aria-hidden="true" tabindex="-1"></a>mylist</span>
+<span id="cb199-391"><a href="#cb199-391" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-392"><a href="#cb199-392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-393"><a href="#cb199-393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-394"><a href="#cb199-394" aria-hidden="true" tabindex="-1"></a><span class="fu"># Logical vectors and boolean arithmetic</span></span>
+<span id="cb199-395"><a href="#cb199-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-398"><a href="#cb199-398" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb199-399"><a href="#cb199-399" aria-hidden="true" tabindex="-1"></a>gapminder2007 <span class="ot">&lt;-</span> gapminder[gapminder<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">2007</span>, ]</span>
+<span id="cb199-400"><a href="#cb199-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-401"><a href="#cb199-401" aria-hidden="true" tabindex="-1"></a>wealthy <span class="ot">&lt;-</span> gapminder2007<span class="sc">$</span>gdpPercap <span class="sc">&gt;</span> <span class="dv">35000</span></span>
+<span id="cb199-402"><a href="#cb199-402" aria-hidden="true" tabindex="-1"></a>healthy <span class="ot">&lt;-</span> gapminder2007<span class="sc">$</span>lifeExp <span class="sc">&gt;</span> <span class="dv">75</span></span>
+<span id="cb199-403"><a href="#cb199-403" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-404"><a href="#cb199-404" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wealthy)</span>
+<span id="cb199-405"><a href="#cb199-405" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(wealthy)</span>
+<span id="cb199-406"><a href="#cb199-406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-407"><a href="#cb199-407" aria-hidden="true" tabindex="-1"></a><span class="co"># note the vectorized boolean arithmetic</span></span>
+<span id="cb199-408"><a href="#cb199-408" aria-hidden="true" tabindex="-1"></a>gapminder2007[wealthy <span class="sc">&amp;</span> healthy, ]</span>
+<span id="cb199-409"><a href="#cb199-409" aria-hidden="true" tabindex="-1"></a>gapminder2007[wealthy <span class="sc">|</span> healthy, ]</span>
+<span id="cb199-410"><a href="#cb199-410" aria-hidden="true" tabindex="-1"></a>gapminder2007[wealthy <span class="sc">&amp;</span> <span class="sc">!</span>healthy, ]</span>
 <span id="cb199-411"><a href="#cb199-411" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-414"><a href="#cb199-414" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb199-415"><a href="#cb199-415" aria-hidden="true" tabindex="-1"></a>ints <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
-<span id="cb199-416"><a href="#cb199-416" aria-hidden="true" tabindex="-1"></a><span class="fu">as.character</span>(ints)</span>
-<span id="cb199-417"><a href="#cb199-417" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(<span class="fu">c</span>(<span class="st">'3.7'</span>, <span class="st">'4.8'</span>))</span>
-<span id="cb199-418"><a href="#cb199-418" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb199-419"><a href="#cb199-419" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-420"><a href="#cb199-420" aria-hidden="true" tabindex="-1"></a>Be careful: R tries to be helpful and convert between types/classes when it thinks it's a good idea. Sometimes it is overly optimistic. </span>
-<span id="cb199-421"><a href="#cb199-421" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-424"><a href="#cb199-424" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb199-425"><a href="#cb199-425" aria-hidden="true" tabindex="-1"></a>indices <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.7</span>, <span class="fl">2.3</span>)</span>
-<span id="cb199-426"><a href="#cb199-426" aria-hidden="true" tabindex="-1"></a>ints[indices]</span>
-<span id="cb199-427"><a href="#cb199-427" aria-hidden="true" tabindex="-1"></a>ints[<span class="fl">0.999999999</span>]</span>
-<span id="cb199-428"><a href="#cb199-428" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb199-429"><a href="#cb199-429" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-430"><a href="#cb199-430" aria-hidden="true" tabindex="-1"></a><span class="fu"># Factors</span></span>
-<span id="cb199-431"><a href="#cb199-431" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-432"><a href="#cb199-432" aria-hidden="true" tabindex="-1"></a>A factor is a special data type in R used for categorical data. In some cases it works like magic and in others it is frustrating. </span>
-<span id="cb199-433"><a href="#cb199-433" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-434"><a href="#cb199-434" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fac}</span></span>
-<span id="cb199-435"><a href="#cb199-435" aria-hidden="true" tabindex="-1"></a><span class="in">## let's read the Gapminder data from a file with a special argument:</span></span>
-<span id="cb199-436"><a href="#cb199-436" aria-hidden="true" tabindex="-1"></a><span class="in">gapminder &lt;- read.csv(file.path('..', 'data', 'gapminder-FiveYearData.csv'),</span></span>
-<span id="cb199-437"><a href="#cb199-437" aria-hidden="true" tabindex="-1"></a><span class="in">          stringsAsFactors = TRUE) </span></span>
-<span id="cb199-438"><a href="#cb199-438" aria-hidden="true" tabindex="-1"></a><span class="in">class(gapminder$continent)</span></span>
-<span id="cb199-439"><a href="#cb199-439" aria-hidden="true" tabindex="-1"></a><span class="in">head(gapminder$continent) # What order are the factors in?</span></span>
-<span id="cb199-440"><a href="#cb199-440" aria-hidden="true" tabindex="-1"></a><span class="in">levels(gapminder[["continent"]])  # note alternate way to get the variable</span></span>
-<span id="cb199-441"><a href="#cb199-441" aria-hidden="true" tabindex="-1"></a><span class="in">summary(gapminder$continent)</span></span>
-<span id="cb199-442"><a href="#cb199-442" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb199-443"><a href="#cb199-443" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-444"><a href="#cb199-444" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-445"><a href="#cb199-445" aria-hidden="true" tabindex="-1"></a><span class="fu"># Strings</span></span>
-<span id="cb199-446"><a href="#cb199-446" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-447"><a href="#cb199-447" aria-hidden="true" tabindex="-1"></a>R has <span class="co">[</span><span class="ot">lots of functionality for text/string manipulation</span><span class="co">](http://computing.stat.berkeley.edu/tutorial-string-processing)</span>. Usually these are stored as vectors of strings, each string of arbitrary length.</span>
-<span id="cb199-448"><a href="#cb199-448" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-449"><a href="#cb199-449" aria-hidden="true" tabindex="-1"></a>There is some basic string processing syntax here, but most users use the <span class="in">`stringr`</span> package for a nicer user interface.</span>
-<span id="cb199-450"><a href="#cb199-450" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-453"><a href="#cb199-453" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb199-454"><a href="#cb199-454" aria-hidden="true" tabindex="-1"></a>chars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'hi'</span>, <span class="st">'hallo'</span>, <span class="st">"mother's"</span>, <span class="st">'father</span><span class="sc">\'</span><span class="st">s'</span>, <span class="st">"He said, </span><span class="sc">\"</span><span class="st">hi</span><span class="sc">\"</span><span class="st">"</span> )</span>
-<span id="cb199-455"><a href="#cb199-455" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(chars)</span>
-<span id="cb199-456"><a href="#cb199-456" aria-hidden="true" tabindex="-1"></a><span class="fu">nchar</span>(chars)</span>
-<span id="cb199-457"><a href="#cb199-457" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">"bill"</span>, <span class="st">"clinton"</span>, <span class="at">sep =</span> <span class="st">" "</span>)  <span class="co"># paste together a set of strings</span></span>
-<span id="cb199-458"><a href="#cb199-458" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(chars, <span class="at">collapse =</span> <span class="st">' '</span>)  <span class="co"># paste together things from a vector</span></span>
+<span id="cb199-412"><a href="#cb199-412" aria-hidden="true" tabindex="-1"></a><span class="co"># Numerical computation with booleans</span></span>
+<span id="cb199-413"><a href="#cb199-413" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(healthy)</span>
+<span id="cb199-414"><a href="#cb199-414" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(healthy)</span>
+<span id="cb199-415"><a href="#cb199-415" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-416"><a href="#cb199-416" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-417"><a href="#cb199-417" aria-hidden="true" tabindex="-1"></a><span class="fu"># Converting between different types of objects</span></span>
+<span id="cb199-418"><a href="#cb199-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-419"><a href="#cb199-419" aria-hidden="true" tabindex="-1"></a>You can use the <span class="in">`as()`</span> family of functions.</span>
+<span id="cb199-420"><a href="#cb199-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-423"><a href="#cb199-423" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb199-424"><a href="#cb199-424" aria-hidden="true" tabindex="-1"></a>ints <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb199-425"><a href="#cb199-425" aria-hidden="true" tabindex="-1"></a><span class="fu">as.character</span>(ints)</span>
+<span id="cb199-426"><a href="#cb199-426" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(<span class="fu">c</span>(<span class="st">'3.7'</span>, <span class="st">'4.8'</span>))</span>
+<span id="cb199-427"><a href="#cb199-427" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-428"><a href="#cb199-428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-429"><a href="#cb199-429" aria-hidden="true" tabindex="-1"></a>Be careful: R tries to be helpful and convert between types/classes when it thinks it's a good idea. Sometimes it is overly optimistic. </span>
+<span id="cb199-430"><a href="#cb199-430" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-433"><a href="#cb199-433" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb199-434"><a href="#cb199-434" aria-hidden="true" tabindex="-1"></a>indices <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.7</span>, <span class="fl">2.3</span>)</span>
+<span id="cb199-435"><a href="#cb199-435" aria-hidden="true" tabindex="-1"></a>ints[indices]</span>
+<span id="cb199-436"><a href="#cb199-436" aria-hidden="true" tabindex="-1"></a>ints[<span class="fl">0.999999999</span>]</span>
+<span id="cb199-437"><a href="#cb199-437" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-438"><a href="#cb199-438" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-439"><a href="#cb199-439" aria-hidden="true" tabindex="-1"></a><span class="fu"># Factors</span></span>
+<span id="cb199-440"><a href="#cb199-440" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-441"><a href="#cb199-441" aria-hidden="true" tabindex="-1"></a>A factor is a special data type in R used for categorical data. In some cases it works like magic and in others it is frustrating. </span>
+<span id="cb199-442"><a href="#cb199-442" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-443"><a href="#cb199-443" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fac}</span></span>
+<span id="cb199-444"><a href="#cb199-444" aria-hidden="true" tabindex="-1"></a><span class="in">## let's read the Gapminder data from a file with a special argument:</span></span>
+<span id="cb199-445"><a href="#cb199-445" aria-hidden="true" tabindex="-1"></a><span class="in">gapminder &lt;- read.csv(file.path('..', 'data', 'gapminder-FiveYearData.csv'),</span></span>
+<span id="cb199-446"><a href="#cb199-446" aria-hidden="true" tabindex="-1"></a><span class="in">          stringsAsFactors = TRUE) </span></span>
+<span id="cb199-447"><a href="#cb199-447" aria-hidden="true" tabindex="-1"></a><span class="in">class(gapminder$continent)</span></span>
+<span id="cb199-448"><a href="#cb199-448" aria-hidden="true" tabindex="-1"></a><span class="in">head(gapminder$continent) # What order are the factors in?</span></span>
+<span id="cb199-449"><a href="#cb199-449" aria-hidden="true" tabindex="-1"></a><span class="in">levels(gapminder[["continent"]])  # note alternate way to get the variable</span></span>
+<span id="cb199-450"><a href="#cb199-450" aria-hidden="true" tabindex="-1"></a><span class="in">summary(gapminder$continent)</span></span>
+<span id="cb199-451"><a href="#cb199-451" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-452"><a href="#cb199-452" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-453"><a href="#cb199-453" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-454"><a href="#cb199-454" aria-hidden="true" tabindex="-1"></a><span class="fu"># Strings</span></span>
+<span id="cb199-455"><a href="#cb199-455" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-456"><a href="#cb199-456" aria-hidden="true" tabindex="-1"></a>R has <span class="co">[</span><span class="ot">lots of functionality for text/string manipulation</span><span class="co">](http://computing.stat.berkeley.edu/tutorial-string-processing)</span>. Usually these are stored as vectors of strings, each string of arbitrary length.</span>
+<span id="cb199-457"><a href="#cb199-457" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-458"><a href="#cb199-458" aria-hidden="true" tabindex="-1"></a>There is some basic string processing syntax here, but most users use the <span class="in">`stringr`</span> package for a nicer user interface.</span>
 <span id="cb199-459"><a href="#cb199-459" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-460"><a href="#cb199-460" aria-hidden="true" tabindex="-1"></a><span class="fu">strsplit</span>(<span class="st">"This is the R bootcamp"</span>, <span class="at">split =</span> <span class="st">" "</span>)</span>
-<span id="cb199-461"><a href="#cb199-461" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-462"><a href="#cb199-462" aria-hidden="true" tabindex="-1"></a>countries <span class="ot">&lt;-</span> <span class="fu">as.character</span>(gapminder2007<span class="sc">$</span>country)</span>
-<span id="cb199-463"><a href="#cb199-463" aria-hidden="true" tabindex="-1"></a><span class="fu">substring</span>(countries, <span class="dv">1</span>, <span class="dv">3</span>)</span>
-<span id="cb199-464"><a href="#cb199-464" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> countries</span>
-<span id="cb199-465"><a href="#cb199-465" aria-hidden="true" tabindex="-1"></a><span class="fu">substring</span>(tmp, <span class="dv">5</span>, <span class="dv">10</span>) <span class="ot">&lt;-</span> <span class="st">"______"</span></span>
-<span id="cb199-466"><a href="#cb199-466" aria-hidden="true" tabindex="-1"></a>tmp[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>]</span>
-<span id="cb199-467"><a href="#cb199-467" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb199-468"><a href="#cb199-468" aria-hidden="true" tabindex="-1"></a>We can search for patterns in character vectors and replace patterns (both vectorized!)</span>
-<span id="cb199-471"><a href="#cb199-471" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb199-472"><a href="#cb199-472" aria-hidden="true" tabindex="-1"></a>indexes <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"Korea"</span>, countries)</span>
-<span id="cb199-473"><a href="#cb199-473" aria-hidden="true" tabindex="-1"></a>indexes</span>
-<span id="cb199-474"><a href="#cb199-474" aria-hidden="true" tabindex="-1"></a>countries[indexes]</span>
-<span id="cb199-475"><a href="#cb199-475" aria-hidden="true" tabindex="-1"></a>countries2 <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"Korea, Dem. Rep."</span>, <span class="st">"North Korea"</span>, countries)</span>
-<span id="cb199-476"><a href="#cb199-476" aria-hidden="true" tabindex="-1"></a>countries2[indexes]</span>
-<span id="cb199-477"><a href="#cb199-477" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb199-478"><a href="#cb199-478" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-479"><a href="#cb199-479" aria-hidden="true" tabindex="-1"></a>One can easily use regular expressions with all of R's string processing tools.</span>
-<span id="cb199-480"><a href="#cb199-480" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-481"><a href="#cb199-481" aria-hidden="true" tabindex="-1"></a><span class="fu"># Subsetting</span></span>
-<span id="cb199-482"><a href="#cb199-482" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-483"><a href="#cb199-483" aria-hidden="true" tabindex="-1"></a>There are many ways to select subsets in R, as we've seen already for vectors. The syntax below is useful for vectors, matrices, data frames, arrays and lists.</span>
-<span id="cb199-484"><a href="#cb199-484" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-487"><a href="#cb199-487" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb199-488"><a href="#cb199-488" aria-hidden="true" tabindex="-1"></a>vec <span class="ot">&lt;-</span> gapminder2007<span class="sc">$</span>lifeExp</span>
-<span id="cb199-489"><a href="#cb199-489" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
-<span id="cb199-490"><a href="#cb199-490" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(mat) <span class="ot">&lt;-</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
-<span id="cb199-491"><a href="#cb199-491" aria-hidden="true" tabindex="-1"></a>mat</span>
-<span id="cb199-492"><a href="#cb199-492" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb199-493"><a href="#cb199-493" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1) by direct indexing</span></span>
-<span id="cb199-494"><a href="#cb199-494" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-497"><a href="#cb199-497" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb199-498"><a href="#cb199-498" aria-hidden="true" tabindex="-1"></a>vec[<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">12</span><span class="sc">:</span><span class="dv">14</span>)]</span>
-<span id="cb199-499"><a href="#cb199-499" aria-hidden="true" tabindex="-1"></a>vec[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">5</span>)]</span>
-<span id="cb199-500"><a href="#cb199-500" aria-hidden="true" tabindex="-1"></a>gapminder[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>), <span class="dv">5</span>]</span>
-<span id="cb199-501"><a href="#cb199-501" aria-hidden="true" tabindex="-1"></a>gapminder[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>), <span class="st">'lifeExp'</span>]</span>
-<span id="cb199-502"><a href="#cb199-502" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-462"><a href="#cb199-462" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb199-463"><a href="#cb199-463" aria-hidden="true" tabindex="-1"></a>chars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'hi'</span>, <span class="st">'hallo'</span>, <span class="st">"mother's"</span>, <span class="st">'father</span><span class="sc">\'</span><span class="st">s'</span>, <span class="st">"He said, </span><span class="sc">\"</span><span class="st">hi</span><span class="sc">\"</span><span class="st">"</span> )</span>
+<span id="cb199-464"><a href="#cb199-464" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(chars)</span>
+<span id="cb199-465"><a href="#cb199-465" aria-hidden="true" tabindex="-1"></a><span class="fu">nchar</span>(chars)</span>
+<span id="cb199-466"><a href="#cb199-466" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">"bill"</span>, <span class="st">"clinton"</span>, <span class="at">sep =</span> <span class="st">" "</span>)  <span class="co"># paste together a set of strings</span></span>
+<span id="cb199-467"><a href="#cb199-467" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(chars, <span class="at">collapse =</span> <span class="st">' '</span>)  <span class="co"># paste together things from a vector</span></span>
+<span id="cb199-468"><a href="#cb199-468" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-469"><a href="#cb199-469" aria-hidden="true" tabindex="-1"></a><span class="fu">strsplit</span>(<span class="st">"This is the R bootcamp"</span>, <span class="at">split =</span> <span class="st">" "</span>)</span>
+<span id="cb199-470"><a href="#cb199-470" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-471"><a href="#cb199-471" aria-hidden="true" tabindex="-1"></a>countries <span class="ot">&lt;-</span> <span class="fu">as.character</span>(gapminder2007<span class="sc">$</span>country)</span>
+<span id="cb199-472"><a href="#cb199-472" aria-hidden="true" tabindex="-1"></a><span class="fu">substring</span>(countries, <span class="dv">1</span>, <span class="dv">3</span>)</span>
+<span id="cb199-473"><a href="#cb199-473" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> countries</span>
+<span id="cb199-474"><a href="#cb199-474" aria-hidden="true" tabindex="-1"></a><span class="fu">substring</span>(tmp, <span class="dv">5</span>, <span class="dv">10</span>) <span class="ot">&lt;-</span> <span class="st">"______"</span></span>
+<span id="cb199-475"><a href="#cb199-475" aria-hidden="true" tabindex="-1"></a>tmp[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>]</span>
+<span id="cb199-476"><a href="#cb199-476" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-477"><a href="#cb199-477" aria-hidden="true" tabindex="-1"></a>We can search for patterns in character vectors and replace patterns (both vectorized!)</span>
+<span id="cb199-480"><a href="#cb199-480" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb199-481"><a href="#cb199-481" aria-hidden="true" tabindex="-1"></a>indexes <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"Korea"</span>, countries)</span>
+<span id="cb199-482"><a href="#cb199-482" aria-hidden="true" tabindex="-1"></a>indexes</span>
+<span id="cb199-483"><a href="#cb199-483" aria-hidden="true" tabindex="-1"></a>countries[indexes]</span>
+<span id="cb199-484"><a href="#cb199-484" aria-hidden="true" tabindex="-1"></a>countries2 <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"Korea, Dem. Rep."</span>, <span class="st">"North Korea"</span>, countries)</span>
+<span id="cb199-485"><a href="#cb199-485" aria-hidden="true" tabindex="-1"></a>countries2[indexes]</span>
+<span id="cb199-486"><a href="#cb199-486" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-487"><a href="#cb199-487" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-488"><a href="#cb199-488" aria-hidden="true" tabindex="-1"></a>One can easily use regular expressions with all of R's string processing tools.</span>
+<span id="cb199-489"><a href="#cb199-489" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-490"><a href="#cb199-490" aria-hidden="true" tabindex="-1"></a><span class="fu"># Subsetting</span></span>
+<span id="cb199-491"><a href="#cb199-491" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-492"><a href="#cb199-492" aria-hidden="true" tabindex="-1"></a>There are many ways to select subsets in R, as we've seen already for vectors. The syntax below is useful for vectors, matrices, data frames, arrays and lists.</span>
+<span id="cb199-493"><a href="#cb199-493" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-496"><a href="#cb199-496" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb199-497"><a href="#cb199-497" aria-hidden="true" tabindex="-1"></a>vec <span class="ot">&lt;-</span> gapminder2007<span class="sc">$</span>lifeExp</span>
+<span id="cb199-498"><a href="#cb199-498" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb199-499"><a href="#cb199-499" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(mat) <span class="ot">&lt;-</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb199-500"><a href="#cb199-500" aria-hidden="true" tabindex="-1"></a>mat</span>
+<span id="cb199-501"><a href="#cb199-501" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-502"><a href="#cb199-502" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1) by direct indexing</span></span>
 <span id="cb199-503"><a href="#cb199-503" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-504"><a href="#cb199-504" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2) by a vector of logicals</span></span>
-<span id="cb199-505"><a href="#cb199-505" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-508"><a href="#cb199-508" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb199-509"><a href="#cb199-509" aria-hidden="true" tabindex="-1"></a>wealthy <span class="ot">&lt;-</span> gapminder<span class="sc">$</span>gdpPercap <span class="sc">&gt;</span> <span class="dv">50000</span></span>
-<span id="cb199-510"><a href="#cb199-510" aria-hidden="true" tabindex="-1"></a>gapminder<span class="sc">$</span>gdpPercap[wealthy]</span>
-<span id="cb199-511"><a href="#cb199-511" aria-hidden="true" tabindex="-1"></a>gapminder[wealthy, ]</span>
-<span id="cb199-512"><a href="#cb199-512" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb199-513"><a href="#cb199-513" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-514"><a href="#cb199-514" aria-hidden="true" tabindex="-1"></a>What happened in the last subsetting operation?</span>
-<span id="cb199-515"><a href="#cb199-515" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-516"><a href="#cb199-516" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3) by a vector of names</span></span>
-<span id="cb199-519"><a href="#cb199-519" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb199-520"><a href="#cb199-520" aria-hidden="true" tabindex="-1"></a>mat[<span class="fu">c</span>(<span class="st">'a'</span>, <span class="st">'d'</span>, <span class="st">'a'</span>), ]</span>
+<span id="cb199-506"><a href="#cb199-506" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb199-507"><a href="#cb199-507" aria-hidden="true" tabindex="-1"></a>vec[<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">12</span><span class="sc">:</span><span class="dv">14</span>)]</span>
+<span id="cb199-508"><a href="#cb199-508" aria-hidden="true" tabindex="-1"></a>vec[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">5</span>)]</span>
+<span id="cb199-509"><a href="#cb199-509" aria-hidden="true" tabindex="-1"></a>gapminder[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>), <span class="dv">5</span>]</span>
+<span id="cb199-510"><a href="#cb199-510" aria-hidden="true" tabindex="-1"></a>gapminder[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>), <span class="st">'lifeExp'</span>]</span>
+<span id="cb199-511"><a href="#cb199-511" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-512"><a href="#cb199-512" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-513"><a href="#cb199-513" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2) by a vector of logicals</span></span>
+<span id="cb199-514"><a href="#cb199-514" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-517"><a href="#cb199-517" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb199-518"><a href="#cb199-518" aria-hidden="true" tabindex="-1"></a>wealthy <span class="ot">&lt;-</span> gapminder<span class="sc">$</span>gdpPercap <span class="sc">&gt;</span> <span class="dv">50000</span></span>
+<span id="cb199-519"><a href="#cb199-519" aria-hidden="true" tabindex="-1"></a>gapminder<span class="sc">$</span>gdpPercap[wealthy]</span>
+<span id="cb199-520"><a href="#cb199-520" aria-hidden="true" tabindex="-1"></a>gapminder[wealthy, ]</span>
 <span id="cb199-521"><a href="#cb199-521" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb199-522"><a href="#cb199-522" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-523"><a href="#cb199-523" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-524"><a href="#cb199-524" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4) using *dplyr* tools such as *filter()* and *select()* -- more in Module 4</span></span>
-<span id="cb199-525"><a href="#cb199-525" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-526"><a href="#cb199-526" aria-hidden="true" tabindex="-1"></a><span class="fu"># Assignment into subsets</span></span>
-<span id="cb199-527"><a href="#cb199-527" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-528"><a href="#cb199-528" aria-hidden="true" tabindex="-1"></a>We can assign into subsets by using similar syntax, as we saw with vectors.</span>
-<span id="cb199-529"><a href="#cb199-529" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-532"><a href="#cb199-532" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb199-533"><a href="#cb199-533" aria-hidden="true" tabindex="-1"></a>vec <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">20</span>)</span>
-<span id="cb199-534"><a href="#cb199-534" aria-hidden="true" tabindex="-1"></a>vec[<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">12</span><span class="sc">:</span><span class="dv">14</span>)] <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span>
-<span id="cb199-535"><a href="#cb199-535" aria-hidden="true" tabindex="-1"></a>vec</span>
+<span id="cb199-523"><a href="#cb199-523" aria-hidden="true" tabindex="-1"></a>What happened in the last subsetting operation?</span>
+<span id="cb199-524"><a href="#cb199-524" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-525"><a href="#cb199-525" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3) by a vector of names</span></span>
+<span id="cb199-528"><a href="#cb199-528" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb199-529"><a href="#cb199-529" aria-hidden="true" tabindex="-1"></a>mat[<span class="fu">c</span>(<span class="st">'a'</span>, <span class="st">'d'</span>, <span class="st">'a'</span>), ]</span>
+<span id="cb199-530"><a href="#cb199-530" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-531"><a href="#cb199-531" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-532"><a href="#cb199-532" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-533"><a href="#cb199-533" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4) using *dplyr* tools such as *filter()* and *select()* -- more in Module 4</span></span>
+<span id="cb199-534"><a href="#cb199-534" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-535"><a href="#cb199-535" aria-hidden="true" tabindex="-1"></a><span class="fu"># Assignment into subsets</span></span>
 <span id="cb199-536"><a href="#cb199-536" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-537"><a href="#cb199-537" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">6</span><span class="sc">*</span><span class="dv">5</span>), <span class="at">nrow =</span> <span class="dv">6</span>)</span>
-<span id="cb199-538"><a href="#cb199-538" aria-hidden="true" tabindex="-1"></a>mat[<span class="dv">2</span>, <span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>)</span>
-<span id="cb199-539"><a href="#cb199-539" aria-hidden="true" tabindex="-1"></a>mat</span>
-<span id="cb199-540"><a href="#cb199-540" aria-hidden="true" tabindex="-1"></a>mat[mat[,<span class="dv">1</span>] <span class="sc">&gt;</span> <span class="dv">0</span>, ] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="cn">Inf</span></span>
-<span id="cb199-541"><a href="#cb199-541" aria-hidden="true" tabindex="-1"></a>mat</span>
-<span id="cb199-542"><a href="#cb199-542" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb199-543"><a href="#cb199-543" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-544"><a href="#cb199-544" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Question"}</span>
+<span id="cb199-537"><a href="#cb199-537" aria-hidden="true" tabindex="-1"></a>We can assign into subsets by using similar syntax, as we saw with vectors.</span>
+<span id="cb199-538"><a href="#cb199-538" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-541"><a href="#cb199-541" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb199-542"><a href="#cb199-542" aria-hidden="true" tabindex="-1"></a>vec <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">20</span>)</span>
+<span id="cb199-543"><a href="#cb199-543" aria-hidden="true" tabindex="-1"></a>vec[<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">12</span><span class="sc">:</span><span class="dv">14</span>)] <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span>
+<span id="cb199-544"><a href="#cb199-544" aria-hidden="true" tabindex="-1"></a>vec</span>
 <span id="cb199-545"><a href="#cb199-545" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-546"><a href="#cb199-546" aria-hidden="true" tabindex="-1"></a>Suppose I want to select the 3rd elements from the 2nd and 4th columns of a matrix or dataframe. Which syntax will work?</span>
-<span id="cb199-547"><a href="#cb199-547" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-548"><a href="#cb199-548" aria-hidden="true" tabindex="-1"></a>Here's a test matrix:</span>
-<span id="cb199-549"><a href="#cb199-549" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-550"><a href="#cb199-550" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb199-551"><a href="#cb199-551" aria-hidden="true" tabindex="-1"></a><span class="in">mat &lt;- matrix(1:16, nrow = 4, ncol = 4)</span></span>
-<span id="cb199-552"><a href="#cb199-552" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb199-553"><a href="#cb199-553" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-554"><a href="#cb199-554" aria-hidden="true" tabindex="-1"></a>1) mat<span class="co">[</span><span class="ot">3, (2, 4)</span><span class="co">]</span></span>
-<span id="cb199-555"><a href="#cb199-555" aria-hidden="true" tabindex="-1"></a>2) mat<span class="co">[</span><span class="ot">c(FALSE, FALSE, TRUE, FALSE), c(FALSE, TRUE, FALSE, TRUE)</span><span class="co">]</span></span>
-<span id="cb199-556"><a href="#cb199-556" aria-hidden="true" tabindex="-1"></a>3) mat<span class="co">[</span><span class="ot">c(FALSE, FALSE, TRUE, FALSE), c(2, 4)</span><span class="co">]</span></span>
-<span id="cb199-557"><a href="#cb199-557" aria-hidden="true" tabindex="-1"></a>4) mat<span class="co">[</span><span class="ot">3, c(2, 4)</span><span class="co">]</span></span>
-<span id="cb199-558"><a href="#cb199-558" aria-hidden="true" tabindex="-1"></a>5) mat(3, c(2, 4))</span>
-<span id="cb199-559"><a href="#cb199-559" aria-hidden="true" tabindex="-1"></a>6) mat<span class="co">[</span><span class="ot">3, </span><span class="co">][c(2, 4)]</span></span>
-<span id="cb199-560"><a href="#cb199-560" aria-hidden="true" tabindex="-1"></a>7) mat<span class="co">[</span><span class="ot"> , c(2, 4)</span><span class="co">][3, ]</span></span>
-<span id="cb199-561"><a href="#cb199-561" aria-hidden="true" tabindex="-1"></a>8) mat<span class="co">[</span><span class="ot"> , c(2, 4)</span><span class="co">][3]</span></span>
-<span id="cb199-562"><a href="#cb199-562" aria-hidden="true" tabindex="-1"></a>9) mat<span class="co">[</span><span class="ot">c(2, 4)</span><span class="co">][3, ]</span></span>
-<span id="cb199-563"><a href="#cb199-563" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-564"><a href="#cb199-564" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb199-565"><a href="#cb199-565" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-566"><a href="#cb199-566" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-567"><a href="#cb199-567" aria-hidden="true" tabindex="-1"></a><span class="fu"># Breakout</span></span>
-<span id="cb199-568"><a href="#cb199-568" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-569"><a href="#cb199-569" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-570"><a href="#cb199-570" aria-hidden="true" tabindex="-1"></a><span class="fu">### Basics</span></span>
-<span id="cb199-571"><a href="#cb199-571" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-572"><a href="#cb199-572" aria-hidden="true" tabindex="-1"></a>1) Extract the 5th row from the gapminder dataset.</span>
-<span id="cb199-573"><a href="#cb199-573" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-574"><a href="#cb199-574" aria-hidden="true" tabindex="-1"></a>2) Extract the last row from the gapminder dataset. </span>
+<span id="cb199-546"><a href="#cb199-546" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">6</span><span class="sc">*</span><span class="dv">5</span>), <span class="at">nrow =</span> <span class="dv">6</span>)</span>
+<span id="cb199-547"><a href="#cb199-547" aria-hidden="true" tabindex="-1"></a>mat[<span class="dv">2</span>, <span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">3</span>)</span>
+<span id="cb199-548"><a href="#cb199-548" aria-hidden="true" tabindex="-1"></a>mat</span>
+<span id="cb199-549"><a href="#cb199-549" aria-hidden="true" tabindex="-1"></a>mat[mat[,<span class="dv">1</span>] <span class="sc">&gt;</span> <span class="dv">0</span>, ] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="cn">Inf</span></span>
+<span id="cb199-550"><a href="#cb199-550" aria-hidden="true" tabindex="-1"></a>mat</span>
+<span id="cb199-551"><a href="#cb199-551" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-552"><a href="#cb199-552" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-553"><a href="#cb199-553" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Question"}</span>
+<span id="cb199-554"><a href="#cb199-554" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-555"><a href="#cb199-555" aria-hidden="true" tabindex="-1"></a>Suppose I want to select the 3rd elements from the 2nd and 4th columns of a matrix or dataframe. Which syntax will work?</span>
+<span id="cb199-556"><a href="#cb199-556" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-557"><a href="#cb199-557" aria-hidden="true" tabindex="-1"></a>Here's a test matrix:</span>
+<span id="cb199-558"><a href="#cb199-558" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-559"><a href="#cb199-559" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-560"><a href="#cb199-560" aria-hidden="true" tabindex="-1"></a><span class="in">mat &lt;- matrix(1:16, nrow = 4, ncol = 4)</span></span>
+<span id="cb199-561"><a href="#cb199-561" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb199-562"><a href="#cb199-562" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-563"><a href="#cb199-563" aria-hidden="true" tabindex="-1"></a>1) mat<span class="co">[</span><span class="ot">3, (2, 4)</span><span class="co">]</span></span>
+<span id="cb199-564"><a href="#cb199-564" aria-hidden="true" tabindex="-1"></a>2) mat<span class="co">[</span><span class="ot">c(FALSE, FALSE, TRUE, FALSE), c(FALSE, TRUE, FALSE, TRUE)</span><span class="co">]</span></span>
+<span id="cb199-565"><a href="#cb199-565" aria-hidden="true" tabindex="-1"></a>3) mat<span class="co">[</span><span class="ot">c(FALSE, FALSE, TRUE, FALSE), c(2, 4)</span><span class="co">]</span></span>
+<span id="cb199-566"><a href="#cb199-566" aria-hidden="true" tabindex="-1"></a>4) mat<span class="co">[</span><span class="ot">3, c(2, 4)</span><span class="co">]</span></span>
+<span id="cb199-567"><a href="#cb199-567" aria-hidden="true" tabindex="-1"></a>5) mat(3, c(2, 4))</span>
+<span id="cb199-568"><a href="#cb199-568" aria-hidden="true" tabindex="-1"></a>6) mat<span class="co">[</span><span class="ot">3, </span><span class="co">][c(2, 4)]</span></span>
+<span id="cb199-569"><a href="#cb199-569" aria-hidden="true" tabindex="-1"></a>7) mat<span class="co">[</span><span class="ot"> , c(2, 4)</span><span class="co">][3, ]</span></span>
+<span id="cb199-570"><a href="#cb199-570" aria-hidden="true" tabindex="-1"></a>8) mat<span class="co">[</span><span class="ot"> , c(2, 4)</span><span class="co">][3]</span></span>
+<span id="cb199-571"><a href="#cb199-571" aria-hidden="true" tabindex="-1"></a>9) mat<span class="co">[</span><span class="ot">c(2, 4)</span><span class="co">][3, ]</span></span>
+<span id="cb199-572"><a href="#cb199-572" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-573"><a href="#cb199-573" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb199-574"><a href="#cb199-574" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb199-575"><a href="#cb199-575" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-576"><a href="#cb199-576" aria-hidden="true" tabindex="-1"></a>3) Create a boolean (TRUE/FALSE) vector indicating whether total country GDP is greater than 1 trillion dollars. When entering 1 trillion, use R's scientific notation.</span>
+<span id="cb199-576"><a href="#cb199-576" aria-hidden="true" tabindex="-1"></a><span class="fu"># Breakout</span></span>
 <span id="cb199-577"><a href="#cb199-577" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-578"><a href="#cb199-578" aria-hidden="true" tabindex="-1"></a>4) Count the number of gdpPercap values greater than 50000 in the gapminder dataset.</span>
-<span id="cb199-579"><a href="#cb199-579" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-580"><a href="#cb199-580" aria-hidden="true" tabindex="-1"></a>5) Set all of the gdpPercap values greater than 50000 to NA. You should probably first copy the <span class="in">`gapminder`</span> object and work on the copy so that the dataset is unchanged, so that you preserve the original data to use later.</span>
-<span id="cb199-581"><a href="#cb199-581" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-582"><a href="#cb199-582" aria-hidden="true" tabindex="-1"></a>6) Consider the first row of the gapminder dataset, which has Afghanistan for 1952. How do I create a string "Afghanistan-1952" using <span class="in">`gap$country[1]`</span> and <span class="in">`gap$year[1]`</span>? </span>
-<span id="cb199-583"><a href="#cb199-583" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-584"><a href="#cb199-584" aria-hidden="true" tabindex="-1"></a><span class="fu">### Using the ideas</span></span>
-<span id="cb199-585"><a href="#cb199-585" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-586"><a href="#cb199-586" aria-hidden="true" tabindex="-1"></a>7) Create a character string using <span class="in">`paste()`</span> that tells the user how many rows there are in the data frame - do this programmatically such that it would work for any data frame regardless of how many rows it has. The result should look like this: "There are 1704 rows in the dataset"</span>
-<span id="cb199-587"><a href="#cb199-587" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-588"><a href="#cb199-588" aria-hidden="true" tabindex="-1"></a>8) If you didn't do it this way already in problem #2, extract the last row from the gapminder dataset without typing the number '1704'.</span>
-<span id="cb199-589"><a href="#cb199-589" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-590"><a href="#cb199-590" aria-hidden="true" tabindex="-1"></a>9) Create a boolean vector indicating if the life expectancy is greater than 75 and the gdpPercap is less than 10000 and calculate the proportion of all the records these represent.</span>
-<span id="cb199-591"><a href="#cb199-591" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-592"><a href="#cb199-592" aria-hidden="true" tabindex="-1"></a>10) Use that vector to create a new data frame that is a subset of the original data frame.</span>
-<span id="cb199-593"><a href="#cb199-593" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-594"><a href="#cb199-594" aria-hidden="true" tabindex="-1"></a>11) Consider the attributes of the gapminder dataset. What kind of R object is the set of attributes?</span>
-<span id="cb199-595"><a href="#cb199-595" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-596"><a href="#cb199-596" aria-hidden="true" tabindex="-1"></a><span class="fu">### Advanced</span></span>
-<span id="cb199-597"><a href="#cb199-597" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-598"><a href="#cb199-598" aria-hidden="true" tabindex="-1"></a>12) Consider the following regression model.  Figure out how to extract the $R^2$ and residual standard error and store in new R variables. </span>
-<span id="cb199-599"><a href="#cb199-599" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-600"><a href="#cb199-600" aria-hidden="true" tabindex="-1"></a><span class="in">    ```{r}</span></span>
-<span id="cb199-601"><a href="#cb199-601" aria-hidden="true" tabindex="-1"></a><span class="in">    mod &lt;- lm(lifeExp ~ log(gdpPercap), data = gapminder)</span></span>
-<span id="cb199-602"><a href="#cb199-602" aria-hidden="true" tabindex="-1"></a><span class="in">    summ &lt;- summary(mod)</span></span>
-<span id="cb199-603"><a href="#cb199-603" aria-hidden="true" tabindex="-1"></a><span class="in">    ```</span></span>
+<span id="cb199-578"><a href="#cb199-578" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-579"><a href="#cb199-579" aria-hidden="true" tabindex="-1"></a><span class="fu">### Basics</span></span>
+<span id="cb199-580"><a href="#cb199-580" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-581"><a href="#cb199-581" aria-hidden="true" tabindex="-1"></a>1) Extract the 5th row from the gapminder dataset.</span>
+<span id="cb199-582"><a href="#cb199-582" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-583"><a href="#cb199-583" aria-hidden="true" tabindex="-1"></a>2) Extract the last row from the gapminder dataset. </span>
+<span id="cb199-584"><a href="#cb199-584" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-585"><a href="#cb199-585" aria-hidden="true" tabindex="-1"></a>3) Create a boolean (TRUE/FALSE) vector indicating whether total country GDP is greater than 1 trillion dollars. When entering 1 trillion, use R's scientific notation.</span>
+<span id="cb199-586"><a href="#cb199-586" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-587"><a href="#cb199-587" aria-hidden="true" tabindex="-1"></a>4) Count the number of gdpPercap values greater than 50000 in the gapminder dataset.</span>
+<span id="cb199-588"><a href="#cb199-588" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-589"><a href="#cb199-589" aria-hidden="true" tabindex="-1"></a>5) Set all of the gdpPercap values greater than 50000 to NA. You should probably first copy the <span class="in">`gapminder`</span> object and work on the copy so that the dataset is unchanged, so that you preserve the original data to use later.</span>
+<span id="cb199-590"><a href="#cb199-590" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-591"><a href="#cb199-591" aria-hidden="true" tabindex="-1"></a>6) Consider the first row of the gapminder dataset, which has Afghanistan for 1952. How do I create a string "Afghanistan-1952" using <span class="in">`gap$country[1]`</span> and <span class="in">`gap$year[1]`</span>? </span>
+<span id="cb199-592"><a href="#cb199-592" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-593"><a href="#cb199-593" aria-hidden="true" tabindex="-1"></a><span class="fu">### Using the ideas</span></span>
+<span id="cb199-594"><a href="#cb199-594" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-595"><a href="#cb199-595" aria-hidden="true" tabindex="-1"></a>7) Create a character string using <span class="in">`paste()`</span> that tells the user how many rows there are in the data frame - do this programmatically such that it would work for any data frame regardless of how many rows it has. The result should look like this: "There are 1704 rows in the dataset"</span>
+<span id="cb199-596"><a href="#cb199-596" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-597"><a href="#cb199-597" aria-hidden="true" tabindex="-1"></a>8) If you didn't do it this way already in problem #2, extract the last row from the gapminder dataset without typing the number '1704'.</span>
+<span id="cb199-598"><a href="#cb199-598" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-599"><a href="#cb199-599" aria-hidden="true" tabindex="-1"></a>9) Create a boolean vector indicating if the life expectancy is greater than 75 and the gdpPercap is less than 10000 and calculate the proportion of all the records these represent.</span>
+<span id="cb199-600"><a href="#cb199-600" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-601"><a href="#cb199-601" aria-hidden="true" tabindex="-1"></a>10) Use that vector to create a new data frame that is a subset of the original data frame.</span>
+<span id="cb199-602"><a href="#cb199-602" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-603"><a href="#cb199-603" aria-hidden="true" tabindex="-1"></a>11) Consider the attributes of the gapminder dataset. What kind of R object is the set of attributes?</span>
 <span id="cb199-604"><a href="#cb199-604" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-605"><a href="#cb199-605" aria-hidden="true" tabindex="-1"></a>13) Create row names for the data frame based on concatenating the Continent, Country, and Year fields.</span>
+<span id="cb199-605"><a href="#cb199-605" aria-hidden="true" tabindex="-1"></a><span class="fu">### Advanced</span></span>
+<span id="cb199-606"><a href="#cb199-606" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-607"><a href="#cb199-607" aria-hidden="true" tabindex="-1"></a>12) Consider the following regression model.  Figure out how to extract the $R^2$ and residual standard error and store in new R variables. </span>
+<span id="cb199-608"><a href="#cb199-608" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-609"><a href="#cb199-609" aria-hidden="true" tabindex="-1"></a><span class="in">    ```{r}</span></span>
+<span id="cb199-610"><a href="#cb199-610" aria-hidden="true" tabindex="-1"></a><span class="in">    mod &lt;- lm(lifeExp ~ log(gdpPercap), data = gapminder)</span></span>
+<span id="cb199-611"><a href="#cb199-611" aria-hidden="true" tabindex="-1"></a><span class="in">    summ &lt;- summary(mod)</span></span>
+<span id="cb199-612"><a href="#cb199-612" aria-hidden="true" tabindex="-1"></a><span class="in">    ```</span></span>
+<span id="cb199-613"><a href="#cb199-613" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-614"><a href="#cb199-614" aria-hidden="true" tabindex="-1"></a>13) Create row names for the data frame based on concatenating the Continent, Country, and Year fields.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
