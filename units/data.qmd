@@ -70,7 +70,9 @@ This is a bootcamp. So there may be some pain involved! If you find yourself not
 
 # Modes of using R
 
-- Using the RStudio GUI, an 'integrated development environment'
+- Using the RStudio GUI, an *integrated development environment*
+- With VS Code, including a debugger
+- In a Jupyter notebook, including a debugger
 - From the command line in a Linux/Mac terminal window
 - Running an R script in the background on a Linux/Mac machine (perhaps Windows?)
 

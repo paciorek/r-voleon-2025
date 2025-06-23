@@ -20,9 +20,9 @@ execute:
 rm(list=ls())
 ```
 
+# Basic syntax
 
-
-# R as a calculator
+## R as a calculator
 
 The syntax for doing interactive calculations in R is similar to other languages such as Python, MATLAB, and Julia, though some of the operators differ.
 
@@ -93,9 +93,11 @@ Since we didn't enter the closing parenthesis, R is waiting for additional input
 
 You can either enter the missing syntax or hit `Ctrl-C` or `Esc` to kill the partial syntax and return to the usual prompt.
 
+This happens often -- with missing or non-matching closing parentheses/brackets or quotation symbols.
+
 :::
 
-# Assigning values to R objects
+## Assigning values to R objects
 
 A key action in R (similar to other languages) is to store values in the form of R objects, and to examine the value of R objects.
 
@@ -126,7 +128,7 @@ country
 R gives us a lot of flexibility (within certain rules) for assigning to (parts of) objects from (parts of) other objects.
 We'll see this through the bootcamp.
 
-# Vectors in R
+## Vectors in R
 
 The most basic form of an R object is a vector (i.e., a 1-dimensional array). The various objects `mySeq`, `years`, `country` from above are all vectors.
 
@@ -149,7 +151,7 @@ nums <- (1.1, 3, -5.7)
 nums <- [1.1, 3, -5.7]
 ```
 
-# Working with indices and subsets
+## Working with indices and subsets
 
 We can subset (aka "slice") using a variety of approaches. 
 
@@ -167,11 +169,14 @@ We can substitute values into vectors:
 
 ```{r}
 letters[2] <- "β"
+letters[1:5]
 letters[3:4] <- c("d","c")
+letters[1:5]
 letters[2:4] <- "β" # Recycling
+letters[1:5]
 ```
 
-The last substutition uses "recycling" to match the left-hand-side extent (3 elements) with the right-hand-side extent (1 element)
+The last substitution uses "recycling" to match the left-hand-side extent (3 elements) with the right-hand-side extent (1 element)
 
 
 ::: {.callout-tip title="Question"}
@@ -188,13 +193,13 @@ Suppose you have a vector, such `vals <- rnorm(4)`. Which of these will work to 
 
 ::: {.callout-tip title="Answer" collapse="true"}
 
-- Subsetting uses square brackets so (4) and (7) don't work.
-- To create a set of indices to use in subsetting/slicing, you need to use `c()` to create a *vector* of indices, so (3) and (5) work.
-- Booleans in R use the canonical syntax of TRUE and FALSE, so (5) works but not (6).
+- Subsetting uses square brackets so answers #4 and #7 don't work.
+- To create a set of indices to use in subsetting/slicing, you need to use `c()` to create a *vector* of indices, so answers #3 and #5 work.
+- Booleans in R use the canonical syntax of TRUE and FALSE, so answer #5 works but not answer #6.
 
 :::
 
-# Using functions in R
+## Using functions in R
 
 
 * Functions generally take arguments, some of which are often optional:
@@ -214,9 +219,11 @@ hist(rnorm(1000))
 lm
 ```
 
-# Getting help about a function
+# Logistics
 
-To get information about a function you know exists, use `help` or `?`, e.g., `?lm` or  (results not shown). 
+## Getting help about a function
+
+To get information about a function you know exists, use `help` or `?`, e.g., `?lm`  (results not shown). 
 
 ```{r}
 #| eval: false
@@ -227,12 +234,12 @@ help(lm)
 ```
 
 
-# How to be lazy (aka efficient)
+## How to be lazy (aka efficient)
 
-If you're starting to type something you've typed before, or the long name of an R object or function, STOP!  You likely don't need to type all of that.
+If you're starting to type something you've typed before, or you are typing the long name of an R object or function, STOP!  You likely don't need to type all of that.
 
 - Tab completion: type a few letters of an object/function and hit `Tab` for autocompletion
-- Command history: recover and reuse/edit previous commands used 
+- Command history: recover and reuse/edit previous commands used with:
     * up/down arrows
     * Ctrl-{up arrow} or Command-{up arrow}
 - RStudio: select a line or block for execution via `Ctrl-Enter`
@@ -241,9 +248,9 @@ If you're starting to type something you've typed before, or the long name of an
    - [this](https://appsilon.com/rstudio-shortcuts-and-tips) and [this](https://www.r-bloggers.com/r-studio-shortcuts-and-tips-part-2) blog posts.
 - [Other tips](https://www.r-bloggers.com/tips-and-tricks-in-rstudio-and-r-markdown) for saving time in RStudio and R Markdown
 
-# Managing the workspace
+## Managing the workspace
 
-R has functions for learning about the collection of objects in your workspace. Some of this is built in to RStudio (see the Enviornment tab in upper right pane).
+R has functions for learning about the collection of objects in your workspace. Some of this is built in to RStudio (see the Environment tab in upper right pane).
 
 Let's first create a few objects.
 
@@ -262,9 +269,9 @@ ls()
 ls.str() # list and describe variables
 ```
 
-# Saving and reloading the workspace
+## Saving and reloading the workspace
 
-Finally we can save the objects in our R session in a compact, binary format for later use (or to give to someone else):
+Finally we can save the objects in our R session in a compact, binary format for later use (or to give to someone else, even if they are on a different operating system):
 
 ```{r}
 ls()
@@ -276,65 +283,7 @@ load('intro.Rda')
 ls()
 ```
 
-# Packages 
-
-Let's check out the [packages on CRAN](https://cran.r-project.org/web/packages/). In particular check out the [CRAN Task Views](https://cran.r-project.org/web/views/).
-
-Essentially any well-established and many not-so-established statistical methods and other functionality is available in a package. 
-
-If you want to sound like an R expert, make sure to call them *packages* and not *libraries*. A *library* is the location in the directory structure where the packages are installed/stored.
-
-# Using packages
-
-Two steps (similar to Python and Julia):
-
-1. Install the package on your machine
-   - one-time only - the package will be a set of files in the filesystem
-2. Load the package
-   - every time you start R and need to use a given package - the package will be loaded into memory
-
-To install a package, in RStudio, just do `Packages->Install Packages`.
-
-From the command line, you generally will just do
-```{r}
-#| eval: false
-install.packages('gapminder') 
-```
-
-
-If you're on a network and are not the administrator of the machine, you may need to explicitly tell R to install it in a directory you are able to write in:
-```{r}
-#| eval: false
-install.packages('gapminder', lib = file.path('~', 'R'))
-```
-
-If you're using R directly installed on your laptop, now would be a good point to install the various packages we need for the bootcamp, which can be done easily with the following command:
-
-```{r eval=FALSE}
-install.packages(c('chron','colorspace','codetools', 'DBI','devtools',
-                   'dichromat','digest','doFuture','dplyr', 'fields',
-                   'foreach','future.apply', 'gapminder', 'ggplot2',
-                   'gridExtra','gtable','inline','iterators','knitr',
-                   'labeling','lattice','lme4','mapproj','maps','munsell',
-                   'proftools','proto','purrr','R6','rbenchmark',
-                   'RColorBrewer','Rcpp','reshape2','rJava',
-                   'RSQLite', 'scales','spam','stringr','tidyr','xlsx',
-                   'xlsxjars','xtable'))
-```
-
-Note that packages often are dependent on other packages so these dependencies may be installed and loaded automatically. E.g., *fields* depends on *maps* and on *spam*.
-
-# General information about a package
-
-You can use syntax as follows to get a list of the objects in a package and a brief description:
-
-```{r, eval=FALSE}
-library(help = packageName)
-```
-
-On CRAN there often *vignettes* that are an overview and describe usage of a package if you click on a specific package. The *reference manual* is just a single document with the help files for all of the objects/functions in a package. That may be helpful, but often it's hard to get the big picture view from that.
-
-# The working directory
+## The working directory
 
 To read and write from R, you need to have a firm grasp of where in the computer's filesystem you are reading and writing from. Here's some syntax (results not shown and will vary by machine).
 
@@ -366,7 +315,64 @@ Many errors and much confusion result from you and R not being on the same page 
 In RStudio, you can use `Session -> Set Working Directory` instead of `setwd`.
 
 
-# Writing functions
+# Packages 
+
+Let's check out the [packages on CRAN](https://cran.r-project.org/web/packages/). In particular check out the [CRAN Task Views](https://cran.r-project.org/web/views/).
+
+Essentially any well-established and many not-so-established statistical methods and other functionality is available in a package. 
+
+If you want to sound like an R expert, make sure to call them *packages* and not *libraries*. A *library* is the location in the directory structure where the packages are installed/stored.
+
+## Using packages
+
+Two steps (similar to Python and Julia):
+
+1. Install the package on your machine
+   - one-time only - the package will be a set of files in the filesystem
+2. Load the package
+   - every time you start R and need to use a given package - the package will be loaded into memory
+
+To install a package, in RStudio, just do `Packages->Install Packages`.
+
+From the command line, you generally will just do
+```{r}
+#| eval: false
+install.packages('gapminder') 
+```
+
+
+If you're on a network and are not the administrator of the machine, you may need to explicitly tell R to install it in a directory you are able to write in:
+```{r}
+#| eval: false
+install.packages('gapminder', lib = file.path('~', 'R'))
+```
+
+If you're using R directly installed on your laptop, now would be a good point to install the various packages we need for the bootcamp, which can be done easily with the following command:
+
+```{r eval=FALSE}
+install.packages(c('chron','data.table','devtools','dplyr',
+                   'doFuture','dplyr','dtplyr','fields','foreach',
+                   'foreign','future','future.apply','gapminder',
+                   'ggplot2','gridExtra','microbenchmark','patchwork',
+                   'pryr', 'R6', 'Rcpp', 'rbenchmark', 'RSQLite', 'stringr',
+                   'tidyr'))
+```
+
+Note that packages often are dependent on other packages so these dependencies may be installed and loaded automatically. E.g., *fields* depends on *maps* and on *spam*.
+
+## General information about a package
+
+You can use syntax as follows to get a list of the objects in a package and a brief description:
+
+```{r, eval=FALSE}
+library(help = packageName)
+```
+
+On CRAN there often *vignettes* that are an overview and describe usage of a package if you click on a specific package. The *reference manual* is just a single document with the help files for all of the objects/functions in a package. That may be helpful, but often it's hard to get the big picture view from that.
+
+# Programming syntax
+
+## Writing functions
 
 Here's an example of the syntax for writing our own function.
 
@@ -383,7 +389,12 @@ add_constant(1:6, 5)
 
 ```
 
-# Function arguments
+::: {.callout-tip title="Question"}
+Notice the lack of checking of the inputs to the function. The function works for vectors and related types of objects (e.g., matrices), but see what happens if you pass a string as the first argument. Where is the error trapped?
+:::
+
+
+## Function arguments
 
 R can match arguments by name (when provided) or by position (the fall-back). It
 also allows one to specify default values so that the user doesn't have to
@@ -397,7 +408,7 @@ log(base = 10, 100)  # This is a bit unusual and wouldn't work in Python.
 log(base = 10, x = 100)
 ```
 
-# Branching (if-then-else syntax)
+## Branching (if-then-else syntax)
 
 Often we need our code to do different things depending on whether some condition is true or false.
 
@@ -436,7 +447,7 @@ but R will complain when an `else` starts a line of code, so generally using the
 if (val < 0) print("val is negative") else print("val is positive")
 ```
 
-# Loops
+## Loops
 
 In many languages, looping (for loops, while loops, etc.) is one of the main
 constructs used to carry out computation. Loops are not emphasized as much in R,
@@ -467,23 +478,24 @@ cat("Found ", cnt_neg, " negative values.\n")
 That said, the canonical way to do that in R is via vectorized operation:
 
 ```{r}
+cat("Found ", sum(x < 0), " negative values.\n")
+
 x[x < 0] <- 0
 x
 ```
 
 
-# While loop
+## While loop
 
-It's not a particularly interesting example, but we can see the `while` loop
-syntax in the same example. In this case 
+It's not a particularly interesting example, here's the `while` loop syntax:
 
 ```{r, while}
 vals <- rnorm(100)
 found <- FALSE
 i <- 1
 while(!found && i <= length(vals)) {
-     if(x[i] > 2) {
-       print(x[i])
+     if(vals[i] > 2) {
+       print(vals[i])
        found <- TRUE
      }
      i <- i+1
@@ -496,18 +508,51 @@ while(!found && i <= length(vals)) {
 
 Here are some questions to get some practice with the syntax.
 
-1) Create a variable called 'x' that contains the mean of 100 random uniform numbers.
+1) Create a variable called `x` that contains the mean of 100 random uniform numbers.
 
-2) Use functions in R to round 'x' to two decimal places and to two significant digits.
+   ::: {.callout-tip title="Answer" collapse="true"}
+
+   ```{r}
+   n <- 100
+   x <- mean(runif(n))
+   ```
+   :::
+
+2) Use functions in R to round pi to two decimal places and to two significant digits.
+
+   ::: {.callout-tip title="Answer" collapse="true"}
+
+   ```{r}
+   round(pi, digits = 2)
+   signif(pi, digits = 2)
+   ```
+   :::
 
 3) Make sure you are able to install packages from CRAN. E.g., try to install `gapminder`.
 
 4) Figure out what your current working directory is.
 
-5) Put the `data/cpds.csv` file in some other directory on your computer, such as `Downloads`. Use `setwd()` to set your working directory to be that directory. Read the file in using `read.csv()`.  Now use `setwd()` to point to a different directory such as `Desktop`. Write the data frame out to a file using `write.csv` (you'll probably need to look at the help information). You may also want to experiment with figuring out how to write it out without any row names and without quotes on the character strings.
+   ::: {.callout-tip title="Answer" collapse="true"}
 
-6) Write an R function that will take an input vector and set any negative
-values in the vector to zero.
+   ```{r}
+   getwd()
+   ```
+   :::
+
+5) Put the `data/cpds.csv` file in some other directory on your computer, such as `Downloads`. Use `setwd()` to set your working directory to be that directory. Read the file in using `read.csv()` (it will create a data structure called a data frame).  Now use `setwd()` to point to a different directory such as `Desktop`. Write the object (the data frame) out to a file using `write.csv` (you'll probably need to look at the help information). You may also want to experiment with figuring out how to write it out without any row names and without quotes on the character strings.
+
+6) Write an R function that will take an input vector and set any negative values in the vector to zero.
+
+   ::: {.callout-tip title="Answer" collapse="true"}
+
+   ```{r}
+   trunc_neg <- function(x) {
+      x[x < 0] <- 0
+      return(x)
+   }
+   ```
+   :::
+
 
 
 
