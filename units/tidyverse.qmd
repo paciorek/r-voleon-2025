@@ -617,14 +617,15 @@ Basically, you tell the package what DBMS is being used on the back-end, link to
 
 # Database example
 
-You can get an example database of information about Stack Overflow questions and answers from [http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2021.duckdb](http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2021.duckdb). Stack Overflow is a website where programmers and software users can pose questions and get answers to technical problems.
+You can get an example database of information about Stack Overflow questions and answers from [http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.duckdb](http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.duckdb). Stack Overflow is a website where programmers and software users can pose questions and get answers to technical problems.
 
 
 ```{r}
+#| eval: false
 library(duckdb)  # DBI is a dependency
 dbfile <- file.path("..", "data", "stackoverflow-2021.duckdb")
 db <- dbConnect(duckdb(), dbname = dbfile)  # This will vary depending on the back-end database
-## stackoverflow-2021.db is an DuckDB database
+## stackoverflow-2016.db is an DuckDB database
 
 ## The syntax below works regardless of the back-end database.
 
