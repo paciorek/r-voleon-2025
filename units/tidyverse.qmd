@@ -621,10 +621,10 @@ You can get an example database of information about Stack Overflow questions an
 
 
 ```{r}
-#| eval: false
+#| eval: true
 library(duckdb)  # DBI is a dependency
 dbfile <- file.path("..", "data", "stackoverflow-2021.duckdb")
-db <- dbConnect(duckdb(), dbname = dbfile)  # This will vary depending on the back-end database
+db <- dbConnect(duckdb(), dbfile)  # This will vary depending on the back-end database
 ## stackoverflow-2016.db is an DuckDB database
 
 ## The syntax below works regardless of the back-end database.
@@ -641,6 +641,9 @@ popularR <- dbGetQuery(db, "select * from questions join questions_tags
    on questions.questionid = questions_tags.questionid
    where viewcount > 10000 and
    tag = 'r'")
+
+dim(popularR)
+class(popularR)
 
 dbDisconnect(db)
 ```
