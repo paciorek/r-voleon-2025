@@ -31,7 +31,16 @@ I encourage you to:
 - Play with it and try variations and try to break it and see what happens.
 - Ask questions and comment if something interesting happens as you experiment.
 
-This is a bootcamp. So there may be some pain involved! If you find yourself not following everything, that's ok. You may miss some details, but try to follow the basics and the big picture. 
+This is a bootcamp. So there may be some pain involved! If you find yourself not following everything, that's ok. You may miss some details, but try to follow the basics and the big picture.
+
+What about using a ChatBot?
+
+- Great for getting initial syntax (so we'll focus on concepts)
+- Great for translating between languages
+- Can hallucinate syntax
+- How much and what do we need to learn ourselves?
+  - For now, knowledgeable humans still need to review, revise, debug. Right?
+
 
 
 # What is R?
