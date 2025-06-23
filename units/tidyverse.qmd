@@ -615,7 +615,7 @@ DuckDB is a nice alternative to SQLite for a simple database (just a single file
 
 Basically, you tell the package what DBMS is being used on the back-end, link to the actual database, and then you can use the standard functions in the package regardless of the back-end. 
 
-# Database example
+## Database example
 
 You can get an example database of information about Stack Overflow questions and answers from [http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.duckdb](http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.duckdb). Stack Overflow is a website where programmers and software users can pose questions and get answers to technical problems.
 
