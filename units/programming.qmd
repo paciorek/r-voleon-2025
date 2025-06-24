@@ -132,38 +132,36 @@ In actuality, functions in R are *call-by-value*.
 
 This behavior is equivalent to copy-on-modify discussed in Unit 2.
 
+We'll explore this live, but I haven't run the code in the generated document because the document processing can affect the behavior.
+
 ```{r}
+#| eval: false
 library(pryr)
 if(exists('y')) rm(y)
 
 f <- function(x, print_mem = FALSE){
     if(print_mem) print(mem_used())
-    cat("Address of x from `address()`:\n")
-    print(address(x))  # address() is wrong here!
-    cat("Address of x from `inspect()`:\n")
-    print(.Internal(inspect(x)))
+    cat("Address of x from `address()`: ", address(x), ".\n") # address() is wrong here!
+    cat("Address of x from `inspect()`: ", .Internal(inspect(x)), ".\n")
 
     x[1] <- 7
     if(print_mem) print(mem_used())
-    cat("Address of x after modification:\n")
+    cat("Address of x after modification: ", .Internal(inspect(x)), ".\n")
     return(x)
 }
 
 n <- 10
 y <- rnorm(n)
 y[1:3]
-cat("Address of y:\n")
-print(address(y))
+cat("Address of y: ", address(y), ".\n")
 
 z <- f(y)
 z[1:3]
-cat("Address of z:\n")
-print(address(z))
+cat("Address of z: ", address(z), ".\n")
 ```
 
 Strangely, `address` gives the wrong answer when used inside `f` above. I'm not sure what is going on, but
-using `.Internal(inspect)` or trying this with a large value of `n` and seeing that memory use does not increase
-confirms that copy-on-modify is working.
+using `.Internal(inspect)` or trying this with a large value of `n` and seeing that memory use does not increase confirms that copy-on-modify is working.
 
 ## Variable scope and global variables
 
@@ -174,11 +172,6 @@ this.) This provides modularity and reduces bugs and surprises.
 If R can't find a variable that is used in a function based on the function
 arguments and variables defined locally in the function, it goes and looks
 elsewhere following a set of rules called *lexical scoping*.
-
-(This type of
-scoping has to do with R's roots (and explains why R is very similar to other
-languages for functional programming) - we won't go into details here but
-certainly worth looking into as you start using R more.)
 
 Basically this means that it looks for variables relative to where the function
 is defined (not relative to where the function is called).
@@ -276,9 +269,12 @@ summary(gapminder$lifeExp)
 summary(mod)
 ```
 
-**Question**: What do you think R is doing behind the scenes?
+::: {.callout-tip title="Question"}
 
-Consider `summary.lm`.
+What do you think R is doing behind the scenes?
+Consider the code of `summary` and then note that there is a function called `summary.lm`.
+:::
+
 
 ## More on working with S3 classes and methods 
 
@@ -432,7 +428,8 @@ When you write your own functions, and particularly for distributing to others, 
 
 We can use `stop()` and `warning()` to do this. They're the same functions that are being called when you see an error message or a warning in reaction to your own work in R.
 
-```{r, error=TRUE}
+```{r}
+#| error: true
 mysqrt <- function(x) {
   if(is.list(x)) {
     warning("x is a list; converting to a vector")
@@ -454,12 +451,17 @@ mysqrt(c(1, 2, 3))
 mysqrt(c(5, -7))
 mysqrt(c('asdf', 'sdf'))
 mysqrt(list(5, 3, 'ab'))
+```
+
+We can see that what we implemented is similar to how R's `sqrt` actually handles errors.
+
+```{r}
+#| error: true
 sqrt(c(5, -7))
 sqrt('asdf')
 sqrt(list(5, 3, 2))
 ```
 
-So we've done something similar to what `sqrt()` actually does in R.
 
 ## 'Catching' errors
 
@@ -577,12 +579,12 @@ For automated testing (continuous integration), many developers use GitHub Actio
 
 # Breakout
 
-### Basics
+## Basics
 
 1) Write an R function that will take an input vector and set any negative
 values in the vector to zero.
 
-### Using the ideas
+## Using the ideas
 
 2) Write an R function that will take an input vector and set any value below a
 threshold to be the value of threshold. Optionally, the function should instead
@@ -594,7 +596,7 @@ and return an error if not. (See the help information for `stop()` (or `stopifno
 4) Figure out what `invisible()` does and why it is useful when writing
 functions. Use `invisible()` in your function from just above.
 
-### Advanced
+## Advanced
 
 5) Explore scoping in the following code. Explain why the result is 11 and not 3. Note that `funGenerator()` returns a function as the return object,
 consistent with the idea that functions are objects in R. This is an example of
