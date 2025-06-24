@@ -21,7 +21,9 @@ execute:
 rm(list=ls())
 ```
 
-# Suggestions on how to get the most out of the bootcamp
+# Overview
+
+## Suggestions on how to get the most out of the bootcamp
 
 I encourage you to:
 
@@ -43,7 +45,7 @@ What about using a ChatBot?
 
 
 
-# What is R?
+## What is R?
 
 - R is an Open Source (and freely available) environment for statistical computing and graphics
 - It is a full-featured programming language, in particular a scripting language (with similarities to MATLAB, Julia, and Python)
@@ -52,7 +54,7 @@ What about using a ChatBot?
 - It is freely-available and modifiable 
 - Available for Windows, Mac OS X, and [Linux](http://dilbert.com/strips/comic/1995-06-24/)
 
-# Why R?
+## Why R?
 
 - R is widely used (statisticians, data scientists, scientists, social scientists) and has the widest statistical functionality of any software, plus extensive machine learning functionality.
   - Extensive, easy-to-use functionality for working with tabular data and for plotting (e.g., the 'tidyverse').
@@ -65,7 +67,7 @@ What about using a ChatBot?
 - R is built on C and can call user-written and external C/C++ code and packages (in particular, see the `Rcpp` R package)
 - Good support for basic parallelization, in particular using the `future` package
 
-# Why Not R?
+## Why Not R?
 
 - Other software is better than R at various tasks:
   - Machine learning (particularly deep learning): Python (particularly PyTorch)
@@ -77,7 +79,7 @@ What about using a ChatBot?
 - R's packages are only as good as the person who wrote them; no explicit quality control
 - R is a sprawling and unstandardized ecosystem
 
-# Modes of using R
+## Modes of using R
 
 - Using the RStudio GUI, an *integrated development environment*
 - With VS Code, including a debugger
@@ -85,7 +87,7 @@ What about using a ChatBot?
 - From the command line in a Linux/Mac terminal window
 - Running an R script in the background on a Linux/Mac machine (perhaps Windows?)
 
-# RStudio and R Markdown
+## RStudio and Quarto/R Markdown
 
 We'll present most of the material from within RStudio, using Quarto Markdown (the successor to R Markdown) documents with embedded R code.
 
@@ -94,7 +96,7 @@ Quarto Markdown is an extension to the Markdown markup language that makes it ea
 This allows us to both run the R code directly as well as compile on-the-fly to an HTML file that can be used for presentation. All files are available on [GitHub](https://github.com/paciorek/r-voleon-2025).
 
 
-# Starting R and RStudio
+## Starting R and RStudio
 
 The pieces of an RStudio session include:
 
@@ -108,7 +110,7 @@ The pieces of an RStudio session include:
 RStudio provides an integrated development environment in which all of these pieces are in a single application and tightly integrated, with a built-in editor for your code/scripts. 
 
 
-# Example dataset
+## Example dataset
 
 Many of the modules will use a common dataset as an example on which to carry out various operations. We'll focus on dataset of demographic/economic information (population, GDP per capita, life expectancy) for many of the countries in the world every five years, provided by the [Gapminder project](https://www.gapminder.org). The data are available by installing and loading the `gapminder` dataset.
 
@@ -124,7 +126,7 @@ head(gapminder)
 - Lists (collections of potentially heterogeneous information)
 - Dataframes (for tabular data with heterogeneous column types)
 
-# Vectors 
+## Vectors 
 
 The most basic form of an R object is a vector. 
 
@@ -159,32 +161,35 @@ bools <- c(TRUE, FALSE, TRUE)
 bools
 ```
 
-# Working with indices and subsets
+## Working with indices and subsets
 
 As seen in Module 0, we can subset (aka "slice") using a variety of approaches. 
 
 ```{r}
-vals <- 1:12
+letters
 
-vals[3]
-vals[3:5]
-vals[c(1, 3, 6)]
-vals[-c(1, 3, 6)]
-vals[c(rep(TRUE, 3), rep(FALSE, 2), TRUE, rep(FALSE, 6))]
+letters[3]
+letters[3:5]
+letters[c(1, 3, 6)]
+letters[-c(1, 3, 6)]
+letters[c(rep(TRUE, 6), rep(FALSE, 19), TRUE)]
 ```
 
 We can substitute values into vectors:
 
 ```{r}
-vals[4] <- 822.9711
-vals[3:4] <- c(7.5, 2.4)
-vals[2:4] <- 0  # Recycling
+letters[2] <- "β"
+letters[1:5]
+letters[3:4] <- c("d","c")
+letters[1:5]
+letters[2:4] <- "β" # Recycling
+letters[1:5]
 ```
 
-The last substitution uses "recycling" to match the left-hand-side extent (3 elements) with the right-hand-side extent (1 element)
+The last substitution uses "recycling" to match the left-hand-side extent (3 elements) with the right-hand-side extent (1 element).
 
 
-# Lists
+## Lists
 
 Collections of disparate or complicated objects
 
@@ -225,7 +230,7 @@ Which of these work correctly?
 
 Lists are just vectors of heterogeneous elements. The `[[` syntax allows you to pick out individual elements.
 
-# Data frames
+## Data frames
 
 - Data frames are combinations of vectors of the same length, but can be of different types (unlike matrices)
 - Data frames are what is used for standard rectangular (record by field) datasets, similar to a spreadsheet sheet/page or a database table
@@ -245,7 +250,7 @@ class(gapminder$lifeExp)
 class(gapminder$country)
 ```
 
-# Data frames are (special) lists!
+## Data frames are (special) lists!
 
 ```{r}
 is.list(gapminder)
@@ -256,7 +261,7 @@ lapply(gapminder, class)
 
 `lapply()` is a function used on lists; it works here to apply the `class()` function to each element of the list, which in this case is each field/column.
 
-# Matrices 
+## Matrices 
 
 If you need to do numeric calculations on an entire non-vector object (dimension > 1), you generally want to use matrices and arrays, not data frames.
 
@@ -278,7 +283,7 @@ A %*% B
 ```
 
 
-# Arrays
+## Arrays
 
 Arrays are like matrices but can have more or fewer than two dimensions.
 ```{r}
@@ -286,7 +291,7 @@ arr <- array(rnorm(12), c(2, 3, 4))
 arr
 ```
 
-# Dictionaries
+## (No) Dictionaries
 
 R does not have dictionaries. For collections of key-value pairs, you can instead use named vectors or named lists.
 
@@ -301,7 +306,7 @@ x[['maude']]
 
 However, lookup does NOT use hashing, so it is O(n) cost. One could instead use R's environments for fast hash-based lookup.
 
-# Attributes
+## Attributes
 
 Objects have *attributes*.
 
@@ -315,7 +320,6 @@ names(attributes(gapminder))
 attributes(gapminder)$names
 attributes(gapminder)$row.names[1:10]
 ```
-
 
 # Missing values and other special values
 
@@ -336,6 +340,7 @@ is.na(vec)
 Be careful because many R functions won't warn you that they are ignoring the missing values.
 
 ##  To infinity and beyond
+
 ```{r}
 big <- 1e500 
 big
@@ -343,6 +348,7 @@ big + 7
 ```
 
 ##  `NaN` stands for Not a Number
+
 ```{r}
 sqrt(-5)
 big - big
@@ -364,8 +370,9 @@ mylist[[2]] <- NULL
 mylist
 ```
 
+# More on R objects and manipulations
 
-# Logical vectors and boolean arithmetic
+## Logical vectors and boolean arithmetic
 
 ```{r}
 gapminder2007 <- gapminder[gapminder$year == 2007, ]
@@ -386,7 +393,7 @@ sum(healthy)
 mean(healthy)
 ```
 
-# Converting between different types of objects
+## Converting between different types of objects
 
 You can use the `as()` family of functions.
 
@@ -404,7 +411,7 @@ ints[indices]
 ints[0.999999999]
 ```
 
-# Factors
+## Factors
 
 A factor is a special data type in R used for categorical data. In some cases it works like magic and in others it is frustrating. 
 
@@ -419,7 +426,7 @@ summary(gapminder$continent)
 ```
 
 
-# Strings
+## Strings
 
 R has [lots of functionality for text/string manipulation](http://computing.stat.berkeley.edu/tutorial-string-processing). Usually these are stored as vectors of strings, each string of arbitrary length.
 
@@ -451,7 +458,7 @@ countries2[indexes]
 
 One can easily use regular expressions with all of R's string processing tools.
 
-# Subsetting
+## Subsetting
 
 There are many ways to select subsets in R, as we've seen already for vectors. The syntax below is useful for vectors, matrices, data frames, arrays and lists.
 
@@ -461,7 +468,7 @@ mat <- matrix(1:20, 4, 5)
 rownames(mat) <- letters[1:4]
 mat
 ```
-## 1) by direct indexing
+### 1) by direct indexing
 
 ```{r}
 vec[c(3, 5, 12:14)]
@@ -470,7 +477,7 @@ gapminder[c(2,4), 5]
 gapminder[c(2,4), 'lifeExp']
 ```
 
-## 2) by a vector of logicals
+### 2) by a vector of logicals
 
 ```{r}
 wealthy <- gapminder$gdpPercap > 50000
@@ -480,15 +487,15 @@ gapminder[wealthy, ]
 
 What happened in the last subsetting operation?
 
-## 3) by a vector of names
+### 3) by a vector of names
 ```{r}
 mat[c('a', 'd', 'a'), ]
 ```
 
 
-## 4) using *dplyr* tools such as *filter()* and *select()* -- more in Module 4
+### 4) using *dplyr* tools such as *filter()* and *select()* -- more in Module 4
 
-# Assignment into subsets
+## Assignment into subsets
 
 We can assign into subsets by using similar syntax, as we saw with vectors.
 
@@ -530,7 +537,7 @@ mat <- matrix(1:16, nrow = 4, ncol = 4)
 # Breakout
 
 
-### Basics
+## Basics
 
 1) Extract the 5th row from the gapminder dataset.
 
@@ -544,7 +551,7 @@ mat <- matrix(1:16, nrow = 4, ncol = 4)
 
 6) Consider the first row of the gapminder dataset, which has Afghanistan for 1952. How do I create a string "Afghanistan-1952" using `gap$country[1]` and `gap$year[1]`? 
 
-### Using the ideas
+## Using the ideas
 
 7) Create a character string using `paste()` that tells the user how many rows there are in the data frame - do this programmatically such that it would work for any data frame regardless of how many rows it has. The result should look like this: "There are 1704 rows in the dataset"
 
@@ -556,7 +563,7 @@ mat <- matrix(1:16, nrow = 4, ncol = 4)
 
 11) Consider the attributes of the gapminder dataset. What kind of R object is the set of attributes?
 
-### Advanced
+## Advanced
 
 12) Consider the following regression model.  Figure out how to extract the $R^2$ and residual standard error and store in new R variables. 
 

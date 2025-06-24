@@ -1,0 +1,132 @@
+---
+title: "Solutions"
+format:
+  html:
+    theme: cosmo
+    css: ../assets/styles.css
+    toc: true
+    code-copy: true
+    code-tools: true
+    code-block-bg: true
+    code-block-border-left: "#31BAE9"
+execute:
+  freeze: auto
+---
+
+```{r chunksetup, include=FALSE, cache=TRUE} 
+# include any code here you don't want to show up in the document,
+# e.g. package and dataset loading
+if(Sys.getenv('USER') == 'paciorek') rm(list = ls())
+library(gapminder)
+```
+
+# Unit 1: Data Structures and Manipulations
+
+
+## Basics
+
+1) Extract the 5th row from the gapminder dataset.
+
+```{r}
+#| eval: false
+gapminder[5, ]
+```
+
+2) Extract the last row from the gapminder dataset. 
+
+```{r}
+#| eval: false
+gapminder[ nrow(gapminder) , ]
+```
+
+3) Create a boolean (TRUE/FALSE) vector indicating whether total country GDP is greater than 1 trillion dollars. When entering 1 trillion, use R's scientific notation.
+
+```{r}
+#| eval: false
+large <- gapminder$gdpPercap * gapminder$pop > 1e12
+```
+
+4) Count the number of gdpPercap values greater than 50000 in the gapminder dataset.
+
+```{r}
+#| eval: false
+sum(gapminder$gdpPercap > 50000)
+```
+
+5) Set all of the gdpPercap values greater than 50000 to NA. You should probably first copy the `gapminder` object and work on the copy so that the dataset is unchanged, so that you preserve the original data to use later.
+
+```{r}
+#| eval: false
+gapminder2 <- gapminder
+gapminder2$gdpPercap[ gapminder2$gdpPercap > 50000 ] <- NA
+```
+
+6) Consider the first row of the gapminder dataset, which has Afghanistan for 1952. How do I create a string "Afghanistan-1952" using `gap$country[1]` and `gap$year[1]`?
+
+```{r}
+#| eval: false
+paste(gapminder$country[1], gapminder$year[1], sep = "-")
+```
+
+## Using the ideas
+
+7) Create a character string using `paste()` that tells the user how many rows there are in the data frame - do this programmatically such that it would work for any data frame regardless of how many rows it has. The result should look like this: "There are 1704 rows in the dataset"
+
+```{r}
+#| eval: false
+paste("There are ", nrow(gapminder), " rows in the dataset.", sep = "")
+```
+
+8) If you didn't do it this way already in problem #2, extract the last row from the gapminder dataset without typing the number '1704'.
+
+```{r}
+#| eval: false
+gapminder[ nrow(gapminder), ]
+```
+
+9) Create a boolean vector indicating if the life expectancy is greater than 75 and the gdpPercap is less than 10000 and calculate the proportion of all the records these represent.
+
+```{r}
+#| eval: false
+economical <- gapminder$lifeExp > 75 & gapminder$gdpPercap < 10000
+mean(economical)   # sum(economical) / length(economical)
+```
+
+10) Use that vector to create a new data frame that is a subset of the original data frame.
+
+```{r}
+#| eval: false
+sub <- gapminder[ economical , ]
+```
+
+11) Consider the attributes of the gapminder dataset. What kind of R object is the set of attributes?
+
+```{r}
+#| eval: false
+attributes(gapminder)
+names(attributes(gapminder))
+class(attributes(gapminder))
+```
+
+## Advanced
+
+12) Consider the following regression model.  Figure out how to extract the $R^2$ and residual standard error and store in new R variables. 
+
+```{r}
+#| eval: false
+mod <- lm(lifeExp ~ log(gdpPercap), data = gapminder)
+summ <- summary(mod)
+r2 <- summ$r.squared
+sigError <- summ$sigma
+```
+
+
+13) Create row names for the data frame based on concatenating the Continent, Country, and Year fields.
+
+```{r}
+#| eval: false
+head(gapminder)
+nm <- paste(gapminder$continent, gapminder$country, gapminder$year, sep = "-")
+attributes(gapminder)$row.names <- nm
+head(gapminder)
+```
