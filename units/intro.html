@@ -226,33 +226,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#basic-syntax" id="toc-basic-syntax" class="nav-link active" data-scroll-target="#basic-syntax">Basic syntax</a>
   <ul class="collapse">
   <li><a href="#r-as-a-calculator" id="toc-r-as-a-calculator" class="nav-link" data-scroll-target="#r-as-a-calculator">R as a calculator</a></li>
-  <li><a href="#assigning-values-to-r-objects" id="toc-assigning-values-to-r-objects" class="nav-link" data-scroll-target="#assigning-values-to-r-objects">Assigning values to R objects</a></li>
-  <li><a href="#vectors-in-r" id="toc-vectors-in-r" class="nav-link" data-scroll-target="#vectors-in-r">Vectors in R</a></li>
-  <li><a href="#working-with-indices-and-subsets" id="toc-working-with-indices-and-subsets" class="nav-link" data-scroll-target="#working-with-indices-and-subsets">Working with indices and subsets</a></li>
-  <li><a href="#using-functions-in-r" id="toc-using-functions-in-r" class="nav-link" data-scroll-target="#using-functions-in-r">Using functions in R</a></li>
   </ul></li>
-  <li><a href="#logistics" id="toc-logistics" class="nav-link" data-scroll-target="#logistics">Logistics</a>
-  <ul class="collapse">
-  <li><a href="#getting-help-about-a-function" id="toc-getting-help-about-a-function" class="nav-link" data-scroll-target="#getting-help-about-a-function">Getting help about a function</a></li>
-  <li><a href="#how-to-be-lazy-aka-efficient" id="toc-how-to-be-lazy-aka-efficient" class="nav-link" data-scroll-target="#how-to-be-lazy-aka-efficient">How to be lazy (aka efficient)</a></li>
-  <li><a href="#managing-the-workspace" id="toc-managing-the-workspace" class="nav-link" data-scroll-target="#managing-the-workspace">Managing the workspace</a></li>
-  <li><a href="#saving-and-reloading-the-workspace" id="toc-saving-and-reloading-the-workspace" class="nav-link" data-scroll-target="#saving-and-reloading-the-workspace">Saving and reloading the workspace</a></li>
-  <li><a href="#the-working-directory" id="toc-the-working-directory" class="nav-link" data-scroll-target="#the-working-directory">The working directory</a></li>
-  </ul></li>
-  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a>
-  <ul class="collapse">
-  <li><a href="#using-packages" id="toc-using-packages" class="nav-link" data-scroll-target="#using-packages">Using packages</a></li>
-  <li><a href="#general-information-about-a-package" id="toc-general-information-about-a-package" class="nav-link" data-scroll-target="#general-information-about-a-package">General information about a package</a></li>
-  </ul></li>
-  <li><a href="#programming-syntax" id="toc-programming-syntax" class="nav-link" data-scroll-target="#programming-syntax">Programming syntax</a>
-  <ul class="collapse">
-  <li><a href="#writing-functions" id="toc-writing-functions" class="nav-link" data-scroll-target="#writing-functions">Writing functions</a></li>
-  <li><a href="#function-arguments" id="toc-function-arguments" class="nav-link" data-scroll-target="#function-arguments">Function arguments</a></li>
-  <li><a href="#branching-if-then-else-syntax" id="toc-branching-if-then-else-syntax" class="nav-link" data-scroll-target="#branching-if-then-else-syntax">Branching (if-then-else syntax)</a></li>
-  <li><a href="#loops" id="toc-loops" class="nav-link" data-scroll-target="#loops">Loops</a></li>
-  <li><a href="#while-loop" id="toc-while-loop" class="nav-link" data-scroll-target="#while-loop">While loop</a></li>
-  </ul></li>
-  <li><a href="#breakout" id="toc-breakout" class="nav-link" data-scroll-target="#breakout">Breakout</a></li>
   </ul>
 </nav>
     </div>
@@ -295,7 +269,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span> <span class="sc">+</span> <span class="fu">runif</span>(<span class="dv">1</span>) <span class="co"># add a random number</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 7.260845</code></pre>
+<pre><code>[1] 7.291361</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">^</span><span class="dv">4</span> <span class="co"># powers</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -331,8 +305,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] 5e+12</code></pre>
 </div>
 </div>
-<p>Think of a mathematical operation you need - can you guess how to do it in R?</p>
-<p>Side note to presenter: turn off R Notebook inline view via RStudio -&gt; Preferences -&gt; R Markdown -&gt; Show output inline …</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Question">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>By default, RStudio shows output of code chunks in the code window pane (a notebook-style approach similar to Jupyter notebooks). To turn this off, go to <code>Tools -&gt; Global Options</code>, select the <code>R Markdown</code> left tab and unclick “Show output inline for all R Markdown documents”.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Question">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -353,6 +336,7 @@ Question
 <li>cos(2 * 3.14159)</li>
 <li>cos[2*pi]</li>
 </ol>
+<p>Note that exploring the results of running the code will also help to understand R’s error messages.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer">
@@ -412,7 +396,6 @@ Answer
 </div>
 </div>
 </div>
-</section>
 <section id="assigning-values-to-r-objects" class="level2">
 <h2 class="anchored" data-anchor-id="assigning-values-to-r-objects">Assigning values to R objects</h2>
 <p>A key action in R (similar to other languages) is to store values in the form of R objects, and to examine the value of R objects.</p>
@@ -474,7 +457,7 @@ Answer
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>devs <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">5</span>)   <span class="co"># Five random normal values.</span></span>
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>devs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -0.5731656 -0.6825830  0.2437344 -0.4379147 -1.4162929</code></pre>
+<pre><code>[1]  0.02204586  0.65701743 -2.37699051 -1.57274557  0.38950304</code></pre>
 </div>
 </div>
 <p>This is not valid syntax in R. Let’s try it and see what happens.</p>
@@ -683,11 +666,10 @@ Answer
         z$qr &lt;- NULL
     z
 }
-&lt;bytecode: 0x56039fcc3860&gt;
+&lt;bytecode: 0x5590821aa638&gt;
 &lt;environment: namespace:stats&gt;</code></pre>
 </div>
 </div>
-</section>
 </section>
 <section id="logistics" class="level1">
 <h1>Logistics</h1>
@@ -745,7 +727,7 @@ Answer
 <div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls.str</span>() <span class="co"># list and describe variables</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>country :  chr [1:12] "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
-devs :  num [1:5] -0.573 -0.683 0.244 -0.438 -1.416
+devs :  num [1:5] 0.022 0.657 -2.377 -1.573 0.39
 letters :  chr [1:26] "a" "β" "β" "β" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" ...
 mySeq :  int [1:6] 1 2 3 4 5 6
 nums :  num [1:3] 1.1 3 -5.7
@@ -844,9 +826,9 @@ z : List of 2
 <div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">'chron'</span>,<span class="st">'data.table'</span>,<span class="st">'devtools'</span>,<span class="st">'dplyr'</span>,</span>
 <span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'doFuture'</span>,<span class="st">'dplyr'</span>,<span class="st">'dtplyr'</span>,<span class="st">'fields'</span>,<span class="st">'foreach'</span>,</span>
 <span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'foreign'</span>,<span class="st">'future'</span>,<span class="st">'future.apply'</span>,<span class="st">'gapminder'</span>,</span>
-<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'ggplot2'</span>,<span class="st">'gridExtra'</span>,<span class="st">'microbenchmark'</span>,<span class="st">'patchwork'</span>,</span>
-<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'pryr'</span>, <span class="st">'R6'</span>, <span class="st">'Rcpp'</span>, <span class="st">'rbenchmark'</span>, <span class="st">'RSQLite'</span>, <span class="st">'stringr'</span>,</span>
-<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'tidyr'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'ggplot2'</span>,<span class="st">'gridExtra'</span>,<span class="st">'microbenchmark'</span>,</span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'patchwork'</span>, <span class="st">'pryr'</span>, <span class="st">'R6'</span>, <span class="st">'Rcpp'</span>,</span>
+<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'rbenchmark'</span>, <span class="st">'RSQLite'</span>, <span class="st">'stringr'</span>, <span class="st">'tidyr'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that packages often are dependent on other packages so these dependencies may be installed and loaded automatically. E.g., <em>fields</em> depends on <em>maps</em> and on <em>spam</em>.</p>
 </section>
@@ -931,7 +913,7 @@ Question
 <div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>val <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>)</span>
 <span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -0.5010279</code></pre>
+<pre><code>[1] -1.191488</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (val <span class="sc">&lt;</span> <span class="dv">0</span>) {</span>
 <span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"val is negative"</span>)</span>
@@ -947,7 +929,7 @@ Question
 <div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>val <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>)</span>
 <span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.04504074</code></pre>
+<pre><code>[1] 0.4783144</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (val <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">1</span>) {</span>
 <span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"val is more than one standard deviation below the mean."</span>)</span>
@@ -985,7 +967,7 @@ Question
 <span id="cb114-8"><a href="#cb114-8" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb114-9"><a href="#cb114-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Found "</span>, cnt_neg, <span class="st">" negative values.</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Found  29  negative values.</code></pre>
+<pre><code>Found  18  negative values.</code></pre>
 </div>
 </div>
 <p>That said, the canonical way to do that in R is via vectorized operation:</p>
@@ -997,14 +979,15 @@ Question
 <div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>x[x <span class="sc">&lt;</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
 <span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 1.1621918 0.0000000 0.5034362 0.0000000 0.0000000 0.0000000 1.3643403
- [8] 2.0689677 0.0000000 0.0000000 0.0000000 0.2465175 0.0000000 0.0000000
-[15] 1.3379714 1.8143124 0.0000000 1.1708964 0.1110088 1.0642136 0.8511045
-[22] 0.0000000 0.0000000 0.5948652 0.0000000 0.5501452 0.4909421 0.0000000
-[29] 0.0000000 0.1688169 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000
-[36] 0.0000000 0.0000000 0.0000000 0.0000000 0.2502545 0.9538914 0.0000000
-[43] 0.0000000 0.0000000 0.1665567 0.0000000 0.0000000 0.6707605 1.1368793
-[50] 1.0565098</code></pre>
+<pre><code> [1] 0.00000000 0.00000000 1.51206089 0.44008252 0.81560229 0.44927093
+ [7] 0.27764249 0.69777452 0.00000000 0.84979133 0.80686252 0.00250907
+[13] 0.00000000 0.00000000 0.52493531 0.96574371 0.82986385 1.74360026
+[19] 1.24273138 0.00000000 0.14013192 1.58774155 0.20794429 0.02076237
+[25] 0.00000000 0.78903654 1.69028009 0.25091998 2.97061665 1.25425290
+[31] 1.49386540 0.52139108 0.69164144 0.00000000 0.00000000 0.00000000
+[37] 1.98110415 0.03696292 0.00000000 0.63301009 0.00000000 0.00000000
+[43] 0.00000000 0.00000000 0.00000000 0.41574143 0.59076070 0.00000000
+[49] 0.71183258 0.00000000</code></pre>
 </div>
 </div>
 </section>
@@ -1023,7 +1006,7 @@ Question
 <span id="cb120-9"><a href="#cb120-9" aria-hidden="true" tabindex="-1"></a>     i <span class="ot">&lt;-</span> i<span class="sc">+</span><span class="dv">1</span></span>
 <span id="cb120-10"><a href="#cb120-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.655725</code></pre>
+<pre><code>[1] 2.656553</code></pre>
 </div>
 </div>
 </section>
@@ -1129,6 +1112,10 @@ Answer
 
 <!-- -->
 
+</section>
+</div>
+</div>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1647,516 +1634,519 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb130-45"><a href="#cb130-45" aria-hidden="true" tabindex="-1"></a><span class="in">5e9 * 1e3</span></span>
 <span id="cb130-46"><a href="#cb130-46" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb130-47"><a href="#cb130-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-48"><a href="#cb130-48" aria-hidden="true" tabindex="-1"></a>Think of a mathematical operation you need - can you guess how to do it in R?</span>
+<span id="cb130-48"><a href="#cb130-48" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Question"}</span>
 <span id="cb130-49"><a href="#cb130-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-50"><a href="#cb130-50" aria-hidden="true" tabindex="-1"></a>Side note to presenter: turn off R Notebook inline view via RStudio -&gt; Preferences -&gt; R Markdown -&gt; Show output inline ...</span>
+<span id="cb130-50"><a href="#cb130-50" aria-hidden="true" tabindex="-1"></a>By default, RStudio shows output of code chunks in the code window pane (a notebook-style approach similar to Jupyter notebooks). To turn this off, go to <span class="in">`Tools -&gt; Global Options`</span>, select the <span class="in">`R Markdown`</span> left tab and unclick "Show output inline for all R Markdown documents".</span>
 <span id="cb130-51"><a href="#cb130-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-52"><a href="#cb130-52" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Question"}</span>
-<span id="cb130-53"><a href="#cb130-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-54"><a href="#cb130-54" aria-hidden="true" tabindex="-1"></a>How do I calculate the cosine of 2 pi?</span>
-<span id="cb130-55"><a href="#cb130-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-56"><a href="#cb130-56" aria-hidden="true" tabindex="-1"></a>1) cosine(2pi)</span>
-<span id="cb130-57"><a href="#cb130-57" aria-hidden="true" tabindex="-1"></a>2) cosine(2*pi)</span>
-<span id="cb130-58"><a href="#cb130-58" aria-hidden="true" tabindex="-1"></a>3) cos(2 * pi)</span>
-<span id="cb130-59"><a href="#cb130-59" aria-hidden="true" tabindex="-1"></a>4) cos(2 x pi)</span>
-<span id="cb130-60"><a href="#cb130-60" aria-hidden="true" tabindex="-1"></a>5) cos(2*pi)</span>
-<span id="cb130-61"><a href="#cb130-61" aria-hidden="true" tabindex="-1"></a>6) cos(2 * 3.14159)</span>
-<span id="cb130-62"><a href="#cb130-62" aria-hidden="true" tabindex="-1"></a>7) cos<span class="co">[</span><span class="ot">2*pi</span><span class="co">]</span></span>
-<span id="cb130-63"><a href="#cb130-63" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb130-52"><a href="#cb130-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-53"><a href="#cb130-53" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Question"}</span>
+<span id="cb130-54"><a href="#cb130-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-55"><a href="#cb130-55" aria-hidden="true" tabindex="-1"></a>How do I calculate the cosine of 2 pi?</span>
+<span id="cb130-56"><a href="#cb130-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-57"><a href="#cb130-57" aria-hidden="true" tabindex="-1"></a>1) cosine(2pi)</span>
+<span id="cb130-58"><a href="#cb130-58" aria-hidden="true" tabindex="-1"></a>2) cosine(2*pi)</span>
+<span id="cb130-59"><a href="#cb130-59" aria-hidden="true" tabindex="-1"></a>3) cos(2 * pi)</span>
+<span id="cb130-60"><a href="#cb130-60" aria-hidden="true" tabindex="-1"></a>4) cos(2 x pi)</span>
+<span id="cb130-61"><a href="#cb130-61" aria-hidden="true" tabindex="-1"></a>5) cos(2*pi)</span>
+<span id="cb130-62"><a href="#cb130-62" aria-hidden="true" tabindex="-1"></a>6) cos(2 * 3.14159)</span>
+<span id="cb130-63"><a href="#cb130-63" aria-hidden="true" tabindex="-1"></a>7) cos<span class="co">[</span><span class="ot">2*pi</span><span class="co">]</span></span>
 <span id="cb130-64"><a href="#cb130-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-65"><a href="#cb130-65" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Answer" collapse="true"}</span>
-<span id="cb130-66"><a href="#cb130-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-67"><a href="#cb130-67" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The function name is <span class="in">`cos`</span> not <span class="in">`cosine`</span>.</span>
-<span id="cb130-68"><a href="#cb130-68" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A function call specifies the arguments in parentheses (), not brackets [].</span>
-<span id="cb130-69"><a href="#cb130-69" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Spaces don't generally matter (there are exceptions).</span>
-<span id="cb130-70"><a href="#cb130-70" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`pi`</span> is an object in the R language.</span>
-<span id="cb130-71"><a href="#cb130-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-72"><a href="#cb130-72" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb130-73"><a href="#cb130-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-65"><a href="#cb130-65" aria-hidden="true" tabindex="-1"></a>Note that exploring the results of running the code will also help to understand R's error messages.</span>
+<span id="cb130-66"><a href="#cb130-66" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb130-67"><a href="#cb130-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-68"><a href="#cb130-68" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Answer" collapse="true"}</span>
+<span id="cb130-69"><a href="#cb130-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-70"><a href="#cb130-70" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The function name is <span class="in">`cos`</span> not <span class="in">`cosine`</span>.</span>
+<span id="cb130-71"><a href="#cb130-71" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A function call specifies the arguments in parentheses (), not brackets [].</span>
+<span id="cb130-72"><a href="#cb130-72" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Spaces don't generally matter (there are exceptions).</span>
+<span id="cb130-73"><a href="#cb130-73" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`pi`</span> is an object in the R language.</span>
 <span id="cb130-74"><a href="#cb130-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-75"><a href="#cb130-75" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Question"}</span>
+<span id="cb130-75"><a href="#cb130-75" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb130-76"><a href="#cb130-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-77"><a href="#cb130-77" aria-hidden="true" tabindex="-1"></a>What happens if you do this (hitting enter/return after "pi")?</span>
-<span id="cb130-78"><a href="#cb130-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-81"><a href="#cb130-81" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb130-82"><a href="#cb130-82" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb130-83"><a href="#cb130-83" aria-hidden="true" tabindex="-1"></a><span class="fu">cos</span>(<span class="dv">2</span><span class="sc">*</span>pi</span>
-<span id="cb130-84"><a href="#cb130-84" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-85"><a href="#cb130-85" aria-hidden="true" tabindex="-1"></a><span class="at">:::</span></span>
-<span id="cb130-86"><a href="#cb130-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-87"><a href="#cb130-87" aria-hidden="true" tabindex="-1"></a><span class="at">::: {.callout-tip title="Answer" collapse="true"}</span></span>
-<span id="cb130-88"><a href="#cb130-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-89"><a href="#cb130-89" aria-hidden="true" tabindex="-1"></a><span class="at">Since we didn't enter the closing parenthesis, R is waiting for additional input with the "continuation" prompt of </span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">.</span></span>
-<span id="cb130-90"><a href="#cb130-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-91"><a href="#cb130-91" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-92"><a href="#cb130-92" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">cos</span>(<span class="dv">2</span><span class="sc">*</span>pi</span>
-<span id="cb130-93"><a href="#cb130-93" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span> </span>
+<span id="cb130-77"><a href="#cb130-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-78"><a href="#cb130-78" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Question"}</span>
+<span id="cb130-79"><a href="#cb130-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-80"><a href="#cb130-80" aria-hidden="true" tabindex="-1"></a>What happens if you do this (hitting enter/return after "pi")?</span>
+<span id="cb130-81"><a href="#cb130-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-84"><a href="#cb130-84" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb130-85"><a href="#cb130-85" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb130-86"><a href="#cb130-86" aria-hidden="true" tabindex="-1"></a><span class="fu">cos</span>(<span class="dv">2</span><span class="sc">*</span>pi</span>
+<span id="cb130-87"><a href="#cb130-87" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-88"><a href="#cb130-88" aria-hidden="true" tabindex="-1"></a><span class="at">:::</span></span>
+<span id="cb130-89"><a href="#cb130-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-90"><a href="#cb130-90" aria-hidden="true" tabindex="-1"></a><span class="at">::: {.callout-tip title="Answer" collapse="true"}</span></span>
+<span id="cb130-91"><a href="#cb130-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-92"><a href="#cb130-92" aria-hidden="true" tabindex="-1"></a><span class="at">Since we didn't enter the closing parenthesis, R is waiting for additional input with the "continuation" prompt of </span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">.</span></span>
+<span id="cb130-93"><a href="#cb130-93" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb130-94"><a href="#cb130-94" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-95"><a href="#cb130-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-96"><a href="#cb130-96" aria-hidden="true" tabindex="-1"></a><span class="at">You can either enter the missing syntax or hit </span><span class="st">`</span>Ctrl<span class="sc">-</span>C<span class="st">`</span><span class="at"> or </span><span class="st">`</span>Esc<span class="st">`</span><span class="at"> to kill the partial syntax and return to the usual prompt.</span></span>
-<span id="cb130-97"><a href="#cb130-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-98"><a href="#cb130-98" aria-hidden="true" tabindex="-1"></a><span class="at">This happens often -- with missing or non-matching closing parentheses/brackets or quotation symbols.</span></span>
-<span id="cb130-99"><a href="#cb130-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-100"><a href="#cb130-100" aria-hidden="true" tabindex="-1"></a><span class="at">:::</span></span>
-<span id="cb130-101"><a href="#cb130-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-102"><a href="#cb130-102" aria-hidden="true" tabindex="-1"></a><span class="at">## Assigning values to R objects</span></span>
-<span id="cb130-103"><a href="#cb130-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-104"><a href="#cb130-104" aria-hidden="true" tabindex="-1"></a><span class="at">A key action in R (similar to other languages) is to store values in the form of R objects, and to examine the value of R objects.</span></span>
-<span id="cb130-105"><a href="#cb130-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-108"><a href="#cb130-108" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb130-109"><a href="#cb130-109" aria-hidden="true" tabindex="-1"></a>val <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb130-110"><a href="#cb130-110" aria-hidden="true" tabindex="-1"></a>val</span>
-<span id="cb130-111"><a href="#cb130-111" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(val)  <span class="co"># The same as just typing `val`</span></span>
-<span id="cb130-112"><a href="#cb130-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-113"><a href="#cb130-113" aria-hidden="true" tabindex="-1"></a>Val <span class="ot">&lt;-</span> <span class="dv">7</span> <span class="co"># case-sensitive!</span></span>
-<span id="cb130-114"><a href="#cb130-114" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(val)</span>
-<span id="cb130-115"><a href="#cb130-115" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Val)</span>
-<span id="cb130-116"><a href="#cb130-116" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-117"><a href="#cb130-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-118"><a href="#cb130-118" aria-hidden="true" tabindex="-1"></a><span class="at">Here is some other syntax to create objects. </span></span>
-<span id="cb130-121"><a href="#cb130-121" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb130-122"><a href="#cb130-122" aria-hidden="true" tabindex="-1"></a>mySeq <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span></span>
-<span id="cb130-123"><a href="#cb130-123" aria-hidden="true" tabindex="-1"></a>mySeq</span>
-<span id="cb130-124"><a href="#cb130-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-125"><a href="#cb130-125" aria-hidden="true" tabindex="-1"></a>years <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1952</span>, <span class="dv">2007</span>, <span class="at">by =</span> <span class="dv">5</span>)</span>
-<span id="cb130-126"><a href="#cb130-126" aria-hidden="true" tabindex="-1"></a>years</span>
-<span id="cb130-127"><a href="#cb130-127" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(years)</span>
-<span id="cb130-128"><a href="#cb130-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-129"><a href="#cb130-129" aria-hidden="true" tabindex="-1"></a><span class="do">## This is a comment: here is an example of non-numeric data</span></span>
-<span id="cb130-130"><a href="#cb130-130" aria-hidden="true" tabindex="-1"></a>country <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">"Afghanistan"</span>, <span class="dv">12</span>)</span>
-<span id="cb130-131"><a href="#cb130-131" aria-hidden="true" tabindex="-1"></a>country </span>
-<span id="cb130-132"><a href="#cb130-132" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-133"><a href="#cb130-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-134"><a href="#cb130-134" aria-hidden="true" tabindex="-1"></a><span class="at">R gives us a lot of flexibility (within certain rules) for assigning to (parts of) objects from (parts of) other objects.</span></span>
-<span id="cb130-135"><a href="#cb130-135" aria-hidden="true" tabindex="-1"></a><span class="at">We'll see this through the bootcamp.</span></span>
+<span id="cb130-95"><a href="#cb130-95" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">cos</span>(<span class="dv">2</span><span class="sc">*</span>pi</span>
+<span id="cb130-96"><a href="#cb130-96" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span> </span>
+<span id="cb130-97"><a href="#cb130-97" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-98"><a href="#cb130-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-99"><a href="#cb130-99" aria-hidden="true" tabindex="-1"></a><span class="at">You can either enter the missing syntax or hit </span><span class="st">`</span>Ctrl<span class="sc">-</span>C<span class="st">`</span><span class="at"> or </span><span class="st">`</span>Esc<span class="st">`</span><span class="at"> to kill the partial syntax and return to the usual prompt.</span></span>
+<span id="cb130-100"><a href="#cb130-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-101"><a href="#cb130-101" aria-hidden="true" tabindex="-1"></a><span class="at">This happens often -- with missing or non-matching closing parentheses/brackets or quotation symbols.</span></span>
+<span id="cb130-102"><a href="#cb130-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-103"><a href="#cb130-103" aria-hidden="true" tabindex="-1"></a><span class="at">:::</span></span>
+<span id="cb130-104"><a href="#cb130-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-105"><a href="#cb130-105" aria-hidden="true" tabindex="-1"></a><span class="at">## Assigning values to R objects</span></span>
+<span id="cb130-106"><a href="#cb130-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-107"><a href="#cb130-107" aria-hidden="true" tabindex="-1"></a><span class="at">A key action in R (similar to other languages) is to store values in the form of R objects, and to examine the value of R objects.</span></span>
+<span id="cb130-108"><a href="#cb130-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-111"><a href="#cb130-111" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb130-112"><a href="#cb130-112" aria-hidden="true" tabindex="-1"></a>val <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb130-113"><a href="#cb130-113" aria-hidden="true" tabindex="-1"></a>val</span>
+<span id="cb130-114"><a href="#cb130-114" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(val)  <span class="co"># The same as just typing `val`</span></span>
+<span id="cb130-115"><a href="#cb130-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-116"><a href="#cb130-116" aria-hidden="true" tabindex="-1"></a>Val <span class="ot">&lt;-</span> <span class="dv">7</span> <span class="co"># case-sensitive!</span></span>
+<span id="cb130-117"><a href="#cb130-117" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(val)</span>
+<span id="cb130-118"><a href="#cb130-118" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Val)</span>
+<span id="cb130-119"><a href="#cb130-119" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-120"><a href="#cb130-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-121"><a href="#cb130-121" aria-hidden="true" tabindex="-1"></a><span class="at">Here is some other syntax to create objects. </span></span>
+<span id="cb130-124"><a href="#cb130-124" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb130-125"><a href="#cb130-125" aria-hidden="true" tabindex="-1"></a>mySeq <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span></span>
+<span id="cb130-126"><a href="#cb130-126" aria-hidden="true" tabindex="-1"></a>mySeq</span>
+<span id="cb130-127"><a href="#cb130-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-128"><a href="#cb130-128" aria-hidden="true" tabindex="-1"></a>years <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1952</span>, <span class="dv">2007</span>, <span class="at">by =</span> <span class="dv">5</span>)</span>
+<span id="cb130-129"><a href="#cb130-129" aria-hidden="true" tabindex="-1"></a>years</span>
+<span id="cb130-130"><a href="#cb130-130" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(years)</span>
+<span id="cb130-131"><a href="#cb130-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-132"><a href="#cb130-132" aria-hidden="true" tabindex="-1"></a><span class="do">## This is a comment: here is an example of non-numeric data</span></span>
+<span id="cb130-133"><a href="#cb130-133" aria-hidden="true" tabindex="-1"></a>country <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">"Afghanistan"</span>, <span class="dv">12</span>)</span>
+<span id="cb130-134"><a href="#cb130-134" aria-hidden="true" tabindex="-1"></a>country </span>
+<span id="cb130-135"><a href="#cb130-135" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
 <span id="cb130-136"><a href="#cb130-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-137"><a href="#cb130-137" aria-hidden="true" tabindex="-1"></a><span class="at">## Vectors in R</span></span>
-<span id="cb130-138"><a href="#cb130-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-139"><a href="#cb130-139" aria-hidden="true" tabindex="-1"></a><span class="at">The most basic form of an R object is a vector (i.e., a 1-dimensional array). The various objects </span><span class="st">`</span>mySeq<span class="st">`</span><span class="at">, </span><span class="st">`</span>years<span class="st">`</span><span class="at">, </span><span class="st">`</span>country<span class="st">`</span><span class="at"> from above are all vectors.</span></span>
-<span id="cb130-140"><a href="#cb130-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-141"><a href="#cb130-141" aria-hidden="true" tabindex="-1"></a><span class="at">In fact, individual (scalar) values are vectors of length one, so </span><span class="st">`</span>val<span class="st">`</span><span class="at"> and </span><span class="st">`</span>Val<span class="st">`</span><span class="at"> from above are also vectors. </span></span>
-<span id="cb130-142"><a href="#cb130-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-143"><a href="#cb130-143" aria-hidden="true" tabindex="-1"></a><span class="at">We can concatenate values into a vector with </span><span class="st">`</span><span class="fu">c</span>()<span class="st">`</span><span class="at">.</span></span>
-<span id="cb130-144"><a href="#cb130-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-147"><a href="#cb130-147" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb130-148"><a href="#cb130-148" aria-hidden="true" tabindex="-1"></a><span class="do">## numeric vector</span></span>
-<span id="cb130-149"><a href="#cb130-149" aria-hidden="true" tabindex="-1"></a>nums <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.1</span>, <span class="dv">3</span>, <span class="sc">-</span><span class="fl">5.7</span>)</span>
-<span id="cb130-150"><a href="#cb130-150" aria-hidden="true" tabindex="-1"></a>devs <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">5</span>)   <span class="co"># Five random normal values.</span></span>
-<span id="cb130-151"><a href="#cb130-151" aria-hidden="true" tabindex="-1"></a>devs</span>
-<span id="cb130-152"><a href="#cb130-152" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-153"><a href="#cb130-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-154"><a href="#cb130-154" aria-hidden="true" tabindex="-1"></a><span class="at">This is not valid syntax in R. Let's try it and see what happens.</span></span>
-<span id="cb130-155"><a href="#cb130-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-158"><a href="#cb130-158" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb130-159"><a href="#cb130-159" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb130-160"><a href="#cb130-160" aria-hidden="true" tabindex="-1"></a>nums <span class="ot">&lt;-</span> (<span class="fl">1.1</span>, <span class="dv">3</span>, <span class="sc">-</span><span class="fl">5.7</span>)</span>
-<span id="cb130-161"><a href="#cb130-161" aria-hidden="true" tabindex="-1"></a>nums <span class="ot">&lt;-</span> [<span class="fl">1.1</span>, <span class="dv">3</span>, <span class="sc">-</span><span class="fl">5.7</span>]</span>
-<span id="cb130-162"><a href="#cb130-162" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-163"><a href="#cb130-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-164"><a href="#cb130-164" aria-hidden="true" tabindex="-1"></a><span class="at">## Working with indices and subsets</span></span>
-<span id="cb130-165"><a href="#cb130-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-166"><a href="#cb130-166" aria-hidden="true" tabindex="-1"></a><span class="at">We can subset (aka "slice") using a variety of approaches. </span></span>
-<span id="cb130-167"><a href="#cb130-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-170"><a href="#cb130-170" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb130-171"><a href="#cb130-171" aria-hidden="true" tabindex="-1"></a>letters</span>
-<span id="cb130-172"><a href="#cb130-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-173"><a href="#cb130-173" aria-hidden="true" tabindex="-1"></a>letters[<span class="dv">3</span>]</span>
-<span id="cb130-174"><a href="#cb130-174" aria-hidden="true" tabindex="-1"></a>letters[<span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>]</span>
-<span id="cb130-175"><a href="#cb130-175" aria-hidden="true" tabindex="-1"></a>letters[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>)]</span>
-<span id="cb130-176"><a href="#cb130-176" aria-hidden="true" tabindex="-1"></a>letters[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>)]</span>
-<span id="cb130-177"><a href="#cb130-177" aria-hidden="true" tabindex="-1"></a>letters[<span class="fu">c</span>(<span class="fu">rep</span>(<span class="cn">TRUE</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="cn">FALSE</span>, <span class="dv">19</span>), <span class="cn">TRUE</span>)]</span>
-<span id="cb130-178"><a href="#cb130-178" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-179"><a href="#cb130-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-180"><a href="#cb130-180" aria-hidden="true" tabindex="-1"></a><span class="at">We can substitute values into vectors:</span></span>
-<span id="cb130-181"><a href="#cb130-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-184"><a href="#cb130-184" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb130-185"><a href="#cb130-185" aria-hidden="true" tabindex="-1"></a>letters[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">"β"</span></span>
-<span id="cb130-186"><a href="#cb130-186" aria-hidden="true" tabindex="-1"></a>letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
-<span id="cb130-187"><a href="#cb130-187" aria-hidden="true" tabindex="-1"></a>letters[<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"d"</span>,<span class="st">"c"</span>)</span>
-<span id="cb130-188"><a href="#cb130-188" aria-hidden="true" tabindex="-1"></a>letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
-<span id="cb130-189"><a href="#cb130-189" aria-hidden="true" tabindex="-1"></a>letters[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="st">"β"</span> <span class="co"># Recycling</span></span>
-<span id="cb130-190"><a href="#cb130-190" aria-hidden="true" tabindex="-1"></a>letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
-<span id="cb130-191"><a href="#cb130-191" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-192"><a href="#cb130-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-193"><a href="#cb130-193" aria-hidden="true" tabindex="-1"></a><span class="at">The last substitution uses "recycling" to match the left-hand-side extent (3 elements) with the right-hand-side extent (1 element)</span></span>
-<span id="cb130-194"><a href="#cb130-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-137"><a href="#cb130-137" aria-hidden="true" tabindex="-1"></a><span class="at">R gives us a lot of flexibility (within certain rules) for assigning to (parts of) objects from (parts of) other objects.</span></span>
+<span id="cb130-138"><a href="#cb130-138" aria-hidden="true" tabindex="-1"></a><span class="at">We'll see this through the bootcamp.</span></span>
+<span id="cb130-139"><a href="#cb130-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-140"><a href="#cb130-140" aria-hidden="true" tabindex="-1"></a><span class="at">## Vectors in R</span></span>
+<span id="cb130-141"><a href="#cb130-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-142"><a href="#cb130-142" aria-hidden="true" tabindex="-1"></a><span class="at">The most basic form of an R object is a vector (i.e., a 1-dimensional array). The various objects </span><span class="st">`</span>mySeq<span class="st">`</span><span class="at">, </span><span class="st">`</span>years<span class="st">`</span><span class="at">, </span><span class="st">`</span>country<span class="st">`</span><span class="at"> from above are all vectors.</span></span>
+<span id="cb130-143"><a href="#cb130-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-144"><a href="#cb130-144" aria-hidden="true" tabindex="-1"></a><span class="at">In fact, individual (scalar) values are vectors of length one, so </span><span class="st">`</span>val<span class="st">`</span><span class="at"> and </span><span class="st">`</span>Val<span class="st">`</span><span class="at"> from above are also vectors. </span></span>
+<span id="cb130-145"><a href="#cb130-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-146"><a href="#cb130-146" aria-hidden="true" tabindex="-1"></a><span class="at">We can concatenate values into a vector with </span><span class="st">`</span><span class="fu">c</span>()<span class="st">`</span><span class="at">.</span></span>
+<span id="cb130-147"><a href="#cb130-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-150"><a href="#cb130-150" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb130-151"><a href="#cb130-151" aria-hidden="true" tabindex="-1"></a><span class="do">## numeric vector</span></span>
+<span id="cb130-152"><a href="#cb130-152" aria-hidden="true" tabindex="-1"></a>nums <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.1</span>, <span class="dv">3</span>, <span class="sc">-</span><span class="fl">5.7</span>)</span>
+<span id="cb130-153"><a href="#cb130-153" aria-hidden="true" tabindex="-1"></a>devs <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">5</span>)   <span class="co"># Five random normal values.</span></span>
+<span id="cb130-154"><a href="#cb130-154" aria-hidden="true" tabindex="-1"></a>devs</span>
+<span id="cb130-155"><a href="#cb130-155" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-156"><a href="#cb130-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-157"><a href="#cb130-157" aria-hidden="true" tabindex="-1"></a><span class="at">This is not valid syntax in R. Let's try it and see what happens.</span></span>
+<span id="cb130-158"><a href="#cb130-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-161"><a href="#cb130-161" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb130-162"><a href="#cb130-162" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb130-163"><a href="#cb130-163" aria-hidden="true" tabindex="-1"></a>nums <span class="ot">&lt;-</span> (<span class="fl">1.1</span>, <span class="dv">3</span>, <span class="sc">-</span><span class="fl">5.7</span>)</span>
+<span id="cb130-164"><a href="#cb130-164" aria-hidden="true" tabindex="-1"></a>nums <span class="ot">&lt;-</span> [<span class="fl">1.1</span>, <span class="dv">3</span>, <span class="sc">-</span><span class="fl">5.7</span>]</span>
+<span id="cb130-165"><a href="#cb130-165" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-166"><a href="#cb130-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-167"><a href="#cb130-167" aria-hidden="true" tabindex="-1"></a><span class="at">## Working with indices and subsets</span></span>
+<span id="cb130-168"><a href="#cb130-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-169"><a href="#cb130-169" aria-hidden="true" tabindex="-1"></a><span class="at">We can subset (aka "slice") using a variety of approaches. </span></span>
+<span id="cb130-170"><a href="#cb130-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-173"><a href="#cb130-173" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb130-174"><a href="#cb130-174" aria-hidden="true" tabindex="-1"></a>letters</span>
+<span id="cb130-175"><a href="#cb130-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-176"><a href="#cb130-176" aria-hidden="true" tabindex="-1"></a>letters[<span class="dv">3</span>]</span>
+<span id="cb130-177"><a href="#cb130-177" aria-hidden="true" tabindex="-1"></a>letters[<span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb130-178"><a href="#cb130-178" aria-hidden="true" tabindex="-1"></a>letters[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>)]</span>
+<span id="cb130-179"><a href="#cb130-179" aria-hidden="true" tabindex="-1"></a>letters[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>)]</span>
+<span id="cb130-180"><a href="#cb130-180" aria-hidden="true" tabindex="-1"></a>letters[<span class="fu">c</span>(<span class="fu">rep</span>(<span class="cn">TRUE</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="cn">FALSE</span>, <span class="dv">19</span>), <span class="cn">TRUE</span>)]</span>
+<span id="cb130-181"><a href="#cb130-181" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-182"><a href="#cb130-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-183"><a href="#cb130-183" aria-hidden="true" tabindex="-1"></a><span class="at">We can substitute values into vectors:</span></span>
+<span id="cb130-184"><a href="#cb130-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-187"><a href="#cb130-187" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb130-188"><a href="#cb130-188" aria-hidden="true" tabindex="-1"></a>letters[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">"β"</span></span>
+<span id="cb130-189"><a href="#cb130-189" aria-hidden="true" tabindex="-1"></a>letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb130-190"><a href="#cb130-190" aria-hidden="true" tabindex="-1"></a>letters[<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"d"</span>,<span class="st">"c"</span>)</span>
+<span id="cb130-191"><a href="#cb130-191" aria-hidden="true" tabindex="-1"></a>letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb130-192"><a href="#cb130-192" aria-hidden="true" tabindex="-1"></a>letters[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="st">"β"</span> <span class="co"># Recycling</span></span>
+<span id="cb130-193"><a href="#cb130-193" aria-hidden="true" tabindex="-1"></a>letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb130-194"><a href="#cb130-194" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
 <span id="cb130-195"><a href="#cb130-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-196"><a href="#cb130-196" aria-hidden="true" tabindex="-1"></a><span class="at">::: {.callout-tip title="Question"}</span></span>
-<span id="cb130-197"><a href="#cb130-197" aria-hidden="true" tabindex="-1"></a><span class="at">Suppose you have a vector, such </span><span class="st">`</span>vals <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">4</span>)<span class="st">`</span><span class="at">. Which of these will work to extract a subset of a vector?</span></span>
+<span id="cb130-196"><a href="#cb130-196" aria-hidden="true" tabindex="-1"></a><span class="at">The last substitution uses "recycling" to match the left-hand-side extent (3 elements) with the right-hand-side extent (1 element)</span></span>
+<span id="cb130-197"><a href="#cb130-197" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb130-198"><a href="#cb130-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-199"><a href="#cb130-199" aria-hidden="true" tabindex="-1"></a><span class="at">1) vals[3]</span></span>
-<span id="cb130-200"><a href="#cb130-200" aria-hidden="true" tabindex="-1"></a><span class="at">2) vals[2,3]</span></span>
-<span id="cb130-201"><a href="#cb130-201" aria-hidden="true" tabindex="-1"></a><span class="at">3) vals[c(2,3)]</span></span>
-<span id="cb130-202"><a href="#cb130-202" aria-hidden="true" tabindex="-1"></a><span class="at">4) vals(2,3)</span></span>
-<span id="cb130-203"><a href="#cb130-203" aria-hidden="true" tabindex="-1"></a><span class="at">5) vals[c(FALSE, TRUE, TRUE, FALSE)]</span></span>
-<span id="cb130-204"><a href="#cb130-204" aria-hidden="true" tabindex="-1"></a><span class="at">6) vals[c(f,t,t,f)]</span></span>
-<span id="cb130-205"><a href="#cb130-205" aria-hidden="true" tabindex="-1"></a><span class="at">7) vals(3)</span></span>
-<span id="cb130-206"><a href="#cb130-206" aria-hidden="true" tabindex="-1"></a><span class="at">:::</span></span>
-<span id="cb130-207"><a href="#cb130-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-208"><a href="#cb130-208" aria-hidden="true" tabindex="-1"></a><span class="at">::: {.callout-tip title="Answer" collapse="true"}</span></span>
-<span id="cb130-209"><a href="#cb130-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-210"><a href="#cb130-210" aria-hidden="true" tabindex="-1"></a><span class="at">- Subsetting uses square brackets so answers #4 and #7 don't work.</span></span>
-<span id="cb130-211"><a href="#cb130-211" aria-hidden="true" tabindex="-1"></a><span class="at">- To create a set of indices to use in subsetting/slicing, you need to use </span><span class="st">`</span><span class="fu">c</span>()<span class="st">`</span><span class="at"> to create a *vector* of indices, so answers #3 and #5 work.</span></span>
-<span id="cb130-212"><a href="#cb130-212" aria-hidden="true" tabindex="-1"></a><span class="at">- Booleans in R use the canonical syntax of TRUE and FALSE, so answer #5 works but not answer #6.</span></span>
-<span id="cb130-213"><a href="#cb130-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-214"><a href="#cb130-214" aria-hidden="true" tabindex="-1"></a><span class="at">:::</span></span>
-<span id="cb130-215"><a href="#cb130-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-216"><a href="#cb130-216" aria-hidden="true" tabindex="-1"></a><span class="at">## Using functions in R</span></span>
-<span id="cb130-217"><a href="#cb130-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-199"><a href="#cb130-199" aria-hidden="true" tabindex="-1"></a><span class="at">::: {.callout-tip title="Question"}</span></span>
+<span id="cb130-200"><a href="#cb130-200" aria-hidden="true" tabindex="-1"></a><span class="at">Suppose you have a vector, such </span><span class="st">`</span>vals <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">4</span>)<span class="st">`</span><span class="at">. Which of these will work to extract a subset of a vector?</span></span>
+<span id="cb130-201"><a href="#cb130-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-202"><a href="#cb130-202" aria-hidden="true" tabindex="-1"></a><span class="at">1) vals[3]</span></span>
+<span id="cb130-203"><a href="#cb130-203" aria-hidden="true" tabindex="-1"></a><span class="at">2) vals[2,3]</span></span>
+<span id="cb130-204"><a href="#cb130-204" aria-hidden="true" tabindex="-1"></a><span class="at">3) vals[c(2,3)]</span></span>
+<span id="cb130-205"><a href="#cb130-205" aria-hidden="true" tabindex="-1"></a><span class="at">4) vals(2,3)</span></span>
+<span id="cb130-206"><a href="#cb130-206" aria-hidden="true" tabindex="-1"></a><span class="at">5) vals[c(FALSE, TRUE, TRUE, FALSE)]</span></span>
+<span id="cb130-207"><a href="#cb130-207" aria-hidden="true" tabindex="-1"></a><span class="at">6) vals[c(f,t,t,f)]</span></span>
+<span id="cb130-208"><a href="#cb130-208" aria-hidden="true" tabindex="-1"></a><span class="at">7) vals(3)</span></span>
+<span id="cb130-209"><a href="#cb130-209" aria-hidden="true" tabindex="-1"></a><span class="at">:::</span></span>
+<span id="cb130-210"><a href="#cb130-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-211"><a href="#cb130-211" aria-hidden="true" tabindex="-1"></a><span class="at">::: {.callout-tip title="Answer" collapse="true"}</span></span>
+<span id="cb130-212"><a href="#cb130-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-213"><a href="#cb130-213" aria-hidden="true" tabindex="-1"></a><span class="at">- Subsetting uses square brackets so answers #4 and #7 don't work.</span></span>
+<span id="cb130-214"><a href="#cb130-214" aria-hidden="true" tabindex="-1"></a><span class="at">- To create a set of indices to use in subsetting/slicing, you need to use </span><span class="st">`</span><span class="fu">c</span>()<span class="st">`</span><span class="at"> to create a *vector* of indices, so answers #3 and #5 work.</span></span>
+<span id="cb130-215"><a href="#cb130-215" aria-hidden="true" tabindex="-1"></a><span class="at">- Booleans in R use the canonical syntax of TRUE and FALSE, so answer #5 works but not answer #6.</span></span>
+<span id="cb130-216"><a href="#cb130-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-217"><a href="#cb130-217" aria-hidden="true" tabindex="-1"></a><span class="at">:::</span></span>
 <span id="cb130-218"><a href="#cb130-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-219"><a href="#cb130-219" aria-hidden="true" tabindex="-1"></a><span class="at">* Functions generally take arguments, some of which are often optional:</span></span>
-<span id="cb130-222"><a href="#cb130-222" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb130-223"><a href="#cb130-223" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">10</span>)</span>
-<span id="cb130-224"><a href="#cb130-224" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">10</span>, <span class="at">base =</span> <span class="dv">10</span>)</span>
-<span id="cb130-225"><a href="#cb130-225" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-226"><a href="#cb130-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-227"><a href="#cb130-227" aria-hidden="true" tabindex="-1"></a><span class="at">* We can embed function calls: </span></span>
-<span id="cb130-228"><a href="#cb130-228" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>{r, hist}</span>
-<span id="cb130-229"><a href="#cb130-229" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "A histogram"</span></span>
-<span id="cb130-230"><a href="#cb130-230" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>))</span>
-<span id="cb130-231"><a href="#cb130-231" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-232"><a href="#cb130-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-233"><a href="#cb130-233" aria-hidden="true" tabindex="-1"></a><span class="at">* We can (usually) see the code of a function:</span></span>
-<span id="cb130-236"><a href="#cb130-236" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb130-237"><a href="#cb130-237" aria-hidden="true" tabindex="-1"></a>lm</span>
-<span id="cb130-238"><a href="#cb130-238" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-239"><a href="#cb130-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-240"><a href="#cb130-240" aria-hidden="true" tabindex="-1"></a><span class="at"># Logistics</span></span>
-<span id="cb130-241"><a href="#cb130-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-242"><a href="#cb130-242" aria-hidden="true" tabindex="-1"></a><span class="at">## Getting help about a function</span></span>
-<span id="cb130-243"><a href="#cb130-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-244"><a href="#cb130-244" aria-hidden="true" tabindex="-1"></a><span class="at">To get information about a function you know exists, use </span><span class="st">`</span>help<span class="st">`</span><span class="at"> or </span><span class="st">`</span>?<span class="st">`</span><span class="at">, e.g., </span><span class="st">`</span>?lm<span class="st">`</span><span class="at">  (results not shown). </span></span>
-<span id="cb130-245"><a href="#cb130-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-248"><a href="#cb130-248" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb130-249"><a href="#cb130-249" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb130-250"><a href="#cb130-250" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(lm)</span>
-<span id="cb130-251"><a href="#cb130-251" aria-hidden="true" tabindex="-1"></a>?lm</span>
-<span id="cb130-252"><a href="#cb130-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-253"><a href="#cb130-253" aria-hidden="true" tabindex="-1"></a>?log</span>
-<span id="cb130-254"><a href="#cb130-254" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-219"><a href="#cb130-219" aria-hidden="true" tabindex="-1"></a><span class="at">## Using functions in R</span></span>
+<span id="cb130-220"><a href="#cb130-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-221"><a href="#cb130-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-222"><a href="#cb130-222" aria-hidden="true" tabindex="-1"></a><span class="at">* Functions generally take arguments, some of which are often optional:</span></span>
+<span id="cb130-225"><a href="#cb130-225" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb130-226"><a href="#cb130-226" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">10</span>)</span>
+<span id="cb130-227"><a href="#cb130-227" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">10</span>, <span class="at">base =</span> <span class="dv">10</span>)</span>
+<span id="cb130-228"><a href="#cb130-228" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-229"><a href="#cb130-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-230"><a href="#cb130-230" aria-hidden="true" tabindex="-1"></a><span class="at">* We can embed function calls: </span></span>
+<span id="cb130-231"><a href="#cb130-231" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>{r, hist}</span>
+<span id="cb130-232"><a href="#cb130-232" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "A histogram"</span></span>
+<span id="cb130-233"><a href="#cb130-233" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>))</span>
+<span id="cb130-234"><a href="#cb130-234" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-235"><a href="#cb130-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-236"><a href="#cb130-236" aria-hidden="true" tabindex="-1"></a><span class="at">* We can (usually) see the code of a function:</span></span>
+<span id="cb130-239"><a href="#cb130-239" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb130-240"><a href="#cb130-240" aria-hidden="true" tabindex="-1"></a>lm</span>
+<span id="cb130-241"><a href="#cb130-241" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-242"><a href="#cb130-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-243"><a href="#cb130-243" aria-hidden="true" tabindex="-1"></a><span class="at"># Logistics</span></span>
+<span id="cb130-244"><a href="#cb130-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-245"><a href="#cb130-245" aria-hidden="true" tabindex="-1"></a><span class="at">## Getting help about a function</span></span>
+<span id="cb130-246"><a href="#cb130-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-247"><a href="#cb130-247" aria-hidden="true" tabindex="-1"></a><span class="at">To get information about a function you know exists, use </span><span class="st">`</span>help<span class="st">`</span><span class="at"> or </span><span class="st">`</span>?<span class="st">`</span><span class="at">, e.g., </span><span class="st">`</span>?lm<span class="st">`</span><span class="at">  (results not shown). </span></span>
+<span id="cb130-248"><a href="#cb130-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-251"><a href="#cb130-251" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb130-252"><a href="#cb130-252" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb130-253"><a href="#cb130-253" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(lm)</span>
+<span id="cb130-254"><a href="#cb130-254" aria-hidden="true" tabindex="-1"></a>?lm</span>
 <span id="cb130-255"><a href="#cb130-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-256"><a href="#cb130-256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-257"><a href="#cb130-257" aria-hidden="true" tabindex="-1"></a><span class="at">## How to be lazy (aka efficient)</span></span>
+<span id="cb130-256"><a href="#cb130-256" aria-hidden="true" tabindex="-1"></a>?log</span>
+<span id="cb130-257"><a href="#cb130-257" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
 <span id="cb130-258"><a href="#cb130-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-259"><a href="#cb130-259" aria-hidden="true" tabindex="-1"></a><span class="at">If you're starting to type something you've typed before, or you are typing the long name of an R object or function, STOP!  You likely don't need to type all of that.</span></span>
-<span id="cb130-260"><a href="#cb130-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-261"><a href="#cb130-261" aria-hidden="true" tabindex="-1"></a><span class="at">- Tab completion: type a few letters of an object/function and hit </span><span class="st">`</span>Tab<span class="st">`</span><span class="at"> for autocompletion</span></span>
-<span id="cb130-262"><a href="#cb130-262" aria-hidden="true" tabindex="-1"></a><span class="at">- Command history: recover and reuse/edit previous commands used with:</span></span>
-<span id="cb130-263"><a href="#cb130-263" aria-hidden="true" tabindex="-1"></a><span class="at">    * up/down arrows</span></span>
-<span id="cb130-264"><a href="#cb130-264" aria-hidden="true" tabindex="-1"></a><span class="at">    * Ctrl-{up arrow} or Command-{up arrow}</span></span>
-<span id="cb130-265"><a href="#cb130-265" aria-hidden="true" tabindex="-1"></a><span class="at">- RStudio: select a line or block for execution via </span><span class="st">`</span>Ctrl<span class="sc">-</span>Enter<span class="st">`</span></span>
-<span id="cb130-266"><a href="#cb130-266" aria-hidden="true" tabindex="-1"></a><span class="at">- For keyboard shortcuts in RStudio see:</span></span>
-<span id="cb130-267"><a href="#cb130-267" aria-hidden="true" tabindex="-1"></a><span class="at">   - </span><span class="st">`</span>Tools <span class="ot">-&gt;</span> Keyboard Shortcuts Help<span class="st">`</span><span class="at"> or</span></span>
-<span id="cb130-268"><a href="#cb130-268" aria-hidden="true" tabindex="-1"></a><span class="at">   - [this](https://appsilon.com/rstudio-shortcuts-and-tips) and [this](https://www.r-bloggers.com/r-studio-shortcuts-and-tips-part-2) blog posts.</span></span>
-<span id="cb130-269"><a href="#cb130-269" aria-hidden="true" tabindex="-1"></a><span class="at">- [Other tips](https://www.r-bloggers.com/tips-and-tricks-in-rstudio-and-r-markdown) for saving time in RStudio and R Markdown</span></span>
-<span id="cb130-270"><a href="#cb130-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-271"><a href="#cb130-271" aria-hidden="true" tabindex="-1"></a><span class="at">## Managing the workspace</span></span>
-<span id="cb130-272"><a href="#cb130-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-273"><a href="#cb130-273" aria-hidden="true" tabindex="-1"></a><span class="at">R has functions for learning about the collection of objects in your workspace. Some of this is built in to RStudio (see the Environment tab in upper right pane).</span></span>
-<span id="cb130-274"><a href="#cb130-274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-275"><a href="#cb130-275" aria-hidden="true" tabindex="-1"></a><span class="at">Let's first create a few objects.</span></span>
-<span id="cb130-276"><a href="#cb130-276" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-279"><a href="#cb130-279" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb130-280"><a href="#cb130-280" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">5</span>)</span>
-<span id="cb130-281"><a href="#cb130-281" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>L, <span class="dv">2</span>L, <span class="dv">7</span>L)</span>
-<span id="cb130-282"><a href="#cb130-282" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">a =</span> <span class="dv">3</span>, <span class="at">b =</span> <span class="fu">c</span>(<span class="st">'sam'</span>, <span class="st">'yang'</span>))</span>
-<span id="cb130-283"><a href="#cb130-283" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-284"><a href="#cb130-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-285"><a href="#cb130-285" aria-hidden="true" tabindex="-1"></a><span class="at">Now let's see the objects in our workspace and delete one of them.</span></span>
-<span id="cb130-286"><a href="#cb130-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-289"><a href="#cb130-289" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb130-290"><a href="#cb130-290" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>()  <span class="co"># search the user workspace (global environment)</span></span>
-<span id="cb130-291"><a href="#cb130-291" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(x)    <span class="co"># delete a variable</span></span>
-<span id="cb130-292"><a href="#cb130-292" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>()</span>
-<span id="cb130-293"><a href="#cb130-293" aria-hidden="true" tabindex="-1"></a><span class="fu">ls.str</span>() <span class="co"># list and describe variables</span></span>
-<span id="cb130-294"><a href="#cb130-294" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-295"><a href="#cb130-295" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-296"><a href="#cb130-296" aria-hidden="true" tabindex="-1"></a><span class="at">## Saving and reloading the workspace</span></span>
-<span id="cb130-297"><a href="#cb130-297" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-298"><a href="#cb130-298" aria-hidden="true" tabindex="-1"></a><span class="at">Finally we can save the objects in our R session in a compact, binary format for later use (or to give to someone else, even if they are on a different operating system):</span></span>
-<span id="cb130-299"><a href="#cb130-299" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-302"><a href="#cb130-302" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb130-303"><a href="#cb130-303" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>()</span>
-<span id="cb130-304"><a href="#cb130-304" aria-hidden="true" tabindex="-1"></a><span class="fu">save.image</span>(<span class="st">'intro.Rda'</span>)</span>
-<span id="cb130-305"><a href="#cb130-305" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb130-259"><a href="#cb130-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-260"><a href="#cb130-260" aria-hidden="true" tabindex="-1"></a><span class="at">## How to be lazy (aka efficient)</span></span>
+<span id="cb130-261"><a href="#cb130-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-262"><a href="#cb130-262" aria-hidden="true" tabindex="-1"></a><span class="at">If you're starting to type something you've typed before, or you are typing the long name of an R object or function, STOP!  You likely don't need to type all of that.</span></span>
+<span id="cb130-263"><a href="#cb130-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-264"><a href="#cb130-264" aria-hidden="true" tabindex="-1"></a><span class="at">- Tab completion: type a few letters of an object/function and hit </span><span class="st">`</span>Tab<span class="st">`</span><span class="at"> for autocompletion</span></span>
+<span id="cb130-265"><a href="#cb130-265" aria-hidden="true" tabindex="-1"></a><span class="at">- Command history: recover and reuse/edit previous commands used with:</span></span>
+<span id="cb130-266"><a href="#cb130-266" aria-hidden="true" tabindex="-1"></a><span class="at">    * up/down arrows</span></span>
+<span id="cb130-267"><a href="#cb130-267" aria-hidden="true" tabindex="-1"></a><span class="at">    * Ctrl-{up arrow} or Command-{up arrow}</span></span>
+<span id="cb130-268"><a href="#cb130-268" aria-hidden="true" tabindex="-1"></a><span class="at">- RStudio: select a line or block for execution via </span><span class="st">`</span>Ctrl<span class="sc">-</span>Enter<span class="st">`</span></span>
+<span id="cb130-269"><a href="#cb130-269" aria-hidden="true" tabindex="-1"></a><span class="at">- For keyboard shortcuts in RStudio see:</span></span>
+<span id="cb130-270"><a href="#cb130-270" aria-hidden="true" tabindex="-1"></a><span class="at">   - </span><span class="st">`</span>Tools <span class="ot">-&gt;</span> Keyboard Shortcuts Help<span class="st">`</span><span class="at"> or</span></span>
+<span id="cb130-271"><a href="#cb130-271" aria-hidden="true" tabindex="-1"></a><span class="at">   - [this](https://appsilon.com/rstudio-shortcuts-and-tips) and [this](https://www.r-bloggers.com/r-studio-shortcuts-and-tips-part-2) blog posts.</span></span>
+<span id="cb130-272"><a href="#cb130-272" aria-hidden="true" tabindex="-1"></a><span class="at">- [Other tips](https://www.r-bloggers.com/tips-and-tricks-in-rstudio-and-r-markdown) for saving time in RStudio and R Markdown</span></span>
+<span id="cb130-273"><a href="#cb130-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-274"><a href="#cb130-274" aria-hidden="true" tabindex="-1"></a><span class="at">## Managing the workspace</span></span>
+<span id="cb130-275"><a href="#cb130-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-276"><a href="#cb130-276" aria-hidden="true" tabindex="-1"></a><span class="at">R has functions for learning about the collection of objects in your workspace. Some of this is built in to RStudio (see the Environment tab in upper right pane).</span></span>
+<span id="cb130-277"><a href="#cb130-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-278"><a href="#cb130-278" aria-hidden="true" tabindex="-1"></a><span class="at">Let's first create a few objects.</span></span>
+<span id="cb130-279"><a href="#cb130-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-282"><a href="#cb130-282" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb130-283"><a href="#cb130-283" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">5</span>)</span>
+<span id="cb130-284"><a href="#cb130-284" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>L, <span class="dv">2</span>L, <span class="dv">7</span>L)</span>
+<span id="cb130-285"><a href="#cb130-285" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">a =</span> <span class="dv">3</span>, <span class="at">b =</span> <span class="fu">c</span>(<span class="st">'sam'</span>, <span class="st">'yang'</span>))</span>
+<span id="cb130-286"><a href="#cb130-286" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-287"><a href="#cb130-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-288"><a href="#cb130-288" aria-hidden="true" tabindex="-1"></a><span class="at">Now let's see the objects in our workspace and delete one of them.</span></span>
+<span id="cb130-289"><a href="#cb130-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-292"><a href="#cb130-292" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb130-293"><a href="#cb130-293" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>()  <span class="co"># search the user workspace (global environment)</span></span>
+<span id="cb130-294"><a href="#cb130-294" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(x)    <span class="co"># delete a variable</span></span>
+<span id="cb130-295"><a href="#cb130-295" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>()</span>
+<span id="cb130-296"><a href="#cb130-296" aria-hidden="true" tabindex="-1"></a><span class="fu">ls.str</span>() <span class="co"># list and describe variables</span></span>
+<span id="cb130-297"><a href="#cb130-297" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-298"><a href="#cb130-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-299"><a href="#cb130-299" aria-hidden="true" tabindex="-1"></a><span class="at">## Saving and reloading the workspace</span></span>
+<span id="cb130-300"><a href="#cb130-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-301"><a href="#cb130-301" aria-hidden="true" tabindex="-1"></a><span class="at">Finally we can save the objects in our R session in a compact, binary format for later use (or to give to someone else, even if they are on a different operating system):</span></span>
+<span id="cb130-302"><a href="#cb130-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-305"><a href="#cb130-305" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb130-306"><a href="#cb130-306" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>()</span>
-<span id="cb130-307"><a href="#cb130-307" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">'intro.Rda'</span>) </span>
-<span id="cb130-308"><a href="#cb130-308" aria-hidden="true" tabindex="-1"></a><span class="co"># the result of this may not be quite right in the slide version</span></span>
+<span id="cb130-307"><a href="#cb130-307" aria-hidden="true" tabindex="-1"></a><span class="fu">save.image</span>(<span class="st">'intro.Rda'</span>)</span>
+<span id="cb130-308"><a href="#cb130-308" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
 <span id="cb130-309"><a href="#cb130-309" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>()</span>
-<span id="cb130-310"><a href="#cb130-310" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-311"><a href="#cb130-311" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-312"><a href="#cb130-312" aria-hidden="true" tabindex="-1"></a><span class="at">## The working directory</span></span>
-<span id="cb130-313"><a href="#cb130-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-314"><a href="#cb130-314" aria-hidden="true" tabindex="-1"></a><span class="at">To read and write from R, you need to have a firm grasp of where in the computer's filesystem you are reading and writing from. Here's some syntax (results not shown and will vary by machine).</span></span>
-<span id="cb130-315"><a href="#cb130-315" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-318"><a href="#cb130-318" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb130-319"><a href="#cb130-319" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb130-320"><a href="#cb130-320" aria-hidden="true" tabindex="-1"></a><span class="do">## What directory does R look for files in (working directory)?</span></span>
-<span id="cb130-321"><a href="#cb130-321" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span>
-<span id="cb130-322"><a href="#cb130-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-323"><a href="#cb130-323" aria-hidden="true" tabindex="-1"></a><span class="do">## Changing the working directory (Linux/Mac specific)</span></span>
-<span id="cb130-324"><a href="#cb130-324" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">'~/Desktop'</span>) <span class="co"># change the working directory</span></span>
-<span id="cb130-325"><a href="#cb130-325" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">'/Users/paciorek/Desktop'</span>) <span class="co"># absolute path (here on MacOS)</span></span>
-<span id="cb130-326"><a href="#cb130-326" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span>
-<span id="cb130-327"><a href="#cb130-327" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">'r-voleon-2025/units'</span>) <span class="co"># relative path</span></span>
-<span id="cb130-328"><a href="#cb130-328" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">'../tmp'</span>) <span class="co"># relative path, up and back down the tree</span></span>
-<span id="cb130-329"><a href="#cb130-329" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-330"><a href="#cb130-330" aria-hidden="true" tabindex="-1"></a><span class="do">## Changing the working directory (Windows specific)</span></span>
-<span id="cb130-331"><a href="#cb130-331" aria-hidden="true" tabindex="-1"></a><span class="do">## Windows - use either \\ or / to indicate directories</span></span>
-<span id="cb130-332"><a href="#cb130-332" aria-hidden="true" tabindex="-1"></a><span class="co"># setwd('C:\\Users\\Your_username\\Desktop\\r-voleon-2025')</span></span>
-<span id="cb130-333"><a href="#cb130-333" aria-hidden="true" tabindex="-1"></a><span class="co"># setwd('..\\r-voleon-2025')</span></span>
-<span id="cb130-334"><a href="#cb130-334" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-335"><a href="#cb130-335" aria-hidden="true" tabindex="-1"></a><span class="do">## Changing the working directory (platform-agnostic)</span></span>
-<span id="cb130-336"><a href="#cb130-336" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="fu">file.path</span>(<span class="st">'~'</span>, <span class="st">'Desktop'</span>, <span class="st">'r-voleon-2025'</span>, <span class="st">'modules'</span>)) <span class="co"># change the working directory</span></span>
-<span id="cb130-337"><a href="#cb130-337" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="fu">file.path</span>(<span class="st">'/'</span>, <span class="st">'Users'</span>, <span class="st">'paciorek'</span>, <span class="st">'Desktop'</span>, <span class="st">'r-voleon-2025'</span>, <span class="st">'modules'</span>)) <span class="co"># absolute path</span></span>
-<span id="cb130-338"><a href="#cb130-338" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span>
-<span id="cb130-339"><a href="#cb130-339" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="fu">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>)) <span class="co"># relative path</span></span>
-<span id="cb130-340"><a href="#cb130-340" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-341"><a href="#cb130-341" aria-hidden="true" tabindex="-1"></a><span class="at">Many errors and much confusion result from you and R not being on the same page in terms of where in the directory structure you are.</span></span>
-<span id="cb130-342"><a href="#cb130-342" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-343"><a href="#cb130-343" aria-hidden="true" tabindex="-1"></a><span class="at">In RStudio, you can use </span><span class="st">`</span>Session <span class="ot">-&gt;</span> Set Working Directory<span class="st">`</span><span class="at"> instead of </span><span class="st">`</span>setwd<span class="st">`</span><span class="at">.</span></span>
-<span id="cb130-344"><a href="#cb130-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-310"><a href="#cb130-310" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">'intro.Rda'</span>) </span>
+<span id="cb130-311"><a href="#cb130-311" aria-hidden="true" tabindex="-1"></a><span class="co"># the result of this may not be quite right in the slide version</span></span>
+<span id="cb130-312"><a href="#cb130-312" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>()</span>
+<span id="cb130-313"><a href="#cb130-313" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-314"><a href="#cb130-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-315"><a href="#cb130-315" aria-hidden="true" tabindex="-1"></a><span class="at">## The working directory</span></span>
+<span id="cb130-316"><a href="#cb130-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-317"><a href="#cb130-317" aria-hidden="true" tabindex="-1"></a><span class="at">To read and write from R, you need to have a firm grasp of where in the computer's filesystem you are reading and writing from. Here's some syntax (results not shown and will vary by machine).</span></span>
+<span id="cb130-318"><a href="#cb130-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-321"><a href="#cb130-321" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb130-322"><a href="#cb130-322" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb130-323"><a href="#cb130-323" aria-hidden="true" tabindex="-1"></a><span class="do">## What directory does R look for files in (working directory)?</span></span>
+<span id="cb130-324"><a href="#cb130-324" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span>
+<span id="cb130-325"><a href="#cb130-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-326"><a href="#cb130-326" aria-hidden="true" tabindex="-1"></a><span class="do">## Changing the working directory (Linux/Mac specific)</span></span>
+<span id="cb130-327"><a href="#cb130-327" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">'~/Desktop'</span>) <span class="co"># change the working directory</span></span>
+<span id="cb130-328"><a href="#cb130-328" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">'/Users/paciorek/Desktop'</span>) <span class="co"># absolute path (here on MacOS)</span></span>
+<span id="cb130-329"><a href="#cb130-329" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span>
+<span id="cb130-330"><a href="#cb130-330" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">'r-voleon-2025/units'</span>) <span class="co"># relative path</span></span>
+<span id="cb130-331"><a href="#cb130-331" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">'../tmp'</span>) <span class="co"># relative path, up and back down the tree</span></span>
+<span id="cb130-332"><a href="#cb130-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-333"><a href="#cb130-333" aria-hidden="true" tabindex="-1"></a><span class="do">## Changing the working directory (Windows specific)</span></span>
+<span id="cb130-334"><a href="#cb130-334" aria-hidden="true" tabindex="-1"></a><span class="do">## Windows - use either \\ or / to indicate directories</span></span>
+<span id="cb130-335"><a href="#cb130-335" aria-hidden="true" tabindex="-1"></a><span class="co"># setwd('C:\\Users\\Your_username\\Desktop\\r-voleon-2025')</span></span>
+<span id="cb130-336"><a href="#cb130-336" aria-hidden="true" tabindex="-1"></a><span class="co"># setwd('..\\r-voleon-2025')</span></span>
+<span id="cb130-337"><a href="#cb130-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-338"><a href="#cb130-338" aria-hidden="true" tabindex="-1"></a><span class="do">## Changing the working directory (platform-agnostic)</span></span>
+<span id="cb130-339"><a href="#cb130-339" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="fu">file.path</span>(<span class="st">'~'</span>, <span class="st">'Desktop'</span>, <span class="st">'r-voleon-2025'</span>, <span class="st">'modules'</span>)) <span class="co"># change the working directory</span></span>
+<span id="cb130-340"><a href="#cb130-340" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="fu">file.path</span>(<span class="st">'/'</span>, <span class="st">'Users'</span>, <span class="st">'paciorek'</span>, <span class="st">'Desktop'</span>, <span class="st">'r-voleon-2025'</span>, <span class="st">'modules'</span>)) <span class="co"># absolute path</span></span>
+<span id="cb130-341"><a href="#cb130-341" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span>
+<span id="cb130-342"><a href="#cb130-342" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="fu">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>)) <span class="co"># relative path</span></span>
+<span id="cb130-343"><a href="#cb130-343" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-344"><a href="#cb130-344" aria-hidden="true" tabindex="-1"></a><span class="at">Many errors and much confusion result from you and R not being on the same page in terms of where in the directory structure you are.</span></span>
 <span id="cb130-345"><a href="#cb130-345" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-346"><a href="#cb130-346" aria-hidden="true" tabindex="-1"></a><span class="at"># Packages </span></span>
+<span id="cb130-346"><a href="#cb130-346" aria-hidden="true" tabindex="-1"></a><span class="at">In RStudio, you can use </span><span class="st">`</span>Session <span class="ot">-&gt;</span> Set Working Directory<span class="st">`</span><span class="at"> instead of </span><span class="st">`</span>setwd<span class="st">`</span><span class="at">.</span></span>
 <span id="cb130-347"><a href="#cb130-347" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-348"><a href="#cb130-348" aria-hidden="true" tabindex="-1"></a><span class="at">Let's check out the [packages on CRAN](https://cran.r-project.org/web/packages/). In particular check out the [CRAN Task Views](https://cran.r-project.org/web/views/).</span></span>
-<span id="cb130-349"><a href="#cb130-349" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-350"><a href="#cb130-350" aria-hidden="true" tabindex="-1"></a><span class="at">Essentially any well-established and many not-so-established statistical methods and other functionality is available in a package. </span></span>
-<span id="cb130-351"><a href="#cb130-351" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-352"><a href="#cb130-352" aria-hidden="true" tabindex="-1"></a><span class="at">If you want to sound like an R expert, make sure to call them *packages* and not *libraries*. A *library* is the location in the directory structure where the packages are installed/stored.</span></span>
-<span id="cb130-353"><a href="#cb130-353" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-354"><a href="#cb130-354" aria-hidden="true" tabindex="-1"></a><span class="at">## Using packages</span></span>
-<span id="cb130-355"><a href="#cb130-355" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-356"><a href="#cb130-356" aria-hidden="true" tabindex="-1"></a><span class="at">Two steps (similar to Python and Julia):</span></span>
-<span id="cb130-357"><a href="#cb130-357" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-358"><a href="#cb130-358" aria-hidden="true" tabindex="-1"></a><span class="at">1. Install the package on your machine</span></span>
-<span id="cb130-359"><a href="#cb130-359" aria-hidden="true" tabindex="-1"></a><span class="at">   - one-time only - the package will be a set of files in the filesystem</span></span>
-<span id="cb130-360"><a href="#cb130-360" aria-hidden="true" tabindex="-1"></a><span class="at">2. Load the package</span></span>
-<span id="cb130-361"><a href="#cb130-361" aria-hidden="true" tabindex="-1"></a><span class="at">   - every time you start R and need to use a given package - the package will be loaded into memory</span></span>
-<span id="cb130-362"><a href="#cb130-362" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-363"><a href="#cb130-363" aria-hidden="true" tabindex="-1"></a><span class="at">To install a package, in RStudio, just do </span><span class="st">`</span>Packages<span class="ot">-&gt;</span>Install Packages<span class="st">`</span><span class="at">.</span></span>
-<span id="cb130-364"><a href="#cb130-364" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-365"><a href="#cb130-365" aria-hidden="true" tabindex="-1"></a><span class="at">From the command line, you generally will just do</span></span>
-<span id="cb130-368"><a href="#cb130-368" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb130-369"><a href="#cb130-369" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb130-370"><a href="#cb130-370" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'gapminder'</span>) </span>
-<span id="cb130-371"><a href="#cb130-371" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-372"><a href="#cb130-372" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-373"><a href="#cb130-373" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-374"><a href="#cb130-374" aria-hidden="true" tabindex="-1"></a><span class="at">If you're on a network and are not the administrator of the machine, you may need to explicitly tell R to install it in a directory you are able to write in:</span></span>
-<span id="cb130-377"><a href="#cb130-377" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb130-378"><a href="#cb130-378" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb130-379"><a href="#cb130-379" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'gapminder'</span>, <span class="at">lib =</span> <span class="fu">file.path</span>(<span class="st">'~'</span>, <span class="st">'R'</span>))</span>
-<span id="cb130-380"><a href="#cb130-380" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-381"><a href="#cb130-381" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-382"><a href="#cb130-382" aria-hidden="true" tabindex="-1"></a><span class="at">If you're using R directly installed on your laptop, now would be a good point to install the various packages we need for the bootcamp, which can be done easily with the following command:</span></span>
-<span id="cb130-383"><a href="#cb130-383" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-384"><a href="#cb130-384" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>{r eval<span class="ot">=</span><span class="cn">FALSE</span>}</span>
-<span id="cb130-385"><a href="#cb130-385" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">'chron'</span>,<span class="st">'data.table'</span>,<span class="st">'devtools'</span>,<span class="st">'dplyr'</span>,</span>
-<span id="cb130-386"><a href="#cb130-386" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'doFuture'</span>,<span class="st">'dplyr'</span>,<span class="st">'dtplyr'</span>,<span class="st">'fields'</span>,<span class="st">'foreach'</span>,</span>
-<span id="cb130-387"><a href="#cb130-387" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'foreign'</span>,<span class="st">'future'</span>,<span class="st">'future.apply'</span>,<span class="st">'gapminder'</span>,</span>
-<span id="cb130-388"><a href="#cb130-388" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'ggplot2'</span>,<span class="st">'gridExtra'</span>,<span class="st">'microbenchmark'</span>,<span class="st">'patchwork'</span>,</span>
-<span id="cb130-389"><a href="#cb130-389" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'pryr'</span>, <span class="st">'R6'</span>, <span class="st">'Rcpp'</span>, <span class="st">'rbenchmark'</span>, <span class="st">'RSQLite'</span>, <span class="st">'stringr'</span>,</span>
-<span id="cb130-390"><a href="#cb130-390" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'tidyr'</span>))</span>
-<span id="cb130-391"><a href="#cb130-391" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-392"><a href="#cb130-392" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-393"><a href="#cb130-393" aria-hidden="true" tabindex="-1"></a><span class="at">Note that packages often are dependent on other packages so these dependencies may be installed and loaded automatically. E.g., *fields* depends on *maps* and on *spam*.</span></span>
-<span id="cb130-394"><a href="#cb130-394" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-395"><a href="#cb130-395" aria-hidden="true" tabindex="-1"></a><span class="at">## General information about a package</span></span>
-<span id="cb130-396"><a href="#cb130-396" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-397"><a href="#cb130-397" aria-hidden="true" tabindex="-1"></a><span class="at">You can use syntax as follows to get a list of the objects in a package and a brief description:</span></span>
-<span id="cb130-398"><a href="#cb130-398" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-399"><a href="#cb130-399" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>{r, eval<span class="ot">=</span><span class="cn">FALSE</span>}</span>
-<span id="cb130-400"><a href="#cb130-400" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="at">help =</span> packageName)</span>
-<span id="cb130-401"><a href="#cb130-401" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-402"><a href="#cb130-402" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-403"><a href="#cb130-403" aria-hidden="true" tabindex="-1"></a><span class="at">On CRAN there often *vignettes* that are an overview and describe usage of a package if you click on a specific package. The *reference manual* is just a single document with the help files for all of the objects/functions in a package. That may be helpful, but often it's hard to get the big picture view from that.</span></span>
-<span id="cb130-404"><a href="#cb130-404" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-405"><a href="#cb130-405" aria-hidden="true" tabindex="-1"></a><span class="at"># Programming syntax</span></span>
-<span id="cb130-406"><a href="#cb130-406" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-407"><a href="#cb130-407" aria-hidden="true" tabindex="-1"></a><span class="at">## Writing functions</span></span>
-<span id="cb130-408"><a href="#cb130-408" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-409"><a href="#cb130-409" aria-hidden="true" tabindex="-1"></a><span class="at">Here's an example of the syntax for writing our own function.</span></span>
-<span id="cb130-410"><a href="#cb130-410" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-411"><a href="#cb130-411" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>{r, <span class="cf">function</span>}</span>
-<span id="cb130-412"><a href="#cb130-412" aria-hidden="true" tabindex="-1"></a>add_constant <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">constant =</span> <span class="dv">0</span>) {</span>
-<span id="cb130-413"><a href="#cb130-413" aria-hidden="true" tabindex="-1"></a>   result <span class="ot">&lt;-</span> x <span class="sc">+</span> constant</span>
-<span id="cb130-414"><a href="#cb130-414" aria-hidden="true" tabindex="-1"></a>   <span class="fu">return</span>(result)</span>
-<span id="cb130-415"><a href="#cb130-415" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb130-416"><a href="#cb130-416" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-417"><a href="#cb130-417" aria-hidden="true" tabindex="-1"></a><span class="fu">add_constant</span>(<span class="dv">7</span>)</span>
-<span id="cb130-418"><a href="#cb130-418" aria-hidden="true" tabindex="-1"></a><span class="fu">add_constant</span>(<span class="dv">7</span>, <span class="dv">5</span>)</span>
+<span id="cb130-348"><a href="#cb130-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-349"><a href="#cb130-349" aria-hidden="true" tabindex="-1"></a><span class="at"># Packages </span></span>
+<span id="cb130-350"><a href="#cb130-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-351"><a href="#cb130-351" aria-hidden="true" tabindex="-1"></a><span class="at">Let's check out the [packages on CRAN](https://cran.r-project.org/web/packages/). In particular check out the [CRAN Task Views](https://cran.r-project.org/web/views/).</span></span>
+<span id="cb130-352"><a href="#cb130-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-353"><a href="#cb130-353" aria-hidden="true" tabindex="-1"></a><span class="at">Essentially any well-established and many not-so-established statistical methods and other functionality is available in a package. </span></span>
+<span id="cb130-354"><a href="#cb130-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-355"><a href="#cb130-355" aria-hidden="true" tabindex="-1"></a><span class="at">If you want to sound like an R expert, make sure to call them *packages* and not *libraries*. A *library* is the location in the directory structure where the packages are installed/stored.</span></span>
+<span id="cb130-356"><a href="#cb130-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-357"><a href="#cb130-357" aria-hidden="true" tabindex="-1"></a><span class="at">## Using packages</span></span>
+<span id="cb130-358"><a href="#cb130-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-359"><a href="#cb130-359" aria-hidden="true" tabindex="-1"></a><span class="at">Two steps (similar to Python and Julia):</span></span>
+<span id="cb130-360"><a href="#cb130-360" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-361"><a href="#cb130-361" aria-hidden="true" tabindex="-1"></a><span class="at">1. Install the package on your machine</span></span>
+<span id="cb130-362"><a href="#cb130-362" aria-hidden="true" tabindex="-1"></a><span class="at">   - one-time only - the package will be a set of files in the filesystem</span></span>
+<span id="cb130-363"><a href="#cb130-363" aria-hidden="true" tabindex="-1"></a><span class="at">2. Load the package</span></span>
+<span id="cb130-364"><a href="#cb130-364" aria-hidden="true" tabindex="-1"></a><span class="at">   - every time you start R and need to use a given package - the package will be loaded into memory</span></span>
+<span id="cb130-365"><a href="#cb130-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-366"><a href="#cb130-366" aria-hidden="true" tabindex="-1"></a><span class="at">To install a package, in RStudio, just do </span><span class="st">`</span>Packages<span class="ot">-&gt;</span>Install Packages<span class="st">`</span><span class="at">.</span></span>
+<span id="cb130-367"><a href="#cb130-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-368"><a href="#cb130-368" aria-hidden="true" tabindex="-1"></a><span class="at">From the command line, you generally will just do</span></span>
+<span id="cb130-371"><a href="#cb130-371" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb130-372"><a href="#cb130-372" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb130-373"><a href="#cb130-373" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'gapminder'</span>) </span>
+<span id="cb130-374"><a href="#cb130-374" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-375"><a href="#cb130-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-376"><a href="#cb130-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-377"><a href="#cb130-377" aria-hidden="true" tabindex="-1"></a><span class="at">If you're on a network and are not the administrator of the machine, you may need to explicitly tell R to install it in a directory you are able to write in:</span></span>
+<span id="cb130-380"><a href="#cb130-380" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb130-381"><a href="#cb130-381" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb130-382"><a href="#cb130-382" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'gapminder'</span>, <span class="at">lib =</span> <span class="fu">file.path</span>(<span class="st">'~'</span>, <span class="st">'R'</span>))</span>
+<span id="cb130-383"><a href="#cb130-383" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-384"><a href="#cb130-384" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-385"><a href="#cb130-385" aria-hidden="true" tabindex="-1"></a><span class="at">If you're using R directly installed on your laptop, now would be a good point to install the various packages we need for the bootcamp, which can be done easily with the following command:</span></span>
+<span id="cb130-386"><a href="#cb130-386" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-387"><a href="#cb130-387" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>{r eval<span class="ot">=</span><span class="cn">FALSE</span>}</span>
+<span id="cb130-388"><a href="#cb130-388" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">'chron'</span>,<span class="st">'data.table'</span>,<span class="st">'devtools'</span>,<span class="st">'dplyr'</span>,</span>
+<span id="cb130-389"><a href="#cb130-389" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'doFuture'</span>,<span class="st">'dplyr'</span>,<span class="st">'dtplyr'</span>,<span class="st">'fields'</span>,<span class="st">'foreach'</span>,</span>
+<span id="cb130-390"><a href="#cb130-390" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'foreign'</span>,<span class="st">'future'</span>,<span class="st">'future.apply'</span>,<span class="st">'gapminder'</span>,</span>
+<span id="cb130-391"><a href="#cb130-391" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'ggplot2'</span>,<span class="st">'gridExtra'</span>,<span class="st">'microbenchmark'</span>,</span>
+<span id="cb130-392"><a href="#cb130-392" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'patchwork'</span>, <span class="st">'pryr'</span>, <span class="st">'R6'</span>, <span class="st">'Rcpp'</span>,</span>
+<span id="cb130-393"><a href="#cb130-393" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'rbenchmark'</span>, <span class="st">'RSQLite'</span>, <span class="st">'stringr'</span>, <span class="st">'tidyr'</span>))</span>
+<span id="cb130-394"><a href="#cb130-394" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-395"><a href="#cb130-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-396"><a href="#cb130-396" aria-hidden="true" tabindex="-1"></a><span class="at">Note that packages often are dependent on other packages so these dependencies may be installed and loaded automatically. E.g., *fields* depends on *maps* and on *spam*.</span></span>
+<span id="cb130-397"><a href="#cb130-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-398"><a href="#cb130-398" aria-hidden="true" tabindex="-1"></a><span class="at">## General information about a package</span></span>
+<span id="cb130-399"><a href="#cb130-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-400"><a href="#cb130-400" aria-hidden="true" tabindex="-1"></a><span class="at">You can use syntax as follows to get a list of the objects in a package and a brief description:</span></span>
+<span id="cb130-401"><a href="#cb130-401" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-402"><a href="#cb130-402" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>{r, eval<span class="ot">=</span><span class="cn">FALSE</span>}</span>
+<span id="cb130-403"><a href="#cb130-403" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="at">help =</span> packageName)</span>
+<span id="cb130-404"><a href="#cb130-404" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-405"><a href="#cb130-405" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-406"><a href="#cb130-406" aria-hidden="true" tabindex="-1"></a><span class="at">On CRAN there often *vignettes* that are an overview and describe usage of a package if you click on a specific package. The *reference manual* is just a single document with the help files for all of the objects/functions in a package. That may be helpful, but often it's hard to get the big picture view from that.</span></span>
+<span id="cb130-407"><a href="#cb130-407" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-408"><a href="#cb130-408" aria-hidden="true" tabindex="-1"></a><span class="at"># Programming syntax</span></span>
+<span id="cb130-409"><a href="#cb130-409" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-410"><a href="#cb130-410" aria-hidden="true" tabindex="-1"></a><span class="at">## Writing functions</span></span>
+<span id="cb130-411"><a href="#cb130-411" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-412"><a href="#cb130-412" aria-hidden="true" tabindex="-1"></a><span class="at">Here's an example of the syntax for writing our own function.</span></span>
+<span id="cb130-413"><a href="#cb130-413" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-414"><a href="#cb130-414" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>{r, <span class="cf">function</span>}</span>
+<span id="cb130-415"><a href="#cb130-415" aria-hidden="true" tabindex="-1"></a>add_constant <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">constant =</span> <span class="dv">0</span>) {</span>
+<span id="cb130-416"><a href="#cb130-416" aria-hidden="true" tabindex="-1"></a>   result <span class="ot">&lt;-</span> x <span class="sc">+</span> constant</span>
+<span id="cb130-417"><a href="#cb130-417" aria-hidden="true" tabindex="-1"></a>   <span class="fu">return</span>(result)</span>
+<span id="cb130-418"><a href="#cb130-418" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb130-419"><a href="#cb130-419" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-420"><a href="#cb130-420" aria-hidden="true" tabindex="-1"></a><span class="fu">add_constant</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">5</span>)</span>
-<span id="cb130-421"><a href="#cb130-421" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-422"><a href="#cb130-422" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-423"><a href="#cb130-423" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-424"><a href="#cb130-424" aria-hidden="true" tabindex="-1"></a><span class="at">::: {.callout-tip title="Question"}</span></span>
-<span id="cb130-425"><a href="#cb130-425" aria-hidden="true" tabindex="-1"></a><span class="at">Notice the lack of checking of the inputs to the function. The function works for vectors and related types of objects (e.g., matrices), but see what happens if you pass a string as the first argument. Where is the error trapped?</span></span>
-<span id="cb130-426"><a href="#cb130-426" aria-hidden="true" tabindex="-1"></a><span class="at">:::</span></span>
-<span id="cb130-427"><a href="#cb130-427" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-428"><a href="#cb130-428" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-429"><a href="#cb130-429" aria-hidden="true" tabindex="-1"></a><span class="at">## Function arguments</span></span>
+<span id="cb130-420"><a href="#cb130-420" aria-hidden="true" tabindex="-1"></a><span class="fu">add_constant</span>(<span class="dv">7</span>)</span>
+<span id="cb130-421"><a href="#cb130-421" aria-hidden="true" tabindex="-1"></a><span class="fu">add_constant</span>(<span class="dv">7</span>, <span class="dv">5</span>)</span>
+<span id="cb130-422"><a href="#cb130-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-423"><a href="#cb130-423" aria-hidden="true" tabindex="-1"></a><span class="fu">add_constant</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">5</span>)</span>
+<span id="cb130-424"><a href="#cb130-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-425"><a href="#cb130-425" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-426"><a href="#cb130-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-427"><a href="#cb130-427" aria-hidden="true" tabindex="-1"></a><span class="at">::: {.callout-tip title="Question"}</span></span>
+<span id="cb130-428"><a href="#cb130-428" aria-hidden="true" tabindex="-1"></a><span class="at">Notice the lack of checking of the inputs to the function. The function works for vectors and related types of objects (e.g., matrices), but see what happens if you pass a string as the first argument. Where is the error trapped?</span></span>
+<span id="cb130-429"><a href="#cb130-429" aria-hidden="true" tabindex="-1"></a><span class="at">:::</span></span>
 <span id="cb130-430"><a href="#cb130-430" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-431"><a href="#cb130-431" aria-hidden="true" tabindex="-1"></a><span class="at">R can match arguments by name (when provided) or by position (the fall-back). It</span></span>
-<span id="cb130-432"><a href="#cb130-432" aria-hidden="true" tabindex="-1"></a><span class="at">also allows one to specify default values so that the user doesn't have to</span></span>
-<span id="cb130-433"><a href="#cb130-433" aria-hidden="true" tabindex="-1"></a><span class="at">explicitly provide all the arguments.</span></span>
-<span id="cb130-434"><a href="#cb130-434" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-435"><a href="#cb130-435" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>{r, fun<span class="sc">-</span>args0}</span>
-<span id="cb130-436"><a href="#cb130-436" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">100</span>)</span>
-<span id="cb130-437"><a href="#cb130-437" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">100</span>, <span class="at">base =</span> <span class="dv">10</span>)</span>
-<span id="cb130-438"><a href="#cb130-438" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">100</span>, <span class="dv">10</span>)</span>
-<span id="cb130-439"><a href="#cb130-439" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="at">base =</span> <span class="dv">10</span>, <span class="dv">100</span>)  <span class="co"># This is a bit unusual and wouldn't work in Python.</span></span>
-<span id="cb130-440"><a href="#cb130-440" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="at">base =</span> <span class="dv">10</span>, <span class="at">x =</span> <span class="dv">100</span>)</span>
-<span id="cb130-441"><a href="#cb130-441" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-442"><a href="#cb130-442" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-443"><a href="#cb130-443" aria-hidden="true" tabindex="-1"></a><span class="at">## Branching (if-then-else syntax)</span></span>
-<span id="cb130-444"><a href="#cb130-444" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-445"><a href="#cb130-445" aria-hidden="true" tabindex="-1"></a><span class="at">Often we need our code to do different things depending on whether some condition is true or false.</span></span>
-<span id="cb130-446"><a href="#cb130-446" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-447"><a href="#cb130-447" aria-hidden="true" tabindex="-1"></a><span class="at">Here's a simple example to illustrate the syntax. Note that the *then* is</span></span>
-<span id="cb130-448"><a href="#cb130-448" aria-hidden="true" tabindex="-1"></a><span class="at">implicit.</span></span>
+<span id="cb130-431"><a href="#cb130-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-432"><a href="#cb130-432" aria-hidden="true" tabindex="-1"></a><span class="at">## Function arguments</span></span>
+<span id="cb130-433"><a href="#cb130-433" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-434"><a href="#cb130-434" aria-hidden="true" tabindex="-1"></a><span class="at">R can match arguments by name (when provided) or by position (the fall-back). It</span></span>
+<span id="cb130-435"><a href="#cb130-435" aria-hidden="true" tabindex="-1"></a><span class="at">also allows one to specify default values so that the user doesn't have to</span></span>
+<span id="cb130-436"><a href="#cb130-436" aria-hidden="true" tabindex="-1"></a><span class="at">explicitly provide all the arguments.</span></span>
+<span id="cb130-437"><a href="#cb130-437" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-438"><a href="#cb130-438" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>{r, fun<span class="sc">-</span>args0}</span>
+<span id="cb130-439"><a href="#cb130-439" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">100</span>)</span>
+<span id="cb130-440"><a href="#cb130-440" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">100</span>, <span class="at">base =</span> <span class="dv">10</span>)</span>
+<span id="cb130-441"><a href="#cb130-441" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">100</span>, <span class="dv">10</span>)</span>
+<span id="cb130-442"><a href="#cb130-442" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="at">base =</span> <span class="dv">10</span>, <span class="dv">100</span>)  <span class="co"># This is a bit unusual and wouldn't work in Python.</span></span>
+<span id="cb130-443"><a href="#cb130-443" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="at">base =</span> <span class="dv">10</span>, <span class="at">x =</span> <span class="dv">100</span>)</span>
+<span id="cb130-444"><a href="#cb130-444" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-445"><a href="#cb130-445" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-446"><a href="#cb130-446" aria-hidden="true" tabindex="-1"></a><span class="at">## Branching (if-then-else syntax)</span></span>
+<span id="cb130-447"><a href="#cb130-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-448"><a href="#cb130-448" aria-hidden="true" tabindex="-1"></a><span class="at">Often we need our code to do different things depending on whether some condition is true or false.</span></span>
 <span id="cb130-449"><a href="#cb130-449" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-450"><a href="#cb130-450" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>{r, <span class="cf">if</span>}</span>
-<span id="cb130-451"><a href="#cb130-451" aria-hidden="true" tabindex="-1"></a>val <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>)</span>
-<span id="cb130-452"><a href="#cb130-452" aria-hidden="true" tabindex="-1"></a>val</span>
-<span id="cb130-453"><a href="#cb130-453" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (val <span class="sc">&lt;</span> <span class="dv">0</span>) {</span>
-<span id="cb130-454"><a href="#cb130-454" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"val is negative"</span>)</span>
-<span id="cb130-455"><a href="#cb130-455" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb130-456"><a href="#cb130-456" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"val is positive"</span>)</span>
-<span id="cb130-457"><a href="#cb130-457" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb130-458"><a href="#cb130-458" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-459"><a href="#cb130-459" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-460"><a href="#cb130-460" aria-hidden="true" tabindex="-1"></a><span class="at">We can chain together </span><span class="st">`</span>if<span class="st">`</span><span class="at"> statements as follows.</span></span>
-<span id="cb130-461"><a href="#cb130-461" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-462"><a href="#cb130-462" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>{r, <span class="cf">if</span><span class="sc">-</span>chain}</span>
-<span id="cb130-463"><a href="#cb130-463" aria-hidden="true" tabindex="-1"></a>val <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>)</span>
-<span id="cb130-464"><a href="#cb130-464" aria-hidden="true" tabindex="-1"></a>val</span>
-<span id="cb130-465"><a href="#cb130-465" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (val <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">1</span>) {</span>
-<span id="cb130-466"><a href="#cb130-466" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"val is more than one standard deviation below the mean."</span>)</span>
-<span id="cb130-467"><a href="#cb130-467" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">abs</span>(val) <span class="sc">&lt;=</span> <span class="dv">1</span>) {</span>
-<span id="cb130-468"><a href="#cb130-468" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"val is within one standard deviation of the mean."</span>)</span>
-<span id="cb130-469"><a href="#cb130-469" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb130-470"><a href="#cb130-470" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"val is more than one standard deviation above the mean."</span>)</span>
-<span id="cb130-471"><a href="#cb130-471" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb130-472"><a href="#cb130-472" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-473"><a href="#cb130-473" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-474"><a href="#cb130-474" aria-hidden="true" tabindex="-1"></a><span class="at">In general, the </span><span class="st">`</span>{<span class="st">`</span><span class="at"> brackets are only needed if you have multiple R expressions,</span></span>
-<span id="cb130-475"><a href="#cb130-475" aria-hidden="true" tabindex="-1"></a><span class="at">but R will complain when an </span><span class="st">`</span>else<span class="st">`</span><span class="at"> starts a line of code, so generally using the</span></span>
-<span id="cb130-476"><a href="#cb130-476" aria-hidden="true" tabindex="-1"></a><span class="st">`</span>{<span class="st">`</span><span class="at"> is good practice. That said, this works fine:</span></span>
-<span id="cb130-477"><a href="#cb130-477" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-478"><a href="#cb130-478" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>{r, <span class="cf">if</span><span class="sc">-</span>oneline}</span>
-<span id="cb130-479"><a href="#cb130-479" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (val <span class="sc">&lt;</span> <span class="dv">0</span>) <span class="fu">print</span>(<span class="st">"val is negative"</span>) <span class="cf">else</span> <span class="fu">print</span>(<span class="st">"val is positive"</span>)</span>
-<span id="cb130-480"><a href="#cb130-480" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-481"><a href="#cb130-481" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-482"><a href="#cb130-482" aria-hidden="true" tabindex="-1"></a><span class="at">## Loops</span></span>
-<span id="cb130-483"><a href="#cb130-483" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-484"><a href="#cb130-484" aria-hidden="true" tabindex="-1"></a><span class="at">In many languages, looping (for loops, while loops, etc.) is one of the main</span></span>
-<span id="cb130-485"><a href="#cb130-485" aria-hidden="true" tabindex="-1"></a><span class="at">constructs used to carry out computation. Loops are not emphasized as much in R,</span></span>
-<span id="cb130-486"><a href="#cb130-486" aria-hidden="true" tabindex="-1"></a><span class="at">both because they can be slow and because other syntax (vectorized calls, lapply, etc.) is often cleaner, as we'll see in a later module.</span></span>
-<span id="cb130-487"><a href="#cb130-487" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-488"><a href="#cb130-488" aria-hidden="true" tabindex="-1"></a><span class="at">But there are lots of times when using a loop does make sense.</span></span>
-<span id="cb130-489"><a href="#cb130-489" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-490"><a href="#cb130-490" aria-hidden="true" tabindex="-1"></a><span class="at">Most of you are probably familiar at least with the basic idea of iterating</span></span>
-<span id="cb130-491"><a href="#cb130-491" aria-hidden="true" tabindex="-1"></a><span class="at">through a series of steps. A **for** loop iterates through a pre-determined number</span></span>
-<span id="cb130-492"><a href="#cb130-492" aria-hidden="true" tabindex="-1"></a><span class="at">of iterations, while a **while** loop iterates until some condition is met. For</span></span>
-<span id="cb130-493"><a href="#cb130-493" aria-hidden="true" tabindex="-1"></a><span class="at">loops are more common in R, but while loops can be handy particularly for things</span></span>
-<span id="cb130-494"><a href="#cb130-494" aria-hidden="true" tabindex="-1"></a><span class="at">like optimization.</span></span>
-<span id="cb130-495"><a href="#cb130-495" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-496"><a href="#cb130-496" aria-hidden="true" tabindex="-1"></a><span class="at">Here's some example syntax.</span></span>
-<span id="cb130-497"><a href="#cb130-497" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-498"><a href="#cb130-498" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>{r, <span class="cf">for</span><span class="sc">-</span>example}</span>
-<span id="cb130-499"><a href="#cb130-499" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">50</span>)</span>
-<span id="cb130-500"><a href="#cb130-500" aria-hidden="true" tabindex="-1"></a>cnt_neg <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb130-501"><a href="#cb130-501" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_along</span>(x)) {</span>
-<span id="cb130-502"><a href="#cb130-502" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(x[i] <span class="sc">&lt;</span> <span class="dv">0</span>) {</span>
-<span id="cb130-503"><a href="#cb130-503" aria-hidden="true" tabindex="-1"></a>       x[i] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb130-504"><a href="#cb130-504" aria-hidden="true" tabindex="-1"></a>       cnt_neg <span class="ot">&lt;-</span> cnt_neg <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb130-505"><a href="#cb130-505" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb130-506"><a href="#cb130-506" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb130-507"><a href="#cb130-507" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Found "</span>, cnt_neg, <span class="st">" negative values.</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb130-508"><a href="#cb130-508" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-509"><a href="#cb130-509" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-510"><a href="#cb130-510" aria-hidden="true" tabindex="-1"></a><span class="at">That said, the canonical way to do that in R is via vectorized operation:</span></span>
-<span id="cb130-511"><a href="#cb130-511" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-514"><a href="#cb130-514" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb130-515"><a href="#cb130-515" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Found "</span>, <span class="fu">sum</span>(x <span class="sc">&lt;</span> <span class="dv">0</span>), <span class="st">" negative values.</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb130-516"><a href="#cb130-516" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-517"><a href="#cb130-517" aria-hidden="true" tabindex="-1"></a>x[x <span class="sc">&lt;</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb130-518"><a href="#cb130-518" aria-hidden="true" tabindex="-1"></a>x</span>
-<span id="cb130-519"><a href="#cb130-519" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-520"><a href="#cb130-520" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-521"><a href="#cb130-521" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-522"><a href="#cb130-522" aria-hidden="true" tabindex="-1"></a><span class="at">## While loop</span></span>
+<span id="cb130-450"><a href="#cb130-450" aria-hidden="true" tabindex="-1"></a><span class="at">Here's a simple example to illustrate the syntax. Note that the *then* is</span></span>
+<span id="cb130-451"><a href="#cb130-451" aria-hidden="true" tabindex="-1"></a><span class="at">implicit.</span></span>
+<span id="cb130-452"><a href="#cb130-452" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-453"><a href="#cb130-453" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>{r, <span class="cf">if</span>}</span>
+<span id="cb130-454"><a href="#cb130-454" aria-hidden="true" tabindex="-1"></a>val <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>)</span>
+<span id="cb130-455"><a href="#cb130-455" aria-hidden="true" tabindex="-1"></a>val</span>
+<span id="cb130-456"><a href="#cb130-456" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (val <span class="sc">&lt;</span> <span class="dv">0</span>) {</span>
+<span id="cb130-457"><a href="#cb130-457" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"val is negative"</span>)</span>
+<span id="cb130-458"><a href="#cb130-458" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb130-459"><a href="#cb130-459" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"val is positive"</span>)</span>
+<span id="cb130-460"><a href="#cb130-460" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb130-461"><a href="#cb130-461" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-462"><a href="#cb130-462" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-463"><a href="#cb130-463" aria-hidden="true" tabindex="-1"></a><span class="at">We can chain together </span><span class="st">`</span>if<span class="st">`</span><span class="at"> statements as follows.</span></span>
+<span id="cb130-464"><a href="#cb130-464" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-465"><a href="#cb130-465" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>{r, <span class="cf">if</span><span class="sc">-</span>chain}</span>
+<span id="cb130-466"><a href="#cb130-466" aria-hidden="true" tabindex="-1"></a>val <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>)</span>
+<span id="cb130-467"><a href="#cb130-467" aria-hidden="true" tabindex="-1"></a>val</span>
+<span id="cb130-468"><a href="#cb130-468" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (val <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">1</span>) {</span>
+<span id="cb130-469"><a href="#cb130-469" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"val is more than one standard deviation below the mean."</span>)</span>
+<span id="cb130-470"><a href="#cb130-470" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">abs</span>(val) <span class="sc">&lt;=</span> <span class="dv">1</span>) {</span>
+<span id="cb130-471"><a href="#cb130-471" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"val is within one standard deviation of the mean."</span>)</span>
+<span id="cb130-472"><a href="#cb130-472" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb130-473"><a href="#cb130-473" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"val is more than one standard deviation above the mean."</span>)</span>
+<span id="cb130-474"><a href="#cb130-474" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb130-475"><a href="#cb130-475" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-476"><a href="#cb130-476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-477"><a href="#cb130-477" aria-hidden="true" tabindex="-1"></a><span class="at">In general, the </span><span class="st">`</span>{<span class="st">`</span><span class="at"> brackets are only needed if you have multiple R expressions,</span></span>
+<span id="cb130-478"><a href="#cb130-478" aria-hidden="true" tabindex="-1"></a><span class="at">but R will complain when an </span><span class="st">`</span>else<span class="st">`</span><span class="at"> starts a line of code, so generally using the</span></span>
+<span id="cb130-479"><a href="#cb130-479" aria-hidden="true" tabindex="-1"></a><span class="st">`</span>{<span class="st">`</span><span class="at"> is good practice. That said, this works fine:</span></span>
+<span id="cb130-480"><a href="#cb130-480" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-481"><a href="#cb130-481" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>{r, <span class="cf">if</span><span class="sc">-</span>oneline}</span>
+<span id="cb130-482"><a href="#cb130-482" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (val <span class="sc">&lt;</span> <span class="dv">0</span>) <span class="fu">print</span>(<span class="st">"val is negative"</span>) <span class="cf">else</span> <span class="fu">print</span>(<span class="st">"val is positive"</span>)</span>
+<span id="cb130-483"><a href="#cb130-483" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-484"><a href="#cb130-484" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-485"><a href="#cb130-485" aria-hidden="true" tabindex="-1"></a><span class="at">## Loops</span></span>
+<span id="cb130-486"><a href="#cb130-486" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-487"><a href="#cb130-487" aria-hidden="true" tabindex="-1"></a><span class="at">In many languages, looping (for loops, while loops, etc.) is one of the main</span></span>
+<span id="cb130-488"><a href="#cb130-488" aria-hidden="true" tabindex="-1"></a><span class="at">constructs used to carry out computation. Loops are not emphasized as much in R,</span></span>
+<span id="cb130-489"><a href="#cb130-489" aria-hidden="true" tabindex="-1"></a><span class="at">both because they can be slow and because other syntax (vectorized calls, lapply, etc.) is often cleaner, as we'll see in a later module.</span></span>
+<span id="cb130-490"><a href="#cb130-490" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-491"><a href="#cb130-491" aria-hidden="true" tabindex="-1"></a><span class="at">But there are lots of times when using a loop does make sense.</span></span>
+<span id="cb130-492"><a href="#cb130-492" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-493"><a href="#cb130-493" aria-hidden="true" tabindex="-1"></a><span class="at">Most of you are probably familiar at least with the basic idea of iterating</span></span>
+<span id="cb130-494"><a href="#cb130-494" aria-hidden="true" tabindex="-1"></a><span class="at">through a series of steps. A **for** loop iterates through a pre-determined number</span></span>
+<span id="cb130-495"><a href="#cb130-495" aria-hidden="true" tabindex="-1"></a><span class="at">of iterations, while a **while** loop iterates until some condition is met. For</span></span>
+<span id="cb130-496"><a href="#cb130-496" aria-hidden="true" tabindex="-1"></a><span class="at">loops are more common in R, but while loops can be handy particularly for things</span></span>
+<span id="cb130-497"><a href="#cb130-497" aria-hidden="true" tabindex="-1"></a><span class="at">like optimization.</span></span>
+<span id="cb130-498"><a href="#cb130-498" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-499"><a href="#cb130-499" aria-hidden="true" tabindex="-1"></a><span class="at">Here's some example syntax.</span></span>
+<span id="cb130-500"><a href="#cb130-500" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-501"><a href="#cb130-501" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>{r, <span class="cf">for</span><span class="sc">-</span>example}</span>
+<span id="cb130-502"><a href="#cb130-502" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">50</span>)</span>
+<span id="cb130-503"><a href="#cb130-503" aria-hidden="true" tabindex="-1"></a>cnt_neg <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb130-504"><a href="#cb130-504" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_along</span>(x)) {</span>
+<span id="cb130-505"><a href="#cb130-505" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(x[i] <span class="sc">&lt;</span> <span class="dv">0</span>) {</span>
+<span id="cb130-506"><a href="#cb130-506" aria-hidden="true" tabindex="-1"></a>       x[i] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb130-507"><a href="#cb130-507" aria-hidden="true" tabindex="-1"></a>       cnt_neg <span class="ot">&lt;-</span> cnt_neg <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb130-508"><a href="#cb130-508" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb130-509"><a href="#cb130-509" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb130-510"><a href="#cb130-510" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Found "</span>, cnt_neg, <span class="st">" negative values.</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb130-511"><a href="#cb130-511" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-512"><a href="#cb130-512" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-513"><a href="#cb130-513" aria-hidden="true" tabindex="-1"></a><span class="at">That said, the canonical way to do that in R is via vectorized operation:</span></span>
+<span id="cb130-514"><a href="#cb130-514" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-517"><a href="#cb130-517" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb130-518"><a href="#cb130-518" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Found "</span>, <span class="fu">sum</span>(x <span class="sc">&lt;</span> <span class="dv">0</span>), <span class="st">" negative values.</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb130-519"><a href="#cb130-519" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-520"><a href="#cb130-520" aria-hidden="true" tabindex="-1"></a>x[x <span class="sc">&lt;</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb130-521"><a href="#cb130-521" aria-hidden="true" tabindex="-1"></a>x</span>
+<span id="cb130-522"><a href="#cb130-522" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
 <span id="cb130-523"><a href="#cb130-523" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-524"><a href="#cb130-524" aria-hidden="true" tabindex="-1"></a><span class="at">It's not a particularly interesting example, here's the </span><span class="st">`</span>while<span class="st">`</span><span class="at"> loop syntax:</span></span>
-<span id="cb130-525"><a href="#cb130-525" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-526"><a href="#cb130-526" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>{r, <span class="cf">while</span>}</span>
-<span id="cb130-527"><a href="#cb130-527" aria-hidden="true" tabindex="-1"></a>vals <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
-<span id="cb130-528"><a href="#cb130-528" aria-hidden="true" tabindex="-1"></a>found <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
-<span id="cb130-529"><a href="#cb130-529" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb130-530"><a href="#cb130-530" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span>(<span class="sc">!</span>found <span class="sc">&amp;&amp;</span> i <span class="sc">&lt;=</span> <span class="fu">length</span>(vals)) {</span>
-<span id="cb130-531"><a href="#cb130-531" aria-hidden="true" tabindex="-1"></a>     <span class="cf">if</span>(vals[i] <span class="sc">&gt;</span> <span class="dv">2</span>) {</span>
-<span id="cb130-532"><a href="#cb130-532" aria-hidden="true" tabindex="-1"></a>       <span class="fu">print</span>(vals[i])</span>
-<span id="cb130-533"><a href="#cb130-533" aria-hidden="true" tabindex="-1"></a>       found <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
-<span id="cb130-534"><a href="#cb130-534" aria-hidden="true" tabindex="-1"></a>     }</span>
-<span id="cb130-535"><a href="#cb130-535" aria-hidden="true" tabindex="-1"></a>     i <span class="ot">&lt;-</span> i<span class="sc">+</span><span class="dv">1</span></span>
-<span id="cb130-536"><a href="#cb130-536" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb130-537"><a href="#cb130-537" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb130-538"><a href="#cb130-538" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-539"><a href="#cb130-539" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-540"><a href="#cb130-540" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-541"><a href="#cb130-541" aria-hidden="true" tabindex="-1"></a><span class="at"># Breakout</span></span>
+<span id="cb130-524"><a href="#cb130-524" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-525"><a href="#cb130-525" aria-hidden="true" tabindex="-1"></a><span class="at">## While loop</span></span>
+<span id="cb130-526"><a href="#cb130-526" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-527"><a href="#cb130-527" aria-hidden="true" tabindex="-1"></a><span class="at">It's not a particularly interesting example, here's the </span><span class="st">`</span>while<span class="st">`</span><span class="at"> loop syntax:</span></span>
+<span id="cb130-528"><a href="#cb130-528" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-529"><a href="#cb130-529" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>{r, <span class="cf">while</span>}</span>
+<span id="cb130-530"><a href="#cb130-530" aria-hidden="true" tabindex="-1"></a>vals <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb130-531"><a href="#cb130-531" aria-hidden="true" tabindex="-1"></a>found <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb130-532"><a href="#cb130-532" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb130-533"><a href="#cb130-533" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span>(<span class="sc">!</span>found <span class="sc">&amp;&amp;</span> i <span class="sc">&lt;=</span> <span class="fu">length</span>(vals)) {</span>
+<span id="cb130-534"><a href="#cb130-534" aria-hidden="true" tabindex="-1"></a>     <span class="cf">if</span>(vals[i] <span class="sc">&gt;</span> <span class="dv">2</span>) {</span>
+<span id="cb130-535"><a href="#cb130-535" aria-hidden="true" tabindex="-1"></a>       <span class="fu">print</span>(vals[i])</span>
+<span id="cb130-536"><a href="#cb130-536" aria-hidden="true" tabindex="-1"></a>       found <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb130-537"><a href="#cb130-537" aria-hidden="true" tabindex="-1"></a>     }</span>
+<span id="cb130-538"><a href="#cb130-538" aria-hidden="true" tabindex="-1"></a>     i <span class="ot">&lt;-</span> i<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb130-539"><a href="#cb130-539" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb130-540"><a href="#cb130-540" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb130-541"><a href="#cb130-541" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb130-542"><a href="#cb130-542" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-543"><a href="#cb130-543" aria-hidden="true" tabindex="-1"></a><span class="at">Here are some questions to get some practice with the syntax.</span></span>
-<span id="cb130-544"><a href="#cb130-544" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-545"><a href="#cb130-545" aria-hidden="true" tabindex="-1"></a><span class="at">1) Create a variable called </span><span class="st">`</span>x<span class="st">`</span><span class="at"> that contains the mean of 100 random uniform numbers.</span></span>
-<span id="cb130-546"><a href="#cb130-546" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-547"><a href="#cb130-547" aria-hidden="true" tabindex="-1"></a><span class="at">   ::: {.callout-tip title="Answer" collapse="true"}</span></span>
-<span id="cb130-548"><a href="#cb130-548" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-549"><a href="#cb130-549" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="st">```</span>{r}</span>
-<span id="cb130-550"><a href="#cb130-550" aria-hidden="true" tabindex="-1"></a>   n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb130-551"><a href="#cb130-551" aria-hidden="true" tabindex="-1"></a>   x <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">runif</span>(n))</span>
-<span id="cb130-552"><a href="#cb130-552" aria-hidden="true" tabindex="-1"></a>   <span class="st">```</span></span>
-<span id="cb130-553"><a href="#cb130-553" aria-hidden="true" tabindex="-1"></a><span class="at">   :::</span></span>
-<span id="cb130-554"><a href="#cb130-554" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-555"><a href="#cb130-555" aria-hidden="true" tabindex="-1"></a><span class="at">2) Use functions in R to round pi to two decimal places and to two significant digits.</span></span>
-<span id="cb130-556"><a href="#cb130-556" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-557"><a href="#cb130-557" aria-hidden="true" tabindex="-1"></a><span class="at">   ::: {.callout-tip title="Answer" collapse="true"}</span></span>
-<span id="cb130-558"><a href="#cb130-558" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-559"><a href="#cb130-559" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="st">```</span>{r}</span>
-<span id="cb130-560"><a href="#cb130-560" aria-hidden="true" tabindex="-1"></a>   <span class="fu">round</span>(pi, <span class="at">digits =</span> <span class="dv">2</span>)</span>
-<span id="cb130-561"><a href="#cb130-561" aria-hidden="true" tabindex="-1"></a>   <span class="fu">signif</span>(pi, <span class="at">digits =</span> <span class="dv">2</span>)</span>
-<span id="cb130-562"><a href="#cb130-562" aria-hidden="true" tabindex="-1"></a>   <span class="st">```</span></span>
-<span id="cb130-563"><a href="#cb130-563" aria-hidden="true" tabindex="-1"></a><span class="at">   :::</span></span>
-<span id="cb130-564"><a href="#cb130-564" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-565"><a href="#cb130-565" aria-hidden="true" tabindex="-1"></a><span class="at">3) Make sure you are able to install packages from CRAN. E.g., try to install </span><span class="st">`</span>gapminder<span class="st">`</span><span class="at">.</span></span>
-<span id="cb130-566"><a href="#cb130-566" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-567"><a href="#cb130-567" aria-hidden="true" tabindex="-1"></a><span class="at">4) Figure out what your current working directory is.</span></span>
-<span id="cb130-568"><a href="#cb130-568" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-569"><a href="#cb130-569" aria-hidden="true" tabindex="-1"></a><span class="at">   ::: {.callout-tip title="Answer" collapse="true"}</span></span>
-<span id="cb130-570"><a href="#cb130-570" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-571"><a href="#cb130-571" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="st">```</span>{r}</span>
-<span id="cb130-572"><a href="#cb130-572" aria-hidden="true" tabindex="-1"></a>   <span class="fu">getwd</span>()</span>
-<span id="cb130-573"><a href="#cb130-573" aria-hidden="true" tabindex="-1"></a>   <span class="st">```</span></span>
-<span id="cb130-574"><a href="#cb130-574" aria-hidden="true" tabindex="-1"></a><span class="at">   :::</span></span>
-<span id="cb130-575"><a href="#cb130-575" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-576"><a href="#cb130-576" aria-hidden="true" tabindex="-1"></a><span class="at">5) Put the </span><span class="st">`</span>data<span class="sc">/</span>cpds.csv<span class="st">`</span><span class="at"> file in some other directory on your computer, such as </span><span class="st">`</span>Downloads<span class="st">`</span><span class="at">. Use </span><span class="st">`</span><span class="fu">setwd</span>()<span class="st">`</span><span class="at"> to set your working directory to be that directory. Read the file in using </span><span class="st">`</span><span class="fu">read.csv</span>()<span class="st">`</span><span class="at"> (it will create a data structure called a data frame).  Now use </span><span class="st">`</span><span class="fu">setwd</span>()<span class="st">`</span><span class="at"> to point to a different directory such as </span><span class="st">`</span>Desktop<span class="st">`</span><span class="at">. Write the object (the data frame) out to a file using </span><span class="st">`</span>write.csv<span class="st">`</span><span class="at"> (you'll probably need to look at the help information). You may also want to experiment with figuring out how to write it out without any row names and without quotes on the character strings.</span></span>
-<span id="cb130-577"><a href="#cb130-577" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-578"><a href="#cb130-578" aria-hidden="true" tabindex="-1"></a><span class="at">6) Write an R function that will take an input vector and set any negative values in the vector to zero.</span></span>
-<span id="cb130-579"><a href="#cb130-579" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-580"><a href="#cb130-580" aria-hidden="true" tabindex="-1"></a><span class="at">   ::: {.callout-tip title="Answer" collapse="true"}</span></span>
-<span id="cb130-581"><a href="#cb130-581" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-582"><a href="#cb130-582" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="st">```</span>{r}</span>
-<span id="cb130-583"><a href="#cb130-583" aria-hidden="true" tabindex="-1"></a>   trunc_neg <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb130-584"><a href="#cb130-584" aria-hidden="true" tabindex="-1"></a>      x[x <span class="sc">&lt;</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb130-585"><a href="#cb130-585" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(x)</span>
-<span id="cb130-586"><a href="#cb130-586" aria-hidden="true" tabindex="-1"></a>   }</span>
-<span id="cb130-587"><a href="#cb130-587" aria-hidden="true" tabindex="-1"></a>   <span class="st">```</span></span>
-<span id="cb130-588"><a href="#cb130-588" aria-hidden="true" tabindex="-1"></a><span class="at">   :::</span></span>
-<span id="cb130-589"><a href="#cb130-589" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-590"><a href="#cb130-590" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-591"><a href="#cb130-591" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-543"><a href="#cb130-543" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-544"><a href="#cb130-544" aria-hidden="true" tabindex="-1"></a><span class="at"># Breakout</span></span>
+<span id="cb130-545"><a href="#cb130-545" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-546"><a href="#cb130-546" aria-hidden="true" tabindex="-1"></a><span class="at">Here are some questions to get some practice with the syntax.</span></span>
+<span id="cb130-547"><a href="#cb130-547" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-548"><a href="#cb130-548" aria-hidden="true" tabindex="-1"></a><span class="at">1) Create a variable called </span><span class="st">`</span>x<span class="st">`</span><span class="at"> that contains the mean of 100 random uniform numbers.</span></span>
+<span id="cb130-549"><a href="#cb130-549" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-550"><a href="#cb130-550" aria-hidden="true" tabindex="-1"></a><span class="at">   ::: {.callout-tip title="Answer" collapse="true"}</span></span>
+<span id="cb130-551"><a href="#cb130-551" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-552"><a href="#cb130-552" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="st">```</span>{r}</span>
+<span id="cb130-553"><a href="#cb130-553" aria-hidden="true" tabindex="-1"></a>   n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb130-554"><a href="#cb130-554" aria-hidden="true" tabindex="-1"></a>   x <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">runif</span>(n))</span>
+<span id="cb130-555"><a href="#cb130-555" aria-hidden="true" tabindex="-1"></a>   <span class="st">```</span></span>
+<span id="cb130-556"><a href="#cb130-556" aria-hidden="true" tabindex="-1"></a><span class="at">   :::</span></span>
+<span id="cb130-557"><a href="#cb130-557" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-558"><a href="#cb130-558" aria-hidden="true" tabindex="-1"></a><span class="at">2) Use functions in R to round pi to two decimal places and to two significant digits.</span></span>
+<span id="cb130-559"><a href="#cb130-559" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-560"><a href="#cb130-560" aria-hidden="true" tabindex="-1"></a><span class="at">   ::: {.callout-tip title="Answer" collapse="true"}</span></span>
+<span id="cb130-561"><a href="#cb130-561" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-562"><a href="#cb130-562" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="st">```</span>{r}</span>
+<span id="cb130-563"><a href="#cb130-563" aria-hidden="true" tabindex="-1"></a>   <span class="fu">round</span>(pi, <span class="at">digits =</span> <span class="dv">2</span>)</span>
+<span id="cb130-564"><a href="#cb130-564" aria-hidden="true" tabindex="-1"></a>   <span class="fu">signif</span>(pi, <span class="at">digits =</span> <span class="dv">2</span>)</span>
+<span id="cb130-565"><a href="#cb130-565" aria-hidden="true" tabindex="-1"></a>   <span class="st">```</span></span>
+<span id="cb130-566"><a href="#cb130-566" aria-hidden="true" tabindex="-1"></a><span class="at">   :::</span></span>
+<span id="cb130-567"><a href="#cb130-567" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-568"><a href="#cb130-568" aria-hidden="true" tabindex="-1"></a><span class="at">3) Make sure you are able to install packages from CRAN. E.g., try to install </span><span class="st">`</span>gapminder<span class="st">`</span><span class="at">.</span></span>
+<span id="cb130-569"><a href="#cb130-569" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-570"><a href="#cb130-570" aria-hidden="true" tabindex="-1"></a><span class="at">4) Figure out what your current working directory is.</span></span>
+<span id="cb130-571"><a href="#cb130-571" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-572"><a href="#cb130-572" aria-hidden="true" tabindex="-1"></a><span class="at">   ::: {.callout-tip title="Answer" collapse="true"}</span></span>
+<span id="cb130-573"><a href="#cb130-573" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-574"><a href="#cb130-574" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="st">```</span>{r}</span>
+<span id="cb130-575"><a href="#cb130-575" aria-hidden="true" tabindex="-1"></a>   <span class="fu">getwd</span>()</span>
+<span id="cb130-576"><a href="#cb130-576" aria-hidden="true" tabindex="-1"></a>   <span class="st">```</span></span>
+<span id="cb130-577"><a href="#cb130-577" aria-hidden="true" tabindex="-1"></a><span class="at">   :::</span></span>
+<span id="cb130-578"><a href="#cb130-578" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-579"><a href="#cb130-579" aria-hidden="true" tabindex="-1"></a><span class="at">5) Put the </span><span class="st">`</span>data<span class="sc">/</span>cpds.csv<span class="st">`</span><span class="at"> file in some other directory on your computer, such as </span><span class="st">`</span>Downloads<span class="st">`</span><span class="at">. Use </span><span class="st">`</span><span class="fu">setwd</span>()<span class="st">`</span><span class="at"> to set your working directory to be that directory. Read the file in using </span><span class="st">`</span><span class="fu">read.csv</span>()<span class="st">`</span><span class="at"> (it will create a data structure called a data frame).  Now use </span><span class="st">`</span><span class="fu">setwd</span>()<span class="st">`</span><span class="at"> to point to a different directory such as </span><span class="st">`</span>Desktop<span class="st">`</span><span class="at">. Write the object (the data frame) out to a file using </span><span class="st">`</span>write.csv<span class="st">`</span><span class="at"> (you'll probably need to look at the help information). You may also want to experiment with figuring out how to write it out without any row names and without quotes on the character strings.</span></span>
+<span id="cb130-580"><a href="#cb130-580" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-581"><a href="#cb130-581" aria-hidden="true" tabindex="-1"></a><span class="at">6) Write an R function that will take an input vector and set any negative values in the vector to zero.</span></span>
+<span id="cb130-582"><a href="#cb130-582" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-583"><a href="#cb130-583" aria-hidden="true" tabindex="-1"></a><span class="at">   ::: {.callout-tip title="Answer" collapse="true"}</span></span>
+<span id="cb130-584"><a href="#cb130-584" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-585"><a href="#cb130-585" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="st">```</span>{r}</span>
+<span id="cb130-586"><a href="#cb130-586" aria-hidden="true" tabindex="-1"></a>   trunc_neg <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb130-587"><a href="#cb130-587" aria-hidden="true" tabindex="-1"></a>      x[x <span class="sc">&lt;</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb130-588"><a href="#cb130-588" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(x)</span>
+<span id="cb130-589"><a href="#cb130-589" aria-hidden="true" tabindex="-1"></a>   }</span>
+<span id="cb130-590"><a href="#cb130-590" aria-hidden="true" tabindex="-1"></a>   <span class="st">```</span></span>
+<span id="cb130-591"><a href="#cb130-591" aria-hidden="true" tabindex="-1"></a><span class="at">   :::</span></span>
+<span id="cb130-592"><a href="#cb130-592" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-593"><a href="#cb130-593" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-594"><a href="#cb130-594" aria-hidden="true" tabindex="-1"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
