@@ -130,3 +130,120 @@ nm <- paste(gapminder$continent, gapminder$country, gapminder$year, sep = "-")
 attributes(gapminder)$row.names <- nm
 head(gapminder)
 ```
+
+# Unit 2: Calculations and Efficiency
+
+
+## Basics
+
+1) Create a vector of GDP per capita in units of Euros rather than dollars.
+
+```{r}
+#| eval: false
+EurosPerDollar <- 1.1  
+gdpPercap_euro <- gapminder$gdpPercap * EurosPerDollar
+c(gdpPercap_euro[1], gapminder$gdpPercap[1])
+```
+
+2) Create a vector that concatenates the country and year to create a 'country-year' variable in a vectorized way using the string processing functions.
+
+```{r}
+#| eval: false
+gapminder$country_year <- paste(gapminder$country, gapminder$year, sep = "-")
+```
+
+3) Use `table()` to figure out the number of countries available for each continent.
+
+```{r}
+#| eval: false
+table(gapminder2007$continent)
+```
+
+## Using the ideas
+
+4) Explain the steps of what this code is doing: `tmp <- gapminder[ , -which(names(gapminder) == "continent")]`.
+
+```{r}
+#| eval: false
+tmp <- gapminder[ , -which(names(gapminder) == "continent")]
+
+# column names
+names(gapminder)
+# logical indicating which = 'continent'
+names(gapminder) == "continent"
+# index of the continent column
+which(names(gapminder) == "continent")
+# exclude that column
+gapminder[ , -which(names(gapminder) == "continent")] 
+```
+
+5) Compute the number of NAs in each column of the gapminder dataset using `sapply()` and making use of the `is.na()` function. It's possible to do this without writing a function.
+
+```{r}
+#| eval: false
+sapply(gapminder, function(x) sum(is.na(x)))
+
+## or without writing a function
+colSums(sapply(gapminder, is.na))
+```
+
+6)  Suppose we have two categorical variables and we conduct a hypothesis test of independence. The chi-square statistic is: 
+
+$$
+\chi^2 = \sum_{i=1}^{n}\sum_{j=1}^{m} \frac{(y_{ij} - e_{ij})^2}{e_{ij}}, 
+$$ 
+
+where $e_{ij} = \frac{y_{i\cdot} y_{\cdot j}}{y_{\cdot \cdot}}$, with $y_{i\cdot}$ the sum of the values in the i'th row, $y_{\cdot j}$ the sum of values in the j'th column, and $y_{\cdot\cdot}$ the sum of all the values. Suppose I give you a matrix in R with the $y_{ij}$ values. 
+
+You can generate a test matrix as: 
+```{r, eval=FALSE}
+y <- matrix(sample(1:10, 12, replace = TRUE), 
+nrow = 3, ncol = 4)
+```
+
+Compute the statistic without *any* loops as follows:
+
+  - First, assume you have the *e* matrix. How do you compute the statistic without loops as a function of `y` and `e`?
+  - How can you construct the *e* matrix? Hint: the numerator of *e* is just an *outer product* for which the `outer()` function can be used.
+
+```{r}
+#| eval: false
+y <- matrix(sample(1:10, 12, replace = TRUE), 
+nrow = 3, ncol = 4)
+
+yidot <- rowSums(y)
+ydotj <- colSums(y)
+e <- outer(yidot, ydotj) / sum(y)
+
+chi2 <- sum( (y - e)^2 / e)
+# chi2 <- sum(colSums( (y-e)^2 / e ))
+```
+
+## Advanced 
+
+7) Here's a cool trick using `sapply` to pull off a particular element of a list of lists:
+
+```{r}
+params <- list(a = list(mn = 7, sd = 3), b = list(mn = 6,sd = 1), 
+  c = list(mn = 2, sd = 1))
+  
+sapply(params, "[[", 1)
+```
+
+Explain what that does and why it works.
+
+Hint:
+```{r}
+test <- list(5, 7, 3)
+test[[2]]
+# `[[`(test, 2)  # need it commented or R Markdown processing messes it up...
+
+# `+`(3, 7)
+```
+
+```{r}
+#| eval: false
+params[[1]][[1]]  # Same as:  `[[`(params[[1]], 1)
+params[[2]][[1]]  # Same as:  `[[`(params[[3]], 1)
+params[[3]][[1]]  # Same as:  `[[`(params[[3]], 1)
+# etc.

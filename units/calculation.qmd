@@ -85,7 +85,7 @@ Advantages:
 * easier to code
 * easier to read and understand the code
 
-Vectorized code is generally fast because the underlying loop is executed in compiled C code rather than by the R interpreter.
+Vectorized code is generally fast because the underlying loop is executed in compiled C code rather than by the R interpreter (more on this [later](#whenwhy-are-loops-in-r-slow).
 
 We've already seen that lots of functions (and operators) in R are vectorized (i.e., they can take a single value or a vector as an input argument).
 
@@ -147,7 +147,7 @@ attributes(mat) <- NULL
 mat
 is.matrix(mat)
 ```
-This is like Fortran, MATLAB and Julia but not like C or Python(numpy). 
+This is like Fortran, MATLAB and Julia but not like C or (at least by default) Python (numpy). 
 :::
 
 ## Linear algebra 
@@ -162,11 +162,13 @@ The BLAS that comes with R is fairly slow. It's possible to use a [faster BLAS, 
 Here are some examples of common matrix decompositions: Cholesky decomposition, eigenvalues/eigenvectors, and SVD. These all use BLAS+LAPACK.
 
 ```{r cache=TRUE}
-## next 3 lines generate a positive definite matrix
-library(fields)
+## Next 3 lines generate a positive definite matrix.
+library(fields, warn.conflicts = FALSE, quietly = TRUE, verbose = FALSE)
 times <- seq(0, 1, length = 100)
 R <- exp(-rdist(times) / 0.2) # a correlation matrix
 ######################################################
+
+## Some standard linear algebra operations:
 e <- eigen(R)
 range(e$values)
 e$vectors[ , 1]
@@ -196,7 +198,7 @@ for(i in 1:n)
 The same holds for using `rbind()`, `cbind()`, or adding to a list, one element at a time.
 
 
-**Question**: Thoughts on why this are so slow? Think about what R might be doing behind the scenes in terms of storage in memory.
+**Question**: Thoughts on why this is so slow? Think about what R might be doing behind the scenes in terms of storage in memory.
 
 **Note**: This is one area where Python and some other languages handle the situation in a more sophisticated way.
 
@@ -272,13 +274,13 @@ out
 
 Which of these give exactly this result: `pi`, `2*pi`, `3*pi`, ...?
 
-1) (1:n)*pi
-2) out <- rep(0, n); for(x in 1:n) out <- x*pi
-3) sapply(1:n, function(x) x*pi)
-4) out <- rep(0, n); for(x in 1:n) out[i] <- x*pi
-5) lapply(1:n, function(x) x*pi)
-6) sapply(1:n, "*", pi)
-7) 1:n*pi
+1) `(1:n)*pi`
+2) `out <- rep(0, n); for(x in 1:n) out <- x*pi`
+3) `sapply(1:n, function(x) x*pi)`
+4) `out <- rep(0, n); for(x in 1:n) out[i] <- x*pi`
+5) `lapply(1:n, function(x) x*pi)`
+6) `sapply(1:n, "*", pi)`
+7) `1:n*pi`
 :::
 
 ## When/why are loops in R slow?
@@ -293,7 +295,11 @@ x <- 'hi'
 x*7
 ```
 ￼
-Because of dynamic typing, when the interpreter sees `x*7` it needs to check if `x` is something that can be multiplied by 7, including dealing with the fact that `x` could be a vector with many numbers in it. In addition it needs to (using scoping rules) look up the value of `x`. (Consider that `x` might not even exist at the point that `x*7` is called.) Only then can the multiplication happen.
+Because of dynamic typing, when the interpreter sees `x*7` it needs to:
+
+ - (using scoping rules) look up the value of `x`. (Consider that `x` might not even exist at the point that `x*7` is called.)
+ - check if `x` is something that can be multiplied by 7 (including dealing with the fact that `x` could be a vector with many numbers in it).
+ - only then can the multiplication happen.
 
 Let’s consider writing a loop:
 
@@ -306,7 +312,7 @@ for(i in 1:10) {
 }  
 ```
 ￼
-Because of the dynamic typing and lack of compilation, the interpreter needs to check if x exists, if it is a vector of sufficient length, if it contains numeric values, and it needs to go retrieve the required value, EVERY TIME the `exp()` is executed.
+Because of dynamic typing and lack of compilation, the interpreter needs to check if `x` exists, if it is a vector of sufficient length, if it contains numeric values, and it needs to go retrieve the required value, EVERY TIME the `exp()` is executed.
 
 The R interpreter is a C program, so in some sense everything that happens is running as compiled code, but there are lots more things being done to accomplish a given task using interpreted code than if the task had been written directly in code that is compiled. By analogy, consider talking directly to a person in a language you both know compared to talking to a person via an interpreter who has to translate between two languages. Ultimately, the same information gets communicated (hopefully!) but the number of words spoken and time involved is much greater.
 
@@ -440,7 +446,7 @@ Internally R manages this by keeping track of how many variables (references) th
 
 # Breakout
 
-### Basics
+## Basics
 
 1) Create a vector of GDP per capita in units of Euros rather than dollars.
 
@@ -448,7 +454,7 @@ Internally R manages this by keeping track of how many variables (references) th
 
 3) Use `table()` to figure out the number of countries available for each continent.
 
-### Using the ideas
+## Using the ideas
 
 4) Explain the steps of what this code is doing: `tmp <- gapminder[ , -which(names(gapminder) == "continent")]`.
 
@@ -456,40 +462,41 @@ Internally R manages this by keeping track of how many variables (references) th
 
 6)  Suppose we have two categorical variables and we conduct a hypothesis test of independence. The chi-square statistic is: 
 
-$$
-\chi^2 = \sum_{i=1}^{n}\sum_{j=1}^{m} \frac{(y_{ij} - e_{ij})^2}{e_{ij}}, 
-$$ 
+   $$
+   \chi^2 = \sum_{i=1}^{n}\sum_{j=1}^{m} \frac{(y_{ij} - e_{ij})^2}{e_{ij}}, 
+   $$ 
 
-where $e_{ij} = \frac{y_{i\cdot} y_{\cdot j}}{y_{\cdot \cdot}}$, with $y_{i\cdot}$ the sum of the values in the i'th row, $y_{\cdot j}$ the sum of values in the j'th column, and $y_{\cdot\cdot}$ the sum of all the values. Suppose I give you a matrix in R with the $y_{ij}$ values. 
+   where $e_{ij} = \frac{y_{i\cdot} y_{\cdot j}}{y_{\cdot \cdot}}$, with $y_{i\cdot}$ the sum of the values in the i'th row, $y_{\cdot j}$ the sum of values in the j'th column, and $y_{\cdot\cdot}$ the sum of all the values. Suppose I give you a matrix in R with the $y_{ij}$ values. 
 
-You can generate a test matrix as: 
-```{r, eval=FALSE}
-y <- matrix(sample(1:10, 12, replace = TRUE), 
-nrow = 3, ncol = 4)
-```
+   You can generate a test matrix as: 
+   ```{r, eval=FALSE}
+   y <- matrix(sample(1:10, 12, replace = TRUE), 
+   nrow = 3, ncol = 4)
+   ```
 
-Compute the statistic without *any* loops as follows:
+   Compute the statistic without *any* loops as follows:
 
-  - First, assume you have the *e* matrix. How do you compute the statistic without loops as a function of `y` and `e`?
-  - How can you construct the *e* matrix? Hint: the numerator of *e* is just an *outer product* for which the `outer()` function can be used.
+     - First, assume you have the *e* matrix. How do you compute the statistic without loops as a function of `y` and `e`?
+     - How can you construct the *e* matrix? Hint: the numerator of *e* is just an *outer product* for which the `outer()` function can be used.
 
-### Advanced 
+## Advanced 
 
-7) Here's a cool trick to pull off a particular element of a list of lists:
+7) Here's a cool trick using `sapply` to pull off a particular element of a list of lists:
 
-```{r}
-params <- list(a = list(mn = 7, sd = 3), b = list(mn = 6,sd = 1), 
-  c = list(mn = 2, sd = 1))
-sapply(params, "[[", 1)
-```
+   ```{r}
+   params <- list(a = list(mn = 7, sd = 3), b = list(mn = 6,sd = 1), 
+   c = list(mn = 2, sd = 1))
+   
+   sapply(params, "[[", 1)
+   ```
 
-Explain what that does and why it works.
+   Explain what that does and why it works.
 
-Hint:
-```{r}
-test <- list(5, 7, 3)
-test[[2]]
-# `[[`(test, 2)  # need it commented or R Markdown processing messes it up...
+   Hint:
+   ```{r}
+   test <- list(5, 7, 3)
+   test[[2]]
+   # `[[`(test, 2)  # need it commented or R Markdown processing messes it up...
 
-# `+`(3, 7)
-```
+   # `+`(3, 7)
+   ```
