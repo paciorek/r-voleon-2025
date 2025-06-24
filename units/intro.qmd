@@ -45,10 +45,11 @@ log(100, base = 10)
 5e9 * 1e3
 ```
 
-::: {.callout-tip title="Question"}
+::: {.callout-tip title="Notebook Mode"}
 
 By default, RStudio shows output of code chunks in the code window pane (a notebook-style approach similar to Jupyter notebooks). To turn this off, go to `Tools -> Global Options`, select the `R Markdown` left tab and unclick "Show output inline for all R Markdown documents".
 
+:::
 
 ::: {.callout-tip title="Question"}
 

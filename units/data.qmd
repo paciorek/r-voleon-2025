@@ -184,6 +184,7 @@ letters[3:4] <- c("d","c")
 letters[1:5]
 letters[2:4] <- "β" # Recycling
 letters[1:5]
+rm(letters)  # Remove the modified object in our workspace.
 ```
 
 The last substitution uses "recycling" to match the left-hand-side extent (3 elements) with the right-hand-side extent (1 element).
@@ -488,6 +489,7 @@ gapminder[wealthy, ]
 What happened in the last subsetting operation?
 
 ### 3) by a vector of names
+
 ```{r}
 mat[c('a', 'd', 'a'), ]
 ```
