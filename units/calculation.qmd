@@ -468,7 +468,8 @@ Internally R manages this by keeping track of how many variables (references) th
 
    where $e_{ij} = \frac{y_{i\cdot} y_{\cdot j}}{y_{\cdot \cdot}}$, with $y_{i\cdot}$ the sum of the values in the i'th row, $y_{\cdot j}$ the sum of values in the j'th column, and $y_{\cdot\cdot}$ the sum of all the values. Suppose I give you a matrix in R with the $y_{ij}$ values. 
 
-   You can generate a test matrix as: 
+   You can generate a test matrix as:
+   
    ```{r, eval=FALSE}
    y <- matrix(sample(1:10, 12, replace = TRUE), 
    nrow = 3, ncol = 4)
