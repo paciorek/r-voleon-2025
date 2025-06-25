@@ -64,7 +64,17 @@
     "href": "units/solutions.html#advanced-1",
     "title": "Solutions",
     "section": "Advanced",
-    "text": "Advanced\n\nHere’s a cool trick using sapply to pull off a particular element of a list of lists:\n\n\nparams &lt;- list(a = list(mn = 7, sd = 3), b = list(mn = 6,sd = 1), \n  c = list(mn = 2, sd = 1))\n  \nsapply(params, \"[[\", 1)\n\na b c \n7 6 2 \n\n\nExplain what that does and why it works.\nHint:\n\ntest &lt;- list(5, 7, 3)\ntest[[2]]\n\n[1] 7\n\n# `[[`(test, 2)  # need it commented or R Markdown processing messes it up...\n\n# `+`(3, 7)\n\n\nparams[[1]][[1]]  # Same as:  `[[`(params[[1]], 1)\nparams[[2]][[1]]  # Same as:  `[[`(params[[3]], 1)\nparams[[3]][[1]]  # Same as:  `[[`(params[[3]], 1)\n# etc.\n\n# Unit 3: Programming Concepts and Tools\n\n## Basics\n\n1) Write an R function that will take an input vector and set any negative\nvalues in the vector to zero.\n\n\ntruncate &lt;- function(x) {\n   x[x &lt; 0] &lt;- 0\n   return(x)\n}",
+    "text": "Advanced\n\nHere’s a cool trick using sapply to pull off a particular element of a list of lists:\n\n\nparams &lt;- list(a = list(mn = 7, sd = 3), b = list(mn = 6,sd = 1), \n  c = list(mn = 2, sd = 1))\n  \nsapply(params, \"[[\", 1)\n\na b c \n7 6 2 \n\n\nExplain what that does and why it works.\nHint:\n\ntest &lt;- list(5, 7, 3)\ntest[[2]]\n\n[1] 7\n\n# `[[`(test, 2)  # need it commented or R Markdown processing messes it up...\n\n# `+`(3, 7)\n\n\nparams[[1]][[1]]  # Same as:  `[[`(params[[1]], 1)\nparams[[2]][[1]]  # Same as:  `[[`(params[[3]], 1)\nparams[[3]][[1]]  # Same as:  `[[`(params[[3]], 1)\n# etc.",
+    "crumbs": [
+      "Breakout solutions"
+    ]
+  },
+  {
+    "objectID": "units/solutions.html#basics-2",
+    "href": "units/solutions.html#basics-2",
+    "title": "Solutions",
+    "section": "Basics",
+    "text": "Basics\n\nWrite an R function that will take an input vector and set any negative values in the vector to zero.\n\n\ntruncate &lt;- function(x) {\n   x[x &lt; 0] &lt;- 0\n   return(x)\n}",
     "crumbs": [
       "Breakout solutions"
     ]
@@ -104,7 +114,7 @@
     "href": "units/solutions.html#tidyr",
     "title": "Solutions",
     "section": "tidyr",
-    "text": "tidyr\n\nSubset the results from question #3 to select only the country, year, and gdpPercap_diff columns. Use tidyr put it in wide format so that countries are rows and years are columns.\n\nHint: you’ll probably see a message about a missing grouping variable. If you don’t want continent included, you can pass the output of problem 3 through ungroup() to get rid of the continent information.\n::: {.cell}\n## First, redo question 3 code, without arranging by gdp,\n## as that would mess up the order of the columns in the 'wide' result.\ngapminder_rel_gdp &lt;- gapminder %&gt;%\ngroup_by(continent, year) %&gt;%\nmutate(gdpPercap_diff = gdpPercap - mean(gdpPercap))\n\n## Now convert to wide format.\ngapminder_wider &lt;- gapminder_rel_gdp %&gt;% \nselect(country, year, gdpPercap_diff) %&gt;%\npivot_wider(names_from = year, values_from = gdpPercap_diff) \n:::",
+    "text": "tidyr\n\nSubset the results from question #3 to select only the country, year, and gdpPercap_diff columns. Use tidyr put it in wide format so that countries are rows and years are columns.\nHint: you’ll probably see a message about a missing grouping variable. If you don’t want continent included, you can pass the output of problem 3 through ungroup() to get rid of the continent information.\n\n## First, redo question 3 code, without arranging by gdp,\n## as that would mess up the order of the columns in the 'wide' result.\ngapminder_rel_gdp &lt;- gapminder %&gt;%\ngroup_by(continent, year) %&gt;%\nmutate(gdpPercap_diff = gdpPercap - mean(gdpPercap))\n\n## Now convert to wide format.\ngapminder_wider &lt;- gapminder_rel_gdp %&gt;% \nselect(country, year, gdpPercap_diff) %&gt;%\npivot_wider(names_from = year, values_from = gdpPercap_diff)",
     "crumbs": [
       "Breakout solutions"
     ]

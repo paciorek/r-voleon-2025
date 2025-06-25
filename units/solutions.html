@@ -269,6 +269,10 @@ window.Quarto = {
   <li><a href="#basics-1" id="toc-basics-1" class="nav-link" data-scroll-target="#basics-1">Basics</a></li>
   <li><a href="#using-the-ideas-1" id="toc-using-the-ideas-1" class="nav-link" data-scroll-target="#using-the-ideas-1">Using the ideas</a></li>
   <li><a href="#advanced-1" id="toc-advanced-1" class="nav-link" data-scroll-target="#advanced-1">Advanced</a></li>
+  </ul></li>
+  <li><a href="#unit-3-programming-concepts-and-tools" id="toc-unit-3-programming-concepts-and-tools" class="nav-link" data-scroll-target="#unit-3-programming-concepts-and-tools">Unit 3: Programming Concepts and Tools</a>
+  <ul class="collapse">
+  <li><a href="#basics-2" id="toc-basics-2" class="nav-link" data-scroll-target="#basics-2">Basics</a></li>
   <li><a href="#using-the-ideas-2" id="toc-using-the-ideas-2" class="nav-link" data-scroll-target="#using-the-ideas-2">Using the ideas</a></li>
   <li><a href="#advanced-2" id="toc-advanced-2" class="nav-link" data-scroll-target="#advanced-2">Advanced</a></li>
   </ul></li>
@@ -514,15 +518,17 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>params[[<span class="dv">1</span>]][[<span class="dv">1</span>]]  <span class="co"># Same as:  `[[`(params[[1]], 1)</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>params[[<span class="dv">2</span>]][[<span class="dv">1</span>]]  <span class="co"># Same as:  `[[`(params[[3]], 1)</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>params[[<span class="dv">3</span>]][[<span class="dv">1</span>]]  <span class="co"># Same as:  `[[`(params[[3]], 1)</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># etc.</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Unit 3: Programming Concepts and Tools</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Basics</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="er">)</span> Write an R <span class="cf">function</span> that will take an input vector and set any negative</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>values <span class="cf">in</span> the vector to zero.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># etc.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+</section>
+<section id="unit-3-programming-concepts-and-tools" class="level1">
+<h1>Unit 3: Programming Concepts and Tools</h1>
+<section id="basics-2" class="level2">
+<h2 class="anchored" data-anchor-id="basics-2">Basics</h2>
+<ol type="1">
+<li>Write an R function that will take an input vector and set any negative values in the vector to zero.</li>
+</ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>truncate <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>   x[x <span class="sc">&lt;</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
@@ -634,10 +640,9 @@ window.Quarto = {
 <section id="tidyr" class="level2">
 <h2 class="anchored" data-anchor-id="tidyr"><code>tidyr</code></h2>
 <ol start="4" type="1">
-<li>Subset the results from question #3 to select only the <code>country</code>, <code>year</code>, and <code>gdpPercap_diff</code> columns. Use tidyr put it in wide format so that countries are rows and years are columns.</li>
-</ol>
+<li><p>Subset the results from question #3 to select only the <code>country</code>, <code>year</code>, and <code>gdpPercap_diff</code> columns. Use tidyr put it in wide format so that countries are rows and years are columns.</p>
 <p>Hint: you’ll probably see a message about a missing grouping variable. If you don’t want continent included, you can pass the output of problem 3 through <code>ungroup()</code> to get rid of the continent information.</p>
-<p>::: {.cell}</p>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="do">## First, redo question 3 code, without arranging by gdp,</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="do">## as that would mess up the order of the columns in the 'wide' result.</span></span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>gapminder_rel_gdp <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
@@ -648,7 +653,8 @@ window.Quarto = {
 <span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>gapminder_wider <span class="ot">&lt;-</span> gapminder_rel_gdp <span class="sc">%&gt;%</span> </span>
 <span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(country, year, gdpPercap_diff) <span class="sc">%&gt;%</span></span>
 <span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_wider</span>(<span class="at">names_from =</span> year, <span class="at">values_from =</span> gdpPercap_diff) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>:::</p>
+</div></li>
+</ol>
 </section>
 <section id="data.table" class="level2">
 <h2 class="anchored" data-anchor-id="data.table"><code>data.table</code></h2>
@@ -1321,7 +1327,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb41-223"><a href="#cb41-223" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">sapply</span>(gapminder, is.na))</span>
 <span id="cb41-224"><a href="#cb41-224" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb41-225"><a href="#cb41-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-226"><a href="#cb41-226" aria-hidden="true" tabindex="-1"></a>6)  Suppose we have two categorical variables and we conduct a hypothesis test of independence. The chi-square statistic is: </span>
+<span id="cb41-226"><a href="#cb41-226" aria-hidden="true" tabindex="-1"></a>6) Suppose we have two categorical variables and we conduct a hypothesis test of independence. The chi-square statistic is: </span>
 <span id="cb41-227"><a href="#cb41-227" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-228"><a href="#cb41-228" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb41-229"><a href="#cb41-229" aria-hidden="true" tabindex="-1"></a>\chi^2 = \sum_{i=1}^{n}\sum_{j=1}^{m} \frac{(y_{ij} - e_{ij})^2}{e_{ij}}, </span>
@@ -1381,156 +1387,157 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb41-291"><a href="#cb41-291" aria-hidden="true" tabindex="-1"></a>params[[<span class="dv">2</span>]][[<span class="dv">1</span>]]  <span class="co"># Same as:  `[[`(params[[3]], 1)</span></span>
 <span id="cb41-292"><a href="#cb41-292" aria-hidden="true" tabindex="-1"></a>params[[<span class="dv">3</span>]][[<span class="dv">1</span>]]  <span class="co"># Same as:  `[[`(params[[3]], 1)</span></span>
 <span id="cb41-293"><a href="#cb41-293" aria-hidden="true" tabindex="-1"></a><span class="co"># etc.</span></span>
-<span id="cb41-294"><a href="#cb41-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-295"><a href="#cb41-295" aria-hidden="true" tabindex="-1"></a><span class="co"># Unit 3: Programming Concepts and Tools</span></span>
-<span id="cb41-296"><a href="#cb41-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-297"><a href="#cb41-297" aria-hidden="true" tabindex="-1"></a><span class="do">## Basics</span></span>
-<span id="cb41-298"><a href="#cb41-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-299"><a href="#cb41-299" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="er">)</span> Write an R <span class="cf">function</span> that will take an input vector and set any negative</span>
-<span id="cb41-300"><a href="#cb41-300" aria-hidden="true" tabindex="-1"></a>values <span class="cf">in</span> the vector to zero.</span>
-<span id="cb41-301"><a href="#cb41-301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-304"><a href="#cb41-304" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-305"><a href="#cb41-305" aria-hidden="true" tabindex="-1"></a><span class="at">#| eval: false</span></span>
-<span id="cb41-306"><a href="#cb41-306" aria-hidden="true" tabindex="-1"></a><span class="at">truncate &lt;- function(x) {</span></span>
-<span id="cb41-307"><a href="#cb41-307" aria-hidden="true" tabindex="-1"></a><span class="at">   x[x &lt; 0] &lt;- 0</span></span>
-<span id="cb41-308"><a href="#cb41-308" aria-hidden="true" tabindex="-1"></a><span class="at">   return(x)</span></span>
-<span id="cb41-309"><a href="#cb41-309" aria-hidden="true" tabindex="-1"></a><span class="at">}</span></span>
-<span id="cb41-310"><a href="#cb41-310" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>  </span>
-<span id="cb41-311"><a href="#cb41-311" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-312"><a href="#cb41-312" aria-hidden="true" tabindex="-1"></a><span class="do">## Using the ideas</span></span>
-<span id="cb41-313"><a href="#cb41-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-314"><a href="#cb41-314" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="er">)</span> Write an R <span class="cf">function</span> that will take an input vector and set any value below a</span>
-<span id="cb41-315"><a href="#cb41-315" aria-hidden="true" tabindex="-1"></a>threshold to be the value of threshold. Optionally, the <span class="cf">function</span> should instead</span>
-<span id="cb41-316"><a href="#cb41-316" aria-hidden="true" tabindex="-1"></a>set values above a threshold to the value of the threshold.</span>
-<span id="cb41-317"><a href="#cb41-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-320"><a href="#cb41-320" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-321"><a href="#cb41-321" aria-hidden="true" tabindex="-1"></a><span class="at">#| eval: false</span></span>
-<span id="cb41-322"><a href="#cb41-322" aria-hidden="true" tabindex="-1"></a><span class="at">truncate &lt;- function(x, thresh = 0, below = TRUE) {</span></span>
-<span id="cb41-323"><a href="#cb41-323" aria-hidden="true" tabindex="-1"></a><span class="at">   if(below) {</span></span>
-<span id="cb41-324"><a href="#cb41-324" aria-hidden="true" tabindex="-1"></a><span class="at">      x[x &lt; thresh] &lt;- thresh</span></span>
-<span id="cb41-325"><a href="#cb41-325" aria-hidden="true" tabindex="-1"></a><span class="at">   } else x[x &gt; thresh] &lt;- thresh</span></span>
-<span id="cb41-326"><a href="#cb41-326" aria-hidden="true" tabindex="-1"></a><span class="at">   return(x)</span></span>
-<span id="cb41-327"><a href="#cb41-327" aria-hidden="true" tabindex="-1"></a><span class="at">}</span></span>
-<span id="cb41-328"><a href="#cb41-328" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>  </span>
-<span id="cb41-329"><a href="#cb41-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-294"><a href="#cb41-294" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb41-295"><a href="#cb41-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-296"><a href="#cb41-296" aria-hidden="true" tabindex="-1"></a><span class="fu"># Unit 3: Programming Concepts and Tools</span></span>
+<span id="cb41-297"><a href="#cb41-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-298"><a href="#cb41-298" aria-hidden="true" tabindex="-1"></a><span class="fu">## Basics</span></span>
+<span id="cb41-299"><a href="#cb41-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-300"><a href="#cb41-300" aria-hidden="true" tabindex="-1"></a>1) Write an R function that will take an input vector and set any negative</span>
+<span id="cb41-301"><a href="#cb41-301" aria-hidden="true" tabindex="-1"></a>values in the vector to zero.</span>
+<span id="cb41-302"><a href="#cb41-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-305"><a href="#cb41-305" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-306"><a href="#cb41-306" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb41-307"><a href="#cb41-307" aria-hidden="true" tabindex="-1"></a>truncate <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb41-308"><a href="#cb41-308" aria-hidden="true" tabindex="-1"></a>   x[x <span class="sc">&lt;</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb41-309"><a href="#cb41-309" aria-hidden="true" tabindex="-1"></a>   <span class="fu">return</span>(x)</span>
+<span id="cb41-310"><a href="#cb41-310" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb41-311"><a href="#cb41-311" aria-hidden="true" tabindex="-1"></a><span class="in">```</span>  </span>
+<span id="cb41-312"><a href="#cb41-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-313"><a href="#cb41-313" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using the ideas</span></span>
+<span id="cb41-314"><a href="#cb41-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-315"><a href="#cb41-315" aria-hidden="true" tabindex="-1"></a>2) Write an R function that will take an input vector and set any value below a</span>
+<span id="cb41-316"><a href="#cb41-316" aria-hidden="true" tabindex="-1"></a>threshold to be the value of threshold. Optionally, the function should instead</span>
+<span id="cb41-317"><a href="#cb41-317" aria-hidden="true" tabindex="-1"></a>set values above a threshold to the value of the threshold.</span>
+<span id="cb41-318"><a href="#cb41-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-321"><a href="#cb41-321" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-322"><a href="#cb41-322" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb41-323"><a href="#cb41-323" aria-hidden="true" tabindex="-1"></a>truncate <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">thresh =</span> <span class="dv">0</span>, <span class="at">below =</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb41-324"><a href="#cb41-324" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span>(below) {</span>
+<span id="cb41-325"><a href="#cb41-325" aria-hidden="true" tabindex="-1"></a>      x[x <span class="sc">&lt;</span> thresh] <span class="ot">&lt;-</span> thresh</span>
+<span id="cb41-326"><a href="#cb41-326" aria-hidden="true" tabindex="-1"></a>   } <span class="cf">else</span> x[x <span class="sc">&gt;</span> thresh] <span class="ot">&lt;-</span> thresh</span>
+<span id="cb41-327"><a href="#cb41-327" aria-hidden="true" tabindex="-1"></a>   <span class="fu">return</span>(x)</span>
+<span id="cb41-328"><a href="#cb41-328" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb41-329"><a href="#cb41-329" aria-hidden="true" tabindex="-1"></a><span class="in">```</span>  </span>
 <span id="cb41-330"><a href="#cb41-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-331"><a href="#cb41-331" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="er">)</span> Augment your <span class="cf">function</span> so that it checks that the input is a numeric vector</span>
-<span id="cb41-332"><a href="#cb41-332" aria-hidden="true" tabindex="-1"></a>and return an error <span class="cf">if</span> <span class="fu">not.</span> (See the help information <span class="cf">for</span> <span class="st">`</span><span class="at">stop()</span><span class="st">`</span> (or <span class="st">`</span><span class="at">stopifnot()</span><span class="st">`</span>.)</span>
-<span id="cb41-333"><a href="#cb41-333" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-336"><a href="#cb41-336" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-337"><a href="#cb41-337" aria-hidden="true" tabindex="-1"></a><span class="at">#| eval: false</span></span>
-<span id="cb41-338"><a href="#cb41-338" aria-hidden="true" tabindex="-1"></a><span class="at">truncate &lt;- function(x, thresh = 0, below = TRUE) {</span></span>
-<span id="cb41-339"><a href="#cb41-339" aria-hidden="true" tabindex="-1"></a><span class="at">   if(!is.numeric(x)) </span></span>
-<span id="cb41-340"><a href="#cb41-340" aria-hidden="true" tabindex="-1"></a><span class="at">      stop("</span><span class="st">`</span>x<span class="st">`</span><span class="at"> must be a numeric vector")</span></span>
-<span id="cb41-341"><a href="#cb41-341" aria-hidden="true" tabindex="-1"></a><span class="at">   if(below) {</span></span>
-<span id="cb41-342"><a href="#cb41-342" aria-hidden="true" tabindex="-1"></a><span class="at">      x[x &lt; thresh] &lt;- thresh</span></span>
-<span id="cb41-343"><a href="#cb41-343" aria-hidden="true" tabindex="-1"></a><span class="at">   } else x[x &gt; thresh] &lt;- thresh</span></span>
-<span id="cb41-344"><a href="#cb41-344" aria-hidden="true" tabindex="-1"></a><span class="at">   return(x)</span></span>
-<span id="cb41-345"><a href="#cb41-345" aria-hidden="true" tabindex="-1"></a><span class="at">}</span></span>
-<span id="cb41-346"><a href="#cb41-346" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>  </span>
-<span id="cb41-347"><a href="#cb41-347" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-331"><a href="#cb41-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-332"><a href="#cb41-332" aria-hidden="true" tabindex="-1"></a>3) Augment your function so that it checks that the input is a numeric vector</span>
+<span id="cb41-333"><a href="#cb41-333" aria-hidden="true" tabindex="-1"></a>and return an error if not. (See the help information for <span class="in">`stop()`</span> (or <span class="in">`stopifnot()`</span>.)</span>
+<span id="cb41-334"><a href="#cb41-334" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-337"><a href="#cb41-337" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-338"><a href="#cb41-338" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb41-339"><a href="#cb41-339" aria-hidden="true" tabindex="-1"></a>truncate <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">thresh =</span> <span class="dv">0</span>, <span class="at">below =</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb41-340"><a href="#cb41-340" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.numeric</span>(x)) </span>
+<span id="cb41-341"><a href="#cb41-341" aria-hidden="true" tabindex="-1"></a>      <span class="fu">stop</span>(<span class="st">"`x` must be a numeric vector"</span>)</span>
+<span id="cb41-342"><a href="#cb41-342" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span>(below) {</span>
+<span id="cb41-343"><a href="#cb41-343" aria-hidden="true" tabindex="-1"></a>      x[x <span class="sc">&lt;</span> thresh] <span class="ot">&lt;-</span> thresh</span>
+<span id="cb41-344"><a href="#cb41-344" aria-hidden="true" tabindex="-1"></a>   } <span class="cf">else</span> x[x <span class="sc">&gt;</span> thresh] <span class="ot">&lt;-</span> thresh</span>
+<span id="cb41-345"><a href="#cb41-345" aria-hidden="true" tabindex="-1"></a>   <span class="fu">return</span>(x)</span>
+<span id="cb41-346"><a href="#cb41-346" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb41-347"><a href="#cb41-347" aria-hidden="true" tabindex="-1"></a><span class="in">```</span>  </span>
 <span id="cb41-348"><a href="#cb41-348" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-349"><a href="#cb41-349" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>) Figure out what <span class="st">`</span><span class="at">invisible()</span><span class="st">`</span> does and why it is useful when writing</span>
-<span id="cb41-350"><a href="#cb41-350" aria-hidden="true" tabindex="-1"></a>functions. Use <span class="st">`</span><span class="at">invisible()</span><span class="st">`</span> <span class="cf">in</span> your <span class="cf">function</span> from just above.</span>
-<span id="cb41-351"><a href="#cb41-351" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-354"><a href="#cb41-354" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-355"><a href="#cb41-355" aria-hidden="true" tabindex="-1"></a><span class="at">#| eval: false</span></span>
-<span id="cb41-356"><a href="#cb41-356" aria-hidden="true" tabindex="-1"></a><span class="at">truncate &lt;- function(x, thresh = 0, below = TRUE) {</span></span>
-<span id="cb41-357"><a href="#cb41-357" aria-hidden="true" tabindex="-1"></a><span class="at">   if(!inherits(x, 'numeric'))</span></span>
-<span id="cb41-358"><a href="#cb41-358" aria-hidden="true" tabindex="-1"></a><span class="at">      stop("</span><span class="st">`</span>x<span class="st">`</span><span class="at"> must be a numeric vector")</span></span>
-<span id="cb41-359"><a href="#cb41-359" aria-hidden="true" tabindex="-1"></a><span class="at">   if(below) {</span></span>
-<span id="cb41-360"><a href="#cb41-360" aria-hidden="true" tabindex="-1"></a><span class="at">      x[x &lt; thresh] &lt;- thresh</span></span>
-<span id="cb41-361"><a href="#cb41-361" aria-hidden="true" tabindex="-1"></a><span class="at">   } else x[x &gt; thresh] &lt;- thresh</span></span>
-<span id="cb41-362"><a href="#cb41-362" aria-hidden="true" tabindex="-1"></a><span class="at">   invisible(x)</span></span>
-<span id="cb41-363"><a href="#cb41-363" aria-hidden="true" tabindex="-1"></a><span class="at">}</span></span>
-<span id="cb41-364"><a href="#cb41-364" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-365"><a href="#cb41-365" aria-hidden="true" tabindex="-1"></a><span class="at">x &lt;- rnorm(20)</span></span>
-<span id="cb41-366"><a href="#cb41-366" aria-hidden="true" tabindex="-1"></a><span class="at">truncate(x)   # No output!</span></span>
-<span id="cb41-367"><a href="#cb41-367" aria-hidden="true" tabindex="-1"></a><span class="st">```</span>  </span>
-<span id="cb41-368"><a href="#cb41-368" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-349"><a href="#cb41-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-350"><a href="#cb41-350" aria-hidden="true" tabindex="-1"></a>4) Figure out what <span class="in">`invisible()`</span> does and why it is useful when writing</span>
+<span id="cb41-351"><a href="#cb41-351" aria-hidden="true" tabindex="-1"></a>functions. Use <span class="in">`invisible()`</span> in your function from just above.</span>
+<span id="cb41-352"><a href="#cb41-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-355"><a href="#cb41-355" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-356"><a href="#cb41-356" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb41-357"><a href="#cb41-357" aria-hidden="true" tabindex="-1"></a>truncate <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">thresh =</span> <span class="dv">0</span>, <span class="at">below =</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb41-358"><a href="#cb41-358" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span>(<span class="sc">!</span><span class="fu">inherits</span>(x, <span class="st">'numeric'</span>))</span>
+<span id="cb41-359"><a href="#cb41-359" aria-hidden="true" tabindex="-1"></a>      <span class="fu">stop</span>(<span class="st">"`x` must be a numeric vector"</span>)</span>
+<span id="cb41-360"><a href="#cb41-360" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span>(below) {</span>
+<span id="cb41-361"><a href="#cb41-361" aria-hidden="true" tabindex="-1"></a>      x[x <span class="sc">&lt;</span> thresh] <span class="ot">&lt;-</span> thresh</span>
+<span id="cb41-362"><a href="#cb41-362" aria-hidden="true" tabindex="-1"></a>   } <span class="cf">else</span> x[x <span class="sc">&gt;</span> thresh] <span class="ot">&lt;-</span> thresh</span>
+<span id="cb41-363"><a href="#cb41-363" aria-hidden="true" tabindex="-1"></a>   <span class="fu">invisible</span>(x)</span>
+<span id="cb41-364"><a href="#cb41-364" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb41-365"><a href="#cb41-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-366"><a href="#cb41-366" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">20</span>)</span>
+<span id="cb41-367"><a href="#cb41-367" aria-hidden="true" tabindex="-1"></a><span class="fu">truncate</span>(x)   <span class="co"># No output!</span></span>
+<span id="cb41-368"><a href="#cb41-368" aria-hidden="true" tabindex="-1"></a><span class="in">```</span>  </span>
 <span id="cb41-369"><a href="#cb41-369" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-370"><a href="#cb41-370" aria-hidden="true" tabindex="-1"></a><span class="do">## Advanced</span></span>
-<span id="cb41-371"><a href="#cb41-371" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-372"><a href="#cb41-372" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="er">)</span> Explore scoping <span class="cf">in</span> the following code. Explain why the result is <span class="dv">11</span> and not <span class="fl">3.</span> Note that <span class="st">`</span><span class="at">funGenerator()</span><span class="st">`</span> returns a <span class="cf">function</span> as the return object,</span>
-<span id="cb41-373"><a href="#cb41-373" aria-hidden="true" tabindex="-1"></a>consistent with the idea that functions are objects <span class="cf">in</span> R. This is an example of</span>
-<span id="cb41-374"><a href="#cb41-374" aria-hidden="true" tabindex="-1"></a>what is called a <span class="sc">*</span>closure<span class="sc">*</span> <span class="cf">in</span> R. Basically, the <span class="cf">function</span> contains <span class="fu">object</span>(s)</span>
-<span id="cb41-375"><a href="#cb41-375" aria-hidden="true" tabindex="-1"></a>enclosed with and accessible to the function.</span>
-<span id="cb41-376"><a href="#cb41-376" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-377"><a href="#cb41-377" aria-hidden="true" tabindex="-1"></a>   <span class="st">```</span><span class="at">{r, closure-scoping}</span></span>
-<span id="cb41-378"><a href="#cb41-378" aria-hidden="true" tabindex="-1"></a><span class="at">   funGenerator &lt;- function(x) {</span></span>
-<span id="cb41-379"><a href="#cb41-379" aria-hidden="true" tabindex="-1"></a><span class="at">     x &lt;- 10</span></span>
-<span id="cb41-380"><a href="#cb41-380" aria-hidden="true" tabindex="-1"></a><span class="at">     g &lt;- function(y) {</span></span>
-<span id="cb41-381"><a href="#cb41-381" aria-hidden="true" tabindex="-1"></a><span class="at">       return(x + y)</span></span>
-<span id="cb41-382"><a href="#cb41-382" aria-hidden="true" tabindex="-1"></a><span class="at">     }</span></span>
-<span id="cb41-383"><a href="#cb41-383" aria-hidden="true" tabindex="-1"></a><span class="at">     return(g)</span></span>
-<span id="cb41-384"><a href="#cb41-384" aria-hidden="true" tabindex="-1"></a><span class="at">   }</span></span>
-<span id="cb41-385"><a href="#cb41-385" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-386"><a href="#cb41-386" aria-hidden="true" tabindex="-1"></a><span class="at">   x &lt;- 2</span></span>
-<span id="cb41-387"><a href="#cb41-387" aria-hidden="true" tabindex="-1"></a><span class="at">   f &lt;- funGenerator()</span></span>
-<span id="cb41-388"><a href="#cb41-388" aria-hidden="true" tabindex="-1"></a><span class="at">   f(1)</span></span>
-<span id="cb41-389"><a href="#cb41-389" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-390"><a href="#cb41-390" aria-hidden="true" tabindex="-1"></a><span class="at">   # </span><span class="st">`</span>f<span class="st">`</span><span class="at"> is a copy of </span><span class="st">`</span>g<span class="st">`</span><span class="at">, which was created in the scope of </span><span class="st">`</span>funGenerator<span class="st">`</span><span class="at">, not in the global environment.</span></span>
-<span id="cb41-391"><a href="#cb41-391" aria-hidden="true" tabindex="-1"></a><span class="at">   ls(environment(f))</span></span>
-<span id="cb41-392"><a href="#cb41-392" aria-hidden="true" tabindex="-1"></a><span class="at">   environment(f)$x</span></span>
-<span id="cb41-393"><a href="#cb41-393" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="st">```</span></span>
-<span id="cb41-394"><a href="#cb41-394" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-395"><a href="#cb41-395" aria-hidden="true" tabindex="-1"></a><span class="co"># Unit 4: Data Wrangling</span></span>
-<span id="cb41-396"><a href="#cb41-396" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-397"><a href="#cb41-397" aria-hidden="true" tabindex="-1"></a><span class="do">## `dplyr`</span></span>
-<span id="cb41-398"><a href="#cb41-398" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-399"><a href="#cb41-399" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="er">)</span> Use <span class="st">`</span><span class="at">dplyr</span><span class="st">`</span> to create a data frame containing the median <span class="st">`</span><span class="at">lifeExp</span><span class="st">`</span> <span class="cf">for</span> each continent</span>
-<span id="cb41-400"><a href="#cb41-400" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-401"><a href="#cb41-401" aria-hidden="true" tabindex="-1"></a>   <span class="st">```</span><span class="at">{r}</span></span>
-<span id="cb41-402"><a href="#cb41-402" aria-hidden="true" tabindex="-1"></a><span class="at">   #| eval: false</span></span>
-<span id="cb41-403"><a href="#cb41-403" aria-hidden="true" tabindex="-1"></a><span class="at">   gapminder_median_lifeExp &lt;- gapminder %&gt;%</span></span>
-<span id="cb41-404"><a href="#cb41-404" aria-hidden="true" tabindex="-1"></a><span class="at">   group_by(continent) %&gt;%</span></span>
-<span id="cb41-405"><a href="#cb41-405" aria-hidden="true" tabindex="-1"></a><span class="at">   summarize(med_lifeExp = median(lifeExp))</span></span>
-<span id="cb41-406"><a href="#cb41-406" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="st">```</span></span>
-<span id="cb41-407"><a href="#cb41-407" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-408"><a href="#cb41-408" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="er">)</span> Use <span class="st">`</span><span class="at">dplyr</span><span class="st">`</span> to add a column to the gapminder dataset that contains the total population of the continent of each observation <span class="cf">in</span> a given year. For example, <span class="cf">if</span> the first observation is Afghanistan <span class="cf">in</span> <span class="dv">1952</span>, the new column would contain the population of Asia <span class="cf">in</span> <span class="fl">1952.</span></span>
-<span id="cb41-409"><a href="#cb41-409" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-410"><a href="#cb41-410" aria-hidden="true" tabindex="-1"></a>   <span class="st">```</span><span class="at">{r}</span></span>
-<span id="cb41-411"><a href="#cb41-411" aria-hidden="true" tabindex="-1"></a><span class="at">   #| eval: false</span></span>
-<span id="cb41-412"><a href="#cb41-412" aria-hidden="true" tabindex="-1"></a><span class="at">   gapminder_pop_continent &lt;- gapminder %&gt;%</span></span>
-<span id="cb41-413"><a href="#cb41-413" aria-hidden="true" tabindex="-1"></a><span class="at">   group_by(continent, year) %&gt;%</span></span>
-<span id="cb41-414"><a href="#cb41-414" aria-hidden="true" tabindex="-1"></a><span class="at">   mutate(continent_pop = sum(pop))</span></span>
-<span id="cb41-415"><a href="#cb41-415" aria-hidden="true" tabindex="-1"></a><span class="at">   </span><span class="st">```</span></span>
-<span id="cb41-416"><a href="#cb41-416" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-417"><a href="#cb41-417" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="er">)</span> Use <span class="st">`</span><span class="at">dplyr</span><span class="st">`</span> to add a column called <span class="st">`</span><span class="at">gdpPercap_diff</span><span class="st">`</span> that contains the difference between the observation<span class="st">'s `gdpPercap` and the mean `gdpPercap` of the continent in that year. Arrange the data frame by the column you just created, in descending order (so that the relatively richest country/years are listed first)</span></span>
-<span id="cb41-418"><a href="#cb41-418" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-419"><a href="#cb41-419" aria-hidden="true" tabindex="-1"></a><span class="st">   ```{r}</span></span>
-<span id="cb41-420"><a href="#cb41-420" aria-hidden="true" tabindex="-1"></a><span class="st">   #| eval: false</span></span>
-<span id="cb41-421"><a href="#cb41-421" aria-hidden="true" tabindex="-1"></a><span class="st">   gapminder_rel_gdp &lt;- gapminder %&gt;%</span></span>
-<span id="cb41-422"><a href="#cb41-422" aria-hidden="true" tabindex="-1"></a><span class="st">   group_by(continent, year) %&gt;%</span></span>
-<span id="cb41-423"><a href="#cb41-423" aria-hidden="true" tabindex="-1"></a><span class="st">   mutate(gdpPercap_diff = gdpPercap - mean(gdpPercap)) %&gt;%</span></span>
-<span id="cb41-424"><a href="#cb41-424" aria-hidden="true" tabindex="-1"></a><span class="st">   arrange(desc(gdpPercap_diff))</span></span>
-<span id="cb41-425"><a href="#cb41-425" aria-hidden="true" tabindex="-1"></a><span class="st">   ```</span></span>
-<span id="cb41-426"><a href="#cb41-426" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-427"><a href="#cb41-427" aria-hidden="true" tabindex="-1"></a><span class="st">## `tidyr`</span></span>
-<span id="cb41-428"><a href="#cb41-428" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-429"><a href="#cb41-429" aria-hidden="true" tabindex="-1"></a><span class="st">4) Subset the results from question #3 to select only the `country`, `year`, and `gdpPercap_diff` columns. Use tidyr put it in wide format so that countries are rows and years are columns.</span></span>
-<span id="cb41-430"><a href="#cb41-430" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-431"><a href="#cb41-431" aria-hidden="true" tabindex="-1"></a><span class="st">Hint: you'</span>ll probably see a message about a missing grouping variable. If you don<span class="st">'t want continent included, you can pass the output of problem 3 through `ungroup()` to get rid of the continent information.</span></span>
-<span id="cb41-432"><a href="#cb41-432" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-433"><a href="#cb41-433" aria-hidden="true" tabindex="-1"></a><span class="st">   ```{r}</span></span>
-<span id="cb41-434"><a href="#cb41-434" aria-hidden="true" tabindex="-1"></a><span class="st">   #| eval: false</span></span>
-<span id="cb41-435"><a href="#cb41-435" aria-hidden="true" tabindex="-1"></a><span class="st">   ## First, redo question 3 code, without arranging by gdp,</span></span>
-<span id="cb41-436"><a href="#cb41-436" aria-hidden="true" tabindex="-1"></a><span class="st">   ## as that would mess up the order of the columns in the '</span>wide<span class="st">' result.</span></span>
-<span id="cb41-437"><a href="#cb41-437" aria-hidden="true" tabindex="-1"></a><span class="st">   gapminder_rel_gdp &lt;- gapminder %&gt;%</span></span>
-<span id="cb41-438"><a href="#cb41-438" aria-hidden="true" tabindex="-1"></a><span class="st">   group_by(continent, year) %&gt;%</span></span>
-<span id="cb41-439"><a href="#cb41-439" aria-hidden="true" tabindex="-1"></a><span class="st">   mutate(gdpPercap_diff = gdpPercap - mean(gdpPercap))</span></span>
-<span id="cb41-440"><a href="#cb41-440" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-441"><a href="#cb41-441" aria-hidden="true" tabindex="-1"></a><span class="st">   ## Now convert to wide format.</span></span>
-<span id="cb41-442"><a href="#cb41-442" aria-hidden="true" tabindex="-1"></a><span class="st">   gapminder_wider &lt;- gapminder_rel_gdp %&gt;% </span></span>
-<span id="cb41-443"><a href="#cb41-443" aria-hidden="true" tabindex="-1"></a><span class="st">   select(country, year, gdpPercap_diff) %&gt;%</span></span>
-<span id="cb41-444"><a href="#cb41-444" aria-hidden="true" tabindex="-1"></a><span class="st">   pivot_wider(names_from = year, values_from = gdpPercap_diff) </span></span>
-<span id="cb41-445"><a href="#cb41-445" aria-hidden="true" tabindex="-1"></a><span class="st">   ```</span></span>
-<span id="cb41-446"><a href="#cb41-446" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-447"><a href="#cb41-447" aria-hidden="true" tabindex="-1"></a><span class="st">## `data.table`</span></span>
-<span id="cb41-448"><a href="#cb41-448" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-449"><a href="#cb41-449" aria-hidden="true" tabindex="-1"></a><span class="st">5) Compare timing of some operations on the airline dataset when using `dtplyr` with `lazy_air` versus directly applying dplyr syntax to the `air` data.table obect.</span></span>
-<span id="cb41-450"><a href="#cb41-450" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-451"><a href="#cb41-451" aria-hidden="true" tabindex="-1"></a><span class="st">   No solution provided.</span></span>
+<span id="cb41-370"><a href="#cb41-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-371"><a href="#cb41-371" aria-hidden="true" tabindex="-1"></a><span class="fu">## Advanced</span></span>
+<span id="cb41-372"><a href="#cb41-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-373"><a href="#cb41-373" aria-hidden="true" tabindex="-1"></a>5) Explore scoping in the following code. Explain why the result is 11 and not 3. Note that <span class="in">`funGenerator()`</span> returns a function as the return object,</span>
+<span id="cb41-374"><a href="#cb41-374" aria-hidden="true" tabindex="-1"></a>consistent with the idea that functions are objects in R. This is an example of</span>
+<span id="cb41-375"><a href="#cb41-375" aria-hidden="true" tabindex="-1"></a>what is called a *closure* in R. Basically, the function contains object(s)</span>
+<span id="cb41-376"><a href="#cb41-376" aria-hidden="true" tabindex="-1"></a>enclosed with and accessible to the function.</span>
+<span id="cb41-377"><a href="#cb41-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-378"><a href="#cb41-378" aria-hidden="true" tabindex="-1"></a>   <span class="in">```{r, closure-scoping}</span></span>
+<span id="cb41-379"><a href="#cb41-379" aria-hidden="true" tabindex="-1"></a><span class="in">   funGenerator &lt;- function(x) {</span></span>
+<span id="cb41-380"><a href="#cb41-380" aria-hidden="true" tabindex="-1"></a><span class="in">     x &lt;- 10</span></span>
+<span id="cb41-381"><a href="#cb41-381" aria-hidden="true" tabindex="-1"></a><span class="in">     g &lt;- function(y) {</span></span>
+<span id="cb41-382"><a href="#cb41-382" aria-hidden="true" tabindex="-1"></a><span class="in">       return(x + y)</span></span>
+<span id="cb41-383"><a href="#cb41-383" aria-hidden="true" tabindex="-1"></a><span class="in">     }</span></span>
+<span id="cb41-384"><a href="#cb41-384" aria-hidden="true" tabindex="-1"></a><span class="in">     return(g)</span></span>
+<span id="cb41-385"><a href="#cb41-385" aria-hidden="true" tabindex="-1"></a><span class="in">   }</span></span>
+<span id="cb41-386"><a href="#cb41-386" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-387"><a href="#cb41-387" aria-hidden="true" tabindex="-1"></a><span class="in">   x &lt;- 2</span></span>
+<span id="cb41-388"><a href="#cb41-388" aria-hidden="true" tabindex="-1"></a><span class="in">   f &lt;- funGenerator()</span></span>
+<span id="cb41-389"><a href="#cb41-389" aria-hidden="true" tabindex="-1"></a><span class="in">   f(1)</span></span>
+<span id="cb41-390"><a href="#cb41-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-391"><a href="#cb41-391" aria-hidden="true" tabindex="-1"></a><span class="in">   # `f` is a copy of `g`, which was created in the scope of `funGenerator`, not in the global environment.</span></span>
+<span id="cb41-392"><a href="#cb41-392" aria-hidden="true" tabindex="-1"></a><span class="in">   ls(environment(f))</span></span>
+<span id="cb41-393"><a href="#cb41-393" aria-hidden="true" tabindex="-1"></a><span class="in">   environment(f)$x</span></span>
+<span id="cb41-394"><a href="#cb41-394" aria-hidden="true" tabindex="-1"></a><span class="in">   ```</span></span>
+<span id="cb41-395"><a href="#cb41-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-396"><a href="#cb41-396" aria-hidden="true" tabindex="-1"></a><span class="fu"># Unit 4: Data Wrangling</span></span>
+<span id="cb41-397"><a href="#cb41-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-398"><a href="#cb41-398" aria-hidden="true" tabindex="-1"></a><span class="fu">## `dplyr`</span></span>
+<span id="cb41-399"><a href="#cb41-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-400"><a href="#cb41-400" aria-hidden="true" tabindex="-1"></a>1) Use <span class="in">`dplyr`</span> to create a data frame containing the median <span class="in">`lifeExp`</span> for each continent</span>
+<span id="cb41-401"><a href="#cb41-401" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-402"><a href="#cb41-402" aria-hidden="true" tabindex="-1"></a>   <span class="in">```{r}</span></span>
+<span id="cb41-403"><a href="#cb41-403" aria-hidden="true" tabindex="-1"></a><span class="in">   #| eval: false</span></span>
+<span id="cb41-404"><a href="#cb41-404" aria-hidden="true" tabindex="-1"></a><span class="in">   gapminder_median_lifeExp &lt;- gapminder %&gt;%</span></span>
+<span id="cb41-405"><a href="#cb41-405" aria-hidden="true" tabindex="-1"></a><span class="in">   group_by(continent) %&gt;%</span></span>
+<span id="cb41-406"><a href="#cb41-406" aria-hidden="true" tabindex="-1"></a><span class="in">   summarize(med_lifeExp = median(lifeExp))</span></span>
+<span id="cb41-407"><a href="#cb41-407" aria-hidden="true" tabindex="-1"></a><span class="in">   ```</span></span>
+<span id="cb41-408"><a href="#cb41-408" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-409"><a href="#cb41-409" aria-hidden="true" tabindex="-1"></a>2) Use <span class="in">`dplyr`</span> to add a column to the gapminder dataset that contains the total population of the continent of each observation in a given year. For example, if the first observation is Afghanistan in 1952, the new column would contain the population of Asia in 1952.</span>
+<span id="cb41-410"><a href="#cb41-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-411"><a href="#cb41-411" aria-hidden="true" tabindex="-1"></a>   <span class="in">```{r}</span></span>
+<span id="cb41-412"><a href="#cb41-412" aria-hidden="true" tabindex="-1"></a><span class="in">   #| eval: false</span></span>
+<span id="cb41-413"><a href="#cb41-413" aria-hidden="true" tabindex="-1"></a><span class="in">   gapminder_pop_continent &lt;- gapminder %&gt;%</span></span>
+<span id="cb41-414"><a href="#cb41-414" aria-hidden="true" tabindex="-1"></a><span class="in">   group_by(continent, year) %&gt;%</span></span>
+<span id="cb41-415"><a href="#cb41-415" aria-hidden="true" tabindex="-1"></a><span class="in">   mutate(continent_pop = sum(pop))</span></span>
+<span id="cb41-416"><a href="#cb41-416" aria-hidden="true" tabindex="-1"></a><span class="in">   ```</span></span>
+<span id="cb41-417"><a href="#cb41-417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-418"><a href="#cb41-418" aria-hidden="true" tabindex="-1"></a>3) Use <span class="in">`dplyr`</span> to add a column called <span class="in">`gdpPercap_diff`</span> that contains the difference between the observation's <span class="in">`gdpPercap`</span> and the mean <span class="in">`gdpPercap`</span> of the continent in that year. Arrange the data frame by the column you just created, in descending order (so that the relatively richest country/years are listed first)</span>
+<span id="cb41-419"><a href="#cb41-419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-420"><a href="#cb41-420" aria-hidden="true" tabindex="-1"></a>   <span class="in">```{r}</span></span>
+<span id="cb41-421"><a href="#cb41-421" aria-hidden="true" tabindex="-1"></a><span class="in">   #| eval: false</span></span>
+<span id="cb41-422"><a href="#cb41-422" aria-hidden="true" tabindex="-1"></a><span class="in">   gapminder_rel_gdp &lt;- gapminder %&gt;%</span></span>
+<span id="cb41-423"><a href="#cb41-423" aria-hidden="true" tabindex="-1"></a><span class="in">   group_by(continent, year) %&gt;%</span></span>
+<span id="cb41-424"><a href="#cb41-424" aria-hidden="true" tabindex="-1"></a><span class="in">   mutate(gdpPercap_diff = gdpPercap - mean(gdpPercap)) %&gt;%</span></span>
+<span id="cb41-425"><a href="#cb41-425" aria-hidden="true" tabindex="-1"></a><span class="in">   arrange(desc(gdpPercap_diff))</span></span>
+<span id="cb41-426"><a href="#cb41-426" aria-hidden="true" tabindex="-1"></a><span class="in">   ```</span></span>
+<span id="cb41-427"><a href="#cb41-427" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-428"><a href="#cb41-428" aria-hidden="true" tabindex="-1"></a><span class="fu">## `tidyr`</span></span>
+<span id="cb41-429"><a href="#cb41-429" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-430"><a href="#cb41-430" aria-hidden="true" tabindex="-1"></a>4) Subset the results from question #3 to select only the <span class="in">`country`</span>, <span class="in">`year`</span>, and <span class="in">`gdpPercap_diff`</span> columns. Use tidyr put it in wide format so that countries are rows and years are columns.</span>
+<span id="cb41-431"><a href="#cb41-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-432"><a href="#cb41-432" aria-hidden="true" tabindex="-1"></a>   Hint: you'll probably see a message about a missing grouping variable. If you don't want continent included, you can pass the output of problem 3 through <span class="in">`ungroup()`</span> to get rid of the continent information.</span>
+<span id="cb41-433"><a href="#cb41-433" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-434"><a href="#cb41-434" aria-hidden="true" tabindex="-1"></a>   <span class="in">```{r}</span></span>
+<span id="cb41-435"><a href="#cb41-435" aria-hidden="true" tabindex="-1"></a><span class="in">   #| eval: false</span></span>
+<span id="cb41-436"><a href="#cb41-436" aria-hidden="true" tabindex="-1"></a><span class="in">   ## First, redo question 3 code, without arranging by gdp,</span></span>
+<span id="cb41-437"><a href="#cb41-437" aria-hidden="true" tabindex="-1"></a><span class="in">   ## as that would mess up the order of the columns in the 'wide' result.</span></span>
+<span id="cb41-438"><a href="#cb41-438" aria-hidden="true" tabindex="-1"></a><span class="in">   gapminder_rel_gdp &lt;- gapminder %&gt;%</span></span>
+<span id="cb41-439"><a href="#cb41-439" aria-hidden="true" tabindex="-1"></a><span class="in">   group_by(continent, year) %&gt;%</span></span>
+<span id="cb41-440"><a href="#cb41-440" aria-hidden="true" tabindex="-1"></a><span class="in">   mutate(gdpPercap_diff = gdpPercap - mean(gdpPercap))</span></span>
+<span id="cb41-441"><a href="#cb41-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-442"><a href="#cb41-442" aria-hidden="true" tabindex="-1"></a><span class="in">   ## Now convert to wide format.</span></span>
+<span id="cb41-443"><a href="#cb41-443" aria-hidden="true" tabindex="-1"></a><span class="in">   gapminder_wider &lt;- gapminder_rel_gdp %&gt;% </span></span>
+<span id="cb41-444"><a href="#cb41-444" aria-hidden="true" tabindex="-1"></a><span class="in">   select(country, year, gdpPercap_diff) %&gt;%</span></span>
+<span id="cb41-445"><a href="#cb41-445" aria-hidden="true" tabindex="-1"></a><span class="in">   pivot_wider(names_from = year, values_from = gdpPercap_diff) </span></span>
+<span id="cb41-446"><a href="#cb41-446" aria-hidden="true" tabindex="-1"></a><span class="in">   ```</span></span>
+<span id="cb41-447"><a href="#cb41-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-448"><a href="#cb41-448" aria-hidden="true" tabindex="-1"></a><span class="fu">## `data.table`</span></span>
+<span id="cb41-449"><a href="#cb41-449" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-450"><a href="#cb41-450" aria-hidden="true" tabindex="-1"></a>5) Compare timing of some operations on the airline dataset when using <span class="in">`dtplyr`</span> with <span class="in">`lazy_air`</span> versus directly applying dplyr syntax to the <span class="in">`air`</span> data.table obect.</span>
+<span id="cb41-451"><a href="#cb41-451" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-452"><a href="#cb41-452" aria-hidden="true" tabindex="-1"></a>   No solution provided.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
