@@ -504,6 +504,8 @@ If you've got enough memory, data.table can be effective with pretty large datas
 
 Let's read in a moderate size CSV with airline departure delay information.
 
+You can get [`airline.csv` here](https://www.stat.berkeley.edu/~paciorek/share/airline.csv).
+
 ```{r}
 library(data.table, quietly = TRUE, warn.conflicts = FALSE)
 

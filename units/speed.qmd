@@ -71,11 +71,10 @@ You should see that your R process is using more than 100% of CPU. Inconceivable
 
 ## More details on the BLAS (optional)
 
-You can talk with your systems administrator about linking R to a fast BLAS or you can look into it yourself for your personal machine; see the [R Installation and Administration manual](http://www.cran.r-project.org/manuals.html).
+You can talk with your systems administrator about linking R to a fast BLAS or you can look into it yourself for your personal machine; see [this FAQ](https://statistics.berkeley.edu/computing/faqs/linear-algebra-and-parallelized-linear-algebra-using-blas) or the [R Installation and Administration manual](http://www.cran.r-project.org/manuals.html).
 
 Note that in some cases, in particular for small matrix operations, using multiple threads may actually slow down computation, so you may want to experiment, particularly with Linux. You can force the linear algebra to use only a single core by doing (assuming you're using the bash shell) `export OMP_NUM_THREADS=1` in the terminal window *before* starting R in the same terminal. Or see the *RhpcBLASctl* package to do it from within R.
  
-Finally, note that threaded BLAS and either `foreach` or parallel versions of `apply()` can conflict and cause R to hang, so you're likely to want to set the number of threads to 1 as above if you're doing explicit parallelization. 
 
 ## What is an embarrassingly parallel (EP) problem?
 
@@ -102,7 +101,7 @@ The `future` package provides a lot of nice features for parallelization. We'll 
 
 First, make sure your computations on the elements are independent of each other and don't involve sequential calculations!
 
-We'll use the airline departure dataset, with timing informatin for all flights from SFO over a period of several years. We'll do a stratified analysis, fitting a GAM (see Unit 6) for each of the destination airports.
+We'll use the [airline departure dataset](https://www.stat.berkeley.edu/~paciorek/share/airline.csv), with timing informatin for all flights from SFO over a period of several years. We'll do a stratified analysis, fitting a GAM (see Unit 6) for each of the destination airports.
 
 ```{r}
 air <- read.csv(file.path('..', 'data', 'airline.csv'))
@@ -147,10 +146,12 @@ nCores <- 4  # actually only 2 on my laptop, but appears hyperthreaded
 registerDoFuture()
 plan(multisession, workers = nCores)  
 
+progress <- FALSE
+
 out <- foreach(dest = unique(air$Dest)) %dopar% {
-    cat("Starting job for ", dest, ".\n", sep = "")
+    if(progress) cat("Starting job for ", dest, ".\n", sep = "")
     outSub <- fitFun(dest)
-    cat("Finishing job for ", dest, ".\n", sep = "")
+    if(progress) cat("Finishing job for ", dest, ".\n", sep = "")
     outSub # this will become part of the out objec
 }
 out[1:2]
@@ -163,9 +164,9 @@ What do you think are the advantages and disadvantages of having many small task
 
 ## Other "plans"
 
-- multisession: multiple R sessions on a single machine
-- multicore: multiple forked R sessions on a single machine (less copying)
-- cluster: multiple R sessions on one or more machines
+- `multisession`: multiple R sessions on a single machine
+- `multicore`: multiple forked R sessions on a single machine (less copying)
+- `cluster`: multiple R sessions on one or more machines
 
 ## Parallelization and Random Number Generation
 
@@ -176,12 +177,12 @@ Random numbers on a computer are [not truly random](http://dilbert.com/strips/co
 A random number seed determines where in the sequence one starts when generating random numbers.
 
 * The ugly: Make sure you do not use the same seed for each task
-```{r}
-set.seed(1)
-rnorm(5)
-set.seed(1)
-rnorm(5)
-```
+  ```{r}
+  set.seed(1)
+  rnorm(5)
+  set.seed(1)
+  rnorm(5)
+  ```
 * The (not so) bad: Use a different seed for each task or each process. It's possible the subsequences will overlap but quite unlikely.
 
 * The good: Use the L'Ecuyer algorithm to ensure distinct subsequences in each worker, which `future` makes easy:
@@ -241,7 +242,7 @@ add3
 add3(1,3,5)
 ```
 
-Note that some casting/coercing of types must be happening:
+Note that some casting/coercing of types by Rcpp must be happening:
 
 ```{r}
 add3(1,2,3)
@@ -278,7 +279,7 @@ What has to happen in the vectorized code that doesn't happen in the for loop?
 ::: {.callout-tip title="Answer" collapse="true"}
 
 - The individual operations are done as separate vectorized calls to compiled C code.
-- Temporary vectors must be allocated and filled to carry out `exp`, `sin`, `*` and `+`.
+- Temporary vectors must be allocated and filled to store the results of `exp`, `sin`, `*` and `+`.
   - Extra memory needed.
   - Time for allocation and moving values.
 - The result `x` and the input `x` both need to exist at one time, briefly.
@@ -291,7 +292,7 @@ None of that needs to happen with the loop version.
 We can write up the for loop version using Rcpp to get the benefits of loop fusion.
 
 ```{r}
-cppFunction('void fuse(NumericVector x) {
+cppFunction('void fuse(Rcpp::NumericVector x) {
   int n = x.size();
   Rcpp::Rcout << "Working with a vector of length " << n << "." << std::endl;
   for(int i = 0; i < n; ++i) {
@@ -309,6 +310,8 @@ rbenchmark::benchmark(
  replications = 1,  # 'x' could explode on repeated calls
  columns = c('test', 'replications', 'elapsed'))
 ```
+
+When using Rcpp's built-in vector types, Rcpp reuses R memory so no copies of the inputs are made.
 
 We could also have created a version that doesn't overwrite the input.
 
@@ -337,13 +340,41 @@ x <- rnorm(10)
 y <- fuse(x)
 ```
 
+## Some notes about memory and argument passing
+
+1. Copy-on-change doesn't work with Rcpp functions. 
+
+   ```{r}
+   n <- 5
+   x <- rnorm(n)
+   y <- x
+
+   fuse(y)
+
+   y
+   x
+   ```
+
+2. Type conversion can prevent modification
+
+   ```{r}
+   x <- 1:5
+   typeof(x)
+   fuse(x)
+   x
+   ```
+
+The `NumericVector` type can only make use of R memory for the input if the input R object is a numeric vector; above it is an integer vector, so a cast needs to be made with values copied to a new object in C++. 
+
+
+
 ## Using R classes in C++
 
 Rcpp provides classes that correspond to most R data structures/classes. We've already seen the use of `NumericVector` for R's numeric vector.
 
-Here's an example (from the Advanced R book) of working with a list (an S3 object) and manipulating its components in C++. We need to cast the vector components as `NumericVector`s
+Here's an example (from the Advanced R book) of working with a list (in this case an `lm` S3 object) and manipulating its components in C++. We need to cast the vector components as `NumericVector`s
 
-```{c++}
+```{cpp}
 #include <Rcpp.h>
 using namespace Rcpp;
 
