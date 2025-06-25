@@ -12,7 +12,7 @@ project:
     - prep.qmd
     - syllabus.qmd
     - index.qmd
-    - solutions/solutions.qmd
+    - units/solutions.qmd
 
 website:
   site-url: https://paciorek.github.io/r-voleon-2025
@@ -45,7 +45,7 @@ website:
             text: Basic Analysis/Useful Packages
           - href: units/speed.qmd
             text: Parallelization/Rcpp
-      - href: solutions/solutions.qmd
+      - href: units/solutions.qmd
         text: Breakout solutions
           
 
