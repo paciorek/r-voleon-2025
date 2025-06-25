@@ -187,7 +187,7 @@ sapply(gapminder, function(x) sum(is.na(x)))
 colSums(sapply(gapminder, is.na))
 ```
 
-6)  Suppose we have two categorical variables and we conduct a hypothesis test of independence. The chi-square statistic is: 
+6) Suppose we have two categorical variables and we conduct a hypothesis test of independence. The chi-square statistic is: 
 
 $$
 \chi^2 = \sum_{i=1}^{n}\sum_{j=1}^{m} \frac{(y_{ij} - e_{ij})^2}{e_{ij}}, 
@@ -376,7 +376,7 @@ enclosed with and accessible to the function.
 
 4) Subset the results from question #3 to select only the `country`, `year`, and `gdpPercap_diff` columns. Use tidyr put it in wide format so that countries are rows and years are columns.
 
-Hint: you'll probably see a message about a missing grouping variable. If you don't want continent included, you can pass the output of problem 3 through `ungroup()` to get rid of the continent information.
+   Hint: you'll probably see a message about a missing grouping variable. If you don't want continent included, you can pass the output of problem 3 through `ungroup()` to get rid of the continent information.
 
    ```{r}
    #| eval: false
