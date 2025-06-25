@@ -460,7 +460,7 @@ Internally R manages this by keeping track of how many variables (references) th
 
 5) Compute the number of NAs in each column of the gapminder dataset using `sapply()` and making use of the `is.na()` function. It's possible to do this without writing a function.
 
-6)  Suppose we have two categorical variables and we conduct a hypothesis test of independence. The chi-square statistic is: 
+6) Suppose we have two categorical variables and we conduct a hypothesis test of independence. The chi-square statistic is: 
 
    $$
    \chi^2 = \sum_{i=1}^{n}\sum_{j=1}^{m} \frac{(y_{ij} - e_{ij})^2}{e_{ij}}, 
