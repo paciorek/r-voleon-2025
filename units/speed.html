@@ -213,6 +213,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../units/solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Breakout solutions</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -656,7 +662,7 @@ Question
 <span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>add3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>function (x, y, z) 
-.Call(&lt;pointer: 0x7f0ed1d302a0&gt;, x, y, z)</code></pre>
+.Call(&lt;pointer: 0x761e0c5f52a0&gt;, x, y, z)</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add3</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -759,8 +765,8 @@ Working with a vector of length 10000000.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                      test replications elapsed
-2                  fuse(y)            1   0.272
-1 x &lt;- exp(x) + 3 * sin(x)            1   0.370</code></pre>
+2                  fuse(y)            1   0.255
+1 x &lt;- exp(x) + 3 * sin(x)            1   0.348</code></pre>
 </div>
 </div>
 <p>When using Rcpp’s built-in vector types, Rcpp reuses R memory so no copies of the inputs are made.</p>

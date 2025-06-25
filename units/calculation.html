@@ -242,6 +242,12 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../units/solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Breakout solutions</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -335,7 +341,7 @@ window.Quarto = {
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>vec2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">5</span>)</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>vec1 <span class="sc">&gt;</span> vec2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] FALSE  TRUE  TRUE  TRUE FALSE</code></pre>
+<pre><code>[1]  TRUE  TRUE FALSE FALSE  TRUE</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Vectorized boolean operations</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>vec1 <span class="sc">==</span> vec2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -363,19 +369,19 @@ window.Quarto = {
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>vec5 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">5</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>vec10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1]  5  9  9 10  7  5  2  7  8  8</code></pre>
+<pre><code> [1] 8 3 4 5 1 2 1 7 1 1</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>vec3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2 5 2</code></pre>
+<pre><code>[1] 10  8 10</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>vec5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 3 7 3 9 9</code></pre>
+<pre><code>[1] 8 2 6 3 2</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>vec10 <span class="sc">+</span> vec5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1]  8 16 12 19 16  8  9 10 17 17</code></pre>
+<pre><code> [1] 16  5 10  8  3 10  3 13  4  3</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>vec10 <span class="sc">+</span> vec3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -383,7 +389,7 @@ window.Quarto = {
 object length</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1]  7 14 11 12 12  7  4 12 10 10</code></pre>
+<pre><code> [1] 18 11 14 15  9 12 11 15 11 11</code></pre>
 </div>
 </div>
 <p>What choices were made by the R developers?</p>
@@ -607,7 +613,7 @@ Answer
 <span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.004   0.000   0.004 </code></pre>
+  0.005   0.000   0.005 </code></pre>
 </div>
 </div>
 </section>
@@ -765,12 +771,12 @@ Question
 <span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(A <span class="sc">%*%</span> B <span class="sc">%*%</span> x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  3.108   0.703   0.656 </code></pre>
+  3.144   0.708   0.619 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(A <span class="sc">%*%</span> (B <span class="sc">%*%</span> x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.089   0.044   0.032 </code></pre>
+  0.091   0.047   0.034 </code></pre>
 </div>
 </div></li>
 <li><p>Avoid duplicated computation</p>
@@ -829,12 +835,12 @@ Question
 <span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unit: nanoseconds
-          expr  min     lq     mean median     uq   max neval cld
-      df[2, 1] 8379 9048.5 10242.66 9284.5 9685.5 79126   100  a 
-    df$vals[2]  641  838.5  1011.47  920.0 1098.0  5806   100   b
- df[2, "vals"] 8393 9044.5  9511.35 9344.0 9655.5 18964   100  a 
-        vec[2]  268  296.0   401.18  369.0  412.0  2533   100   b
-      vec["b"]  310  384.0   464.32  446.5  514.0   902   100   b</code></pre>
+          expr   min      lq     mean  median      uq    max neval cld
+      df[2, 1] 17010 18492.0 21781.29 18988.5 20386.5 201136   100  a 
+    df$vals[2]  1319  1830.5  2266.09  2107.0  2373.5  12867   100   b
+ df[2, "vals"] 17234 18398.0 20272.87 19001.0 20451.5  45726   100  a 
+        vec[2]   494   652.0   783.90   728.5   840.0   3787   100   b
+      vec["b"]   579   765.5   897.75   860.0   967.0   2552   100   b</code></pre>
 </div>
 </div>
 </section>
@@ -875,12 +881,12 @@ Question
 </div>
 <div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mem_used</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>1.09 GB</code></pre>
+<pre><code>1.08 GB</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">"hello"</span></span>
 <span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mem_used</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>292 MB</code></pre>
+<pre><code>277 MB</code></pre>
 </div>
 </div>
 </section>
@@ -893,7 +899,7 @@ Question
 <span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fl">1e8</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  6.141   0.268   6.409 </code></pre>
+  6.609   0.380   7.008 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -901,7 +907,7 @@ Question
 </div>
 <div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mem_used</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>1.09 GB</code></pre>
+<pre><code>1.08 GB</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(y <span class="ot">&lt;-</span> x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -910,32 +916,32 @@ Question
 </div>
 <div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mem_used</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>1.09 GB</code></pre>
+<pre><code>1.08 GB</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">address</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "0x71704a918010"</code></pre>
+<pre><code>[1] "0x77e5e450e010"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">address</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "0x71704a918010"</code></pre>
+<pre><code>[1] "0x77e5e450e010"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(x[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">3</span>)  <span class="co"># Clearly more time than just modifying one element!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.169   0.246   0.415 </code></pre>
+  0.198   0.243   0.440 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mem_used</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>1.89 GB</code></pre>
+<pre><code>1.88 GB</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">address</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "0x71701ae27010"</code></pre>
+<pre><code>[1] "0x77e5b4a1d010"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">address</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "0x71704a918010"</code></pre>
+<pre><code>[1] "0x77e5e450e010"</code></pre>
 </div>
 </div>
 <p>Internally R manages this by keeping track of how many variables (references) there are to a given object in memory.</p>
@@ -960,30 +966,32 @@ Question
 <ol start="4" type="1">
 <li><p>Explain the steps of what this code is doing: <code>tmp &lt;- gapminder[ , -which(names(gapminder) == "continent")]</code>.</p></li>
 <li><p>Compute the number of NAs in each column of the gapminder dataset using <code>sapply()</code> and making use of the <code>is.na()</code> function. It’s possible to do this without writing a function.</p></li>
-<li><p>Suppose we have two categorical variables and we conduct a hypothesis test of independence. The chi-square statistic is:</p></li>
-</ol>
+<li><p>Suppose we have two categorical variables and we conduct a hypothesis test of independence. The chi-square statistic is:</p>
 <p><span class="math display">\[
-   \chi^2 = \sum_{i=1}^{n}\sum_{j=1}^{m} \frac{(y_{ij} - e_{ij})^2}{e_{ij}},
-   \]</span></p>
+\chi^2 = \sum_{i=1}^{n}\sum_{j=1}^{m} \frac{(y_{ij} - e_{ij})^2}{e_{ij}},
+\]</span></p>
 <p>where <span class="math inline">\(e_{ij} = \frac{y_{i\cdot} y_{\cdot j}}{y_{\cdot \cdot}}\)</span>, with <span class="math inline">\(y_{i\cdot}\)</span> the sum of the values in the i’th row, <span class="math inline">\(y_{\cdot j}\)</span> the sum of values in the j’th column, and <span class="math inline">\(y_{\cdot\cdot}\)</span> the sum of all the values. Suppose I give you a matrix in R with the <span class="math inline">\(y_{ij}\)</span> values.</p>
 <p>You can generate a test matrix as:</p>
-<p>::: {.cell}</p>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">12</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>), </span>
 <span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>:::</p>
+</div>
 <p>Compute the statistic without <em>any</em> loops as follows:</p>
-<pre><code> - First, assume you have the *e* matrix. How do you compute the statistic without loops as a function of `y` and `e`?
- - How can you construct the *e* matrix? Hint: the numerator of *e* is just an *outer product* for which the `outer()` function can be used.</code></pre>
+<ul>
+<li>First, assume you have the <em>e</em> matrix. How do you compute the statistic without loops as a function of <code>y</code> and <code>e</code>?</li>
+<li>How can you construct the <em>e</em> matrix? Hint: the numerator of <em>e</em> is just an <em>outer product</em> for which the <code>outer()</code> function can be used.</li>
+</ul></li>
+</ol>
 </section>
 <section id="advanced" class="level2">
 <h2 class="anchored" data-anchor-id="advanced">Advanced</h2>
 <ol start="7" type="1">
 <li><p>Here’s a cool trick using <code>sapply</code> to pull off a particular element of a list of lists:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">a =</span> <span class="fu">list</span>(<span class="at">mn =</span> <span class="dv">7</span>, <span class="at">sd =</span> <span class="dv">3</span>), <span class="at">b =</span> <span class="fu">list</span>(<span class="at">mn =</span> <span class="dv">6</span>,<span class="at">sd =</span> <span class="dv">1</span>), </span>
-<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="at">c =</span> <span class="fu">list</span>(<span class="at">mn =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">1</span>))</span>
-<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-4"><a href="#cb106-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(params, <span class="st">"[["</span>, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">a =</span> <span class="fu">list</span>(<span class="at">mn =</span> <span class="dv">7</span>, <span class="at">sd =</span> <span class="dv">3</span>), <span class="at">b =</span> <span class="fu">list</span>(<span class="at">mn =</span> <span class="dv">6</span>,<span class="at">sd =</span> <span class="dv">1</span>), </span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="at">c =</span> <span class="fu">list</span>(<span class="at">mn =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">1</span>))</span>
+<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb105-4"><a href="#cb105-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(params, <span class="st">"[["</span>, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>a b c 
 7 6 2 </code></pre>
@@ -992,14 +1000,14 @@ Question
 <p>Explain what that does and why it works.</p>
 <p>Hint:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">3</span>)</span>
-<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>test[[<span class="dv">2</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">3</span>)</span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>test[[<span class="dv">2</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 7</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="co"># `[[`(test, 2)  # need it commented or R Markdown processing messes it up...</span></span>
-<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a><span class="co"># `+`(3, 7)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co"># `[[`(test, 2)  # need it commented or R Markdown processing messes it up...</span></span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a><span class="co"># `+`(3, 7)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 </ol>
 
@@ -1478,508 +1486,509 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb111" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Calculations and Efficiency"</span></span>
-<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb111-5"><a href="#cb111-5" aria-hidden="true" tabindex="-1"></a><span class="co">    theme: cosmo</span></span>
-<span id="cb111-6"><a href="#cb111-6" aria-hidden="true" tabindex="-1"></a><span class="co">    css: ../assets/styles.css</span></span>
-<span id="cb111-7"><a href="#cb111-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
-<span id="cb111-8"><a href="#cb111-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
-<span id="cb111-9"><a href="#cb111-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
-<span id="cb111-10"><a href="#cb111-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-block-bg: true</span></span>
-<span id="cb111-11"><a href="#cb111-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-block-border-left: "#31BAE9"</span></span>
-<span id="cb111-12"><a href="#cb111-12" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
-<span id="cb111-13"><a href="#cb111-13" aria-hidden="true" tabindex="-1"></a><span class="co">  freeze: auto</span></span>
-<span id="cb111-14"><a href="#cb111-14" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb111-15"><a href="#cb111-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-16"><a href="#cb111-16" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, chunksetup}</span></span>
-<span id="cb111-17"><a href="#cb111-17" aria-hidden="true" tabindex="-1"></a><span class="in">#| include: false</span></span>
-<span id="cb111-18"><a href="#cb111-18" aria-hidden="true" tabindex="-1"></a><span class="in"># include any code here you don't want to show up in the document,</span></span>
-<span id="cb111-19"><a href="#cb111-19" aria-hidden="true" tabindex="-1"></a><span class="in"># e.g. package and dataset loading</span></span>
-<span id="cb111-20"><a href="#cb111-20" aria-hidden="true" tabindex="-1"></a><span class="in">rm(list=ls())</span></span>
-<span id="cb111-21"><a href="#cb111-21" aria-hidden="true" tabindex="-1"></a><span class="in">library(gapminder)</span></span>
-<span id="cb111-22"><a href="#cb111-22" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb111-23"><a href="#cb111-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-24"><a href="#cb111-24" aria-hidden="true" tabindex="-1"></a><span class="fu"># Working with vectors and matrices</span></span>
-<span id="cb111-25"><a href="#cb111-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-26"><a href="#cb111-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Vectorized calculations and comparisons</span></span>
-<span id="cb111-27"><a href="#cb111-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-28"><a href="#cb111-28" aria-hidden="true" tabindex="-1"></a>At the core of R is the idea of doing calculations on entire vectors.</span>
-<span id="cb111-29"><a href="#cb111-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-32"><a href="#cb111-32" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb111-33"><a href="#cb111-33" aria-hidden="true" tabindex="-1"></a><span class="do">## Vectorized arithmetic</span></span>
-<span id="cb111-34"><a href="#cb111-34" aria-hidden="true" tabindex="-1"></a>gdpTotal <span class="ot">&lt;-</span> gapminder<span class="sc">$</span>gdpPercap <span class="sc">*</span> gapminder<span class="sc">$</span>pop</span>
-<span id="cb111-35"><a href="#cb111-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-36"><a href="#cb111-36" aria-hidden="true" tabindex="-1"></a>gapminder2007 <span class="ot">&lt;-</span> gapminder[gapminder<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">2007</span>, ]</span>
-<span id="cb111-37"><a href="#cb111-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-38"><a href="#cb111-38" aria-hidden="true" tabindex="-1"></a><span class="do">## Vectorized comparisons</span></span>
-<span id="cb111-39"><a href="#cb111-39" aria-hidden="true" tabindex="-1"></a>wealthy <span class="ot">&lt;-</span> gapminder2007<span class="sc">$</span>gdpPercap <span class="sc">&gt;=</span> <span class="dv">30000</span></span>
-<span id="cb111-40"><a href="#cb111-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-41"><a href="#cb111-41" aria-hidden="true" tabindex="-1"></a>poorOrWealthy <span class="ot">&lt;-</span> gapminder2007<span class="sc">$</span>gdpPercap <span class="sc">&gt;=</span> <span class="dv">100000</span> <span class="sc">|</span> gapminder2007<span class="sc">$</span>gdpPercap <span class="sc">&lt;</span> <span class="dv">1000</span></span>
-<span id="cb111-42"><a href="#cb111-42" aria-hidden="true" tabindex="-1"></a>asiaWealthy <span class="ot">&lt;-</span> gapminder2007<span class="sc">$</span>gdpPercap <span class="sc">&gt;=</span> <span class="dv">100000</span> <span class="sc">&amp;</span>  gapminder<span class="sc">$</span>continent <span class="sc">==</span> <span class="st">"Asia"</span></span>
-<span id="cb111-43"><a href="#cb111-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-44"><a href="#cb111-44" aria-hidden="true" tabindex="-1"></a>vec1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">5</span>)</span>
-<span id="cb111-45"><a href="#cb111-45" aria-hidden="true" tabindex="-1"></a>vec2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">5</span>)</span>
-<span id="cb111-46"><a href="#cb111-46" aria-hidden="true" tabindex="-1"></a>vec1 <span class="sc">&gt;</span> vec2</span>
-<span id="cb111-47"><a href="#cb111-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-48"><a href="#cb111-48" aria-hidden="true" tabindex="-1"></a><span class="do">## Vectorized boolean operations</span></span>
-<span id="cb111-49"><a href="#cb111-49" aria-hidden="true" tabindex="-1"></a>vec1 <span class="sc">==</span> vec2</span>
-<span id="cb111-50"><a href="#cb111-50" aria-hidden="true" tabindex="-1"></a>vec1 <span class="sc">!=</span> vec2</span>
-<span id="cb111-51"><a href="#cb111-51" aria-hidden="true" tabindex="-1"></a><span class="do">## careful: </span></span>
-<span id="cb111-52"><a href="#cb111-52" aria-hidden="true" tabindex="-1"></a>vec1 <span class="ot">=</span> vec2</span>
-<span id="cb111-53"><a href="#cb111-53" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(vec1, vec2)</span>
-<span id="cb111-54"><a href="#cb111-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb111-55"><a href="#cb111-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-56"><a href="#cb111-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Recycling</span></span>
-<span id="cb111-57"><a href="#cb111-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-58"><a href="#cb111-58" aria-hidden="true" tabindex="-1"></a>An important related concept is that of recycling</span>
-<span id="cb111-61"><a href="#cb111-61" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb111-62"><a href="#cb111-62" aria-hidden="true" tabindex="-1"></a>vec10 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb111-63"><a href="#cb111-63" aria-hidden="true" tabindex="-1"></a>vec3 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">3</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb111-64"><a href="#cb111-64" aria-hidden="true" tabindex="-1"></a>vec5 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">5</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb111-65"><a href="#cb111-65" aria-hidden="true" tabindex="-1"></a>vec10</span>
-<span id="cb111-66"><a href="#cb111-66" aria-hidden="true" tabindex="-1"></a>vec3</span>
-<span id="cb111-67"><a href="#cb111-67" aria-hidden="true" tabindex="-1"></a>vec5</span>
-<span id="cb111-68"><a href="#cb111-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-69"><a href="#cb111-69" aria-hidden="true" tabindex="-1"></a>vec10 <span class="sc">+</span> vec5</span>
-<span id="cb111-70"><a href="#cb111-70" aria-hidden="true" tabindex="-1"></a>vec10 <span class="sc">+</span> vec3</span>
-<span id="cb111-71"><a href="#cb111-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb111-72"><a href="#cb111-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-73"><a href="#cb111-73" aria-hidden="true" tabindex="-1"></a>What choices were made by the R developers?</span>
-<span id="cb111-74"><a href="#cb111-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-75"><a href="#cb111-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-76"><a href="#cb111-76" aria-hidden="true" tabindex="-1"></a><span class="fu">## Why vectorize?</span></span>
-<span id="cb111-77"><a href="#cb111-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-78"><a href="#cb111-78" aria-hidden="true" tabindex="-1"></a>Imagine how this code would look if written using a loop, or three separate loops.</span>
-<span id="cb111-79"><a href="#cb111-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-82"><a href="#cb111-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb111-83"><a href="#cb111-83" aria-hidden="true" tabindex="-1"></a>vals <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
-<span id="cb111-84"><a href="#cb111-84" aria-hidden="true" tabindex="-1"></a>chi2vals <span class="ot">&lt;-</span> vals<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb111-85"><a href="#cb111-85" aria-hidden="true" tabindex="-1"></a>chi2_df1000 <span class="ot">&lt;-</span> <span class="fu">sum</span>(chi2vals)</span>
-<span id="cb111-86"><a href="#cb111-86" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb111-87"><a href="#cb111-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-88"><a href="#cb111-88" aria-hidden="true" tabindex="-1"></a>Advantages:</span>
-<span id="cb111-89"><a href="#cb111-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-90"><a href="#cb111-90" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>much faster than looping</span>
-<span id="cb111-91"><a href="#cb111-91" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>easier to code</span>
-<span id="cb111-92"><a href="#cb111-92" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>easier to read and understand the code</span>
-<span id="cb111-93"><a href="#cb111-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-94"><a href="#cb111-94" aria-hidden="true" tabindex="-1"></a>Vectorized code is generally fast because the underlying loop is executed in compiled C code rather than by the R interpreter (more on this <span class="co">[</span><span class="ot">later</span><span class="co">](#whenwhy-are-loops-in-r-slow)</span>.</span>
-<span id="cb111-95"><a href="#cb111-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-96"><a href="#cb111-96" aria-hidden="true" tabindex="-1"></a>We've already seen that lots of functions (and operators) in R are vectorized (i.e., they can take a single value or a vector as an input argument).</span>
-<span id="cb111-97"><a href="#cb111-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-98"><a href="#cb111-98" aria-hidden="true" tabindex="-1"></a><span class="fu">## Vectorization with matrices</span></span>
-<span id="cb111-99"><a href="#cb111-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-100"><a href="#cb111-100" aria-hidden="true" tabindex="-1"></a>Recall that <span class="in">`+`</span>, <span class="in">`-`</span>,<span class="in">`*`</span>, <span class="in">`/`</span> do vectorized calculations:</span>
-<span id="cb111-101"><a href="#cb111-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-104"><a href="#cb111-104" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb111-105"><a href="#cb111-105" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="dv">3</span>)</span>
-<span id="cb111-106"><a href="#cb111-106" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">seq</span>(<span class="dv">4</span>,<span class="dv">36</span>, <span class="at">by =</span> <span class="dv">4</span>), <span class="dv">3</span>)</span>
-<span id="cb111-107"><a href="#cb111-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-108"><a href="#cb111-108" aria-hidden="true" tabindex="-1"></a>A<span class="sc">*</span><span class="dv">7</span></span>
-<span id="cb111-109"><a href="#cb111-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-110"><a href="#cb111-110" aria-hidden="true" tabindex="-1"></a>A <span class="sc">+</span> B</span>
-<span id="cb111-111"><a href="#cb111-111" aria-hidden="true" tabindex="-1"></a>A <span class="sc">+</span> B[ , <span class="dv">1</span>]</span>
-<span id="cb111-112"><a href="#cb111-112" aria-hidden="true" tabindex="-1"></a>A <span class="sc">*</span> B</span>
-<span id="cb111-113"><a href="#cb111-113" aria-hidden="true" tabindex="-1"></a>A <span class="sc">*</span> B[ , <span class="dv">1</span>]</span>
-<span id="cb111-114"><a href="#cb111-114" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb111-115"><a href="#cb111-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-116"><a href="#cb111-116" aria-hidden="true" tabindex="-1"></a><span class="fu">## Linear algebra: Matrix/vector multiplication</span></span>
-<span id="cb111-117"><a href="#cb111-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-120"><a href="#cb111-120" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb111-121"><a href="#cb111-121" aria-hidden="true" tabindex="-1"></a>A <span class="sc">%*%</span> B[ , <span class="dv">1</span>]</span>
-<span id="cb111-122"><a href="#cb111-122" aria-hidden="true" tabindex="-1"></a>A <span class="sc">%*%</span> B</span>
-<span id="cb111-123"><a href="#cb111-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-124"><a href="#cb111-124" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(<span class="fu">t</span>(A)<span class="sc">%*%</span>A, <span class="fu">crossprod</span>(A))</span>
-<span id="cb111-125"><a href="#cb111-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb111-126"><a href="#cb111-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-127"><a href="#cb111-127" aria-hidden="true" tabindex="-1"></a>Now let's do a bit of manipulation and see if you can infer how R represents matrices internally.</span>
-<span id="cb111-128"><a href="#cb111-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-129"><a href="#cb111-129" aria-hidden="true" tabindex="-1"></a><span class="fu">## Matrix (and array) internals</span></span>
-<span id="cb111-130"><a href="#cb111-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-131"><a href="#cb111-131" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Question"}</span>
-<span id="cb111-132"><a href="#cb111-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-133"><a href="#cb111-133" aria-hidden="true" tabindex="-1"></a>Consider our matrix 'mat':</span>
-<span id="cb111-134"><a href="#cb111-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-137"><a href="#cb111-137" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb111-138"><a href="#cb111-138" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">16</span>, <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">4</span>)</span>
-<span id="cb111-139"><a href="#cb111-139" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb111-140"><a href="#cb111-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-141"><a href="#cb111-141" aria-hidden="true" tabindex="-1"></a>Suppose I run this code: <span class="in">`mat[4]`</span>.</span>
-<span id="cb111-142"><a href="#cb111-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-143"><a href="#cb111-143" aria-hidden="true" tabindex="-1"></a>What do you think will be returned?</span>
-<span id="cb111-144"><a href="#cb111-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-145"><a href="#cb111-145" aria-hidden="true" tabindex="-1"></a>1) 13</span>
-<span id="cb111-146"><a href="#cb111-146" aria-hidden="true" tabindex="-1"></a>2) 4</span>
-<span id="cb111-147"><a href="#cb111-147" aria-hidden="true" tabindex="-1"></a>3) 13, 14, 15, 16</span>
-<span id="cb111-148"><a href="#cb111-148" aria-hidden="true" tabindex="-1"></a>4) 4, 8, 12, 16</span>
-<span id="cb111-149"><a href="#cb111-149" aria-hidden="true" tabindex="-1"></a>5) an error</span>
-<span id="cb111-150"><a href="#cb111-150" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb111-151"><a href="#cb111-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-152"><a href="#cb111-152" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Answer" collapse="true"}</span>
-<span id="cb111-153"><a href="#cb111-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-154"><a href="#cb111-154" aria-hidden="true" tabindex="-1"></a>Matrices are stored column-major</span>
-<span id="cb111-155"><a href="#cb111-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-156"><a href="#cb111-156" aria-hidden="true" tabindex="-1"></a><span class="in">```{r what_is_a_matrix, eval = FALSE}</span></span>
-<span id="cb111-157"><a href="#cb111-157" aria-hidden="true" tabindex="-1"></a><span class="in">mat[4]</span></span>
-<span id="cb111-158"><a href="#cb111-158" aria-hidden="true" tabindex="-1"></a><span class="in">attributes(mat) &lt;- NULL</span></span>
-<span id="cb111-159"><a href="#cb111-159" aria-hidden="true" tabindex="-1"></a><span class="in">mat</span></span>
-<span id="cb111-160"><a href="#cb111-160" aria-hidden="true" tabindex="-1"></a><span class="in">is.matrix(mat)</span></span>
-<span id="cb111-161"><a href="#cb111-161" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb111-162"><a href="#cb111-162" aria-hidden="true" tabindex="-1"></a>This is like Fortran, MATLAB and Julia but not like C or (at least by default) Python (numpy). </span>
-<span id="cb111-163"><a href="#cb111-163" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb111-164"><a href="#cb111-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-165"><a href="#cb111-165" aria-hidden="true" tabindex="-1"></a><span class="fu">## Linear algebra </span></span>
-<span id="cb111-166"><a href="#cb111-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-167"><a href="#cb111-167" aria-hidden="true" tabindex="-1"></a>R can do essentially any linear algebra you need. It uses system-level packages called BLAS (basic linear algebra subroutines) and LAPACK (linear algebra package). Note that these calculations will be essentially as fast as if you wrote C code because R just calls C and Fortran routines to do the calculations.</span>
-<span id="cb111-168"><a href="#cb111-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-169"><a href="#cb111-169" aria-hidden="true" tabindex="-1"></a>The BLAS that comes with R is fairly slow. It's possible to use a <span class="co">[</span><span class="ot">faster BLAS, as well as one that uses multiple cores automatically</span><span class="co">](https://statistics.berkeley.edu/computing/faqs/linear-algebra-and-parallelized-linear-algebra-using-blas)</span>. This can in some cases give you an order of magnitude speedup if your work involves a lot of matrix manipulations/linear algebra.</span>
-<span id="cb111-170"><a href="#cb111-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-171"><a href="#cb111-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-172"><a href="#cb111-172" aria-hidden="true" tabindex="-1"></a><span class="fu">## Matrix decompositions</span></span>
-<span id="cb111-173"><a href="#cb111-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-174"><a href="#cb111-174" aria-hidden="true" tabindex="-1"></a>Here are some examples of common matrix decompositions: Cholesky decomposition, eigenvalues/eigenvectors, and SVD. These all use BLAS+LAPACK.</span>
-<span id="cb111-175"><a href="#cb111-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-176"><a href="#cb111-176" aria-hidden="true" tabindex="-1"></a><span class="in">```{r cache=TRUE}</span></span>
-<span id="cb111-177"><a href="#cb111-177" aria-hidden="true" tabindex="-1"></a><span class="in">## Next 3 lines generate a positive definite matrix.</span></span>
-<span id="cb111-178"><a href="#cb111-178" aria-hidden="true" tabindex="-1"></a><span class="in">library(fields, warn.conflicts = FALSE, quietly = TRUE, verbose = FALSE)</span></span>
-<span id="cb111-179"><a href="#cb111-179" aria-hidden="true" tabindex="-1"></a><span class="in">times &lt;- seq(0, 1, length = 100)</span></span>
-<span id="cb111-180"><a href="#cb111-180" aria-hidden="true" tabindex="-1"></a><span class="in">R &lt;- exp(-rdist(times) / 0.2) # a correlation matrix</span></span>
-<span id="cb111-181"><a href="#cb111-181" aria-hidden="true" tabindex="-1"></a><span class="in">######################################################</span></span>
-<span id="cb111-182"><a href="#cb111-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-183"><a href="#cb111-183" aria-hidden="true" tabindex="-1"></a><span class="in">## Some standard linear algebra operations:</span></span>
-<span id="cb111-184"><a href="#cb111-184" aria-hidden="true" tabindex="-1"></a><span class="in">e &lt;- eigen(R)</span></span>
-<span id="cb111-185"><a href="#cb111-185" aria-hidden="true" tabindex="-1"></a><span class="in">range(e$values)</span></span>
-<span id="cb111-186"><a href="#cb111-186" aria-hidden="true" tabindex="-1"></a><span class="in">e$vectors[ , 1]</span></span>
-<span id="cb111-187"><a href="#cb111-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-188"><a href="#cb111-188" aria-hidden="true" tabindex="-1"></a><span class="in">sv &lt;- svd(R)</span></span>
-<span id="cb111-189"><a href="#cb111-189" aria-hidden="true" tabindex="-1"></a><span class="in">U &lt;- chol(R)</span></span>
-<span id="cb111-190"><a href="#cb111-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-191"><a href="#cb111-191" aria-hidden="true" tabindex="-1"></a><span class="in">devs &lt;- rnorm(100)</span></span>
-<span id="cb111-192"><a href="#cb111-192" aria-hidden="true" tabindex="-1"></a><span class="in">Rinvb &lt;- solve(R, devs)  # R^{-1} b</span></span>
-<span id="cb111-193"><a href="#cb111-193" aria-hidden="true" tabindex="-1"></a><span class="in">Rinv &lt;- solve(R) # R^{-1} -- try to avoid this (slower and less numerically stable)</span></span>
-<span id="cb111-194"><a href="#cb111-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb111-195"><a href="#cb111-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-196"><a href="#cb111-196" aria-hidden="true" tabindex="-1"></a><span class="fu"># Efficiency</span></span>
-<span id="cb111-197"><a href="#cb111-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-198"><a href="#cb111-198" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pre-allocation</span></span>
-<span id="cb111-199"><a href="#cb111-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-200"><a href="#cb111-200" aria-hidden="true" tabindex="-1"></a>This is slow.</span>
-<span id="cb111-201"><a href="#cb111-201" aria-hidden="true" tabindex="-1"></a><span class="in">```{r cache=TRUE}</span></span>
-<span id="cb111-202"><a href="#cb111-202" aria-hidden="true" tabindex="-1"></a><span class="in">vals &lt;- 0</span></span>
-<span id="cb111-203"><a href="#cb111-203" aria-hidden="true" tabindex="-1"></a><span class="in">n &lt;- 50000</span></span>
-<span id="cb111-204"><a href="#cb111-204" aria-hidden="true" tabindex="-1"></a><span class="in">system.time({</span></span>
-<span id="cb111-205"><a href="#cb111-205" aria-hidden="true" tabindex="-1"></a><span class="in">for(i in 1:n)</span></span>
-<span id="cb111-206"><a href="#cb111-206" aria-hidden="true" tabindex="-1"></a><span class="in">      vals &lt;- c(vals, i)</span></span>
-<span id="cb111-207"><a href="#cb111-207" aria-hidden="true" tabindex="-1"></a><span class="in">})</span></span>
-<span id="cb111-208"><a href="#cb111-208" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb111-209"><a href="#cb111-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-210"><a href="#cb111-210" aria-hidden="true" tabindex="-1"></a>The same holds for using <span class="in">`rbind()`</span>, <span class="in">`cbind()`</span>, or adding to a list, one element at a time.</span>
-<span id="cb111-211"><a href="#cb111-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-212"><a href="#cb111-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-213"><a href="#cb111-213" aria-hidden="true" tabindex="-1"></a>**Question**: Thoughts on why this is so slow? Think about what R might be doing behind the scenes in terms of storage in memory.</span>
-<span id="cb111-214"><a href="#cb111-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-215"><a href="#cb111-215" aria-hidden="true" tabindex="-1"></a>**Note**: This is one area where Python and some other languages handle the situation in a more sophisticated way.</span>
-<span id="cb111-216"><a href="#cb111-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-217"><a href="#cb111-217" aria-hidden="true" tabindex="-1"></a><span class="fu">## The answer is to pre-allocate memory</span></span>
-<span id="cb111-218"><a href="#cb111-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-219"><a href="#cb111-219" aria-hidden="true" tabindex="-1"></a>This is not so slow. (Please ignore the fact that this is a silly way to do this in R.)</span>
-<span id="cb111-220"><a href="#cb111-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-223"><a href="#cb111-223" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb111-224"><a href="#cb111-224" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50000</span></span>
-<span id="cb111-225"><a href="#cb111-225" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>({</span>
-<span id="cb111-226"><a href="#cb111-226" aria-hidden="true" tabindex="-1"></a>vals <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n)</span>
-<span id="cb111-227"><a href="#cb111-227" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n)</span>
-<span id="cb111-228"><a href="#cb111-228" aria-hidden="true" tabindex="-1"></a>      vals[i] <span class="ot">&lt;-</span> i</span>
-<span id="cb111-229"><a href="#cb111-229" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb111-230"><a href="#cb111-230" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb111-231"><a href="#cb111-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-232"><a href="#cb111-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-233"><a href="#cb111-233" aria-hidden="true" tabindex="-1"></a><span class="fu">## apply</span></span>
-<span id="cb111-234"><a href="#cb111-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-235"><a href="#cb111-235" aria-hidden="true" tabindex="-1"></a>Some functions aren't vectorized, or you may want to use a function on every row or column of a matrix/data frame, every element of a list, etc.</span>
-<span id="cb111-236"><a href="#cb111-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-237"><a href="#cb111-237" aria-hidden="true" tabindex="-1"></a>For this we use the <span class="in">`apply()`</span> family of functions to make our code more readable.</span>
-<span id="cb111-238"><a href="#cb111-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-241"><a href="#cb111-241" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb111-242"><a href="#cb111-242" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">100</span><span class="sc">*</span><span class="dv">1000</span>), <span class="at">nr =</span> <span class="dv">100</span>)</span>
-<span id="cb111-243"><a href="#cb111-243" aria-hidden="true" tabindex="-1"></a>row_min <span class="ot">&lt;-</span> <span class="fu">apply</span>(mat, <span class="at">MARGIN =</span> <span class="dv">1</span>, <span class="at">FUN =</span> min)</span>
-<span id="cb111-244"><a href="#cb111-244" aria-hidden="true" tabindex="-1"></a>col_max <span class="ot">&lt;-</span> <span class="fu">apply</span>(mat, <span class="at">MARGIN =</span> <span class="dv">2</span>, <span class="at">FUN =</span> max)</span>
-<span id="cb111-245"><a href="#cb111-245" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb111-246"><a href="#cb111-246" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-247"><a href="#cb111-247" aria-hidden="true" tabindex="-1"></a>There are actually some even faster specialized functions:</span>
-<span id="cb111-250"><a href="#cb111-250" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb111-251"><a href="#cb111-251" aria-hidden="true" tabindex="-1"></a>row_mean <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(mat)</span>
-<span id="cb111-252"><a href="#cb111-252" aria-hidden="true" tabindex="-1"></a>col_sum <span class="ot">&lt;-</span> <span class="fu">colSums</span>(mat)</span>
-<span id="cb111-253"><a href="#cb111-253" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb111-254"><a href="#cb111-254" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-255"><a href="#cb111-255" aria-hidden="true" tabindex="-1"></a><span class="fu">## `lapply()` and `sapply()`</span></span>
-<span id="cb111-256"><a href="#cb111-256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-257"><a href="#cb111-257" aria-hidden="true" tabindex="-1"></a>These are "map" operations that apply a function to each element of a list.</span>
-<span id="cb111-258"><a href="#cb111-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-261"><a href="#cb111-261" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb111-262"><a href="#cb111-262" aria-hidden="true" tabindex="-1"></a>myList <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">rnorm</span>(<span class="dv">3</span>), <span class="fu">rnorm</span>(<span class="dv">3</span>), <span class="fu">rnorm</span>(<span class="dv">5</span>))</span>
-<span id="cb111-263"><a href="#cb111-263" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(myList, min)</span>
-<span id="cb111-264"><a href="#cb111-264" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(myList, min)</span>
-<span id="cb111-265"><a href="#cb111-265" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb111-266"><a href="#cb111-266" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-267"><a href="#cb111-267" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Why use lapply and sapply?"}</span>
-<span id="cb111-268"><a href="#cb111-268" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-269"><a href="#cb111-269" aria-hidden="true" tabindex="-1"></a>The *array functions won't generally be faster than loops. Rather, they're generally used in order to have cleaner, more readable code.</span>
-<span id="cb111-270"><a href="#cb111-270" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb111-271"><a href="#cb111-271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-272"><a href="#cb111-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-273"><a href="#cb111-273" aria-hidden="true" tabindex="-1"></a>Note that we don't generally want to use <span class="in">`apply()`</span> on a data frame. </span>
-<span id="cb111-274"><a href="#cb111-274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-275"><a href="#cb111-275" aria-hidden="true" tabindex="-1"></a><span class="fu">## `lapply()` and `sapply()` with vectors</span></span>
-<span id="cb111-276"><a href="#cb111-276" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-277"><a href="#cb111-277" aria-hidden="true" tabindex="-1"></a>You can use <span class="in">`lapply()`</span> and <span class="in">`sapply()`</span> on regular vectors, such as vectors of indices, which can come in handy. This is a bit silly but it illustrates the idea:</span>
-<span id="cb111-278"><a href="#cb111-278" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-281"><a href="#cb111-281" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb111-282"><a href="#cb111-282" aria-hidden="true" tabindex="-1"></a>myfun <span class="ot">&lt;-</span> <span class="cf">function</span>(i) {</span>
-<span id="cb111-283"><a href="#cb111-283" aria-hidden="true" tabindex="-1"></a>   <span class="fu">max</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>))</span>
-<span id="cb111-284"><a href="#cb111-284" aria-hidden="true" tabindex="-1"></a>}   </span>
-<span id="cb111-285"><a href="#cb111-285" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-286"><a href="#cb111-286" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, myfun)</span>
-<span id="cb111-287"><a href="#cb111-287" aria-hidden="true" tabindex="-1"></a>out</span>
-<span id="cb111-288"><a href="#cb111-288" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-289"><a href="#cb111-289" aria-hidden="true" tabindex="-1"></a><span class="do">## Or, 'in-line' the function:</span></span>
-<span id="cb111-290"><a href="#cb111-290" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-291"><a href="#cb111-291" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="cf">function</span>(x) x<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb111-292"><a href="#cb111-292" aria-hidden="true" tabindex="-1"></a>out</span>
-<span id="cb111-293"><a href="#cb111-293" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb111-294"><a href="#cb111-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-295"><a href="#cb111-295" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Question"}</span>
-<span id="cb111-296"><a href="#cb111-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-297"><a href="#cb111-297" aria-hidden="true" tabindex="-1"></a>Which of these give exactly this result: <span class="in">`pi`</span>, <span class="in">`2*pi`</span>, <span class="in">`3*pi`</span>, ...?</span>
-<span id="cb111-298"><a href="#cb111-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-299"><a href="#cb111-299" aria-hidden="true" tabindex="-1"></a>1) <span class="in">`(1:n)*pi`</span></span>
-<span id="cb111-300"><a href="#cb111-300" aria-hidden="true" tabindex="-1"></a>2) <span class="in">`out &lt;- rep(0, n); for(x in 1:n) out &lt;- x*pi`</span></span>
-<span id="cb111-301"><a href="#cb111-301" aria-hidden="true" tabindex="-1"></a>3) <span class="in">`sapply(1:n, function(x) x*pi)`</span></span>
-<span id="cb111-302"><a href="#cb111-302" aria-hidden="true" tabindex="-1"></a>4) <span class="in">`out &lt;- rep(0, n); for(x in 1:n) out[i] &lt;- x*pi`</span></span>
-<span id="cb111-303"><a href="#cb111-303" aria-hidden="true" tabindex="-1"></a>5) <span class="in">`lapply(1:n, function(x) x*pi)`</span></span>
-<span id="cb111-304"><a href="#cb111-304" aria-hidden="true" tabindex="-1"></a>6) <span class="in">`sapply(1:n, "*", pi)`</span></span>
-<span id="cb111-305"><a href="#cb111-305" aria-hidden="true" tabindex="-1"></a>7) <span class="in">`1:n*pi`</span></span>
-<span id="cb111-306"><a href="#cb111-306" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb111-307"><a href="#cb111-307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-308"><a href="#cb111-308" aria-hidden="true" tabindex="-1"></a><span class="fu">## When/why are loops in R slow?</span></span>
-<span id="cb111-309"><a href="#cb111-309" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-310"><a href="#cb111-310" aria-hidden="true" tabindex="-1"></a>Consider this code:</span>
-<span id="cb111-311"><a href="#cb111-311" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-314"><a href="#cb111-314" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb111-315"><a href="#cb111-315" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb111-316"><a href="#cb111-316" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb111-317"><a href="#cb111-317" aria-hidden="true" tabindex="-1"></a>x<span class="sc">*</span><span class="dv">7</span></span>
-<span id="cb111-318"><a href="#cb111-318" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">'hi'</span></span>
-<span id="cb111-319"><a href="#cb111-319" aria-hidden="true" tabindex="-1"></a>x<span class="sc">*</span><span class="dv">7</span></span>
-<span id="cb111-320"><a href="#cb111-320" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb111-321"><a href="#cb111-321" aria-hidden="true" tabindex="-1"></a>￼</span>
-<span id="cb111-322"><a href="#cb111-322" aria-hidden="true" tabindex="-1"></a>Because of dynamic typing, when the interpreter sees <span class="in">`x*7`</span> it needs to:</span>
-<span id="cb111-323"><a href="#cb111-323" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-324"><a href="#cb111-324" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>(using scoping rules) look up the value of <span class="in">`x`</span>. (Consider that <span class="in">`x`</span> might not even exist at the point that <span class="in">`x*7`</span> is called.)</span>
-<span id="cb111-325"><a href="#cb111-325" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>check if <span class="in">`x`</span> is something that can be multiplied by 7 (including dealing with the fact that <span class="in">`x`</span> could be a vector with many numbers in it).</span>
-<span id="cb111-326"><a href="#cb111-326" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>only then can the multiplication happen.</span>
-<span id="cb111-327"><a href="#cb111-327" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-328"><a href="#cb111-328" aria-hidden="true" tabindex="-1"></a>Let’s consider writing a loop:</span>
-<span id="cb111-329"><a href="#cb111-329" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-332"><a href="#cb111-332" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb111-333"><a href="#cb111-333" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb111-334"><a href="#cb111-334" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
-<span id="cb111-335"><a href="#cb111-335" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">&gt;</span> <span class="dv">0</span>) x <span class="ot">&lt;-</span> <span class="st">'hi'</span></span>
-<span id="cb111-336"><a href="#cb111-336" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">&gt;</span> <span class="fl">0.5</span>) <span class="fu">rm</span>(x)</span>
-<span id="cb111-337"><a href="#cb111-337" aria-hidden="true" tabindex="-1"></a>  x[i] <span class="ot">&lt;-</span> <span class="fu">exp</span>(x[i])</span>
-<span id="cb111-338"><a href="#cb111-338" aria-hidden="true" tabindex="-1"></a>}  </span>
-<span id="cb111-339"><a href="#cb111-339" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb111-340"><a href="#cb111-340" aria-hidden="true" tabindex="-1"></a>￼</span>
-<span id="cb111-341"><a href="#cb111-341" aria-hidden="true" tabindex="-1"></a>Because of dynamic typing and lack of compilation, the interpreter needs to check if <span class="in">`x`</span> exists, if it is a vector of sufficient length, if it contains numeric values, and it needs to go retrieve the required value, EVERY TIME the <span class="in">`exp()`</span> is executed.</span>
-<span id="cb111-342"><a href="#cb111-342" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-343"><a href="#cb111-343" aria-hidden="true" tabindex="-1"></a>The R interpreter is a C program, so in some sense everything that happens is running as compiled code, but there are lots more things being done to accomplish a given task using interpreted code than if the task had been written directly in code that is compiled. By analogy, consider talking directly to a person in a language you both know compared to talking to a person via an interpreter who has to translate between two languages. Ultimately, the same information gets communicated (hopefully!) but the number of words spoken and time involved is much greater.</span>
-<span id="cb111-344"><a href="#cb111-344" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-345"><a href="#cb111-345" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-346"><a href="#cb111-346" aria-hidden="true" tabindex="-1"></a><span class="fu">## When are loops not slow?</span></span>
-<span id="cb111-347"><a href="#cb111-347" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-348"><a href="#cb111-348" aria-hidden="true" tabindex="-1"></a>When the bulk of the time in the loop involves actual computation rather than checking, e.g., a loop that fits a separate machine learning model at each iteration.</span>
-<span id="cb111-349"><a href="#cb111-349" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-350"><a href="#cb111-350" aria-hidden="true" tabindex="-1"></a>Conclusions: use vectorization when you can, especially when the individual calculations are fast, but don't obsess when the individual calculations are intensive (and often will call out to C directly).</span>
-<span id="cb111-351"><a href="#cb111-351" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-352"><a href="#cb111-352" aria-hidden="true" tabindex="-1"></a><span class="fu">## Some efficiency tips (not R-specific)</span></span>
-<span id="cb111-353"><a href="#cb111-353" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-354"><a href="#cb111-354" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Consider the order of operations:</span>
-<span id="cb111-355"><a href="#cb111-355" aria-hidden="true" tabindex="-1"></a>  <span class="in">```{r}</span></span>
-<span id="cb111-356"><a href="#cb111-356" aria-hidden="true" tabindex="-1"></a><span class="in">  n &lt;- 3000</span></span>
-<span id="cb111-357"><a href="#cb111-357" aria-hidden="true" tabindex="-1"></a><span class="in">  A &lt;- matrix(rnorm(n^2),n)</span></span>
-<span id="cb111-358"><a href="#cb111-358" aria-hidden="true" tabindex="-1"></a><span class="in">  B &lt;- matrix(rnorm(n^2),n)</span></span>
-<span id="cb111-359"><a href="#cb111-359" aria-hidden="true" tabindex="-1"></a><span class="in">  x &lt;- rnorm(n)</span></span>
-<span id="cb111-360"><a href="#cb111-360" aria-hidden="true" tabindex="-1"></a><span class="in">  system.time(A %*% B %*% x)</span></span>
-<span id="cb111-361"><a href="#cb111-361" aria-hidden="true" tabindex="-1"></a><span class="in">  system.time(A %*% (B %*% x))</span></span>
-<span id="cb111-362"><a href="#cb111-362" aria-hidden="true" tabindex="-1"></a><span class="in">  ```</span></span>
-<span id="cb111-363"><a href="#cb111-363" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Avoid duplicated computation</span>
-<span id="cb111-364"><a href="#cb111-364" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Don't duplicate operations within iterations of a loop unnecessarily (precompute them)</span>
-<span id="cb111-365"><a href="#cb111-365" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Try to work with adjacent elements (in memory) of large vectors/matrices/arrays to <span class="co">[</span><span class="ot">efficiently use the CPU cache</span><span class="co">](https://computing.stat.berkeley.edu/tutorial-efficient-R/efficiency#6-cache-aware-programming)</span>.</span>
-<span id="cb111-366"><a href="#cb111-366" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>In R, generally work column-wise rather than row-wise with matrices</span>
-<span id="cb111-367"><a href="#cb111-367" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>In R, look up elements by numerical index rather than by name for O(1) computation</span>
-<span id="cb111-368"><a href="#cb111-368" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-369"><a href="#cb111-369" aria-hidden="true" tabindex="-1"></a><span class="fu">## Timing your code</span></span>
-<span id="cb111-370"><a href="#cb111-370" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-371"><a href="#cb111-371" aria-hidden="true" tabindex="-1"></a>First, a cautionary note...</span>
-<span id="cb111-372"><a href="#cb111-372" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-373"><a href="#cb111-373" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; premature optimization is the root of all evil</span></span>
-<span id="cb111-374"><a href="#cb111-374" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb111-375"><a href="#cb111-375" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; --- Donald Knuth, 1974</span></span>
-<span id="cb111-376"><a href="#cb111-376" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-377"><a href="#cb111-377" aria-hidden="true" tabindex="-1"></a>There are a few tools in R for timing your code.</span>
-<span id="cb111-378"><a href="#cb111-378" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-381"><a href="#cb111-381" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb111-382"><a href="#cb111-382" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
-<span id="cb111-383"><a href="#cb111-383" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="fl">1e7</span>)))</span>
-<span id="cb111-384"><a href="#cb111-384" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-385"><a href="#cb111-385" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rbenchmark)</span>
-<span id="cb111-386"><a href="#cb111-386" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb111-387"><a href="#cb111-387" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n<span class="sc">^</span><span class="dv">2</span>), n)</span>
-<span id="cb111-388"><a href="#cb111-388" aria-hidden="true" tabindex="-1"></a><span class="fu">benchmark</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x,</span>
-<span id="cb111-389"><a href="#cb111-389" aria-hidden="true" tabindex="-1"></a>          <span class="fu">crossprod</span>(x),</span>
-<span id="cb111-390"><a href="#cb111-390" aria-hidden="true" tabindex="-1"></a>          <span class="at">replications =</span> <span class="dv">5</span>,</span>
-<span id="cb111-391"><a href="#cb111-391" aria-hidden="true" tabindex="-1"></a>          <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">'test'</span>, <span class="st">'replications'</span>, <span class="st">'elapsed'</span>))</span>
-<span id="cb111-392"><a href="#cb111-392" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb111-393"><a href="#cb111-393" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-394"><a href="#cb111-394" aria-hidden="true" tabindex="-1"></a>Consider why the automatic crossproduct may be faster than the manual version. Note that <span class="in">`crossprod`</span> calls out directly to a linear algebra system routine.</span>
-<span id="cb111-395"><a href="#cb111-395" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-396"><a href="#cb111-396" aria-hidden="true" tabindex="-1"></a><span class="fu">## Microbenchmark</span></span>
-<span id="cb111-397"><a href="#cb111-397" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-398"><a href="#cb111-398" aria-hidden="true" tabindex="-1"></a>To time code that runs very quickly, you should use the microbenchmark package. Of course one would generally only care about accurately timing quick calculations if a larger operation does the quick calculation very many times. Here’s a comparison of different ways of accessing an element of a dataframe.</span>
-<span id="cb111-399"><a href="#cb111-399" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-402"><a href="#cb111-402" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb111-403"><a href="#cb111-403" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span>
-<span id="cb111-404"><a href="#cb111-404" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">vals =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">labs =</span> <span class="fu">c</span>(<span class="st">'a'</span>,<span class="st">'b'</span>,<span class="st">'c'</span>))</span>
-<span id="cb111-405"><a href="#cb111-405" aria-hidden="true" tabindex="-1"></a>vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"a"</span><span class="ot">=</span><span class="dv">5</span>, <span class="st">"b"</span> <span class="ot">=</span> <span class="dv">7</span>, <span class="st">"c"</span> <span class="ot">=</span> <span class="dv">9</span>)</span>
-<span id="cb111-406"><a href="#cb111-406" aria-hidden="true" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
-<span id="cb111-407"><a href="#cb111-407" aria-hidden="true" tabindex="-1"></a>  df[<span class="dv">2</span>,<span class="dv">1</span>],</span>
-<span id="cb111-408"><a href="#cb111-408" aria-hidden="true" tabindex="-1"></a>  df<span class="sc">$</span>vals[<span class="dv">2</span>],</span>
-<span id="cb111-409"><a href="#cb111-409" aria-hidden="true" tabindex="-1"></a>  df[<span class="dv">2</span>, <span class="st">'vals'</span>],</span>
-<span id="cb111-410"><a href="#cb111-410" aria-hidden="true" tabindex="-1"></a>  vec[<span class="dv">2</span>],</span>
-<span id="cb111-411"><a href="#cb111-411" aria-hidden="true" tabindex="-1"></a>  vec[<span class="st">"b"</span>]</span>
-<span id="cb111-412"><a href="#cb111-412" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb111-413"><a href="#cb111-413" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb111-414"><a href="#cb111-414" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-415"><a href="#cb111-415" aria-hidden="true" tabindex="-1"></a><span class="fu"># Memory</span></span>
-<span id="cb111-416"><a href="#cb111-416" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-417"><a href="#cb111-417" aria-hidden="true" tabindex="-1"></a><span class="fu">## Memory use</span></span>
-<span id="cb111-418"><a href="#cb111-418" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-419"><a href="#cb111-419" aria-hidden="true" tabindex="-1"></a>You should know how much memory (RAM) the computer you are using has and keep in mind how big your objects are and how much memory you code might use. All objects in R are stored in RAM unlike a database or certain tools for working with big data (e.g., Python's Dask package and certain R packages).</span>
-<span id="cb111-420"><a href="#cb111-420" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-421"><a href="#cb111-421" aria-hidden="true" tabindex="-1"></a>If in total, the jobs on a machine approach the physical RAM, the machine may (depending on how it is set up) start to use the hard disk as 'virtual memory'. This is called *paging* or *swapping*, and once this happens you're often toast (i.e., your code may take essentially forever to finish). And if paging doesn't happen, your job will die with an out-of-memory (OOM) error.</span>
-<span id="cb111-422"><a href="#cb111-422" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-423"><a href="#cb111-423" aria-hidden="true" tabindex="-1"></a>You can assess memory use with <span class="in">`top`</span> or <span class="in">`ps`</span> or <span class="in">`free`</span> in Linux/Mac or the Task Manager in Windows.</span>
-<span id="cb111-424"><a href="#cb111-424" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-425"><a href="#cb111-425" aria-hidden="true" tabindex="-1"></a>Often it's a good idea to roughly estimate how much memory an object will take up even before creating it in R. You can do this with some simple arithmetic. </span>
-<span id="cb111-426"><a href="#cb111-426" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-427"><a href="#cb111-427" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-430"><a href="#cb111-430" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb111-431"><a href="#cb111-431" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="fl">1e6</span><span class="sc">*</span><span class="dv">10</span>), <span class="fl">1e6</span>)</span>
-<span id="cb111-432"><a href="#cb111-432" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(x)</span>
-<span id="cb111-433"><a href="#cb111-433" aria-hidden="true" tabindex="-1"></a><span class="fl">1e6</span> <span class="sc">*</span> <span class="dv">10</span> <span class="sc">*</span><span class="dv">8</span><span class="sc">/</span> <span class="fl">1e6</span>  <span class="co"># direct calculation of Mb</span></span>
-<span id="cb111-434"><a href="#cb111-434" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">object.size</span>(x), <span class="at">units =</span> <span class="st">'auto'</span>)</span>
-<span id="cb111-435"><a href="#cb111-435" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb111-436"><a href="#cb111-436" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-437"><a href="#cb111-437" aria-hidden="true" tabindex="-1"></a><span class="fu">## Garbage collection</span></span>
-<span id="cb111-438"><a href="#cb111-438" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-439"><a href="#cb111-439" aria-hidden="true" tabindex="-1"></a>A variable is just a name that references a location (object) in memory. When a name is used for a different object, the memory for the old object is freed to be used again.</span>
-<span id="cb111-440"><a href="#cb111-440" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-443"><a href="#cb111-443" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb111-444"><a href="#cb111-444" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pryr)</span>
-<span id="cb111-445"><a href="#cb111-445" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fl">1e8</span>)</span>
-<span id="cb111-446"><a href="#cb111-446" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(x)</span>
-<span id="cb111-447"><a href="#cb111-447" aria-hidden="true" tabindex="-1"></a><span class="fu">mem_used</span>()</span>
-<span id="cb111-448"><a href="#cb111-448" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">"hello"</span></span>
-<span id="cb111-449"><a href="#cb111-449" aria-hidden="true" tabindex="-1"></a><span class="fu">mem_used</span>()</span>
-<span id="cb111-450"><a href="#cb111-450" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb111-451"><a href="#cb111-451" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-452"><a href="#cb111-452" aria-hidden="true" tabindex="-1"></a><span class="fu">## Copy-on-modify</span></span>
-<span id="cb111-453"><a href="#cb111-453" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-454"><a href="#cb111-454" aria-hidden="true" tabindex="-1"></a>The *semantics* of R say that <span class="in">`&lt;-`</span> creates a new copy of an object.</span>
-<span id="cb111-455"><a href="#cb111-455" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-456"><a href="#cb111-456" aria-hidden="true" tabindex="-1"></a>The *implementation* in the R interpreter  is that copies are only made when needed.</span>
-<span id="cb111-457"><a href="#cb111-457" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-460"><a href="#cb111-460" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb111-461"><a href="#cb111-461" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pryr)</span>
-<span id="cb111-462"><a href="#cb111-462" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fl">1e8</span>))</span>
-<span id="cb111-463"><a href="#cb111-463" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(x)</span>
-<span id="cb111-464"><a href="#cb111-464" aria-hidden="true" tabindex="-1"></a><span class="fu">mem_used</span>()</span>
-<span id="cb111-465"><a href="#cb111-465" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(y <span class="ot">&lt;-</span> x)</span>
-<span id="cb111-466"><a href="#cb111-466" aria-hidden="true" tabindex="-1"></a><span class="fu">mem_used</span>()</span>
-<span id="cb111-467"><a href="#cb111-467" aria-hidden="true" tabindex="-1"></a><span class="fu">address</span>(x)</span>
-<span id="cb111-468"><a href="#cb111-468" aria-hidden="true" tabindex="-1"></a><span class="fu">address</span>(y)</span>
-<span id="cb111-469"><a href="#cb111-469" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-470"><a href="#cb111-470" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(x[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">3</span>)  <span class="co"># Clearly more time than just modifying one element!</span></span>
-<span id="cb111-471"><a href="#cb111-471" aria-hidden="true" tabindex="-1"></a><span class="fu">mem_used</span>()</span>
-<span id="cb111-472"><a href="#cb111-472" aria-hidden="true" tabindex="-1"></a><span class="fu">address</span>(x)</span>
-<span id="cb111-473"><a href="#cb111-473" aria-hidden="true" tabindex="-1"></a><span class="fu">address</span>(y)</span>
-<span id="cb111-474"><a href="#cb111-474" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb111-475"><a href="#cb111-475" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-476"><a href="#cb111-476" aria-hidden="true" tabindex="-1"></a>Internally R manages this by keeping track of how many variables (references) there are to a given object in memory.</span>
-<span id="cb111-477"><a href="#cb111-477" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-478"><a href="#cb111-478" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-479"><a href="#cb111-479" aria-hidden="true" tabindex="-1"></a><span class="fu">## Memory and lists</span></span>
-<span id="cb111-480"><a href="#cb111-480" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-481"><a href="#cb111-481" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">R plays various games with lists and character strings (essentially copy-on-change) to avoid redundant copies of identical data</span><span class="co">](https://stat243.berkeley.edu/stat243-fall-2022/units/unit5-programming.html#how-lists-are-stored)</span>. We won't go into details.</span>
-<span id="cb111-482"><a href="#cb111-482" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-483"><a href="#cb111-483" aria-hidden="true" tabindex="-1"></a><span class="fu"># Breakout</span></span>
-<span id="cb111-484"><a href="#cb111-484" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-485"><a href="#cb111-485" aria-hidden="true" tabindex="-1"></a><span class="fu">## Basics</span></span>
-<span id="cb111-486"><a href="#cb111-486" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-487"><a href="#cb111-487" aria-hidden="true" tabindex="-1"></a>1) Create a vector of GDP per capita in units of Euros rather than dollars.</span>
-<span id="cb111-488"><a href="#cb111-488" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-489"><a href="#cb111-489" aria-hidden="true" tabindex="-1"></a>2) Create a vector that concatenates the country and year to create a 'country-year' variable in a vectorized way using the string processing functions.</span>
-<span id="cb111-490"><a href="#cb111-490" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-491"><a href="#cb111-491" aria-hidden="true" tabindex="-1"></a>3) Use <span class="in">`table()`</span> to figure out the number of countries available for each continent.</span>
-<span id="cb111-492"><a href="#cb111-492" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-493"><a href="#cb111-493" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using the ideas</span></span>
-<span id="cb111-494"><a href="#cb111-494" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-495"><a href="#cb111-495" aria-hidden="true" tabindex="-1"></a>4) Explain the steps of what this code is doing: <span class="in">`tmp &lt;- gapminder[ , -which(names(gapminder) == "continent")]`</span>.</span>
-<span id="cb111-496"><a href="#cb111-496" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-497"><a href="#cb111-497" aria-hidden="true" tabindex="-1"></a>5) Compute the number of NAs in each column of the gapminder dataset using <span class="in">`sapply()`</span> and making use of the <span class="in">`is.na()`</span> function. It's possible to do this without writing a function.</span>
-<span id="cb111-498"><a href="#cb111-498" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-499"><a href="#cb111-499" aria-hidden="true" tabindex="-1"></a>6)  Suppose we have two categorical variables and we conduct a hypothesis test of independence. The chi-square statistic is: </span>
-<span id="cb111-500"><a href="#cb111-500" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-501"><a href="#cb111-501" aria-hidden="true" tabindex="-1"></a>   $$</span>
-<span id="cb111-502"><a href="#cb111-502" aria-hidden="true" tabindex="-1"></a>   \chi^2 = \sum_{i=1}^{n}\sum_{j=1}^{m} \frac{(y_{ij} - e_{ij})^2}{e_{ij}}, </span>
-<span id="cb111-503"><a href="#cb111-503" aria-hidden="true" tabindex="-1"></a>   $$ </span>
-<span id="cb111-504"><a href="#cb111-504" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-505"><a href="#cb111-505" aria-hidden="true" tabindex="-1"></a>   where $e_{ij} = \frac{y_{i\cdot} y_{\cdot j}}{y_{\cdot \cdot}}$, with $y_{i\cdot}$ the sum of the values in the i'th row, $y_{\cdot j}$ the sum of values in the j'th column, and $y_{\cdot\cdot}$ the sum of all the values. Suppose I give you a matrix in R with the $y_{ij}$ values. </span>
-<span id="cb111-506"><a href="#cb111-506" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-507"><a href="#cb111-507" aria-hidden="true" tabindex="-1"></a>   You can generate a test matrix as: </span>
-<span id="cb111-508"><a href="#cb111-508" aria-hidden="true" tabindex="-1"></a>   <span class="in">```{r, eval=FALSE}</span></span>
-<span id="cb111-509"><a href="#cb111-509" aria-hidden="true" tabindex="-1"></a><span class="in">   y &lt;- matrix(sample(1:10, 12, replace = TRUE), </span></span>
-<span id="cb111-510"><a href="#cb111-510" aria-hidden="true" tabindex="-1"></a><span class="in">   nrow = 3, ncol = 4)</span></span>
-<span id="cb111-511"><a href="#cb111-511" aria-hidden="true" tabindex="-1"></a><span class="in">   ```</span></span>
-<span id="cb111-512"><a href="#cb111-512" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-513"><a href="#cb111-513" aria-hidden="true" tabindex="-1"></a>   Compute the statistic without *any* loops as follows:</span>
-<span id="cb111-514"><a href="#cb111-514" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-515"><a href="#cb111-515" aria-hidden="true" tabindex="-1"></a><span class="in">     - First, assume you have the *e* matrix. How do you compute the statistic without loops as a function of `y` and `e`?</span></span>
-<span id="cb111-516"><a href="#cb111-516" aria-hidden="true" tabindex="-1"></a><span class="in">     - How can you construct the *e* matrix? Hint: the numerator of *e* is just an *outer product* for which the `outer()` function can be used.</span></span>
-<span id="cb111-517"><a href="#cb111-517" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-518"><a href="#cb111-518" aria-hidden="true" tabindex="-1"></a><span class="fu">## Advanced </span></span>
-<span id="cb111-519"><a href="#cb111-519" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-520"><a href="#cb111-520" aria-hidden="true" tabindex="-1"></a>7) Here's a cool trick using <span class="in">`sapply`</span> to pull off a particular element of a list of lists:</span>
-<span id="cb111-521"><a href="#cb111-521" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-522"><a href="#cb111-522" aria-hidden="true" tabindex="-1"></a>   <span class="in">```{r}</span></span>
-<span id="cb111-523"><a href="#cb111-523" aria-hidden="true" tabindex="-1"></a><span class="in">   params &lt;- list(a = list(mn = 7, sd = 3), b = list(mn = 6,sd = 1), </span></span>
-<span id="cb111-524"><a href="#cb111-524" aria-hidden="true" tabindex="-1"></a><span class="in">   c = list(mn = 2, sd = 1))</span></span>
-<span id="cb111-525"><a href="#cb111-525" aria-hidden="true" tabindex="-1"></a><span class="in">   </span></span>
-<span id="cb111-526"><a href="#cb111-526" aria-hidden="true" tabindex="-1"></a><span class="in">   sapply(params, "[[", 1)</span></span>
-<span id="cb111-527"><a href="#cb111-527" aria-hidden="true" tabindex="-1"></a><span class="in">   ```</span></span>
-<span id="cb111-528"><a href="#cb111-528" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-529"><a href="#cb111-529" aria-hidden="true" tabindex="-1"></a>   Explain what that does and why it works.</span>
-<span id="cb111-530"><a href="#cb111-530" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-531"><a href="#cb111-531" aria-hidden="true" tabindex="-1"></a>   Hint:</span>
-<span id="cb111-532"><a href="#cb111-532" aria-hidden="true" tabindex="-1"></a>   <span class="in">```{r}</span></span>
-<span id="cb111-533"><a href="#cb111-533" aria-hidden="true" tabindex="-1"></a><span class="in">   test &lt;- list(5, 7, 3)</span></span>
-<span id="cb111-534"><a href="#cb111-534" aria-hidden="true" tabindex="-1"></a><span class="in">   test[[2]]</span></span>
-<span id="cb111-535"><a href="#cb111-535" aria-hidden="true" tabindex="-1"></a><span class="in">   # `[[`(test, 2)  # need it commented or R Markdown processing messes it up...</span></span>
-<span id="cb111-536"><a href="#cb111-536" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb111-537"><a href="#cb111-537" aria-hidden="true" tabindex="-1"></a><span class="in">   # `+`(3, 7)</span></span>
-<span id="cb111-538"><a href="#cb111-538" aria-hidden="true" tabindex="-1"></a><span class="in">   ```</span></span>
+<div class="sourceCode" id="cb110" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Calculations and Efficiency"</span></span>
+<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb110-4"><a href="#cb110-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb110-5"><a href="#cb110-5" aria-hidden="true" tabindex="-1"></a><span class="co">    theme: cosmo</span></span>
+<span id="cb110-6"><a href="#cb110-6" aria-hidden="true" tabindex="-1"></a><span class="co">    css: ../assets/styles.css</span></span>
+<span id="cb110-7"><a href="#cb110-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb110-8"><a href="#cb110-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
+<span id="cb110-9"><a href="#cb110-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb110-10"><a href="#cb110-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-block-bg: true</span></span>
+<span id="cb110-11"><a href="#cb110-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-block-border-left: "#31BAE9"</span></span>
+<span id="cb110-12"><a href="#cb110-12" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
+<span id="cb110-13"><a href="#cb110-13" aria-hidden="true" tabindex="-1"></a><span class="co">  freeze: auto</span></span>
+<span id="cb110-14"><a href="#cb110-14" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb110-15"><a href="#cb110-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-16"><a href="#cb110-16" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, chunksetup}</span></span>
+<span id="cb110-17"><a href="#cb110-17" aria-hidden="true" tabindex="-1"></a><span class="in">#| include: false</span></span>
+<span id="cb110-18"><a href="#cb110-18" aria-hidden="true" tabindex="-1"></a><span class="in"># include any code here you don't want to show up in the document,</span></span>
+<span id="cb110-19"><a href="#cb110-19" aria-hidden="true" tabindex="-1"></a><span class="in"># e.g. package and dataset loading</span></span>
+<span id="cb110-20"><a href="#cb110-20" aria-hidden="true" tabindex="-1"></a><span class="in">rm(list=ls())</span></span>
+<span id="cb110-21"><a href="#cb110-21" aria-hidden="true" tabindex="-1"></a><span class="in">library(gapminder)</span></span>
+<span id="cb110-22"><a href="#cb110-22" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb110-23"><a href="#cb110-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-24"><a href="#cb110-24" aria-hidden="true" tabindex="-1"></a><span class="fu"># Working with vectors and matrices</span></span>
+<span id="cb110-25"><a href="#cb110-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-26"><a href="#cb110-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Vectorized calculations and comparisons</span></span>
+<span id="cb110-27"><a href="#cb110-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-28"><a href="#cb110-28" aria-hidden="true" tabindex="-1"></a>At the core of R is the idea of doing calculations on entire vectors.</span>
+<span id="cb110-29"><a href="#cb110-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-32"><a href="#cb110-32" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb110-33"><a href="#cb110-33" aria-hidden="true" tabindex="-1"></a><span class="do">## Vectorized arithmetic</span></span>
+<span id="cb110-34"><a href="#cb110-34" aria-hidden="true" tabindex="-1"></a>gdpTotal <span class="ot">&lt;-</span> gapminder<span class="sc">$</span>gdpPercap <span class="sc">*</span> gapminder<span class="sc">$</span>pop</span>
+<span id="cb110-35"><a href="#cb110-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-36"><a href="#cb110-36" aria-hidden="true" tabindex="-1"></a>gapminder2007 <span class="ot">&lt;-</span> gapminder[gapminder<span class="sc">$</span>year <span class="sc">==</span> <span class="dv">2007</span>, ]</span>
+<span id="cb110-37"><a href="#cb110-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-38"><a href="#cb110-38" aria-hidden="true" tabindex="-1"></a><span class="do">## Vectorized comparisons</span></span>
+<span id="cb110-39"><a href="#cb110-39" aria-hidden="true" tabindex="-1"></a>wealthy <span class="ot">&lt;-</span> gapminder2007<span class="sc">$</span>gdpPercap <span class="sc">&gt;=</span> <span class="dv">30000</span></span>
+<span id="cb110-40"><a href="#cb110-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-41"><a href="#cb110-41" aria-hidden="true" tabindex="-1"></a>poorOrWealthy <span class="ot">&lt;-</span> gapminder2007<span class="sc">$</span>gdpPercap <span class="sc">&gt;=</span> <span class="dv">100000</span> <span class="sc">|</span> gapminder2007<span class="sc">$</span>gdpPercap <span class="sc">&lt;</span> <span class="dv">1000</span></span>
+<span id="cb110-42"><a href="#cb110-42" aria-hidden="true" tabindex="-1"></a>asiaWealthy <span class="ot">&lt;-</span> gapminder2007<span class="sc">$</span>gdpPercap <span class="sc">&gt;=</span> <span class="dv">100000</span> <span class="sc">&amp;</span>  gapminder<span class="sc">$</span>continent <span class="sc">==</span> <span class="st">"Asia"</span></span>
+<span id="cb110-43"><a href="#cb110-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-44"><a href="#cb110-44" aria-hidden="true" tabindex="-1"></a>vec1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">5</span>)</span>
+<span id="cb110-45"><a href="#cb110-45" aria-hidden="true" tabindex="-1"></a>vec2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">5</span>)</span>
+<span id="cb110-46"><a href="#cb110-46" aria-hidden="true" tabindex="-1"></a>vec1 <span class="sc">&gt;</span> vec2</span>
+<span id="cb110-47"><a href="#cb110-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-48"><a href="#cb110-48" aria-hidden="true" tabindex="-1"></a><span class="do">## Vectorized boolean operations</span></span>
+<span id="cb110-49"><a href="#cb110-49" aria-hidden="true" tabindex="-1"></a>vec1 <span class="sc">==</span> vec2</span>
+<span id="cb110-50"><a href="#cb110-50" aria-hidden="true" tabindex="-1"></a>vec1 <span class="sc">!=</span> vec2</span>
+<span id="cb110-51"><a href="#cb110-51" aria-hidden="true" tabindex="-1"></a><span class="do">## careful: </span></span>
+<span id="cb110-52"><a href="#cb110-52" aria-hidden="true" tabindex="-1"></a>vec1 <span class="ot">=</span> vec2</span>
+<span id="cb110-53"><a href="#cb110-53" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(vec1, vec2)</span>
+<span id="cb110-54"><a href="#cb110-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb110-55"><a href="#cb110-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-56"><a href="#cb110-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Recycling</span></span>
+<span id="cb110-57"><a href="#cb110-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-58"><a href="#cb110-58" aria-hidden="true" tabindex="-1"></a>An important related concept is that of recycling</span>
+<span id="cb110-61"><a href="#cb110-61" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb110-62"><a href="#cb110-62" aria-hidden="true" tabindex="-1"></a>vec10 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb110-63"><a href="#cb110-63" aria-hidden="true" tabindex="-1"></a>vec3 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">3</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb110-64"><a href="#cb110-64" aria-hidden="true" tabindex="-1"></a>vec5 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">5</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb110-65"><a href="#cb110-65" aria-hidden="true" tabindex="-1"></a>vec10</span>
+<span id="cb110-66"><a href="#cb110-66" aria-hidden="true" tabindex="-1"></a>vec3</span>
+<span id="cb110-67"><a href="#cb110-67" aria-hidden="true" tabindex="-1"></a>vec5</span>
+<span id="cb110-68"><a href="#cb110-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-69"><a href="#cb110-69" aria-hidden="true" tabindex="-1"></a>vec10 <span class="sc">+</span> vec5</span>
+<span id="cb110-70"><a href="#cb110-70" aria-hidden="true" tabindex="-1"></a>vec10 <span class="sc">+</span> vec3</span>
+<span id="cb110-71"><a href="#cb110-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb110-72"><a href="#cb110-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-73"><a href="#cb110-73" aria-hidden="true" tabindex="-1"></a>What choices were made by the R developers?</span>
+<span id="cb110-74"><a href="#cb110-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-75"><a href="#cb110-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-76"><a href="#cb110-76" aria-hidden="true" tabindex="-1"></a><span class="fu">## Why vectorize?</span></span>
+<span id="cb110-77"><a href="#cb110-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-78"><a href="#cb110-78" aria-hidden="true" tabindex="-1"></a>Imagine how this code would look if written using a loop, or three separate loops.</span>
+<span id="cb110-79"><a href="#cb110-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-82"><a href="#cb110-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb110-83"><a href="#cb110-83" aria-hidden="true" tabindex="-1"></a>vals <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
+<span id="cb110-84"><a href="#cb110-84" aria-hidden="true" tabindex="-1"></a>chi2vals <span class="ot">&lt;-</span> vals<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb110-85"><a href="#cb110-85" aria-hidden="true" tabindex="-1"></a>chi2_df1000 <span class="ot">&lt;-</span> <span class="fu">sum</span>(chi2vals)</span>
+<span id="cb110-86"><a href="#cb110-86" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb110-87"><a href="#cb110-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-88"><a href="#cb110-88" aria-hidden="true" tabindex="-1"></a>Advantages:</span>
+<span id="cb110-89"><a href="#cb110-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-90"><a href="#cb110-90" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>much faster than looping</span>
+<span id="cb110-91"><a href="#cb110-91" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>easier to code</span>
+<span id="cb110-92"><a href="#cb110-92" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>easier to read and understand the code</span>
+<span id="cb110-93"><a href="#cb110-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-94"><a href="#cb110-94" aria-hidden="true" tabindex="-1"></a>Vectorized code is generally fast because the underlying loop is executed in compiled C code rather than by the R interpreter (more on this <span class="co">[</span><span class="ot">later</span><span class="co">](#whenwhy-are-loops-in-r-slow)</span>.</span>
+<span id="cb110-95"><a href="#cb110-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-96"><a href="#cb110-96" aria-hidden="true" tabindex="-1"></a>We've already seen that lots of functions (and operators) in R are vectorized (i.e., they can take a single value or a vector as an input argument).</span>
+<span id="cb110-97"><a href="#cb110-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-98"><a href="#cb110-98" aria-hidden="true" tabindex="-1"></a><span class="fu">## Vectorization with matrices</span></span>
+<span id="cb110-99"><a href="#cb110-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-100"><a href="#cb110-100" aria-hidden="true" tabindex="-1"></a>Recall that <span class="in">`+`</span>, <span class="in">`-`</span>,<span class="in">`*`</span>, <span class="in">`/`</span> do vectorized calculations:</span>
+<span id="cb110-101"><a href="#cb110-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-104"><a href="#cb110-104" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb110-105"><a href="#cb110-105" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="dv">3</span>)</span>
+<span id="cb110-106"><a href="#cb110-106" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">seq</span>(<span class="dv">4</span>,<span class="dv">36</span>, <span class="at">by =</span> <span class="dv">4</span>), <span class="dv">3</span>)</span>
+<span id="cb110-107"><a href="#cb110-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-108"><a href="#cb110-108" aria-hidden="true" tabindex="-1"></a>A<span class="sc">*</span><span class="dv">7</span></span>
+<span id="cb110-109"><a href="#cb110-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-110"><a href="#cb110-110" aria-hidden="true" tabindex="-1"></a>A <span class="sc">+</span> B</span>
+<span id="cb110-111"><a href="#cb110-111" aria-hidden="true" tabindex="-1"></a>A <span class="sc">+</span> B[ , <span class="dv">1</span>]</span>
+<span id="cb110-112"><a href="#cb110-112" aria-hidden="true" tabindex="-1"></a>A <span class="sc">*</span> B</span>
+<span id="cb110-113"><a href="#cb110-113" aria-hidden="true" tabindex="-1"></a>A <span class="sc">*</span> B[ , <span class="dv">1</span>]</span>
+<span id="cb110-114"><a href="#cb110-114" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb110-115"><a href="#cb110-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-116"><a href="#cb110-116" aria-hidden="true" tabindex="-1"></a><span class="fu">## Linear algebra: Matrix/vector multiplication</span></span>
+<span id="cb110-117"><a href="#cb110-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-120"><a href="#cb110-120" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb110-121"><a href="#cb110-121" aria-hidden="true" tabindex="-1"></a>A <span class="sc">%*%</span> B[ , <span class="dv">1</span>]</span>
+<span id="cb110-122"><a href="#cb110-122" aria-hidden="true" tabindex="-1"></a>A <span class="sc">%*%</span> B</span>
+<span id="cb110-123"><a href="#cb110-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-124"><a href="#cb110-124" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(<span class="fu">t</span>(A)<span class="sc">%*%</span>A, <span class="fu">crossprod</span>(A))</span>
+<span id="cb110-125"><a href="#cb110-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb110-126"><a href="#cb110-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-127"><a href="#cb110-127" aria-hidden="true" tabindex="-1"></a>Now let's do a bit of manipulation and see if you can infer how R represents matrices internally.</span>
+<span id="cb110-128"><a href="#cb110-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-129"><a href="#cb110-129" aria-hidden="true" tabindex="-1"></a><span class="fu">## Matrix (and array) internals</span></span>
+<span id="cb110-130"><a href="#cb110-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-131"><a href="#cb110-131" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Question"}</span>
+<span id="cb110-132"><a href="#cb110-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-133"><a href="#cb110-133" aria-hidden="true" tabindex="-1"></a>Consider our matrix 'mat':</span>
+<span id="cb110-134"><a href="#cb110-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-137"><a href="#cb110-137" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb110-138"><a href="#cb110-138" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">16</span>, <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">4</span>)</span>
+<span id="cb110-139"><a href="#cb110-139" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb110-140"><a href="#cb110-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-141"><a href="#cb110-141" aria-hidden="true" tabindex="-1"></a>Suppose I run this code: <span class="in">`mat[4]`</span>.</span>
+<span id="cb110-142"><a href="#cb110-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-143"><a href="#cb110-143" aria-hidden="true" tabindex="-1"></a>What do you think will be returned?</span>
+<span id="cb110-144"><a href="#cb110-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-145"><a href="#cb110-145" aria-hidden="true" tabindex="-1"></a>1) 13</span>
+<span id="cb110-146"><a href="#cb110-146" aria-hidden="true" tabindex="-1"></a>2) 4</span>
+<span id="cb110-147"><a href="#cb110-147" aria-hidden="true" tabindex="-1"></a>3) 13, 14, 15, 16</span>
+<span id="cb110-148"><a href="#cb110-148" aria-hidden="true" tabindex="-1"></a>4) 4, 8, 12, 16</span>
+<span id="cb110-149"><a href="#cb110-149" aria-hidden="true" tabindex="-1"></a>5) an error</span>
+<span id="cb110-150"><a href="#cb110-150" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb110-151"><a href="#cb110-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-152"><a href="#cb110-152" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Answer" collapse="true"}</span>
+<span id="cb110-153"><a href="#cb110-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-154"><a href="#cb110-154" aria-hidden="true" tabindex="-1"></a>Matrices are stored column-major</span>
+<span id="cb110-155"><a href="#cb110-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-156"><a href="#cb110-156" aria-hidden="true" tabindex="-1"></a><span class="in">```{r what_is_a_matrix, eval = FALSE}</span></span>
+<span id="cb110-157"><a href="#cb110-157" aria-hidden="true" tabindex="-1"></a><span class="in">mat[4]</span></span>
+<span id="cb110-158"><a href="#cb110-158" aria-hidden="true" tabindex="-1"></a><span class="in">attributes(mat) &lt;- NULL</span></span>
+<span id="cb110-159"><a href="#cb110-159" aria-hidden="true" tabindex="-1"></a><span class="in">mat</span></span>
+<span id="cb110-160"><a href="#cb110-160" aria-hidden="true" tabindex="-1"></a><span class="in">is.matrix(mat)</span></span>
+<span id="cb110-161"><a href="#cb110-161" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb110-162"><a href="#cb110-162" aria-hidden="true" tabindex="-1"></a>This is like Fortran, MATLAB and Julia but not like C or (at least by default) Python (numpy). </span>
+<span id="cb110-163"><a href="#cb110-163" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb110-164"><a href="#cb110-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-165"><a href="#cb110-165" aria-hidden="true" tabindex="-1"></a><span class="fu">## Linear algebra </span></span>
+<span id="cb110-166"><a href="#cb110-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-167"><a href="#cb110-167" aria-hidden="true" tabindex="-1"></a>R can do essentially any linear algebra you need. It uses system-level packages called BLAS (basic linear algebra subroutines) and LAPACK (linear algebra package). Note that these calculations will be essentially as fast as if you wrote C code because R just calls C and Fortran routines to do the calculations.</span>
+<span id="cb110-168"><a href="#cb110-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-169"><a href="#cb110-169" aria-hidden="true" tabindex="-1"></a>The BLAS that comes with R is fairly slow. It's possible to use a <span class="co">[</span><span class="ot">faster BLAS, as well as one that uses multiple cores automatically</span><span class="co">](https://statistics.berkeley.edu/computing/faqs/linear-algebra-and-parallelized-linear-algebra-using-blas)</span>. This can in some cases give you an order of magnitude speedup if your work involves a lot of matrix manipulations/linear algebra.</span>
+<span id="cb110-170"><a href="#cb110-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-171"><a href="#cb110-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-172"><a href="#cb110-172" aria-hidden="true" tabindex="-1"></a><span class="fu">## Matrix decompositions</span></span>
+<span id="cb110-173"><a href="#cb110-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-174"><a href="#cb110-174" aria-hidden="true" tabindex="-1"></a>Here are some examples of common matrix decompositions: Cholesky decomposition, eigenvalues/eigenvectors, and SVD. These all use BLAS+LAPACK.</span>
+<span id="cb110-175"><a href="#cb110-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-176"><a href="#cb110-176" aria-hidden="true" tabindex="-1"></a><span class="in">```{r cache=TRUE}</span></span>
+<span id="cb110-177"><a href="#cb110-177" aria-hidden="true" tabindex="-1"></a><span class="in">## Next 3 lines generate a positive definite matrix.</span></span>
+<span id="cb110-178"><a href="#cb110-178" aria-hidden="true" tabindex="-1"></a><span class="in">library(fields, warn.conflicts = FALSE, quietly = TRUE, verbose = FALSE)</span></span>
+<span id="cb110-179"><a href="#cb110-179" aria-hidden="true" tabindex="-1"></a><span class="in">times &lt;- seq(0, 1, length = 100)</span></span>
+<span id="cb110-180"><a href="#cb110-180" aria-hidden="true" tabindex="-1"></a><span class="in">R &lt;- exp(-rdist(times) / 0.2) # a correlation matrix</span></span>
+<span id="cb110-181"><a href="#cb110-181" aria-hidden="true" tabindex="-1"></a><span class="in">######################################################</span></span>
+<span id="cb110-182"><a href="#cb110-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-183"><a href="#cb110-183" aria-hidden="true" tabindex="-1"></a><span class="in">## Some standard linear algebra operations:</span></span>
+<span id="cb110-184"><a href="#cb110-184" aria-hidden="true" tabindex="-1"></a><span class="in">e &lt;- eigen(R)</span></span>
+<span id="cb110-185"><a href="#cb110-185" aria-hidden="true" tabindex="-1"></a><span class="in">range(e$values)</span></span>
+<span id="cb110-186"><a href="#cb110-186" aria-hidden="true" tabindex="-1"></a><span class="in">e$vectors[ , 1]</span></span>
+<span id="cb110-187"><a href="#cb110-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-188"><a href="#cb110-188" aria-hidden="true" tabindex="-1"></a><span class="in">sv &lt;- svd(R)</span></span>
+<span id="cb110-189"><a href="#cb110-189" aria-hidden="true" tabindex="-1"></a><span class="in">U &lt;- chol(R)</span></span>
+<span id="cb110-190"><a href="#cb110-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-191"><a href="#cb110-191" aria-hidden="true" tabindex="-1"></a><span class="in">devs &lt;- rnorm(100)</span></span>
+<span id="cb110-192"><a href="#cb110-192" aria-hidden="true" tabindex="-1"></a><span class="in">Rinvb &lt;- solve(R, devs)  # R^{-1} b</span></span>
+<span id="cb110-193"><a href="#cb110-193" aria-hidden="true" tabindex="-1"></a><span class="in">Rinv &lt;- solve(R) # R^{-1} -- try to avoid this (slower and less numerically stable)</span></span>
+<span id="cb110-194"><a href="#cb110-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb110-195"><a href="#cb110-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-196"><a href="#cb110-196" aria-hidden="true" tabindex="-1"></a><span class="fu"># Efficiency</span></span>
+<span id="cb110-197"><a href="#cb110-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-198"><a href="#cb110-198" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pre-allocation</span></span>
+<span id="cb110-199"><a href="#cb110-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-200"><a href="#cb110-200" aria-hidden="true" tabindex="-1"></a>This is slow.</span>
+<span id="cb110-201"><a href="#cb110-201" aria-hidden="true" tabindex="-1"></a><span class="in">```{r cache=TRUE}</span></span>
+<span id="cb110-202"><a href="#cb110-202" aria-hidden="true" tabindex="-1"></a><span class="in">vals &lt;- 0</span></span>
+<span id="cb110-203"><a href="#cb110-203" aria-hidden="true" tabindex="-1"></a><span class="in">n &lt;- 50000</span></span>
+<span id="cb110-204"><a href="#cb110-204" aria-hidden="true" tabindex="-1"></a><span class="in">system.time({</span></span>
+<span id="cb110-205"><a href="#cb110-205" aria-hidden="true" tabindex="-1"></a><span class="in">for(i in 1:n)</span></span>
+<span id="cb110-206"><a href="#cb110-206" aria-hidden="true" tabindex="-1"></a><span class="in">      vals &lt;- c(vals, i)</span></span>
+<span id="cb110-207"><a href="#cb110-207" aria-hidden="true" tabindex="-1"></a><span class="in">})</span></span>
+<span id="cb110-208"><a href="#cb110-208" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb110-209"><a href="#cb110-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-210"><a href="#cb110-210" aria-hidden="true" tabindex="-1"></a>The same holds for using <span class="in">`rbind()`</span>, <span class="in">`cbind()`</span>, or adding to a list, one element at a time.</span>
+<span id="cb110-211"><a href="#cb110-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-212"><a href="#cb110-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-213"><a href="#cb110-213" aria-hidden="true" tabindex="-1"></a>**Question**: Thoughts on why this is so slow? Think about what R might be doing behind the scenes in terms of storage in memory.</span>
+<span id="cb110-214"><a href="#cb110-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-215"><a href="#cb110-215" aria-hidden="true" tabindex="-1"></a>**Note**: This is one area where Python and some other languages handle the situation in a more sophisticated way.</span>
+<span id="cb110-216"><a href="#cb110-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-217"><a href="#cb110-217" aria-hidden="true" tabindex="-1"></a><span class="fu">## The answer is to pre-allocate memory</span></span>
+<span id="cb110-218"><a href="#cb110-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-219"><a href="#cb110-219" aria-hidden="true" tabindex="-1"></a>This is not so slow. (Please ignore the fact that this is a silly way to do this in R.)</span>
+<span id="cb110-220"><a href="#cb110-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-223"><a href="#cb110-223" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb110-224"><a href="#cb110-224" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50000</span></span>
+<span id="cb110-225"><a href="#cb110-225" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>({</span>
+<span id="cb110-226"><a href="#cb110-226" aria-hidden="true" tabindex="-1"></a>vals <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n)</span>
+<span id="cb110-227"><a href="#cb110-227" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n)</span>
+<span id="cb110-228"><a href="#cb110-228" aria-hidden="true" tabindex="-1"></a>      vals[i] <span class="ot">&lt;-</span> i</span>
+<span id="cb110-229"><a href="#cb110-229" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb110-230"><a href="#cb110-230" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb110-231"><a href="#cb110-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-232"><a href="#cb110-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-233"><a href="#cb110-233" aria-hidden="true" tabindex="-1"></a><span class="fu">## apply</span></span>
+<span id="cb110-234"><a href="#cb110-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-235"><a href="#cb110-235" aria-hidden="true" tabindex="-1"></a>Some functions aren't vectorized, or you may want to use a function on every row or column of a matrix/data frame, every element of a list, etc.</span>
+<span id="cb110-236"><a href="#cb110-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-237"><a href="#cb110-237" aria-hidden="true" tabindex="-1"></a>For this we use the <span class="in">`apply()`</span> family of functions to make our code more readable.</span>
+<span id="cb110-238"><a href="#cb110-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-241"><a href="#cb110-241" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb110-242"><a href="#cb110-242" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">100</span><span class="sc">*</span><span class="dv">1000</span>), <span class="at">nr =</span> <span class="dv">100</span>)</span>
+<span id="cb110-243"><a href="#cb110-243" aria-hidden="true" tabindex="-1"></a>row_min <span class="ot">&lt;-</span> <span class="fu">apply</span>(mat, <span class="at">MARGIN =</span> <span class="dv">1</span>, <span class="at">FUN =</span> min)</span>
+<span id="cb110-244"><a href="#cb110-244" aria-hidden="true" tabindex="-1"></a>col_max <span class="ot">&lt;-</span> <span class="fu">apply</span>(mat, <span class="at">MARGIN =</span> <span class="dv">2</span>, <span class="at">FUN =</span> max)</span>
+<span id="cb110-245"><a href="#cb110-245" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb110-246"><a href="#cb110-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-247"><a href="#cb110-247" aria-hidden="true" tabindex="-1"></a>There are actually some even faster specialized functions:</span>
+<span id="cb110-250"><a href="#cb110-250" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb110-251"><a href="#cb110-251" aria-hidden="true" tabindex="-1"></a>row_mean <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(mat)</span>
+<span id="cb110-252"><a href="#cb110-252" aria-hidden="true" tabindex="-1"></a>col_sum <span class="ot">&lt;-</span> <span class="fu">colSums</span>(mat)</span>
+<span id="cb110-253"><a href="#cb110-253" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb110-254"><a href="#cb110-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-255"><a href="#cb110-255" aria-hidden="true" tabindex="-1"></a><span class="fu">## `lapply()` and `sapply()`</span></span>
+<span id="cb110-256"><a href="#cb110-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-257"><a href="#cb110-257" aria-hidden="true" tabindex="-1"></a>These are "map" operations that apply a function to each element of a list.</span>
+<span id="cb110-258"><a href="#cb110-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-261"><a href="#cb110-261" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb110-262"><a href="#cb110-262" aria-hidden="true" tabindex="-1"></a>myList <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">rnorm</span>(<span class="dv">3</span>), <span class="fu">rnorm</span>(<span class="dv">3</span>), <span class="fu">rnorm</span>(<span class="dv">5</span>))</span>
+<span id="cb110-263"><a href="#cb110-263" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(myList, min)</span>
+<span id="cb110-264"><a href="#cb110-264" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(myList, min)</span>
+<span id="cb110-265"><a href="#cb110-265" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb110-266"><a href="#cb110-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-267"><a href="#cb110-267" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Why use lapply and sapply?"}</span>
+<span id="cb110-268"><a href="#cb110-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-269"><a href="#cb110-269" aria-hidden="true" tabindex="-1"></a>The *array functions won't generally be faster than loops. Rather, they're generally used in order to have cleaner, more readable code.</span>
+<span id="cb110-270"><a href="#cb110-270" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb110-271"><a href="#cb110-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-272"><a href="#cb110-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-273"><a href="#cb110-273" aria-hidden="true" tabindex="-1"></a>Note that we don't generally want to use <span class="in">`apply()`</span> on a data frame. </span>
+<span id="cb110-274"><a href="#cb110-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-275"><a href="#cb110-275" aria-hidden="true" tabindex="-1"></a><span class="fu">## `lapply()` and `sapply()` with vectors</span></span>
+<span id="cb110-276"><a href="#cb110-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-277"><a href="#cb110-277" aria-hidden="true" tabindex="-1"></a>You can use <span class="in">`lapply()`</span> and <span class="in">`sapply()`</span> on regular vectors, such as vectors of indices, which can come in handy. This is a bit silly but it illustrates the idea:</span>
+<span id="cb110-278"><a href="#cb110-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-281"><a href="#cb110-281" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb110-282"><a href="#cb110-282" aria-hidden="true" tabindex="-1"></a>myfun <span class="ot">&lt;-</span> <span class="cf">function</span>(i) {</span>
+<span id="cb110-283"><a href="#cb110-283" aria-hidden="true" tabindex="-1"></a>   <span class="fu">max</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>))</span>
+<span id="cb110-284"><a href="#cb110-284" aria-hidden="true" tabindex="-1"></a>}   </span>
+<span id="cb110-285"><a href="#cb110-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-286"><a href="#cb110-286" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, myfun)</span>
+<span id="cb110-287"><a href="#cb110-287" aria-hidden="true" tabindex="-1"></a>out</span>
+<span id="cb110-288"><a href="#cb110-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-289"><a href="#cb110-289" aria-hidden="true" tabindex="-1"></a><span class="do">## Or, 'in-line' the function:</span></span>
+<span id="cb110-290"><a href="#cb110-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-291"><a href="#cb110-291" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="cf">function</span>(x) x<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb110-292"><a href="#cb110-292" aria-hidden="true" tabindex="-1"></a>out</span>
+<span id="cb110-293"><a href="#cb110-293" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb110-294"><a href="#cb110-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-295"><a href="#cb110-295" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Question"}</span>
+<span id="cb110-296"><a href="#cb110-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-297"><a href="#cb110-297" aria-hidden="true" tabindex="-1"></a>Which of these give exactly this result: <span class="in">`pi`</span>, <span class="in">`2*pi`</span>, <span class="in">`3*pi`</span>, ...?</span>
+<span id="cb110-298"><a href="#cb110-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-299"><a href="#cb110-299" aria-hidden="true" tabindex="-1"></a>1) <span class="in">`(1:n)*pi`</span></span>
+<span id="cb110-300"><a href="#cb110-300" aria-hidden="true" tabindex="-1"></a>2) <span class="in">`out &lt;- rep(0, n); for(x in 1:n) out &lt;- x*pi`</span></span>
+<span id="cb110-301"><a href="#cb110-301" aria-hidden="true" tabindex="-1"></a>3) <span class="in">`sapply(1:n, function(x) x*pi)`</span></span>
+<span id="cb110-302"><a href="#cb110-302" aria-hidden="true" tabindex="-1"></a>4) <span class="in">`out &lt;- rep(0, n); for(x in 1:n) out[i] &lt;- x*pi`</span></span>
+<span id="cb110-303"><a href="#cb110-303" aria-hidden="true" tabindex="-1"></a>5) <span class="in">`lapply(1:n, function(x) x*pi)`</span></span>
+<span id="cb110-304"><a href="#cb110-304" aria-hidden="true" tabindex="-1"></a>6) <span class="in">`sapply(1:n, "*", pi)`</span></span>
+<span id="cb110-305"><a href="#cb110-305" aria-hidden="true" tabindex="-1"></a>7) <span class="in">`1:n*pi`</span></span>
+<span id="cb110-306"><a href="#cb110-306" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb110-307"><a href="#cb110-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-308"><a href="#cb110-308" aria-hidden="true" tabindex="-1"></a><span class="fu">## When/why are loops in R slow?</span></span>
+<span id="cb110-309"><a href="#cb110-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-310"><a href="#cb110-310" aria-hidden="true" tabindex="-1"></a>Consider this code:</span>
+<span id="cb110-311"><a href="#cb110-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-314"><a href="#cb110-314" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb110-315"><a href="#cb110-315" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb110-316"><a href="#cb110-316" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb110-317"><a href="#cb110-317" aria-hidden="true" tabindex="-1"></a>x<span class="sc">*</span><span class="dv">7</span></span>
+<span id="cb110-318"><a href="#cb110-318" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">'hi'</span></span>
+<span id="cb110-319"><a href="#cb110-319" aria-hidden="true" tabindex="-1"></a>x<span class="sc">*</span><span class="dv">7</span></span>
+<span id="cb110-320"><a href="#cb110-320" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb110-321"><a href="#cb110-321" aria-hidden="true" tabindex="-1"></a>￼</span>
+<span id="cb110-322"><a href="#cb110-322" aria-hidden="true" tabindex="-1"></a>Because of dynamic typing, when the interpreter sees <span class="in">`x*7`</span> it needs to:</span>
+<span id="cb110-323"><a href="#cb110-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-324"><a href="#cb110-324" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>(using scoping rules) look up the value of <span class="in">`x`</span>. (Consider that <span class="in">`x`</span> might not even exist at the point that <span class="in">`x*7`</span> is called.)</span>
+<span id="cb110-325"><a href="#cb110-325" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>check if <span class="in">`x`</span> is something that can be multiplied by 7 (including dealing with the fact that <span class="in">`x`</span> could be a vector with many numbers in it).</span>
+<span id="cb110-326"><a href="#cb110-326" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>only then can the multiplication happen.</span>
+<span id="cb110-327"><a href="#cb110-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-328"><a href="#cb110-328" aria-hidden="true" tabindex="-1"></a>Let’s consider writing a loop:</span>
+<span id="cb110-329"><a href="#cb110-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-332"><a href="#cb110-332" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb110-333"><a href="#cb110-333" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb110-334"><a href="#cb110-334" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
+<span id="cb110-335"><a href="#cb110-335" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">&gt;</span> <span class="dv">0</span>) x <span class="ot">&lt;-</span> <span class="st">'hi'</span></span>
+<span id="cb110-336"><a href="#cb110-336" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">&gt;</span> <span class="fl">0.5</span>) <span class="fu">rm</span>(x)</span>
+<span id="cb110-337"><a href="#cb110-337" aria-hidden="true" tabindex="-1"></a>  x[i] <span class="ot">&lt;-</span> <span class="fu">exp</span>(x[i])</span>
+<span id="cb110-338"><a href="#cb110-338" aria-hidden="true" tabindex="-1"></a>}  </span>
+<span id="cb110-339"><a href="#cb110-339" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb110-340"><a href="#cb110-340" aria-hidden="true" tabindex="-1"></a>￼</span>
+<span id="cb110-341"><a href="#cb110-341" aria-hidden="true" tabindex="-1"></a>Because of dynamic typing and lack of compilation, the interpreter needs to check if <span class="in">`x`</span> exists, if it is a vector of sufficient length, if it contains numeric values, and it needs to go retrieve the required value, EVERY TIME the <span class="in">`exp()`</span> is executed.</span>
+<span id="cb110-342"><a href="#cb110-342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-343"><a href="#cb110-343" aria-hidden="true" tabindex="-1"></a>The R interpreter is a C program, so in some sense everything that happens is running as compiled code, but there are lots more things being done to accomplish a given task using interpreted code than if the task had been written directly in code that is compiled. By analogy, consider talking directly to a person in a language you both know compared to talking to a person via an interpreter who has to translate between two languages. Ultimately, the same information gets communicated (hopefully!) but the number of words spoken and time involved is much greater.</span>
+<span id="cb110-344"><a href="#cb110-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-345"><a href="#cb110-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-346"><a href="#cb110-346" aria-hidden="true" tabindex="-1"></a><span class="fu">## When are loops not slow?</span></span>
+<span id="cb110-347"><a href="#cb110-347" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-348"><a href="#cb110-348" aria-hidden="true" tabindex="-1"></a>When the bulk of the time in the loop involves actual computation rather than checking, e.g., a loop that fits a separate machine learning model at each iteration.</span>
+<span id="cb110-349"><a href="#cb110-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-350"><a href="#cb110-350" aria-hidden="true" tabindex="-1"></a>Conclusions: use vectorization when you can, especially when the individual calculations are fast, but don't obsess when the individual calculations are intensive (and often will call out to C directly).</span>
+<span id="cb110-351"><a href="#cb110-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-352"><a href="#cb110-352" aria-hidden="true" tabindex="-1"></a><span class="fu">## Some efficiency tips (not R-specific)</span></span>
+<span id="cb110-353"><a href="#cb110-353" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-354"><a href="#cb110-354" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Consider the order of operations:</span>
+<span id="cb110-355"><a href="#cb110-355" aria-hidden="true" tabindex="-1"></a>  <span class="in">```{r}</span></span>
+<span id="cb110-356"><a href="#cb110-356" aria-hidden="true" tabindex="-1"></a><span class="in">  n &lt;- 3000</span></span>
+<span id="cb110-357"><a href="#cb110-357" aria-hidden="true" tabindex="-1"></a><span class="in">  A &lt;- matrix(rnorm(n^2),n)</span></span>
+<span id="cb110-358"><a href="#cb110-358" aria-hidden="true" tabindex="-1"></a><span class="in">  B &lt;- matrix(rnorm(n^2),n)</span></span>
+<span id="cb110-359"><a href="#cb110-359" aria-hidden="true" tabindex="-1"></a><span class="in">  x &lt;- rnorm(n)</span></span>
+<span id="cb110-360"><a href="#cb110-360" aria-hidden="true" tabindex="-1"></a><span class="in">  system.time(A %*% B %*% x)</span></span>
+<span id="cb110-361"><a href="#cb110-361" aria-hidden="true" tabindex="-1"></a><span class="in">  system.time(A %*% (B %*% x))</span></span>
+<span id="cb110-362"><a href="#cb110-362" aria-hidden="true" tabindex="-1"></a><span class="in">  ```</span></span>
+<span id="cb110-363"><a href="#cb110-363" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Avoid duplicated computation</span>
+<span id="cb110-364"><a href="#cb110-364" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Don't duplicate operations within iterations of a loop unnecessarily (precompute them)</span>
+<span id="cb110-365"><a href="#cb110-365" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Try to work with adjacent elements (in memory) of large vectors/matrices/arrays to <span class="co">[</span><span class="ot">efficiently use the CPU cache</span><span class="co">](https://computing.stat.berkeley.edu/tutorial-efficient-R/efficiency#6-cache-aware-programming)</span>.</span>
+<span id="cb110-366"><a href="#cb110-366" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>In R, generally work column-wise rather than row-wise with matrices</span>
+<span id="cb110-367"><a href="#cb110-367" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>In R, look up elements by numerical index rather than by name for O(1) computation</span>
+<span id="cb110-368"><a href="#cb110-368" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-369"><a href="#cb110-369" aria-hidden="true" tabindex="-1"></a><span class="fu">## Timing your code</span></span>
+<span id="cb110-370"><a href="#cb110-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-371"><a href="#cb110-371" aria-hidden="true" tabindex="-1"></a>First, a cautionary note...</span>
+<span id="cb110-372"><a href="#cb110-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-373"><a href="#cb110-373" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; premature optimization is the root of all evil</span></span>
+<span id="cb110-374"><a href="#cb110-374" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb110-375"><a href="#cb110-375" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; --- Donald Knuth, 1974</span></span>
+<span id="cb110-376"><a href="#cb110-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-377"><a href="#cb110-377" aria-hidden="true" tabindex="-1"></a>There are a few tools in R for timing your code.</span>
+<span id="cb110-378"><a href="#cb110-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-381"><a href="#cb110-381" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb110-382"><a href="#cb110-382" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
+<span id="cb110-383"><a href="#cb110-383" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="fl">1e7</span>)))</span>
+<span id="cb110-384"><a href="#cb110-384" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-385"><a href="#cb110-385" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rbenchmark)</span>
+<span id="cb110-386"><a href="#cb110-386" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb110-387"><a href="#cb110-387" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n<span class="sc">^</span><span class="dv">2</span>), n)</span>
+<span id="cb110-388"><a href="#cb110-388" aria-hidden="true" tabindex="-1"></a><span class="fu">benchmark</span>(<span class="fu">t</span>(x) <span class="sc">%*%</span> x,</span>
+<span id="cb110-389"><a href="#cb110-389" aria-hidden="true" tabindex="-1"></a>          <span class="fu">crossprod</span>(x),</span>
+<span id="cb110-390"><a href="#cb110-390" aria-hidden="true" tabindex="-1"></a>          <span class="at">replications =</span> <span class="dv">5</span>,</span>
+<span id="cb110-391"><a href="#cb110-391" aria-hidden="true" tabindex="-1"></a>          <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">'test'</span>, <span class="st">'replications'</span>, <span class="st">'elapsed'</span>))</span>
+<span id="cb110-392"><a href="#cb110-392" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb110-393"><a href="#cb110-393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-394"><a href="#cb110-394" aria-hidden="true" tabindex="-1"></a>Consider why the automatic crossproduct may be faster than the manual version. Note that <span class="in">`crossprod`</span> calls out directly to a linear algebra system routine.</span>
+<span id="cb110-395"><a href="#cb110-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-396"><a href="#cb110-396" aria-hidden="true" tabindex="-1"></a><span class="fu">## Microbenchmark</span></span>
+<span id="cb110-397"><a href="#cb110-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-398"><a href="#cb110-398" aria-hidden="true" tabindex="-1"></a>To time code that runs very quickly, you should use the microbenchmark package. Of course one would generally only care about accurately timing quick calculations if a larger operation does the quick calculation very many times. Here’s a comparison of different ways of accessing an element of a dataframe.</span>
+<span id="cb110-399"><a href="#cb110-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-402"><a href="#cb110-402" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb110-403"><a href="#cb110-403" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span>
+<span id="cb110-404"><a href="#cb110-404" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">vals =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">labs =</span> <span class="fu">c</span>(<span class="st">'a'</span>,<span class="st">'b'</span>,<span class="st">'c'</span>))</span>
+<span id="cb110-405"><a href="#cb110-405" aria-hidden="true" tabindex="-1"></a>vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"a"</span><span class="ot">=</span><span class="dv">5</span>, <span class="st">"b"</span> <span class="ot">=</span> <span class="dv">7</span>, <span class="st">"c"</span> <span class="ot">=</span> <span class="dv">9</span>)</span>
+<span id="cb110-406"><a href="#cb110-406" aria-hidden="true" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
+<span id="cb110-407"><a href="#cb110-407" aria-hidden="true" tabindex="-1"></a>  df[<span class="dv">2</span>,<span class="dv">1</span>],</span>
+<span id="cb110-408"><a href="#cb110-408" aria-hidden="true" tabindex="-1"></a>  df<span class="sc">$</span>vals[<span class="dv">2</span>],</span>
+<span id="cb110-409"><a href="#cb110-409" aria-hidden="true" tabindex="-1"></a>  df[<span class="dv">2</span>, <span class="st">'vals'</span>],</span>
+<span id="cb110-410"><a href="#cb110-410" aria-hidden="true" tabindex="-1"></a>  vec[<span class="dv">2</span>],</span>
+<span id="cb110-411"><a href="#cb110-411" aria-hidden="true" tabindex="-1"></a>  vec[<span class="st">"b"</span>]</span>
+<span id="cb110-412"><a href="#cb110-412" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb110-413"><a href="#cb110-413" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb110-414"><a href="#cb110-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-415"><a href="#cb110-415" aria-hidden="true" tabindex="-1"></a><span class="fu"># Memory</span></span>
+<span id="cb110-416"><a href="#cb110-416" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-417"><a href="#cb110-417" aria-hidden="true" tabindex="-1"></a><span class="fu">## Memory use</span></span>
+<span id="cb110-418"><a href="#cb110-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-419"><a href="#cb110-419" aria-hidden="true" tabindex="-1"></a>You should know how much memory (RAM) the computer you are using has and keep in mind how big your objects are and how much memory you code might use. All objects in R are stored in RAM unlike a database or certain tools for working with big data (e.g., Python's Dask package and certain R packages).</span>
+<span id="cb110-420"><a href="#cb110-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-421"><a href="#cb110-421" aria-hidden="true" tabindex="-1"></a>If in total, the jobs on a machine approach the physical RAM, the machine may (depending on how it is set up) start to use the hard disk as 'virtual memory'. This is called *paging* or *swapping*, and once this happens you're often toast (i.e., your code may take essentially forever to finish). And if paging doesn't happen, your job will die with an out-of-memory (OOM) error.</span>
+<span id="cb110-422"><a href="#cb110-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-423"><a href="#cb110-423" aria-hidden="true" tabindex="-1"></a>You can assess memory use with <span class="in">`top`</span> or <span class="in">`ps`</span> or <span class="in">`free`</span> in Linux/Mac or the Task Manager in Windows.</span>
+<span id="cb110-424"><a href="#cb110-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-425"><a href="#cb110-425" aria-hidden="true" tabindex="-1"></a>Often it's a good idea to roughly estimate how much memory an object will take up even before creating it in R. You can do this with some simple arithmetic. </span>
+<span id="cb110-426"><a href="#cb110-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-427"><a href="#cb110-427" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-430"><a href="#cb110-430" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb110-431"><a href="#cb110-431" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="fl">1e6</span><span class="sc">*</span><span class="dv">10</span>), <span class="fl">1e6</span>)</span>
+<span id="cb110-432"><a href="#cb110-432" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(x)</span>
+<span id="cb110-433"><a href="#cb110-433" aria-hidden="true" tabindex="-1"></a><span class="fl">1e6</span> <span class="sc">*</span> <span class="dv">10</span> <span class="sc">*</span><span class="dv">8</span><span class="sc">/</span> <span class="fl">1e6</span>  <span class="co"># direct calculation of Mb</span></span>
+<span id="cb110-434"><a href="#cb110-434" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">object.size</span>(x), <span class="at">units =</span> <span class="st">'auto'</span>)</span>
+<span id="cb110-435"><a href="#cb110-435" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb110-436"><a href="#cb110-436" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-437"><a href="#cb110-437" aria-hidden="true" tabindex="-1"></a><span class="fu">## Garbage collection</span></span>
+<span id="cb110-438"><a href="#cb110-438" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-439"><a href="#cb110-439" aria-hidden="true" tabindex="-1"></a>A variable is just a name that references a location (object) in memory. When a name is used for a different object, the memory for the old object is freed to be used again.</span>
+<span id="cb110-440"><a href="#cb110-440" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-443"><a href="#cb110-443" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb110-444"><a href="#cb110-444" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pryr)</span>
+<span id="cb110-445"><a href="#cb110-445" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fl">1e8</span>)</span>
+<span id="cb110-446"><a href="#cb110-446" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(x)</span>
+<span id="cb110-447"><a href="#cb110-447" aria-hidden="true" tabindex="-1"></a><span class="fu">mem_used</span>()</span>
+<span id="cb110-448"><a href="#cb110-448" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">"hello"</span></span>
+<span id="cb110-449"><a href="#cb110-449" aria-hidden="true" tabindex="-1"></a><span class="fu">mem_used</span>()</span>
+<span id="cb110-450"><a href="#cb110-450" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb110-451"><a href="#cb110-451" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-452"><a href="#cb110-452" aria-hidden="true" tabindex="-1"></a><span class="fu">## Copy-on-modify</span></span>
+<span id="cb110-453"><a href="#cb110-453" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-454"><a href="#cb110-454" aria-hidden="true" tabindex="-1"></a>The *semantics* of R say that <span class="in">`&lt;-`</span> creates a new copy of an object.</span>
+<span id="cb110-455"><a href="#cb110-455" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-456"><a href="#cb110-456" aria-hidden="true" tabindex="-1"></a>The *implementation* in the R interpreter  is that copies are only made when needed.</span>
+<span id="cb110-457"><a href="#cb110-457" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-460"><a href="#cb110-460" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb110-461"><a href="#cb110-461" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pryr)</span>
+<span id="cb110-462"><a href="#cb110-462" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fl">1e8</span>))</span>
+<span id="cb110-463"><a href="#cb110-463" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(x)</span>
+<span id="cb110-464"><a href="#cb110-464" aria-hidden="true" tabindex="-1"></a><span class="fu">mem_used</span>()</span>
+<span id="cb110-465"><a href="#cb110-465" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(y <span class="ot">&lt;-</span> x)</span>
+<span id="cb110-466"><a href="#cb110-466" aria-hidden="true" tabindex="-1"></a><span class="fu">mem_used</span>()</span>
+<span id="cb110-467"><a href="#cb110-467" aria-hidden="true" tabindex="-1"></a><span class="fu">address</span>(x)</span>
+<span id="cb110-468"><a href="#cb110-468" aria-hidden="true" tabindex="-1"></a><span class="fu">address</span>(y)</span>
+<span id="cb110-469"><a href="#cb110-469" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-470"><a href="#cb110-470" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(x[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">3</span>)  <span class="co"># Clearly more time than just modifying one element!</span></span>
+<span id="cb110-471"><a href="#cb110-471" aria-hidden="true" tabindex="-1"></a><span class="fu">mem_used</span>()</span>
+<span id="cb110-472"><a href="#cb110-472" aria-hidden="true" tabindex="-1"></a><span class="fu">address</span>(x)</span>
+<span id="cb110-473"><a href="#cb110-473" aria-hidden="true" tabindex="-1"></a><span class="fu">address</span>(y)</span>
+<span id="cb110-474"><a href="#cb110-474" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb110-475"><a href="#cb110-475" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-476"><a href="#cb110-476" aria-hidden="true" tabindex="-1"></a>Internally R manages this by keeping track of how many variables (references) there are to a given object in memory.</span>
+<span id="cb110-477"><a href="#cb110-477" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-478"><a href="#cb110-478" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-479"><a href="#cb110-479" aria-hidden="true" tabindex="-1"></a><span class="fu">## Memory and lists</span></span>
+<span id="cb110-480"><a href="#cb110-480" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-481"><a href="#cb110-481" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">R plays various games with lists and character strings (essentially copy-on-change) to avoid redundant copies of identical data</span><span class="co">](https://stat243.berkeley.edu/stat243-fall-2022/units/unit5-programming.html#how-lists-are-stored)</span>. We won't go into details.</span>
+<span id="cb110-482"><a href="#cb110-482" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-483"><a href="#cb110-483" aria-hidden="true" tabindex="-1"></a><span class="fu"># Breakout</span></span>
+<span id="cb110-484"><a href="#cb110-484" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-485"><a href="#cb110-485" aria-hidden="true" tabindex="-1"></a><span class="fu">## Basics</span></span>
+<span id="cb110-486"><a href="#cb110-486" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-487"><a href="#cb110-487" aria-hidden="true" tabindex="-1"></a>1) Create a vector of GDP per capita in units of Euros rather than dollars.</span>
+<span id="cb110-488"><a href="#cb110-488" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-489"><a href="#cb110-489" aria-hidden="true" tabindex="-1"></a>2) Create a vector that concatenates the country and year to create a 'country-year' variable in a vectorized way using the string processing functions.</span>
+<span id="cb110-490"><a href="#cb110-490" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-491"><a href="#cb110-491" aria-hidden="true" tabindex="-1"></a>3) Use <span class="in">`table()`</span> to figure out the number of countries available for each continent.</span>
+<span id="cb110-492"><a href="#cb110-492" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-493"><a href="#cb110-493" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using the ideas</span></span>
+<span id="cb110-494"><a href="#cb110-494" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-495"><a href="#cb110-495" aria-hidden="true" tabindex="-1"></a>4) Explain the steps of what this code is doing: <span class="in">`tmp &lt;- gapminder[ , -which(names(gapminder) == "continent")]`</span>.</span>
+<span id="cb110-496"><a href="#cb110-496" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-497"><a href="#cb110-497" aria-hidden="true" tabindex="-1"></a>5) Compute the number of NAs in each column of the gapminder dataset using <span class="in">`sapply()`</span> and making use of the <span class="in">`is.na()`</span> function. It's possible to do this without writing a function.</span>
+<span id="cb110-498"><a href="#cb110-498" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-499"><a href="#cb110-499" aria-hidden="true" tabindex="-1"></a>6) Suppose we have two categorical variables and we conduct a hypothesis test of independence. The chi-square statistic is: </span>
+<span id="cb110-500"><a href="#cb110-500" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-501"><a href="#cb110-501" aria-hidden="true" tabindex="-1"></a>   $$</span>
+<span id="cb110-502"><a href="#cb110-502" aria-hidden="true" tabindex="-1"></a>   \chi^2 = \sum_{i=1}^{n}\sum_{j=1}^{m} \frac{(y_{ij} - e_{ij})^2}{e_{ij}}, </span>
+<span id="cb110-503"><a href="#cb110-503" aria-hidden="true" tabindex="-1"></a>   $$ </span>
+<span id="cb110-504"><a href="#cb110-504" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-505"><a href="#cb110-505" aria-hidden="true" tabindex="-1"></a>   where $e_{ij} = \frac{y_{i\cdot} y_{\cdot j}}{y_{\cdot \cdot}}$, with $y_{i\cdot}$ the sum of the values in the i'th row, $y_{\cdot j}$ the sum of values in the j'th column, and $y_{\cdot\cdot}$ the sum of all the values. Suppose I give you a matrix in R with the $y_{ij}$ values. </span>
+<span id="cb110-506"><a href="#cb110-506" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-507"><a href="#cb110-507" aria-hidden="true" tabindex="-1"></a>   You can generate a test matrix as:</span>
+<span id="cb110-508"><a href="#cb110-508" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb110-509"><a href="#cb110-509" aria-hidden="true" tabindex="-1"></a>   <span class="in">```{r, eval=FALSE}</span></span>
+<span id="cb110-510"><a href="#cb110-510" aria-hidden="true" tabindex="-1"></a><span class="in">   y &lt;- matrix(sample(1:10, 12, replace = TRUE), </span></span>
+<span id="cb110-511"><a href="#cb110-511" aria-hidden="true" tabindex="-1"></a><span class="in">   nrow = 3, ncol = 4)</span></span>
+<span id="cb110-512"><a href="#cb110-512" aria-hidden="true" tabindex="-1"></a><span class="in">   ```</span></span>
+<span id="cb110-513"><a href="#cb110-513" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-514"><a href="#cb110-514" aria-hidden="true" tabindex="-1"></a>   Compute the statistic without *any* loops as follows:</span>
+<span id="cb110-515"><a href="#cb110-515" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-516"><a href="#cb110-516" aria-hidden="true" tabindex="-1"></a><span class="in">     - First, assume you have the *e* matrix. How do you compute the statistic without loops as a function of `y` and `e`?</span></span>
+<span id="cb110-517"><a href="#cb110-517" aria-hidden="true" tabindex="-1"></a><span class="in">     - How can you construct the *e* matrix? Hint: the numerator of *e* is just an *outer product* for which the `outer()` function can be used.</span></span>
+<span id="cb110-518"><a href="#cb110-518" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-519"><a href="#cb110-519" aria-hidden="true" tabindex="-1"></a><span class="fu">## Advanced </span></span>
+<span id="cb110-520"><a href="#cb110-520" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-521"><a href="#cb110-521" aria-hidden="true" tabindex="-1"></a>7) Here's a cool trick using <span class="in">`sapply`</span> to pull off a particular element of a list of lists:</span>
+<span id="cb110-522"><a href="#cb110-522" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-523"><a href="#cb110-523" aria-hidden="true" tabindex="-1"></a>   <span class="in">```{r}</span></span>
+<span id="cb110-524"><a href="#cb110-524" aria-hidden="true" tabindex="-1"></a><span class="in">   params &lt;- list(a = list(mn = 7, sd = 3), b = list(mn = 6,sd = 1), </span></span>
+<span id="cb110-525"><a href="#cb110-525" aria-hidden="true" tabindex="-1"></a><span class="in">   c = list(mn = 2, sd = 1))</span></span>
+<span id="cb110-526"><a href="#cb110-526" aria-hidden="true" tabindex="-1"></a><span class="in">   </span></span>
+<span id="cb110-527"><a href="#cb110-527" aria-hidden="true" tabindex="-1"></a><span class="in">   sapply(params, "[[", 1)</span></span>
+<span id="cb110-528"><a href="#cb110-528" aria-hidden="true" tabindex="-1"></a><span class="in">   ```</span></span>
+<span id="cb110-529"><a href="#cb110-529" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-530"><a href="#cb110-530" aria-hidden="true" tabindex="-1"></a>   Explain what that does and why it works.</span>
+<span id="cb110-531"><a href="#cb110-531" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-532"><a href="#cb110-532" aria-hidden="true" tabindex="-1"></a>   Hint:</span>
+<span id="cb110-533"><a href="#cb110-533" aria-hidden="true" tabindex="-1"></a>   <span class="in">```{r}</span></span>
+<span id="cb110-534"><a href="#cb110-534" aria-hidden="true" tabindex="-1"></a><span class="in">   test &lt;- list(5, 7, 3)</span></span>
+<span id="cb110-535"><a href="#cb110-535" aria-hidden="true" tabindex="-1"></a><span class="in">   test[[2]]</span></span>
+<span id="cb110-536"><a href="#cb110-536" aria-hidden="true" tabindex="-1"></a><span class="in">   # `[[`(test, 2)  # need it commented or R Markdown processing messes it up...</span></span>
+<span id="cb110-537"><a href="#cb110-537" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-538"><a href="#cb110-538" aria-hidden="true" tabindex="-1"></a><span class="in">   # `+`(3, 7)</span></span>
+<span id="cb110-539"><a href="#cb110-539" aria-hidden="true" tabindex="-1"></a><span class="in">   ```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
