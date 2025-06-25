@@ -247,6 +247,7 @@ params[[1]][[1]]  # Same as:  `[[`(params[[1]], 1)
 params[[2]][[1]]  # Same as:  `[[`(params[[3]], 1)
 params[[3]][[1]]  # Same as:  `[[`(params[[3]], 1)
 # etc.
+```
 
 # Unit 3: Programming Concepts and Tools
 
