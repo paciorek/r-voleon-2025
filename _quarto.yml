@@ -45,8 +45,8 @@ website:
             text: Basic Analysis/Useful Packages
           - href: units/speed.qmd
             text: Parallelization/Rcpp
-       - href: solutions/solutions.qmd
-         text: Breakout solutions
+      - href: solutions/solutions.qmd
+        text: Breakout solutions
           
 
 format:
