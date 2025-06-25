@@ -31,14 +31,29 @@ A lot of analysis time in many cases is spent on manipulating tabular data. The 
 The [`tidyverse`](https://www.tidyverse.org/) is a suite of packages designed 
 specifically to help with both these steps; some of which we will be introducing in this module. These are by no means the only packages out there for data wrangling but they are  popular for their readable, straightforward syntax and sensible default behaviors.
 
-An alternative for working quickly with very large datasets is the `data.table` package. It's fast and a good choice. While the core syntax is not as nice, one can also use dplyr syntax with data.table objects.
+An alternative for working quickly with very large datasets is the `data.table` package. It's fast and a good choice. While the core syntax is not as nice, it's also possible to use dplyr syntax with data.table objects.
+
+## In-memory versus on-disk
+
+Most R packages work with data in memory. This includes the tidyverse and data.table.
+
+In some cases you may not have enough memory to use tools that bring all the data into memory in R.
+
+Some alternatives include:
+
+- DuckDB (or SQLite) databases, accessed from R (or client-server databases such as PostGreSQL)
+- Using Apache Arrow via the `arrow` package
+
+
+Or you may need to move to another language, such as using Dask in Python, or database/data lake functionality provided by cloud computing providers.
+
 
 # Data frame manipulation using `dplyr`
 
 Luckily, the [`dplyr`](https://cran.r-project.org/web/packages/dplyr/dplyr.pdf) package provides a number of very useful functions for manipulating data frames. 
-These functions will save you time and hassle by reducing repetition, and will help to make your code more human-readable (trust me: your future self and others might thank you!)
+These functions will save you time and hassle by reducing repetition, and will help to make your code more readable.
 
-Here we're going to cover 6 of the most commonly used functions as well as using pipes (`%>%`) to combine them.
+Here we're going to cover six of the most commonly used functions as well as using pipes (using the syntax `|>` or `%>%`) to combine them.
 
 1. `select()`
 2. `filter()`
@@ -271,6 +286,8 @@ head(gap_with_extra_vars)
 You may run across the term "non-standard evaluation". 
 The use of data frame variables without quotes around them is an example of this.
 
+::: {.callout-tip title="Question"}
+
 Why is this strange?
 
 ```{r}
@@ -286,13 +303,20 @@ gapminder[ , c('continent', 'year')]
 gapminder[ , 'continent']
 ```
 
-Because `continent` and `year` are not variables our current environment! dplyr does some manipulation of language objects behind the scenes to save us from typing the quotes.
+:::
 
-This is fine if you have a data analysis workflow but if you want to write a function that, for example, selects an arbitrary set of columns, you'll run into trouble.
+::: {.callout-tip title="Answer" collapse="true"}
+
+In `select(continent, year)` standard R evaluation would look for variables named  `continent` and `year` in our current environment. But those variables don't exist!
+
+dplyr does some manipulation of language objects behind the scenes to save us from typing the quotes.
+:::
+
+Non-standard evaluation  is fine if you have a data analysis workflow, but if you want to write a function that, for example, selects an arbitrary set of columns, you'll run into trouble.
 
 ```{r}
 #| eval: false
-## here's a helper function that computes the mean of a variable, stratifying by a grouping variable
+## A helper function that computes the mean of a variable, with stratification.
 grouped_mean <- function(data, group_var, summary_var) {
   data |>
     group_by(group_var) |>
@@ -494,7 +518,7 @@ There are some other useful packages in the [tidyverse](http://www.tidyverse.org
 * many many more! Take a peak at the [tidyverse github page](https://github.com/tidyverse)...
 
 
-# data.table: intro
+# data.table
 
 
 The *data.table* package provides a lot of functionality for fast manipulation of datasets in memory. data.table can do the standard SQL/dplyr operations such as indexing, merges/joins, assignment, grouping, etc. Plus data.table objects are data frames (i.e., they inherit from data frames) so they are compatible with R code that uses data frames.
@@ -502,14 +526,15 @@ The *data.table* package provides a lot of functionality for fast manipulation o
 If you've got enough memory, data.table can be effective with pretty large datasets (e.g., 10s of gigabytes).
 
 
-Let's read in a moderate size CSV with airline departure delay information.
+Let's read in a moderate size (50 MB) CSV with airline departure delay information.
 
-You can get [`airline.csv` here](https://www.stat.berkeley.edu/~paciorek/share/airline.csv).
+You can get [`airline.csv` here](https://www.stat.berkeley.edu/~paciorek/share/airline.csv). (It's a bit larger than we'd want to have in a Git repository.)
 
 ```{r}
 library(data.table, quietly = TRUE, warn.conflicts = FALSE)
 
 system.time(air <- fread(file.path('..', 'data', 'airline.csv'))) # 0.1 sec.
+class(air)
 ```
 
 We'll compare the time for reading to `read.csv` and `readr::read_csv`.
@@ -522,12 +547,12 @@ col_types <- c("integer", "integer", "integer", "integer", "integer", "integer",
                "character", "integer", "integer", "integer",
                "integer", "integer", "integer")
 
-system.time(air <- read.csv(file.path('..', 'data', 'airline.csv')))  # 5.6 sec.
+system.time(air2 <- read.csv(file.path('..', 'data', 'airline.csv')))  # 5.6 sec.
 
-system.time(air <- read.csv(file.path('..', 'data', 'airline.csv'),
+system.time(air2 <- read.csv(file.path('..', 'data', 'airline.csv'),
    colClasses = col_types))   # 1.5 sec.
 
-system.time(air <- readr::read_csv(file.path('..', 'data', 'airline.csv'),
+system.time(air2 <- readr::read_csv(file.path('..', 'data', 'airline.csv'),
    col_types = "iiiiiiiiciciiiiicciiiiciiiiii"))  # 0.9 sec.
 ```
 
@@ -548,23 +573,23 @@ air[ , DepDelayHr := DepDelay / 60]
 # Summarize
 air[ , .(meanDelayByDest = mean(DepDelay, na.rm = TRUE)), by = Dest]
 # Chaining operations (ugly!):
-air[ , DepDelayHr := DepDelay / 60][ , .(meanDelayByDest = mean(DepDelayHr, na.rm = TRUE)), by = Dest]
+air[ , DepDelayHr := DepDelay / 60][ , .(meanDelayByDest = mean(DepDelayHr, na.rm = TRUE)),
+                                         by = Dest]
 # Join:
 air[another_dt, on = "keycolumn"]
 # Sort:
 air[order(Dest, -DepDelay)]
 ```
 
-An important area for efficiency is to use an index, which can improve lookup speed dramatically. For this small dataset, everyting is fast already, so it's not a good example.
+An important area for efficiency is to use an *index*, which can improve lookup speed dramatically. For this small dataset, everything is fast already, so it's not a good example.
 
 ```{r, index}
-air <- fread(file.path('..', 'data', 'airline.csv'))
 ## Subset without an index
 system.time(sub <- air[Dest == "BOS"])  
 
-## Now set index and subset
+## Now set index (i.e., order by `Dest`)  and subset
 system.time(setindex(air, Dest))
-system.time(sub2 <- air[Dest == "BOS"]) # essentially instantaneous
+system.time(sub2 <- air[Dest == "BOS"]) 
 ```
 
 data.table has a lot of functionality and can be used to do a variety of sophisticated queries and manipulations (including aggregation operations), but it has its own somewhat involved syntax and concepts. The above just scratches the surface of what you can do with it. 
@@ -593,17 +618,6 @@ system.time(result <- lazy_air |> group_by(Dest) |> summarize(meanDepDelay = mea
 Finally the `tidytable` package (not shown) also allows you to use dplyr syntax as well as other tidyverse syntax, such as `tidyr` functions. 
 
 
-## Working with data on disk
-
-In some cases you may not have enough memory to use tools that bring all the data into memory in R.
-
-Some alternatives include:
-
-- DuckDB (or SQLite) databases, accessed from R
-- Using Apache Arrow via the `arrow` package
-
-
-Or you may need to move to another language, such as using Dask in Python, or database/data lake functionality provided by clould providers.
 
 # Databases
 
@@ -613,21 +627,22 @@ R has the capability to read and write from a variety of relational database man
 
 The *DBI* package provides a front-end for manipulating databases from a variety of DBMS (MySQL, DuckDB, SQLite, Oracle, among others).
 
-DuckDB is a nice alternative to SQLite for a simple database (just a single file) that is fast to use for data analysis work (it uses columnar storage).
 
 Basically, you tell the package what DBMS is being used on the back-end, link to the actual database, and then you can use the standard functions in the package regardless of the back-end. 
 
 ## Database example
 
-You can get an example database of information about Stack Overflow questions and answers from [http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.duckdb](http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.duckdb). Stack Overflow is a website where programmers and software users can pose questions and get answers to technical problems.
+Our example will use a DuckDB database. DuckDB is a nice alternative to SQLite for a simple database (i.e., just a single file) that is fast to use for data analysis work (it uses columnar storage).
+
+You can get [this example database](http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.duckdb) of information about Stack Overflow questions and answers. Stack Overflow is a website where programmers and software users can pose questions and get answers to technical problems.
+
 
 
 ```{r}
 #| eval: true
 library(duckdb)  # DBI is a dependency
 dbfile <- file.path("..", "data", "stackoverflow-2021.duckdb")
-db <- dbConnect(duckdb(), dbfile)  # This will vary depending on the back-end database
-## stackoverflow-2016.db is an DuckDB database
+db <- dbConnect(duckdb(), dbfile)  # The arguments will vary depending on the back-end database
 
 ## The syntax below works regardless of the back-end database.
 
@@ -653,7 +668,7 @@ dbDisconnect(db)
 
 # Breakout
 
-### `dplyr`
+## `dplyr`
 
 1. Use `dplyr` to create a data frame containing the median `lifeExp` for each continent
 
@@ -661,12 +676,12 @@ dbDisconnect(db)
 
 3. Use `dplyr` to add a column called `gdpPercap_diff` that contains the difference between the observation's `gdpPercap` and the mean `gdpPercap` of the continent in that year. Arrange the data frame by the column you just created, in descending order (so that the relatively richest country/years are listed first)
 
-### `tidyr`
+## `tidyr`
 
 4. Subset the results from question #3 to select only the `country`, `year`, and `gdpPercap_diff` columns. Use tidyr put it in wide format so that countries are rows and years are columns.
 
 Hint: you'll probably see a message about a missing grouping variable. If you don't want continent included, you can pass the output of problem 3 through `ungroup()` to get rid of the continent information.
 
-### `data.table`
+## `data.table`
 
-5. Compare timing of some operations on the airline dataset when using `dtplyr` with `lazy_air` versus directly applying dplyr syntax to the `air` `data.table`.
+5. Compare timing of some operations on the airline dataset when using `dtplyr` with `lazy_air` versus directly applying dplyr syntax to the `air` data.table obect.

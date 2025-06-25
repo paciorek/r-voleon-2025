@@ -340,3 +340,60 @@ enclosed with and accessible to the function.
    environment(f)$x
    ```
 
+# Unit 4: Data Wrangling
+
+## `dplyr`
+
+1) Use `dplyr` to create a data frame containing the median `lifeExp` for each continent
+
+   ```{r}
+   #| eval: false
+   gapminder_median_lifeExp <- gapminder %>%
+   group_by(continent) %>%
+   summarize(med_lifeExp = median(lifeExp))
+   ```
+
+2) Use `dplyr` to add a column to the gapminder dataset that contains the total population of the continent of each observation in a given year. For example, if the first observation is Afghanistan in 1952, the new column would contain the population of Asia in 1952.
+
+   ```{r}
+   #| eval: false
+   gapminder_pop_continent <- gapminder %>%
+   group_by(continent, year) %>%
+   mutate(continent_pop = sum(pop))
+   ```
+
+3) Use `dplyr` to add a column called `gdpPercap_diff` that contains the difference between the observation's `gdpPercap` and the mean `gdpPercap` of the continent in that year. Arrange the data frame by the column you just created, in descending order (so that the relatively richest country/years are listed first)
+
+   ```{r}
+   #| eval: false
+   gapminder_rel_gdp <- gapminder %>%
+   group_by(continent, year) %>%
+   mutate(gdpPercap_diff = gdpPercap - mean(gdpPercap)) %>%
+   arrange(desc(gdpPercap_diff))
+   ```
+
+## `tidyr`
+
+4) Subset the results from question #3 to select only the `country`, `year`, and `gdpPercap_diff` columns. Use tidyr put it in wide format so that countries are rows and years are columns.
+
+Hint: you'll probably see a message about a missing grouping variable. If you don't want continent included, you can pass the output of problem 3 through `ungroup()` to get rid of the continent information.
+
+   ```{r}
+   #| eval: false
+   ## First, redo question 3 code, without arranging by gdp,
+   ## as that would mess up the order of the columns in the 'wide' result.
+   gapminder_rel_gdp <- gapminder %>%
+   group_by(continent, year) %>%
+   mutate(gdpPercap_diff = gdpPercap - mean(gdpPercap))
+
+   ## Now convert to wide format.
+   gapminder_wider <- gapminder_rel_gdp %>% 
+   select(country, year, gdpPercap_diff) %>%
+   pivot_wider(names_from = year, values_from = gdpPercap_diff) 
+   ```
+
+## `data.table`
+
+5) Compare timing of some operations on the airline dataset when using `dtplyr` with `lazy_air` versus directly applying dplyr syntax to the `air` data.table obect.
+
+   No solution provided.
