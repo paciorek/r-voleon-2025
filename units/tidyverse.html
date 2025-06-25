@@ -958,13 +958,14 @@ Answer
 <p>The <em>data.table</em> package provides a lot of functionality for fast manipulation of datasets in memory. data.table can do the standard SQL/dplyr operations such as indexing, merges/joins, assignment, grouping, etc. Plus data.table objects are data frames (i.e., they inherit from data frames) so they are compatible with R code that uses data frames.</p>
 <p>If you’ve got enough memory, data.table can be effective with pretty large datasets (e.g., 10s of gigabytes).</p>
 <p>Let’s read in a moderate size CSV with airline departure delay information.</p>
+<p>You can get <a href="https://www.stat.berkeley.edu/~paciorek/share/airline.csv"><code>airline.csv</code> here</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table, <span class="at">quietly =</span> <span class="cn">TRUE</span>, <span class="at">warn.conflicts =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(air <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="fu">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>, <span class="st">'airline.csv'</span>))) <span class="co"># 0.1 sec.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.553   0.025   0.250 </code></pre>
+  0.589   0.029   0.270 </code></pre>
 </div>
 </div>
 <p>We’ll compare the time for reading to <code>read.csv</code> and <code>readr::read_csv</code>.</p>
@@ -979,19 +980,19 @@ Answer
 <span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(air <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>, <span class="st">'airline.csv'</span>)))  <span class="co"># 5.6 sec.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  4.004   0.109   4.119 </code></pre>
+  4.129   0.125   4.255 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(air <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>, <span class="st">'airline.csv'</span>),</span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">colClasses =</span> col_types))   <span class="co"># 1.5 sec.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  1.704   0.022   1.732 </code></pre>
+  1.600   0.007   1.609 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(air <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="fu">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>, <span class="st">'airline.csv'</span>),</span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">col_types =</span> <span class="st">"iiiiiiiiciciiiiicciiiiciiiiii"</span>))  <span class="co"># 0.9 sec.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  3.491   0.168   1.405 </code></pre>
+  3.334   0.180   1.493 </code></pre>
 </div>
 </div>
 <p>It doesn’t make much difference for that small-ish (50 MB) file, but <code>fread</code> should be fast for much larger files, including reading from zipped files or online files.</p>
@@ -1027,12 +1028,12 @@ Answer
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">setindex</span>(air, Dest))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.010   0.000   0.004 </code></pre>
+  0.011   0.000   0.004 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(sub2 <span class="ot">&lt;-</span> air[Dest <span class="sc">==</span> <span class="st">"BOS"</span>]) <span class="co"># essentially instantaneous</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.007   0.000   0.005 </code></pre>
+  0.008   0.000   0.004 </code></pre>
 </div>
 </div>
 <p>data.table has a lot of functionality and can be used to do a variety of sophisticated queries and manipulations (including aggregation operations), but it has its own somewhat involved syntax and concepts. The above just scratches the surface of what you can do with it.</p>
@@ -1047,12 +1048,12 @@ Answer
 <span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(result <span class="ot">&lt;-</span> air[ , .(<span class="at">meanDelayByDest =</span> <span class="fu">mean</span>(DepDelay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), <span class="at">by =</span> Dest])  <span class="co"># 0.008 sec.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.042   0.000   0.012 </code></pre>
+  0.042   0.000   0.011 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(result <span class="ot">&lt;-</span> air <span class="sc">|&gt;</span> <span class="fu">group_by</span>(Dest) <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">meanDepDelay =</span> <span class="fu">mean</span>(DepDelay)))   <span class="co"># 0.019 sec.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.015   0.000   0.014 </code></pre>
+  0.013   0.000   0.014 </code></pre>
 </div>
 </div>
 <p>Instead, one can also use <code>dtplyr</code> to set use a data table as a back end for dplyr manipulations. Using <code>lazy_dt</code> allows dtplyr to do some optimization as it generates the translation from dplyr syntax to data table syntax, though this simple example doesn’t illustrate the usefulness of that (and using <code>system.time</code> for fine differentiation of timing is not generally a good idea).</p>
@@ -1062,7 +1063,7 @@ Answer
 <span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(result <span class="ot">&lt;-</span> lazy_air <span class="sc">|&gt;</span> <span class="fu">group_by</span>(Dest) <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">meanDepDelay =</span> <span class="fu">mean</span>(DepDelay))) <span class="co"># 0.007</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   user  system elapsed 
-  0.005   0.000   0.006 </code></pre>
+  0.007   0.000   0.008 </code></pre>
 </div>
 </div>
 <p>Finally the <code>tidytable</code> package (not shown) also allows you to use dplyr syntax as well as other tidyverse syntax, such as <code>tidyr</code> functions.</p>
@@ -2134,170 +2135,172 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb91-549"><a href="#cb91-549" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb91-550"><a href="#cb91-550" aria-hidden="true" tabindex="-1"></a>Let's read in a moderate size CSV with airline departure delay information.</span>
 <span id="cb91-551"><a href="#cb91-551" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-554"><a href="#cb91-554" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb91-555"><a href="#cb91-555" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table, <span class="at">quietly =</span> <span class="cn">TRUE</span>, <span class="at">warn.conflicts =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb91-556"><a href="#cb91-556" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-557"><a href="#cb91-557" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(air <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="fu">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>, <span class="st">'airline.csv'</span>))) <span class="co"># 0.1 sec.</span></span>
-<span id="cb91-558"><a href="#cb91-558" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb91-559"><a href="#cb91-559" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-560"><a href="#cb91-560" aria-hidden="true" tabindex="-1"></a>We'll compare the time for reading to <span class="in">`read.csv`</span> and <span class="in">`readr::read_csv`</span>.</span>
+<span id="cb91-552"><a href="#cb91-552" aria-hidden="true" tabindex="-1"></a>You can get <span class="co">[</span><span class="ot">`airline.csv` here</span><span class="co">](https://www.stat.berkeley.edu/~paciorek/share/airline.csv)</span>.</span>
+<span id="cb91-553"><a href="#cb91-553" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-556"><a href="#cb91-556" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb91-557"><a href="#cb91-557" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table, <span class="at">quietly =</span> <span class="cn">TRUE</span>, <span class="at">warn.conflicts =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb91-558"><a href="#cb91-558" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-559"><a href="#cb91-559" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(air <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="fu">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>, <span class="st">'airline.csv'</span>))) <span class="co"># 0.1 sec.</span></span>
+<span id="cb91-560"><a href="#cb91-560" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb91-561"><a href="#cb91-561" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-564"><a href="#cb91-564" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb91-565"><a href="#cb91-565" aria-hidden="true" tabindex="-1"></a>col_types <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>,</span>
-<span id="cb91-566"><a href="#cb91-566" aria-hidden="true" tabindex="-1"></a>               <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"character"</span>, <span class="st">"integer"</span>, <span class="st">"character"</span>,</span>
-<span id="cb91-567"><a href="#cb91-567" aria-hidden="true" tabindex="-1"></a>               <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>,</span>
-<span id="cb91-568"><a href="#cb91-568" aria-hidden="true" tabindex="-1"></a>               <span class="st">"character"</span>, <span class="st">"character"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>,</span>
-<span id="cb91-569"><a href="#cb91-569" aria-hidden="true" tabindex="-1"></a>               <span class="st">"character"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>,</span>
-<span id="cb91-570"><a href="#cb91-570" aria-hidden="true" tabindex="-1"></a>               <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>)</span>
-<span id="cb91-571"><a href="#cb91-571" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-572"><a href="#cb91-572" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(air <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>, <span class="st">'airline.csv'</span>)))  <span class="co"># 5.6 sec.</span></span>
+<span id="cb91-562"><a href="#cb91-562" aria-hidden="true" tabindex="-1"></a>We'll compare the time for reading to <span class="in">`read.csv`</span> and <span class="in">`readr::read_csv`</span>.</span>
+<span id="cb91-563"><a href="#cb91-563" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-566"><a href="#cb91-566" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb91-567"><a href="#cb91-567" aria-hidden="true" tabindex="-1"></a>col_types <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>,</span>
+<span id="cb91-568"><a href="#cb91-568" aria-hidden="true" tabindex="-1"></a>               <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"character"</span>, <span class="st">"integer"</span>, <span class="st">"character"</span>,</span>
+<span id="cb91-569"><a href="#cb91-569" aria-hidden="true" tabindex="-1"></a>               <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>,</span>
+<span id="cb91-570"><a href="#cb91-570" aria-hidden="true" tabindex="-1"></a>               <span class="st">"character"</span>, <span class="st">"character"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>,</span>
+<span id="cb91-571"><a href="#cb91-571" aria-hidden="true" tabindex="-1"></a>               <span class="st">"character"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>,</span>
+<span id="cb91-572"><a href="#cb91-572" aria-hidden="true" tabindex="-1"></a>               <span class="st">"integer"</span>, <span class="st">"integer"</span>, <span class="st">"integer"</span>)</span>
 <span id="cb91-573"><a href="#cb91-573" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-574"><a href="#cb91-574" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(air <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>, <span class="st">'airline.csv'</span>),</span>
-<span id="cb91-575"><a href="#cb91-575" aria-hidden="true" tabindex="-1"></a>   <span class="at">colClasses =</span> col_types))   <span class="co"># 1.5 sec.</span></span>
-<span id="cb91-576"><a href="#cb91-576" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-577"><a href="#cb91-577" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(air <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="fu">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>, <span class="st">'airline.csv'</span>),</span>
-<span id="cb91-578"><a href="#cb91-578" aria-hidden="true" tabindex="-1"></a>   <span class="at">col_types =</span> <span class="st">"iiiiiiiiciciiiiicciiiiciiiiii"</span>))  <span class="co"># 0.9 sec.</span></span>
-<span id="cb91-579"><a href="#cb91-579" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb91-580"><a href="#cb91-580" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-581"><a href="#cb91-581" aria-hidden="true" tabindex="-1"></a>It doesn't make much difference for that small-ish (50 MB) file, but <span class="in">`fread`</span> should be fast for much larger files, including reading from zipped files or online files.</span>
+<span id="cb91-574"><a href="#cb91-574" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(air <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>, <span class="st">'airline.csv'</span>)))  <span class="co"># 5.6 sec.</span></span>
+<span id="cb91-575"><a href="#cb91-575" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-576"><a href="#cb91-576" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(air <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>, <span class="st">'airline.csv'</span>),</span>
+<span id="cb91-577"><a href="#cb91-577" aria-hidden="true" tabindex="-1"></a>   <span class="at">colClasses =</span> col_types))   <span class="co"># 1.5 sec.</span></span>
+<span id="cb91-578"><a href="#cb91-578" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-579"><a href="#cb91-579" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(air <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="fu">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>, <span class="st">'airline.csv'</span>),</span>
+<span id="cb91-580"><a href="#cb91-580" aria-hidden="true" tabindex="-1"></a>   <span class="at">col_types =</span> <span class="st">"iiiiiiiiciciiiiicciiiiciiiiii"</span>))  <span class="co"># 0.9 sec.</span></span>
+<span id="cb91-581"><a href="#cb91-581" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb91-582"><a href="#cb91-582" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-583"><a href="#cb91-583" aria-hidden="true" tabindex="-1"></a><span class="fu">## data.table syntax</span></span>
+<span id="cb91-583"><a href="#cb91-583" aria-hidden="true" tabindex="-1"></a>It doesn't make much difference for that small-ish (50 MB) file, but <span class="in">`fread`</span> should be fast for much larger files, including reading from zipped files or online files.</span>
 <span id="cb91-584"><a href="#cb91-584" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-585"><a href="#cb91-585" aria-hidden="true" tabindex="-1"></a>Here's some syntax examples:</span>
+<span id="cb91-585"><a href="#cb91-585" aria-hidden="true" tabindex="-1"></a><span class="fu">## data.table syntax</span></span>
 <span id="cb91-586"><a href="#cb91-586" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-589"><a href="#cb91-589" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb91-590"><a href="#cb91-590" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb91-591"><a href="#cb91-591" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter rows:</span></span>
-<span id="cb91-592"><a href="#cb91-592" aria-hidden="true" tabindex="-1"></a>air[Dest <span class="sc">==</span> <span class="st">"BOS"</span> <span class="sc">&amp;</span> DepDelay <span class="sc">&gt;</span> <span class="dv">100</span>]</span>
-<span id="cb91-593"><a href="#cb91-593" aria-hidden="true" tabindex="-1"></a><span class="co"># Select columns:</span></span>
-<span id="cb91-594"><a href="#cb91-594" aria-hidden="true" tabindex="-1"></a>air[ , <span class="fu">c</span>(<span class="st">"Dest"</span>, <span class="st">"DepDelay"</span>)]</span>
-<span id="cb91-595"><a href="#cb91-595" aria-hidden="true" tabindex="-1"></a><span class="co"># Mutate (create new columns):</span></span>
-<span id="cb91-596"><a href="#cb91-596" aria-hidden="true" tabindex="-1"></a>air[ , DepDelayHr <span class="sc">:</span><span class="er">=</span> DepDelay <span class="sc">/</span> <span class="dv">60</span>]</span>
-<span id="cb91-597"><a href="#cb91-597" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize</span></span>
-<span id="cb91-598"><a href="#cb91-598" aria-hidden="true" tabindex="-1"></a>air[ , .(<span class="at">meanDelayByDest =</span> <span class="fu">mean</span>(DepDelay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), by <span class="ot">=</span> Dest]</span>
-<span id="cb91-599"><a href="#cb91-599" aria-hidden="true" tabindex="-1"></a><span class="co"># Chaining operations (ugly!):</span></span>
-<span id="cb91-600"><a href="#cb91-600" aria-hidden="true" tabindex="-1"></a>air[ , DepDelayHr <span class="sc">:</span><span class="er">=</span> DepDelay <span class="sc">/</span> <span class="dv">60</span>][ , .(<span class="at">meanDelayByDest =</span> <span class="fu">mean</span>(DepDelayHr, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), by <span class="ot">=</span> Dest]</span>
-<span id="cb91-601"><a href="#cb91-601" aria-hidden="true" tabindex="-1"></a><span class="co"># Join:</span></span>
-<span id="cb91-602"><a href="#cb91-602" aria-hidden="true" tabindex="-1"></a>air[another_dt, on <span class="ot">=</span> <span class="st">"keycolumn"</span>]</span>
-<span id="cb91-603"><a href="#cb91-603" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort:</span></span>
-<span id="cb91-604"><a href="#cb91-604" aria-hidden="true" tabindex="-1"></a>air[<span class="fu">order</span>(Dest, <span class="sc">-</span>DepDelay)]</span>
-<span id="cb91-605"><a href="#cb91-605" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb91-606"><a href="#cb91-606" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-607"><a href="#cb91-607" aria-hidden="true" tabindex="-1"></a>An important area for efficiency is to use an index, which can improve lookup speed dramatically. For this small dataset, everyting is fast already, so it's not a good example.</span>
+<span id="cb91-587"><a href="#cb91-587" aria-hidden="true" tabindex="-1"></a>Here's some syntax examples:</span>
+<span id="cb91-588"><a href="#cb91-588" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-591"><a href="#cb91-591" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb91-592"><a href="#cb91-592" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb91-593"><a href="#cb91-593" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter rows:</span></span>
+<span id="cb91-594"><a href="#cb91-594" aria-hidden="true" tabindex="-1"></a>air[Dest <span class="sc">==</span> <span class="st">"BOS"</span> <span class="sc">&amp;</span> DepDelay <span class="sc">&gt;</span> <span class="dv">100</span>]</span>
+<span id="cb91-595"><a href="#cb91-595" aria-hidden="true" tabindex="-1"></a><span class="co"># Select columns:</span></span>
+<span id="cb91-596"><a href="#cb91-596" aria-hidden="true" tabindex="-1"></a>air[ , <span class="fu">c</span>(<span class="st">"Dest"</span>, <span class="st">"DepDelay"</span>)]</span>
+<span id="cb91-597"><a href="#cb91-597" aria-hidden="true" tabindex="-1"></a><span class="co"># Mutate (create new columns):</span></span>
+<span id="cb91-598"><a href="#cb91-598" aria-hidden="true" tabindex="-1"></a>air[ , DepDelayHr <span class="sc">:</span><span class="er">=</span> DepDelay <span class="sc">/</span> <span class="dv">60</span>]</span>
+<span id="cb91-599"><a href="#cb91-599" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize</span></span>
+<span id="cb91-600"><a href="#cb91-600" aria-hidden="true" tabindex="-1"></a>air[ , .(<span class="at">meanDelayByDest =</span> <span class="fu">mean</span>(DepDelay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), by <span class="ot">=</span> Dest]</span>
+<span id="cb91-601"><a href="#cb91-601" aria-hidden="true" tabindex="-1"></a><span class="co"># Chaining operations (ugly!):</span></span>
+<span id="cb91-602"><a href="#cb91-602" aria-hidden="true" tabindex="-1"></a>air[ , DepDelayHr <span class="sc">:</span><span class="er">=</span> DepDelay <span class="sc">/</span> <span class="dv">60</span>][ , .(<span class="at">meanDelayByDest =</span> <span class="fu">mean</span>(DepDelayHr, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), by <span class="ot">=</span> Dest]</span>
+<span id="cb91-603"><a href="#cb91-603" aria-hidden="true" tabindex="-1"></a><span class="co"># Join:</span></span>
+<span id="cb91-604"><a href="#cb91-604" aria-hidden="true" tabindex="-1"></a>air[another_dt, on <span class="ot">=</span> <span class="st">"keycolumn"</span>]</span>
+<span id="cb91-605"><a href="#cb91-605" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort:</span></span>
+<span id="cb91-606"><a href="#cb91-606" aria-hidden="true" tabindex="-1"></a>air[<span class="fu">order</span>(Dest, <span class="sc">-</span>DepDelay)]</span>
+<span id="cb91-607"><a href="#cb91-607" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb91-608"><a href="#cb91-608" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-609"><a href="#cb91-609" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, index}</span></span>
-<span id="cb91-610"><a href="#cb91-610" aria-hidden="true" tabindex="-1"></a><span class="in">air &lt;- fread(file.path('..', 'data', 'airline.csv'))</span></span>
-<span id="cb91-611"><a href="#cb91-611" aria-hidden="true" tabindex="-1"></a><span class="in">## Subset without an index</span></span>
-<span id="cb91-612"><a href="#cb91-612" aria-hidden="true" tabindex="-1"></a><span class="in">system.time(sub &lt;- air[Dest == "BOS"])  </span></span>
-<span id="cb91-613"><a href="#cb91-613" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-614"><a href="#cb91-614" aria-hidden="true" tabindex="-1"></a><span class="in">## Now set index and subset</span></span>
-<span id="cb91-615"><a href="#cb91-615" aria-hidden="true" tabindex="-1"></a><span class="in">system.time(setindex(air, Dest))</span></span>
-<span id="cb91-616"><a href="#cb91-616" aria-hidden="true" tabindex="-1"></a><span class="in">system.time(sub2 &lt;- air[Dest == "BOS"]) # essentially instantaneous</span></span>
-<span id="cb91-617"><a href="#cb91-617" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb91-618"><a href="#cb91-618" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-619"><a href="#cb91-619" aria-hidden="true" tabindex="-1"></a>data.table has a lot of functionality and can be used to do a variety of sophisticated queries and manipulations (including aggregation operations), but it has its own somewhat involved syntax and concepts. The above just scratches the surface of what you can do with it. </span>
+<span id="cb91-609"><a href="#cb91-609" aria-hidden="true" tabindex="-1"></a>An important area for efficiency is to use an index, which can improve lookup speed dramatically. For this small dataset, everyting is fast already, so it's not a good example.</span>
+<span id="cb91-610"><a href="#cb91-610" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-611"><a href="#cb91-611" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, index}</span></span>
+<span id="cb91-612"><a href="#cb91-612" aria-hidden="true" tabindex="-1"></a><span class="in">air &lt;- fread(file.path('..', 'data', 'airline.csv'))</span></span>
+<span id="cb91-613"><a href="#cb91-613" aria-hidden="true" tabindex="-1"></a><span class="in">## Subset without an index</span></span>
+<span id="cb91-614"><a href="#cb91-614" aria-hidden="true" tabindex="-1"></a><span class="in">system.time(sub &lt;- air[Dest == "BOS"])  </span></span>
+<span id="cb91-615"><a href="#cb91-615" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-616"><a href="#cb91-616" aria-hidden="true" tabindex="-1"></a><span class="in">## Now set index and subset</span></span>
+<span id="cb91-617"><a href="#cb91-617" aria-hidden="true" tabindex="-1"></a><span class="in">system.time(setindex(air, Dest))</span></span>
+<span id="cb91-618"><a href="#cb91-618" aria-hidden="true" tabindex="-1"></a><span class="in">system.time(sub2 &lt;- air[Dest == "BOS"]) # essentially instantaneous</span></span>
+<span id="cb91-619"><a href="#cb91-619" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb91-620"><a href="#cb91-620" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-621"><a href="#cb91-621" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using dplyr syntax with data.table </span></span>
+<span id="cb91-621"><a href="#cb91-621" aria-hidden="true" tabindex="-1"></a>data.table has a lot of functionality and can be used to do a variety of sophisticated queries and manipulations (including aggregation operations), but it has its own somewhat involved syntax and concepts. The above just scratches the surface of what you can do with it. </span>
 <span id="cb91-622"><a href="#cb91-622" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-623"><a href="#cb91-623" aria-hidden="true" tabindex="-1"></a>Rather than learning the data.table syntax, one can also use dplyr syntax with data.table objects.</span>
+<span id="cb91-623"><a href="#cb91-623" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using dplyr syntax with data.table </span></span>
 <span id="cb91-624"><a href="#cb91-624" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-625"><a href="#cb91-625" aria-hidden="true" tabindex="-1"></a>We can use dplyr syntax directly with data table objects, but the efficiency may not be what you want.</span>
+<span id="cb91-625"><a href="#cb91-625" aria-hidden="true" tabindex="-1"></a>Rather than learning the data.table syntax, one can also use dplyr syntax with data.table objects.</span>
 <span id="cb91-626"><a href="#cb91-626" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-627"><a href="#cb91-627" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, dtplusdplyr}</span></span>
-<span id="cb91-628"><a href="#cb91-628" aria-hidden="true" tabindex="-1"></a><span class="in">air &lt;- fread(file.path('..', 'data', 'airline.csv'))</span></span>
-<span id="cb91-629"><a href="#cb91-629" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-630"><a href="#cb91-630" aria-hidden="true" tabindex="-1"></a><span class="in">system.time(result &lt;- air[ , .(meanDelayByDest = mean(DepDelay, na.rm = TRUE)), by = Dest])  # 0.008 sec.</span></span>
-<span id="cb91-631"><a href="#cb91-631" aria-hidden="true" tabindex="-1"></a><span class="in">system.time(result &lt;- air |&gt; group_by(Dest) |&gt; summarize(meanDepDelay = mean(DepDelay)))   # 0.019 sec.</span></span>
-<span id="cb91-632"><a href="#cb91-632" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb91-633"><a href="#cb91-633" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-634"><a href="#cb91-634" aria-hidden="true" tabindex="-1"></a>Instead, one can also use <span class="in">`dtplyr`</span> to set use a data table as a back end for dplyr manipulations. Using <span class="in">`lazy_dt`</span> allows dtplyr to do some optimization as it generates the translation from dplyr syntax to data table syntax, though this simple example doesn't illustrate the usefulness of that (and using <span class="in">`system.time`</span> for fine differentiation of timing is not generally a good idea). </span>
+<span id="cb91-627"><a href="#cb91-627" aria-hidden="true" tabindex="-1"></a>We can use dplyr syntax directly with data table objects, but the efficiency may not be what you want.</span>
+<span id="cb91-628"><a href="#cb91-628" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-629"><a href="#cb91-629" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, dtplusdplyr}</span></span>
+<span id="cb91-630"><a href="#cb91-630" aria-hidden="true" tabindex="-1"></a><span class="in">air &lt;- fread(file.path('..', 'data', 'airline.csv'))</span></span>
+<span id="cb91-631"><a href="#cb91-631" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-632"><a href="#cb91-632" aria-hidden="true" tabindex="-1"></a><span class="in">system.time(result &lt;- air[ , .(meanDelayByDest = mean(DepDelay, na.rm = TRUE)), by = Dest])  # 0.008 sec.</span></span>
+<span id="cb91-633"><a href="#cb91-633" aria-hidden="true" tabindex="-1"></a><span class="in">system.time(result &lt;- air |&gt; group_by(Dest) |&gt; summarize(meanDepDelay = mean(DepDelay)))   # 0.019 sec.</span></span>
+<span id="cb91-634"><a href="#cb91-634" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb91-635"><a href="#cb91-635" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-636"><a href="#cb91-636" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, dtplyr}</span></span>
-<span id="cb91-637"><a href="#cb91-637" aria-hidden="true" tabindex="-1"></a><span class="in">library(dtplyr)</span></span>
-<span id="cb91-638"><a href="#cb91-638" aria-hidden="true" tabindex="-1"></a><span class="in">lazy_air &lt;- lazy_dt(air)</span></span>
-<span id="cb91-639"><a href="#cb91-639" aria-hidden="true" tabindex="-1"></a><span class="in">system.time(result &lt;- lazy_air |&gt; group_by(Dest) |&gt; summarize(meanDepDelay = mean(DepDelay))) # 0.007</span></span>
-<span id="cb91-640"><a href="#cb91-640" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb91-641"><a href="#cb91-641" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-642"><a href="#cb91-642" aria-hidden="true" tabindex="-1"></a>Finally the <span class="in">`tidytable`</span> package (not shown) also allows you to use dplyr syntax as well as other tidyverse syntax, such as <span class="in">`tidyr`</span> functions. </span>
+<span id="cb91-636"><a href="#cb91-636" aria-hidden="true" tabindex="-1"></a>Instead, one can also use <span class="in">`dtplyr`</span> to set use a data table as a back end for dplyr manipulations. Using <span class="in">`lazy_dt`</span> allows dtplyr to do some optimization as it generates the translation from dplyr syntax to data table syntax, though this simple example doesn't illustrate the usefulness of that (and using <span class="in">`system.time`</span> for fine differentiation of timing is not generally a good idea). </span>
+<span id="cb91-637"><a href="#cb91-637" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-638"><a href="#cb91-638" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, dtplyr}</span></span>
+<span id="cb91-639"><a href="#cb91-639" aria-hidden="true" tabindex="-1"></a><span class="in">library(dtplyr)</span></span>
+<span id="cb91-640"><a href="#cb91-640" aria-hidden="true" tabindex="-1"></a><span class="in">lazy_air &lt;- lazy_dt(air)</span></span>
+<span id="cb91-641"><a href="#cb91-641" aria-hidden="true" tabindex="-1"></a><span class="in">system.time(result &lt;- lazy_air |&gt; group_by(Dest) |&gt; summarize(meanDepDelay = mean(DepDelay))) # 0.007</span></span>
+<span id="cb91-642"><a href="#cb91-642" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb91-643"><a href="#cb91-643" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-644"><a href="#cb91-644" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-645"><a href="#cb91-645" aria-hidden="true" tabindex="-1"></a><span class="fu">## Working with data on disk</span></span>
+<span id="cb91-644"><a href="#cb91-644" aria-hidden="true" tabindex="-1"></a>Finally the <span class="in">`tidytable`</span> package (not shown) also allows you to use dplyr syntax as well as other tidyverse syntax, such as <span class="in">`tidyr`</span> functions. </span>
+<span id="cb91-645"><a href="#cb91-645" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb91-646"><a href="#cb91-646" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-647"><a href="#cb91-647" aria-hidden="true" tabindex="-1"></a>In some cases you may not have enough memory to use tools that bring all the data into memory in R.</span>
+<span id="cb91-647"><a href="#cb91-647" aria-hidden="true" tabindex="-1"></a><span class="fu">## Working with data on disk</span></span>
 <span id="cb91-648"><a href="#cb91-648" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-649"><a href="#cb91-649" aria-hidden="true" tabindex="-1"></a>Some alternatives include:</span>
+<span id="cb91-649"><a href="#cb91-649" aria-hidden="true" tabindex="-1"></a>In some cases you may not have enough memory to use tools that bring all the data into memory in R.</span>
 <span id="cb91-650"><a href="#cb91-650" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-651"><a href="#cb91-651" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>DuckDB (or SQLite) databases, accessed from R</span>
-<span id="cb91-652"><a href="#cb91-652" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Using Apache Arrow via the <span class="in">`arrow`</span> package</span>
-<span id="cb91-653"><a href="#cb91-653" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-654"><a href="#cb91-654" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-655"><a href="#cb91-655" aria-hidden="true" tabindex="-1"></a>Or you may need to move to another language, such as using Dask in Python, or database/data lake functionality provided by clould providers.</span>
+<span id="cb91-651"><a href="#cb91-651" aria-hidden="true" tabindex="-1"></a>Some alternatives include:</span>
+<span id="cb91-652"><a href="#cb91-652" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-653"><a href="#cb91-653" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>DuckDB (or SQLite) databases, accessed from R</span>
+<span id="cb91-654"><a href="#cb91-654" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Using Apache Arrow via the <span class="in">`arrow`</span> package</span>
+<span id="cb91-655"><a href="#cb91-655" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb91-656"><a href="#cb91-656" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-657"><a href="#cb91-657" aria-hidden="true" tabindex="-1"></a><span class="fu"># Databases</span></span>
+<span id="cb91-657"><a href="#cb91-657" aria-hidden="true" tabindex="-1"></a>Or you may need to move to another language, such as using Dask in Python, or database/data lake functionality provided by clould providers.</span>
 <span id="cb91-658"><a href="#cb91-658" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-659"><a href="#cb91-659" aria-hidden="true" tabindex="-1"></a>These days, most people interact with databases from a language like R or Python.</span>
+<span id="cb91-659"><a href="#cb91-659" aria-hidden="true" tabindex="-1"></a><span class="fu"># Databases</span></span>
 <span id="cb91-660"><a href="#cb91-660" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-661"><a href="#cb91-661" aria-hidden="true" tabindex="-1"></a>R has the capability to read and write from a variety of relational database management systems (DBMS). Basically a database is a collection of rectangular format datasets (tables). Some of these tables have fields in common so it makes sense to merge (i.e., join) information from multiple tables. E.g., you might have a database with a table of student information, a table of teacher information and a table of school information. </span>
+<span id="cb91-661"><a href="#cb91-661" aria-hidden="true" tabindex="-1"></a>These days, most people interact with databases from a language like R or Python.</span>
 <span id="cb91-662"><a href="#cb91-662" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-663"><a href="#cb91-663" aria-hidden="true" tabindex="-1"></a>The *DBI* package provides a front-end for manipulating databases from a variety of DBMS (MySQL, DuckDB, SQLite, Oracle, among others).</span>
+<span id="cb91-663"><a href="#cb91-663" aria-hidden="true" tabindex="-1"></a>R has the capability to read and write from a variety of relational database management systems (DBMS). Basically a database is a collection of rectangular format datasets (tables). Some of these tables have fields in common so it makes sense to merge (i.e., join) information from multiple tables. E.g., you might have a database with a table of student information, a table of teacher information and a table of school information. </span>
 <span id="cb91-664"><a href="#cb91-664" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-665"><a href="#cb91-665" aria-hidden="true" tabindex="-1"></a>DuckDB is a nice alternative to SQLite for a simple database (just a single file) that is fast to use for data analysis work (it uses columnar storage).</span>
+<span id="cb91-665"><a href="#cb91-665" aria-hidden="true" tabindex="-1"></a>The *DBI* package provides a front-end for manipulating databases from a variety of DBMS (MySQL, DuckDB, SQLite, Oracle, among others).</span>
 <span id="cb91-666"><a href="#cb91-666" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-667"><a href="#cb91-667" aria-hidden="true" tabindex="-1"></a>Basically, you tell the package what DBMS is being used on the back-end, link to the actual database, and then you can use the standard functions in the package regardless of the back-end. </span>
+<span id="cb91-667"><a href="#cb91-667" aria-hidden="true" tabindex="-1"></a>DuckDB is a nice alternative to SQLite for a simple database (just a single file) that is fast to use for data analysis work (it uses columnar storage).</span>
 <span id="cb91-668"><a href="#cb91-668" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-669"><a href="#cb91-669" aria-hidden="true" tabindex="-1"></a><span class="fu">## Database example</span></span>
+<span id="cb91-669"><a href="#cb91-669" aria-hidden="true" tabindex="-1"></a>Basically, you tell the package what DBMS is being used on the back-end, link to the actual database, and then you can use the standard functions in the package regardless of the back-end. </span>
 <span id="cb91-670"><a href="#cb91-670" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-671"><a href="#cb91-671" aria-hidden="true" tabindex="-1"></a>You can get an example database of information about Stack Overflow questions and answers from <span class="co">[</span><span class="ot">http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.duckdb</span><span class="co">](http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.duckdb)</span>. Stack Overflow is a website where programmers and software users can pose questions and get answers to technical problems.</span>
+<span id="cb91-671"><a href="#cb91-671" aria-hidden="true" tabindex="-1"></a><span class="fu">## Database example</span></span>
 <span id="cb91-672"><a href="#cb91-672" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-673"><a href="#cb91-673" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-676"><a href="#cb91-676" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb91-677"><a href="#cb91-677" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: true</span></span>
-<span id="cb91-678"><a href="#cb91-678" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(duckdb)  <span class="co"># DBI is a dependency</span></span>
-<span id="cb91-679"><a href="#cb91-679" aria-hidden="true" tabindex="-1"></a>dbfile <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="st">".."</span>, <span class="st">"data"</span>, <span class="st">"stackoverflow-2021.duckdb"</span>)</span>
-<span id="cb91-680"><a href="#cb91-680" aria-hidden="true" tabindex="-1"></a>db <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">duckdb</span>(), dbfile)  <span class="co"># This will vary depending on the back-end database</span></span>
-<span id="cb91-681"><a href="#cb91-681" aria-hidden="true" tabindex="-1"></a><span class="do">## stackoverflow-2016.db is an DuckDB database</span></span>
-<span id="cb91-682"><a href="#cb91-682" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-683"><a href="#cb91-683" aria-hidden="true" tabindex="-1"></a><span class="do">## The syntax below works regardless of the back-end database.</span></span>
+<span id="cb91-673"><a href="#cb91-673" aria-hidden="true" tabindex="-1"></a>You can get an example database of information about Stack Overflow questions and answers from <span class="co">[</span><span class="ot">http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.duckdb</span><span class="co">](http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.duckdb)</span>. Stack Overflow is a website where programmers and software users can pose questions and get answers to technical problems.</span>
+<span id="cb91-674"><a href="#cb91-674" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-675"><a href="#cb91-675" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-678"><a href="#cb91-678" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb91-679"><a href="#cb91-679" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: true</span></span>
+<span id="cb91-680"><a href="#cb91-680" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(duckdb)  <span class="co"># DBI is a dependency</span></span>
+<span id="cb91-681"><a href="#cb91-681" aria-hidden="true" tabindex="-1"></a>dbfile <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="st">".."</span>, <span class="st">"data"</span>, <span class="st">"stackoverflow-2021.duckdb"</span>)</span>
+<span id="cb91-682"><a href="#cb91-682" aria-hidden="true" tabindex="-1"></a>db <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">duckdb</span>(), dbfile)  <span class="co"># This will vary depending on the back-end database</span></span>
+<span id="cb91-683"><a href="#cb91-683" aria-hidden="true" tabindex="-1"></a><span class="do">## stackoverflow-2016.db is an DuckDB database</span></span>
 <span id="cb91-684"><a href="#cb91-684" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-685"><a href="#cb91-685" aria-hidden="true" tabindex="-1"></a><span class="do">## metadata</span></span>
-<span id="cb91-686"><a href="#cb91-686" aria-hidden="true" tabindex="-1"></a><span class="fu">dbListTables</span>(db)</span>
-<span id="cb91-687"><a href="#cb91-687" aria-hidden="true" tabindex="-1"></a><span class="fu">dbListFields</span>(db, <span class="st">"questions"</span>)</span>
-<span id="cb91-688"><a href="#cb91-688" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-689"><a href="#cb91-689" aria-hidden="true" tabindex="-1"></a><span class="do">## A simple filter operation:</span></span>
-<span id="cb91-690"><a href="#cb91-690" aria-hidden="true" tabindex="-1"></a>popular <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(db, <span class="st">"select * from questions </span></span>
-<span id="cb91-691"><a href="#cb91-691" aria-hidden="true" tabindex="-1"></a><span class="st">   where viewcount &gt; 10000"</span>)</span>
-<span id="cb91-692"><a href="#cb91-692" aria-hidden="true" tabindex="-1"></a><span class="do">## A join followed by a filter operation:</span></span>
-<span id="cb91-693"><a href="#cb91-693" aria-hidden="true" tabindex="-1"></a>popularR <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(db, <span class="st">"select * from questions join questions_tags</span></span>
-<span id="cb91-694"><a href="#cb91-694" aria-hidden="true" tabindex="-1"></a><span class="st">   on questions.questionid = questions_tags.questionid</span></span>
-<span id="cb91-695"><a href="#cb91-695" aria-hidden="true" tabindex="-1"></a><span class="st">   where viewcount &gt; 10000 and</span></span>
-<span id="cb91-696"><a href="#cb91-696" aria-hidden="true" tabindex="-1"></a><span class="st">   tag = 'r'"</span>)</span>
-<span id="cb91-697"><a href="#cb91-697" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-698"><a href="#cb91-698" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(popularR)</span>
-<span id="cb91-699"><a href="#cb91-699" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(popularR)</span>
-<span id="cb91-700"><a href="#cb91-700" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-701"><a href="#cb91-701" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(db)</span>
-<span id="cb91-702"><a href="#cb91-702" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb91-703"><a href="#cb91-703" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-704"><a href="#cb91-704" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-705"><a href="#cb91-705" aria-hidden="true" tabindex="-1"></a><span class="fu"># Breakout</span></span>
+<span id="cb91-685"><a href="#cb91-685" aria-hidden="true" tabindex="-1"></a><span class="do">## The syntax below works regardless of the back-end database.</span></span>
+<span id="cb91-686"><a href="#cb91-686" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-687"><a href="#cb91-687" aria-hidden="true" tabindex="-1"></a><span class="do">## metadata</span></span>
+<span id="cb91-688"><a href="#cb91-688" aria-hidden="true" tabindex="-1"></a><span class="fu">dbListTables</span>(db)</span>
+<span id="cb91-689"><a href="#cb91-689" aria-hidden="true" tabindex="-1"></a><span class="fu">dbListFields</span>(db, <span class="st">"questions"</span>)</span>
+<span id="cb91-690"><a href="#cb91-690" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-691"><a href="#cb91-691" aria-hidden="true" tabindex="-1"></a><span class="do">## A simple filter operation:</span></span>
+<span id="cb91-692"><a href="#cb91-692" aria-hidden="true" tabindex="-1"></a>popular <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(db, <span class="st">"select * from questions </span></span>
+<span id="cb91-693"><a href="#cb91-693" aria-hidden="true" tabindex="-1"></a><span class="st">   where viewcount &gt; 10000"</span>)</span>
+<span id="cb91-694"><a href="#cb91-694" aria-hidden="true" tabindex="-1"></a><span class="do">## A join followed by a filter operation:</span></span>
+<span id="cb91-695"><a href="#cb91-695" aria-hidden="true" tabindex="-1"></a>popularR <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(db, <span class="st">"select * from questions join questions_tags</span></span>
+<span id="cb91-696"><a href="#cb91-696" aria-hidden="true" tabindex="-1"></a><span class="st">   on questions.questionid = questions_tags.questionid</span></span>
+<span id="cb91-697"><a href="#cb91-697" aria-hidden="true" tabindex="-1"></a><span class="st">   where viewcount &gt; 10000 and</span></span>
+<span id="cb91-698"><a href="#cb91-698" aria-hidden="true" tabindex="-1"></a><span class="st">   tag = 'r'"</span>)</span>
+<span id="cb91-699"><a href="#cb91-699" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-700"><a href="#cb91-700" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(popularR)</span>
+<span id="cb91-701"><a href="#cb91-701" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(popularR)</span>
+<span id="cb91-702"><a href="#cb91-702" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-703"><a href="#cb91-703" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(db)</span>
+<span id="cb91-704"><a href="#cb91-704" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb91-705"><a href="#cb91-705" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb91-706"><a href="#cb91-706" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-707"><a href="#cb91-707" aria-hidden="true" tabindex="-1"></a><span class="fu">### `dplyr`</span></span>
+<span id="cb91-707"><a href="#cb91-707" aria-hidden="true" tabindex="-1"></a><span class="fu"># Breakout</span></span>
 <span id="cb91-708"><a href="#cb91-708" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-709"><a href="#cb91-709" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Use <span class="in">`dplyr`</span> to create a data frame containing the median <span class="in">`lifeExp`</span> for each continent</span>
+<span id="cb91-709"><a href="#cb91-709" aria-hidden="true" tabindex="-1"></a><span class="fu">### `dplyr`</span></span>
 <span id="cb91-710"><a href="#cb91-710" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-711"><a href="#cb91-711" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Use <span class="in">`dplyr`</span> to add a column to the gapminder dataset that contains the total population of the continent of each observation in a given year. For example, if the first observation is Afghanistan in 1952, the new column would contain the population of Asia in 1952.</span>
+<span id="cb91-711"><a href="#cb91-711" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Use <span class="in">`dplyr`</span> to create a data frame containing the median <span class="in">`lifeExp`</span> for each continent</span>
 <span id="cb91-712"><a href="#cb91-712" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-713"><a href="#cb91-713" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Use <span class="in">`dplyr`</span> to add a column called <span class="in">`gdpPercap_diff`</span> that contains the difference between the observation's <span class="in">`gdpPercap`</span> and the mean <span class="in">`gdpPercap`</span> of the continent in that year. Arrange the data frame by the column you just created, in descending order (so that the relatively richest country/years are listed first)</span>
+<span id="cb91-713"><a href="#cb91-713" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Use <span class="in">`dplyr`</span> to add a column to the gapminder dataset that contains the total population of the continent of each observation in a given year. For example, if the first observation is Afghanistan in 1952, the new column would contain the population of Asia in 1952.</span>
 <span id="cb91-714"><a href="#cb91-714" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-715"><a href="#cb91-715" aria-hidden="true" tabindex="-1"></a><span class="fu">### `tidyr`</span></span>
+<span id="cb91-715"><a href="#cb91-715" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Use <span class="in">`dplyr`</span> to add a column called <span class="in">`gdpPercap_diff`</span> that contains the difference between the observation's <span class="in">`gdpPercap`</span> and the mean <span class="in">`gdpPercap`</span> of the continent in that year. Arrange the data frame by the column you just created, in descending order (so that the relatively richest country/years are listed first)</span>
 <span id="cb91-716"><a href="#cb91-716" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-717"><a href="#cb91-717" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Subset the results from question #3 to select only the <span class="in">`country`</span>, <span class="in">`year`</span>, and <span class="in">`gdpPercap_diff`</span> columns. Use tidyr put it in wide format so that countries are rows and years are columns.</span>
+<span id="cb91-717"><a href="#cb91-717" aria-hidden="true" tabindex="-1"></a><span class="fu">### `tidyr`</span></span>
 <span id="cb91-718"><a href="#cb91-718" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-719"><a href="#cb91-719" aria-hidden="true" tabindex="-1"></a>Hint: you'll probably see a message about a missing grouping variable. If you don't want continent included, you can pass the output of problem 3 through <span class="in">`ungroup()`</span> to get rid of the continent information.</span>
+<span id="cb91-719"><a href="#cb91-719" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Subset the results from question #3 to select only the <span class="in">`country`</span>, <span class="in">`year`</span>, and <span class="in">`gdpPercap_diff`</span> columns. Use tidyr put it in wide format so that countries are rows and years are columns.</span>
 <span id="cb91-720"><a href="#cb91-720" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-721"><a href="#cb91-721" aria-hidden="true" tabindex="-1"></a><span class="fu">### `data.table`</span></span>
+<span id="cb91-721"><a href="#cb91-721" aria-hidden="true" tabindex="-1"></a>Hint: you'll probably see a message about a missing grouping variable. If you don't want continent included, you can pass the output of problem 3 through <span class="in">`ungroup()`</span> to get rid of the continent information.</span>
 <span id="cb91-722"><a href="#cb91-722" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-723"><a href="#cb91-723" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Compare timing of some operations on the airline dataset when using <span class="in">`dtplyr`</span> with <span class="in">`lazy_air`</span> versus directly applying dplyr syntax to the <span class="in">`air`</span> <span class="in">`data.table`</span>.</span>
+<span id="cb91-723"><a href="#cb91-723" aria-hidden="true" tabindex="-1"></a><span class="fu">### `data.table`</span></span>
+<span id="cb91-724"><a href="#cb91-724" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-725"><a href="#cb91-725" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Compare timing of some operations on the airline dataset when using <span class="in">`dtplyr`</span> with <span class="in">`lazy_air`</span> versus directly applying dplyr syntax to the <span class="in">`air`</span> <span class="in">`data.table`</span>.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

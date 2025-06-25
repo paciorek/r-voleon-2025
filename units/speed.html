@@ -246,6 +246,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#a-short-but-rich-example-loop-fusion" id="toc-a-short-but-rich-example-loop-fusion" class="nav-link" data-scroll-target="#a-short-but-rich-example-loop-fusion">A short but rich example: loop fusion</a></li>
   <li><a href="#loop-fusion-using-rcpp" id="toc-loop-fusion-using-rcpp" class="nav-link" data-scroll-target="#loop-fusion-using-rcpp">Loop fusion using Rcpp</a></li>
   <li><a href="#rcpp-source-code-files" id="toc-rcpp-source-code-files" class="nav-link" data-scroll-target="#rcpp-source-code-files">Rcpp source code files</a></li>
+  <li><a href="#some-notes-about-memory-and-argument-passing" id="toc-some-notes-about-memory-and-argument-passing" class="nav-link" data-scroll-target="#some-notes-about-memory-and-argument-passing">Some notes about memory and argument passing</a></li>
   <li><a href="#using-r-classes-in-c" id="toc-using-r-classes-in-c" class="nav-link" data-scroll-target="#using-r-classes-in-c">Using R classes in C++</a></li>
   <li><a href="#rcpp-sugar" id="toc-rcpp-sugar" class="nav-link" data-scroll-target="#rcpp-sugar">Rcpp “sugar”</a></li>
   </ul></li>
@@ -332,9 +333,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="more-details-on-the-blas-optional" class="level2">
 <h2 class="anchored" data-anchor-id="more-details-on-the-blas-optional">More details on the BLAS (optional)</h2>
-<p>You can talk with your systems administrator about linking R to a fast BLAS or you can look into it yourself for your personal machine; see the <a href="http://www.cran.r-project.org/manuals.html">R Installation and Administration manual</a>.</p>
+<p>You can talk with your systems administrator about linking R to a fast BLAS or you can look into it yourself for your personal machine; see <a href="https://statistics.berkeley.edu/computing/faqs/linear-algebra-and-parallelized-linear-algebra-using-blas">this FAQ</a> or the <a href="http://www.cran.r-project.org/manuals.html">R Installation and Administration manual</a>.</p>
 <p>Note that in some cases, in particular for small matrix operations, using multiple threads may actually slow down computation, so you may want to experiment, particularly with Linux. You can force the linear algebra to use only a single core by doing (assuming you’re using the bash shell) <code>export OMP_NUM_THREADS=1</code> in the terminal window <em>before</em> starting R in the same terminal. Or see the <em>RhpcBLASctl</em> package to do it from within R.</p>
-<p>Finally, note that threaded BLAS and either <code>foreach</code> or parallel versions of <code>apply()</code> can conflict and cause R to hang, so you’re likely to want to set the number of threads to 1 as above if you’re doing explicit parallelization.</p>
 </section>
 <section id="what-is-an-embarrassingly-parallel-ep-problem" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-an-embarrassingly-parallel-ep-problem">What is an embarrassingly parallel (EP) problem?</h2>
@@ -360,7 +360,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="using-multiple-cores-for-ep-problems-parallel-apply-using-future">Using multiple cores for EP problems: parallel <em>apply</em> using <code>future</code></h2>
 <p>The <code>future</code> package provides a lot of nice features for parallelization. We’ll just scratch the surface here to parallelize operations over the elements of a list (note that this is essentially equivalent to <code>parLapply</code> and <code>mclapply</code>).</p>
 <p>First, make sure your computations on the elements are independent of each other and don’t involve sequential calculations!</p>
-<p>We’ll use the airline departure dataset, with timing informatin for all flights from SFO over a period of several years. We’ll do a stratified analysis, fitting a GAM (see Unit 6) for each of the destination airports.</p>
+<p>We’ll use the <a href="https://www.stat.berkeley.edu/~paciorek/share/airline.csv">airline departure dataset</a>, with timing informatin for all flights from SFO over a period of several years. We’ll do a stratified analysis, fitting a GAM (see Unit 6) for each of the destination airports.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>air <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>, <span class="st">'airline.csv'</span>))</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -464,55 +464,19 @@ attr(,"condition")
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">registerDoFuture</span>()</span>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(multisession, <span class="at">workers =</span> nCores)  </span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">foreach</span>(<span class="at">dest =</span> <span class="fu">unique</span>(air<span class="sc">$</span>Dest)) <span class="sc">%dopar%</span> {</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Starting job for "</span>, dest, <span class="st">".</span><span class="sc">\n</span><span class="st">"</span>, <span class="at">sep =</span> <span class="st">""</span>)</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    outSub <span class="ot">&lt;-</span> <span class="fu">fitFun</span>(dest)</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Finishing job for "</span>, dest, <span class="st">".</span><span class="sc">\n</span><span class="st">"</span>, <span class="at">sep =</span> <span class="st">""</span>)</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    outSub <span class="co"># this will become part of the out objec</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Starting job for SLC.
-Finishing job for SLC.
-Starting job for PDX.
-Finishing job for PDX.
-Starting job for SNA.
-Finishing job for SNA.
-Starting job for DEN.
-Finishing job for DEN.
-Starting job for ORD.
-Finishing job for ORD.
-Starting job for RNO.
-Finishing job for RNO.
-Starting job for SAN.
-Finishing job for SAN.
-Starting job for IAH.
-Finishing job for IAH.
-Starting job for SEA.
-Finishing job for SEA.
-Starting job for IAD.
-Finishing job for IAD.
-Starting job for LAX.
-Finishing job for LAX.
-Starting job for EWR.
-Finishing job for EWR.
-Starting job for JFK.
-Finishing job for JFK.
-Starting job for OGG.
-Finishing job for OGG.
-Starting job for KOA.
-Finishing job for KOA.
-Starting job for BUR.
-Finishing job for BUR.
-Starting job for LAS.
-Finishing job for LAS.
-Starting job for PHX.
-Finishing job for PHX.
-Starting job for CLT.
-Finishing job for CLT.
-Starting job for PHL.
-Finishing job for PHL.
-Starting job for PIT.
-Finishing job for PIT.</code></pre>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>progress <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">foreach</span>(<span class="at">dest =</span> <span class="fu">unique</span>(air<span class="sc">$</span>Dest)) <span class="sc">%dopar%</span> {</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(progress) <span class="fu">cat</span>(<span class="st">"Starting job for "</span>, dest, <span class="st">".</span><span class="sc">\n</span><span class="st">"</span>, <span class="at">sep =</span> <span class="st">""</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    outSub <span class="ot">&lt;-</span> <span class="fu">fitFun</span>(dest)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(progress) <span class="fu">cat</span>(<span class="st">"Finishing job for "</span>, dest, <span class="st">".</span><span class="sc">\n</span><span class="st">"</span>, <span class="at">sep =</span> <span class="st">""</span>)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    outSub <span class="co"># this will become part of the out objec</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: nlme</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>This is mgcv 1.9-1. For overview type 'help("mgcv-package")'.</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: nlme</code></pre>
@@ -520,147 +484,19 @@ Finishing job for PIT.</code></pre>
 <div class="cell-output cell-output-stderr">
 <pre><code>This is mgcv 1.9-1. For overview type 'help("mgcv-package")'.</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Starting job for MEM.
-Finishing job for MEM.
-Starting job for CIC.
-Finishing job for CIC.
-Starting job for MFR.
-Finishing job for MFR.
-Starting job for ACV.
-Finishing job for ACV.
-Starting job for BFL.
-Finishing job for BFL.
-Starting job for SBA.
-Finishing job for SBA.
-Starting job for FAT.
-Finishing job for FAT.
-Starting job for MOD.
-Finishing job for MOD.
-Starting job for MRY.
-Finishing job for MRY.
-Starting job for CEC.
-Finishing job for CEC.
-Starting job for RDD.
-Finishing job for RDD.
-Starting job for RDM.
-Finishing job for RDM.
-Starting job for SBP.
-Finishing job for SBP.
-Starting job for SMF.
-Finishing job for SMF.
-Starting job for BOI.
-Finishing job for BOI.
-Starting job for EUG.
-Finishing job for EUG.
-Starting job for AUS.
-Finishing job for AUS.
-Starting job for TWF.
-Finishing job for TWF.
-Starting job for IDA.
-Finishing job for IDA.
-Starting job for PSC.
-Finishing job for PSC.</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: nlme</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: nlme
-This is mgcv 1.9-1. For overview type 'help("mgcv-package")'.</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Starting job for MDW.
-Finishing job for MDW.
-Starting job for IND.
-Finishing job for IND.
-Starting job for HNL.
-Finishing job for HNL.
-Starting job for LIH.
-Finishing job for LIH.
-Starting job for BOS.
-Finishing job for BOS.
-Starting job for ATL.
-Finishing job for ATL.
-Starting job for MCO.
-Finishing job for MCO.
-Starting job for BWI.
-Finishing job for BWI.
-Starting job for MSY.
-Finishing job for MSY.
-Starting job for DFW.
-Finishing job for DFW.
-Starting job for CVG.
-Finishing job for CVG.
-Starting job for DTW.
-Finishing job for DTW.
-Starting job for MSP.
-Finishing job for MSP.
-Starting job for MIA.
-Finishing job for MIA.
-Starting job for STL.
-Finishing job for STL.
-Starting job for PSP.
-Finishing job for PSP.
-Starting job for CLE.
-Finishing job for CLE.
-Starting job for COS.
-Finishing job for COS.
-Starting job for SAT.
-Finishing job for SAT.
-Starting job for ABQ.
-Finishing job for ABQ.</code></pre>
+<pre><code>This is mgcv 1.9-1. For overview type 'help("mgcv-package")'.</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: nlme
-This is mgcv 1.9-1. For overview type 'help("mgcv-package")'.</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Starting job for ANC.
-Finishing job for ANC.
-Starting job for SMX.
-Finishing job for SMX.
-Starting job for DRO.
-Finishing job for DRO.
-Starting job for PIH.
-Finishing job for PIH.
-Starting job for SJC.
-Finishing job for SJC.
-Starting job for ONT.
-Finishing job for ONT.
-Starting job for TUS.
-Finishing job for TUS.
-Starting job for EGE.
-Finishing job for EGE.
-Starting job for GJT.
-Finishing job for GJT.
-Starting job for ASE.
-Finishing job for ASE.
-Starting job for ELP.
-Finishing job for ELP.
-Starting job for PMD.
-Finishing job for PMD.
-Starting job for BZN.
-Finishing job for BZN.
-Starting job for BIL.
-Finishing job for BIL.
-Starting job for OAK.
-Finishing job for OAK.
-Starting job for MKE.
-Finishing job for MKE.
-Starting job for MSO.
-Finishing job for MSO.
-Starting job for FCA.
-Finishing job for FCA.
-Starting job for LMT.
-Finishing job for LMT.
-Starting job for OTH.
-Finishing job for OTH.
-Starting job for LGB.
-Finishing job for LGB.</code></pre>
+<pre><code>Loading required package: nlme</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: nlme
-This is mgcv 1.9-1. For overview type 'help("mgcv-package")'.</code></pre>
+<pre><code>This is mgcv 1.9-1. For overview type 'help("mgcv-package")'.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>out[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>out[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 
@@ -740,9 +576,9 @@ Question
 <section id="other-plans" class="level2">
 <h2 class="anchored" data-anchor-id="other-plans">Other “plans”</h2>
 <ul>
-<li>multisession: multiple R sessions on a single machine</li>
-<li>multicore: multiple forked R sessions on a single machine (less copying)</li>
-<li>cluster: multiple R sessions on one or more machines</li>
+<li><code>multisession</code>: multiple R sessions on a single machine</li>
+<li><code>multicore</code>: multiple forked R sessions on a single machine (less copying)</li>
+<li><code>cluster</code>: multiple R sessions on one or more machines</li>
 </ul>
 </section>
 <section id="parallelization-and-random-number-generation" class="level2">
@@ -751,21 +587,19 @@ Question
 <p>Random numbers on a computer are <a href="http://dilbert.com/strips/comic/2001-10-25">not truly random</a> but are generated as a sequence of pseudo-random numbers. The sequence is finite (but very, very, very, very long) and eventally repeats itself.</p>
 <p>A random number seed determines where in the sequence one starts when generating random numbers.</p>
 <ul>
-<li>The ugly: Make sure you do not use the same seed for each task</li>
-</ul>
+<li><p>The ugly: Make sure you do not use the same seed for each task</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.6264538  0.1836433 -0.8356286  1.5952808  0.3295078</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.6264538  0.1836433 -0.8356286  1.5952808  0.3295078</code></pre>
 </div>
-</div>
-<ul>
+</div></li>
 <li><p>The (not so) bad: Use a different seed for each task or each process. It’s possible the subsequences will overlap but quite unlikely.</p></li>
 <li><p>The good: Use the L’Ecuyer algorithm to ensure distinct subsequences in each worker, which <code>future</code> makes easy:</p>
 <ul>
@@ -801,8 +635,8 @@ Question
 </ul>
 <p>Here’s a test that your compiler works from R:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"Rcpp"</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">evalCpp</span>(<span class="st">"2 + 2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"Rcpp"</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">evalCpp</span>(<span class="st">"2 + 2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4</code></pre>
 </div>
@@ -812,34 +646,34 @@ Question
 <h2 class="anchored" data-anchor-id="basic-example">Basic example</h2>
 <p>Here’s a basic example of using C++ code via Rcpp from the Advanced R book.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cppFunction</span>(<span class="st">'int add3(int x, int y, int z) {</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="st">  int sum = x + y + z;</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="st">  return sum;</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span>)</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="do">## The pause is because the C++ code has to be compiled.</span></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>add3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cppFunction</span>(<span class="st">'int add3(int x, int y, int z) {</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="st">  int sum = x + y + z;</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="st">  return sum;</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span>)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="do">## The pause is because the C++ code has to be compiled.</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>add3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>function (x, y, z) 
-.Call(&lt;pointer: 0x7cea8877c2a0&gt;, x, y, z)</code></pre>
+.Call(&lt;pointer: 0x7f0ed1d302a0&gt;, x, y, z)</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add3</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add3</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 9</code></pre>
 </div>
 </div>
-<p>Note that some casting/coercing of types must be happening:</p>
+<p>Note that some casting/coercing of types by Rcpp must be happening:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add3</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add3</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add3</span>(<span class="dv">1</span>L, <span class="dv">2</span>L, <span class="dv">3</span>L)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add3</span>(<span class="dv">1</span>L, <span class="dv">2</span>L, <span class="dv">3</span>L)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add3</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="fl">3.7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add3</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="fl">3.7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6</code></pre>
 </div>
@@ -850,14 +684,14 @@ Question
 <h2 class="anchored" data-anchor-id="a-short-but-rich-example-loop-fusion">A short but rich example: loop fusion</h2>
 <p>Consider this vectorized code.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">exp</span>(x) <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> <span class="fu">sin</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">exp</span>(x) <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> <span class="fu">sin</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Because it’s vectorized, it avoids the R overhead involved in looping, with the individual calculations (<code>exp</code>, <code>+</code>, <code>*</code>, and <code>sin</code>) done in for loops in compiled C code.</p>
 <p>However, it has a subtle disadvantage compared to this for loop version:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n)</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>   x[i] <span class="ot">&lt;-</span> <span class="fu">exp</span>(x[i]) <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> <span class="fu">sin</span>(x[i])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>   x[i] <span class="ot">&lt;-</span> <span class="fu">exp</span>(x[i]) <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> <span class="fu">sin</span>(x[i])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Question">
 <div class="callout-header d-flex align-content-center">
@@ -886,7 +720,7 @@ Answer
 <div class="callout-body-container callout-body">
 <ul>
 <li>The individual operations are done as separate vectorized calls to compiled C code.</li>
-<li>Temporary vectors must be allocated and filled to carry out <code>exp</code>, <code>sin</code>, <code>*</code> and <code>+</code>.
+<li>Temporary vectors must be allocated and filled to store the results of <code>exp</code>, <code>sin</code>, <code>*</code> and <code>+</code>.
 <ul>
 <li>Extra memory needed.</li>
 <li>Time for allocation and moving values.</li>
@@ -902,43 +736,44 @@ Answer
 <h2 class="anchored" data-anchor-id="loop-fusion-using-rcpp">Loop fusion using Rcpp</h2>
 <p>We can write up the for loop version using Rcpp to get the benefits of loop fusion.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cppFunction</span>(<span class="st">'void fuse(NumericVector x) {</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="st">  int n = x.size();</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="st">  Rcpp::Rcout &lt;&lt; "Working with a vector of length " &lt;&lt; n &lt;&lt; "." &lt;&lt; std::endl;</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="st">  for(int i = 0; i &lt; n; ++i) {</span></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="st">    x[i] = exp(x[i]) + 3 * sin(x[i]);</span></span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span>)</span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fl">1e7</span></span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x</span>
-<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>rbenchmark<span class="sc">::</span><span class="fu">benchmark</span>(</span>
-<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a> x <span class="ot">&lt;-</span> <span class="fu">exp</span>(x) <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span><span class="fu">sin</span>(x),</span>
-<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a> <span class="fu">fuse</span>(y),</span>
-<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a> <span class="at">replications =</span> <span class="dv">1</span>,  <span class="co"># 'x' could explode on repeated calls</span></span>
-<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a> <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">'test'</span>, <span class="st">'replications'</span>, <span class="st">'elapsed'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cppFunction</span>(<span class="st">'void fuse(Rcpp::NumericVector x) {</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="st">  int n = x.size();</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="st">  Rcpp::Rcout &lt;&lt; "Working with a vector of length " &lt;&lt; n &lt;&lt; "." &lt;&lt; std::endl;</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="st">  for(int i = 0; i &lt; n; ++i) {</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="st">    x[i] = exp(x[i]) + 3 * sin(x[i]);</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span>)</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fl">1e7</span></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x</span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>rbenchmark<span class="sc">::</span><span class="fu">benchmark</span>(</span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a> x <span class="ot">&lt;-</span> <span class="fu">exp</span>(x) <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span><span class="fu">sin</span>(x),</span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a> <span class="fu">fuse</span>(y),</span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a> <span class="at">replications =</span> <span class="dv">1</span>,  <span class="co"># 'x' could explode on repeated calls</span></span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a> <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">'test'</span>, <span class="st">'replications'</span>, <span class="st">'elapsed'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Working with a vector of length 10000000.
 Working with a vector of length 10000000.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                      test replications elapsed
-2                  fuse(y)            1   0.268
-1 x &lt;- exp(x) + 3 * sin(x)            1   0.346</code></pre>
+2                  fuse(y)            1   0.272
+1 x &lt;- exp(x) + 3 * sin(x)            1   0.370</code></pre>
 </div>
 </div>
+<p>When using Rcpp’s built-in vector types, Rcpp reuses R memory so no copies of the inputs are made.</p>
 <p>We could also have created a version that doesn’t overwrite the input.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cppFunction</span>(<span class="st">'NumericVector fuse(NumericVector x) {</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="st">  int n = x.size();</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="st">  NumericVector result(n);</span></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="st">  for(int i = 0; i &lt; n; ++i) {</span></span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="st">    result[i] = exp(x[i]) + 3 * sin(x[i]);</span></span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="st">  return result;</span></span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cppFunction</span>(<span class="st">'NumericVector fuse(NumericVector x) {</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="st">  int n = x.size();</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="st">  NumericVector result(n);</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="st">  for(int i = 0; i &lt; n; ++i) {</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="st">    result[i] = exp(x[i]) + 3 * sin(x[i]);</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="st">  return result;</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="rcpp-source-code-files" class="level2">
@@ -946,33 +781,76 @@ Working with a vector of length 10000000.</code></pre>
 <p>Except for quick-and-dirty work, we’d generally want the Rcpp C++ code in a code file that can be recognized by editors as C++ code rather than in quotations in R. This will also help with debugging.</p>
 <p>See <a href="fuse.cpp">fuse.cpp</a> for the code for the version that does not overwrite the input.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sourceCpp</span>(<span class="st">'fuse.cpp'</span>)</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>)</span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">fuse</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sourceCpp</span>(<span class="st">'fuse.cpp'</span>)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>)</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">fuse</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="some-notes-about-memory-and-argument-passing" class="level2">
+<h2 class="anchored" data-anchor-id="some-notes-about-memory-and-argument-passing">Some notes about memory and argument passing</h2>
+<ol type="1">
+<li><p>Copy-on-change doesn’t work with Rcpp functions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="fu">fuse</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -1.672176 -2.119454 -2.077276  3.033523  1.622440</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.7880376 -0.9816014 -0.9612346  0.4875063  0.1529766</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.7880376 -0.9816014 -0.9612346  0.4875063  0.1529766</code></pre>
+</div>
+</div></li>
+<li><p>Type conversion can prevent modification</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "integer"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fuse</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]   5.242695  10.116948  20.508897  52.327743 145.536386</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3 4 5</code></pre>
+</div>
+</div></li>
+</ol>
+<p>The <code>NumericVector</code> type can only make use of R memory for the input if the input R object is a numeric vector; above it is an integer vector, so a cast needs to be made with values copied to a new object in C++.</p>
 </section>
 <section id="using-r-classes-in-c" class="level2">
 <h2 class="anchored" data-anchor-id="using-r-classes-in-c">Using R classes in C++</h2>
 <p>Rcpp provides classes that correspond to most R data structures/classes. We’ve already seen the use of <code>NumericVector</code> for R’s numeric vector.</p>
-<p>Here’s an example (from the Advanced R book) of working with a list (an S3 object) and manipulating its components in C++. We need to cast the vector components as <code>NumericVector</code>s</p>
-<pre class="{c++}"><code>#include &lt;Rcpp.h&gt;
-using namespace Rcpp;
-
-// [[Rcpp::export]]
-double mpe(List mod) {
-  if (!mod.inherits("lm")) stop("Input must be a linear model");
-
-  NumericVector resid = as&lt;NumericVector&gt;(mod["residuals"]);
-  NumericVector fitted = as&lt;NumericVector&gt;(mod["fitted.values"]);
-
-  int n = resid.size();
-  double err = 0;
-  for(int i = 0; i &lt; n; ++i) {
-    err += resid[i] / (fitted[i] + resid[i]);
-  }
-  return err / n;
-}</code></pre>
+<p>Here’s an example (from the Advanced R book) of working with a list (in this case an <code>lm</code> S3 object) and manipulating its components in C++. We need to cast the vector components as <code>NumericVector</code>s</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp<span class="op">;</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> mpe<span class="op">(</span>List mod<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(!</span>mod<span class="op">.</span>inherits<span class="op">(</span><span class="st">"lm"</span><span class="op">))</span> stop<span class="op">(</span><span class="st">"Input must be a linear model"</span><span class="op">);</span></span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>  NumericVector resid <span class="op">=</span> as<span class="op">&lt;</span>NumericVector<span class="op">&gt;(</span>mod<span class="op">[</span><span class="st">"residuals"</span><span class="op">]);</span></span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a>  NumericVector fitted <span class="op">=</span> as<span class="op">&lt;</span>NumericVector<span class="op">&gt;(</span>mod<span class="op">[</span><span class="st">"fitted.values"</span><span class="op">]);</span></span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> n <span class="op">=</span> resid<span class="op">.</span>size<span class="op">();</span></span>
+<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">double</span> err <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a>    err <span class="op">+=</span> resid<span class="op">[</span>i<span class="op">]</span> <span class="op">/</span> <span class="op">(</span>fitted<span class="op">[</span>i<span class="op">]</span> <span class="op">+</span> resid<span class="op">[</span>i<span class="op">]);</span></span>
+<span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb63-16"><a href="#cb63-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> err <span class="op">/</span> n<span class="op">;</span></span>
+<span id="cb63-17"><a href="#cb63-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="rcpp-sugar" class="level2">
 <h2 class="anchored" data-anchor-id="rcpp-sugar">Rcpp “sugar”</h2>
@@ -1460,381 +1338,412 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb53" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Parallelization and Rcpp"</span></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="co">    theme: cosmo</span></span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="co">    css: ../assets/styles.css</span></span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
-<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-block-bg: true</span></span>
-<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-block-border-left: "#31BAE9"</span></span>
-<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
-<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
-<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a><span class="co">  freeze: auto</span></span>
-<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a><span class="fu"># Parellelization</span></span>
-<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## Computer architecture</span></span>
-<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-20"><a href="#cb53-20" aria-hidden="true" tabindex="-1"></a>Note to participants: It can be troublesome to use parallelization in RStudio, so we'll just run the demo code in this module in a command line R session. You can open the basic R GUI for Mac or Windows, or, on a Mac, start R in a terminal window.</span>
-<span id="cb53-21"><a href="#cb53-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Modern computers have multiple processors and clusters/supercomputers have multiple networked machines, each with multiple processors.</span>
-<span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>The key to increasing computational efficiency in these contexts is breaking up the work amongst the processors.</span>
-<span id="cb53-24"><a href="#cb53-24" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Processors on a single machine (or 'node') share memory and don't need to carry out explicit communication (shared memory computation)</span>
-<span id="cb53-25"><a href="#cb53-25" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Processors on separate machines need to pass data across a network, often using the MPI protocol (distributed memory computation)</span>
-<span id="cb53-26"><a href="#cb53-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-27"><a href="#cb53-27" aria-hidden="true" tabindex="-1"></a>We'll focus on shared memory computation here.</span>
-<span id="cb53-28"><a href="#cb53-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-29"><a href="#cb53-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## How do I know how many cores a computer has?</span></span>
-<span id="cb53-30"><a href="#cb53-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-31"><a href="#cb53-31" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Linux - count the processors listed in */proc/cpuinfo* or use <span class="in">`nproc`</span></span>
-<span id="cb53-32"><a href="#cb53-32" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Mac - in a terminal: <span class="in">`system_profiler | grep -i 'Cores'`</span></span>
-<span id="cb53-33"><a href="#cb53-33" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Windows - count the number of graphs shown for CPU Usage (or CPU Usage History) under "Task Manager-&gt;Performance", or <span class="co">[</span><span class="ot">try this program</span><span class="co">](http://www.cpuid.com/cpuz.php)</span> </span>
-<span id="cb53-34"><a href="#cb53-34" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb53-35"><a href="#cb53-35" aria-hidden="true" tabindex="-1"></a>To see if multiple cores are being used by your job, you can do:</span>
-<span id="cb53-36"><a href="#cb53-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-37"><a href="#cb53-37" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Mac/Linux - use *top* or *ps*</span>
-<span id="cb53-38"><a href="#cb53-38" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Windows - see the "Task Manager-&gt;Performance-&gt;CPU Usage"</span>
-<span id="cb53-39"><a href="#cb53-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-40"><a href="#cb53-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## How can we make use of multiple cores?</span></span>
-<span id="cb53-41"><a href="#cb53-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-42"><a href="#cb53-42" aria-hidden="true" tabindex="-1"></a>Some basic approaches are:</span>
-<span id="cb53-43"><a href="#cb53-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-44"><a href="#cb53-44" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Use a linear algebra package that distributes computations across 'threads'</span>
-<span id="cb53-45"><a href="#cb53-45" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Spread independent calculations (embarrassingly parallel problems) across multiple cores</span>
-<span id="cb53-46"><a href="#cb53-46" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>*for* loops with independent calculations</span>
-<span id="cb53-47"><a href="#cb53-47" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>parallelizing <span class="in">`lapply()`</span> and its variants</span>
-<span id="cb53-48"><a href="#cb53-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-49"><a href="#cb53-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-50"><a href="#cb53-50" aria-hidden="true" tabindex="-1"></a><span class="fu">## Threaded linear algebra</span></span>
-<span id="cb53-51"><a href="#cb53-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-52"><a href="#cb53-52" aria-hidden="true" tabindex="-1"></a>R comes with a default BLAS (basic linear algebra subroutines) and LAPACK (linear algebra package) that carry out the core linear algebra computations. However, you can generally improve performance (sometimes by an order of magnitude) by using a different BLAS. Furthermore a threaded BLAS will allow you to use multiple cores.</span>
-<span id="cb53-53"><a href="#cb53-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-54"><a href="#cb53-54" aria-hidden="true" tabindex="-1"></a>A 'thread' is a lightweight process, and the operating system sees multiple threads as part of a single process.</span>
-<span id="cb53-55"><a href="#cb53-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-56"><a href="#cb53-56" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>For Linux, *openBLAS* and Intel's *MKL* are both fast and threaded. </span>
-<span id="cb53-57"><a href="#cb53-57" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>For Mac, Apple's *vecLib* is fast and threaded.</span>
-<span id="cb53-58"><a href="#cb53-58" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>For Windows, you may be out of luck.</span>
-<span id="cb53-59"><a href="#cb53-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-60"><a href="#cb53-60" aria-hidden="true" tabindex="-1"></a>We'll show by demonstration that my desktop in my office is using multiple cores for linear algebra operations.</span>
-<span id="cb53-61"><a href="#cb53-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-64"><a href="#cb53-64" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb53-65"><a href="#cb53-65" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
-<span id="cb53-66"><a href="#cb53-66" aria-hidden="true" tabindex="-1"></a><span class="co"># note to CJP: don't run on laptop with slow BLAS</span></span>
-<span id="cb53-67"><a href="#cb53-67" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">5000</span></span>
-<span id="cb53-68"><a href="#cb53-68" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n<span class="sc">^</span><span class="dv">2</span>), n)</span>
-<span id="cb53-69"><a href="#cb53-69" aria-hidden="true" tabindex="-1"></a>U <span class="ot">&lt;-</span> <span class="fu">chol</span>(<span class="fu">crossprod</span>(x))</span>
-<span id="cb53-70"><a href="#cb53-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb53-71"><a href="#cb53-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-72"><a href="#cb53-72" aria-hidden="true" tabindex="-1"></a>You should see that your R process is using more than 100% of CPU. Inconceivable!</span>
-<span id="cb53-73"><a href="#cb53-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-74"><a href="#cb53-74" aria-hidden="true" tabindex="-1"></a><span class="fu">## More details on the BLAS (optional)</span></span>
-<span id="cb53-75"><a href="#cb53-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-76"><a href="#cb53-76" aria-hidden="true" tabindex="-1"></a>You can talk with your systems administrator about linking R to a fast BLAS or you can look into it yourself for your personal machine; see the <span class="co">[</span><span class="ot">R Installation and Administration manual</span><span class="co">](http://www.cran.r-project.org/manuals.html)</span>.</span>
-<span id="cb53-77"><a href="#cb53-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-78"><a href="#cb53-78" aria-hidden="true" tabindex="-1"></a>Note that in some cases, in particular for small matrix operations, using multiple threads may actually slow down computation, so you may want to experiment, particularly with Linux. You can force the linear algebra to use only a single core by doing (assuming you're using the bash shell) <span class="in">`export OMP_NUM_THREADS=1`</span> in the terminal window *before* starting R in the same terminal. Or see the *RhpcBLASctl* package to do it from within R.</span>
-<span id="cb53-79"><a href="#cb53-79" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb53-80"><a href="#cb53-80" aria-hidden="true" tabindex="-1"></a>Finally, note that threaded BLAS and either <span class="in">`foreach`</span> or parallel versions of <span class="in">`apply()`</span> can conflict and cause R to hang, so you're likely to want to set the number of threads to 1 as above if you're doing explicit parallelization. </span>
-<span id="cb53-81"><a href="#cb53-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-82"><a href="#cb53-82" aria-hidden="true" tabindex="-1"></a><span class="fu">## What is an embarrassingly parallel (EP) problem?</span></span>
-<span id="cb53-83"><a href="#cb53-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-84"><a href="#cb53-84" aria-hidden="true" tabindex="-1"></a>An EP problem is one that can be solved by doing independent computations as separate processes without communication between the processes. You can get the answer by doing separate tasks and then collecting the results. </span>
-<span id="cb53-85"><a href="#cb53-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-86"><a href="#cb53-86" aria-hidden="true" tabindex="-1"></a>Examples in statistics / data science / machine learning include</span>
-<span id="cb53-87"><a href="#cb53-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-88"><a href="#cb53-88" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>stratified analyses</span>
-<span id="cb53-89"><a href="#cb53-89" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>cross-validation</span>
-<span id="cb53-90"><a href="#cb53-90" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>simulations with many independent replicates</span>
-<span id="cb53-91"><a href="#cb53-91" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>bootstrapping</span>
-<span id="cb53-92"><a href="#cb53-92" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>random forest models</span>
-<span id="cb53-93"><a href="#cb53-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-94"><a href="#cb53-94" aria-hidden="true" tabindex="-1"></a>Some things that are not EP (at least not in a basic formulation):</span>
-<span id="cb53-95"><a href="#cb53-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-96"><a href="#cb53-96" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>optimization</span>
-<span id="cb53-97"><a href="#cb53-97" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Markov chain Monte Carlo for fitting Bayesian models</span>
-<span id="cb53-98"><a href="#cb53-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-99"><a href="#cb53-99" aria-hidden="true" tabindex="-1"></a><span class="fu"># Using the future package</span></span>
-<span id="cb53-100"><a href="#cb53-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-101"><a href="#cb53-101" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using multiple cores for EP problems: parallel *apply* using `future`</span></span>
-<span id="cb53-102"><a href="#cb53-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-103"><a href="#cb53-103" aria-hidden="true" tabindex="-1"></a>The <span class="in">`future`</span> package provides a lot of nice features for parallelization. We'll just scratch the surface here to parallelize operations over the elements of a list (note that this is essentially equivalent to <span class="in">`parLapply`</span> and <span class="in">`mclapply`</span>).</span>
-<span id="cb53-104"><a href="#cb53-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-105"><a href="#cb53-105" aria-hidden="true" tabindex="-1"></a>First, make sure your computations on the elements are independent of each other and don't involve sequential calculations!</span>
-<span id="cb53-106"><a href="#cb53-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-107"><a href="#cb53-107" aria-hidden="true" tabindex="-1"></a>We'll use the airline departure dataset, with timing informatin for all flights from SFO over a period of several years. We'll do a stratified analysis, fitting a GAM (see Unit 6) for each of the destination airports.</span>
-<span id="cb53-108"><a href="#cb53-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-111"><a href="#cb53-111" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb53-112"><a href="#cb53-112" aria-hidden="true" tabindex="-1"></a>air <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>, <span class="st">'airline.csv'</span>))</span>
-<span id="cb53-113"><a href="#cb53-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-114"><a href="#cb53-114" aria-hidden="true" tabindex="-1"></a>fitFun <span class="ot">&lt;-</span> <span class="cf">function</span>(curDest) {</span>
-<span id="cb53-115"><a href="#cb53-115" aria-hidden="true" tabindex="-1"></a>            <span class="fu">library</span>(mgcv)</span>
-<span id="cb53-116"><a href="#cb53-116" aria-hidden="true" tabindex="-1"></a>            tmp <span class="ot">&lt;-</span> <span class="fu">subset</span>(air, Dest <span class="sc">==</span> curDest)</span>
-<span id="cb53-117"><a href="#cb53-117" aria-hidden="true" tabindex="-1"></a>            <span class="do">## It would better to do this with date-time functionality:</span></span>
-<span id="cb53-118"><a href="#cb53-118" aria-hidden="true" tabindex="-1"></a>            tmp<span class="sc">$</span>Hour <span class="ot">&lt;-</span> tmp<span class="sc">$</span>CRSDepTime <span class="sc">%/%</span> <span class="dv">100</span></span>
-<span id="cb53-119"><a href="#cb53-119" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb53-120"><a href="#cb53-120" aria-hidden="true" tabindex="-1"></a>            curMod <span class="ot">&lt;-</span> <span class="fu">try</span>(<span class="fu">gam</span>(DepDelay <span class="sc">~</span> Year <span class="sc">+</span> <span class="fu">s</span>(Month) <span class="sc">+</span> <span class="fu">s</span>(Hour) <span class="sc">+</span> </span>
-<span id="cb53-121"><a href="#cb53-121" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">as.factor</span>(DayOfWeek), <span class="at">data =</span> tmp))</span>
-<span id="cb53-122"><a href="#cb53-122" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span>(<span class="fu">is</span>(tmp, <span class="st">"try-error"</span>)) curMod <span class="ot">&lt;-</span> <span class="cn">NA</span> </span>
-<span id="cb53-123"><a href="#cb53-123" aria-hidden="true" tabindex="-1"></a>            <span class="fu">return</span>(curMod)</span>
-<span id="cb53-124"><a href="#cb53-124" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb53-125"><a href="#cb53-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-126"><a href="#cb53-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-127"><a href="#cb53-127" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(future.apply)</span>
-<span id="cb53-128"><a href="#cb53-128" aria-hidden="true" tabindex="-1"></a>nCores <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb53-129"><a href="#cb53-129" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(multisession, <span class="at">workers =</span> nCores)  </span>
-<span id="cb53-130"><a href="#cb53-130" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">future_lapply</span>(<span class="fu">unique</span>(air<span class="sc">$</span>Dest), fitFun)</span>
-<span id="cb53-131"><a href="#cb53-131" aria-hidden="true" tabindex="-1"></a>out[[<span class="dv">1</span>]]</span>
-<span id="cb53-132"><a href="#cb53-132" aria-hidden="true" tabindex="-1"></a>out[[<span class="dv">81</span>]]</span>
-<span id="cb53-133"><a href="#cb53-133" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb53-134"><a href="#cb53-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-135"><a href="#cb53-135" aria-hidden="true" tabindex="-1"></a>Note that the <span class="in">`plan`</span> statement determines how the parallelization is done behind the scenes. As shown here, it will start up workers locally on your computer, but if you have access to a cluster, you can modify the plan to make use of multiple compute nodes in a cluster.</span>
-<span id="cb53-136"><a href="#cb53-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-137"><a href="#cb53-137" aria-hidden="true" tabindex="-1"></a>One thing to keep in mind is whether the different tasks all take about the same amount of time or widely different times. In the latter case, one wants to sequentially dispatch tasks as earlier tasks finish, rather than dispatching a block of tasks to each core. See  the <span class="in">`future.scheduling`</span> argument for user control over how the allocation is done. </span>
-<span id="cb53-138"><a href="#cb53-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-139"><a href="#cb53-139" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using multiple cores for EP problems: *foreach*</span></span>
-<span id="cb53-140"><a href="#cb53-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-141"><a href="#cb53-141" aria-hidden="true" tabindex="-1"></a>First, make sure your iterations are independent and don't involve sequential calculations!</span>
-<span id="cb53-142"><a href="#cb53-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-143"><a href="#cb53-143" aria-hidden="true" tabindex="-1"></a>The *foreach* package provides a way to do a for loop using multiple cores. It can use a variety of 'back-ends' that handle the nitty-gritty of the parallelization. Happily it integrates with the <span class="in">`future`</span> package nicely. </span>
-<span id="cb53-144"><a href="#cb53-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-145"><a href="#cb53-145" aria-hidden="true" tabindex="-1"></a><span class="in">```{r cache=TRUE}</span></span>
-<span id="cb53-146"><a href="#cb53-146" aria-hidden="true" tabindex="-1"></a><span class="in">library(parallel)</span></span>
-<span id="cb53-147"><a href="#cb53-147" aria-hidden="true" tabindex="-1"></a><span class="in">library(doFuture)</span></span>
-<span id="cb53-148"><a href="#cb53-148" aria-hidden="true" tabindex="-1"></a><span class="in">library(foreach)</span></span>
-<span id="cb53-149"><a href="#cb53-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-150"><a href="#cb53-150" aria-hidden="true" tabindex="-1"></a><span class="in">nCores &lt;- 4  # actually only 2 on my laptop, but appears hyperthreaded</span></span>
-<span id="cb53-151"><a href="#cb53-151" aria-hidden="true" tabindex="-1"></a><span class="in">registerDoFuture()</span></span>
-<span id="cb53-152"><a href="#cb53-152" aria-hidden="true" tabindex="-1"></a><span class="in">plan(multisession, workers = nCores)  </span></span>
-<span id="cb53-153"><a href="#cb53-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-154"><a href="#cb53-154" aria-hidden="true" tabindex="-1"></a><span class="in">out &lt;- foreach(dest = unique(air$Dest)) %dopar% {</span></span>
-<span id="cb53-155"><a href="#cb53-155" aria-hidden="true" tabindex="-1"></a><span class="in">    cat("Starting job for ", dest, ".\n", sep = "")</span></span>
-<span id="cb53-156"><a href="#cb53-156" aria-hidden="true" tabindex="-1"></a><span class="in">    outSub &lt;- fitFun(dest)</span></span>
-<span id="cb53-157"><a href="#cb53-157" aria-hidden="true" tabindex="-1"></a><span class="in">    cat("Finishing job for ", dest, ".\n", sep = "")</span></span>
-<span id="cb53-158"><a href="#cb53-158" aria-hidden="true" tabindex="-1"></a><span class="in">    outSub # this will become part of the out objec</span></span>
-<span id="cb53-159"><a href="#cb53-159" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
-<span id="cb53-160"><a href="#cb53-160" aria-hidden="true" tabindex="-1"></a><span class="in">out[1:2]</span></span>
-<span id="cb53-161"><a href="#cb53-161" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb53-162"><a href="#cb53-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-163"><a href="#cb53-163" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Question"}</span>
-<span id="cb53-164"><a href="#cb53-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-165"><a href="#cb53-165" aria-hidden="true" tabindex="-1"></a>What do you think are the advantages and disadvantages of having many small tasks vs. a few large tasks?</span>
-<span id="cb53-166"><a href="#cb53-166" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb53-167"><a href="#cb53-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-168"><a href="#cb53-168" aria-hidden="true" tabindex="-1"></a><span class="fu">## Other "plans"</span></span>
-<span id="cb53-169"><a href="#cb53-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-170"><a href="#cb53-170" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>multisession: multiple R sessions on a single machine</span>
-<span id="cb53-171"><a href="#cb53-171" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>multicore: multiple forked R sessions on a single machine (less copying)</span>
-<span id="cb53-172"><a href="#cb53-172" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>cluster: multiple R sessions on one or more machines</span>
-<span id="cb53-173"><a href="#cb53-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-174"><a href="#cb53-174" aria-hidden="true" tabindex="-1"></a><span class="fu">## Parallelization and Random Number Generation</span></span>
-<span id="cb53-175"><a href="#cb53-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-176"><a href="#cb53-176" aria-hidden="true" tabindex="-1"></a>A tale of the good, the bad, and the ugly</span>
-<span id="cb53-177"><a href="#cb53-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-178"><a href="#cb53-178" aria-hidden="true" tabindex="-1"></a>Random numbers on a computer are <span class="co">[</span><span class="ot">not truly random</span><span class="co">](http://dilbert.com/strips/comic/2001-10-25)</span> but are generated as a sequence of pseudo-random numbers. The sequence is finite (but very, very, very, very long) and eventally repeats itself. </span>
-<span id="cb53-179"><a href="#cb53-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-180"><a href="#cb53-180" aria-hidden="true" tabindex="-1"></a>A random number seed determines where in the sequence one starts when generating random numbers.</span>
-<span id="cb53-181"><a href="#cb53-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-182"><a href="#cb53-182" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>The ugly: Make sure you do not use the same seed for each task</span>
-<span id="cb53-185"><a href="#cb53-185" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb53-186"><a href="#cb53-186" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb53-187"><a href="#cb53-187" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">5</span>)</span>
-<span id="cb53-188"><a href="#cb53-188" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb53-189"><a href="#cb53-189" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">5</span>)</span>
-<span id="cb53-190"><a href="#cb53-190" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb53-191"><a href="#cb53-191" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>The (not so) bad: Use a different seed for each task or each process. It's possible the subsequences will overlap but quite unlikely.</span>
-<span id="cb53-192"><a href="#cb53-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-193"><a href="#cb53-193" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>The good: Use the L'Ecuyer algorithm to ensure distinct subsequences in each worker, which <span class="in">`future`</span> makes easy:</span>
-<span id="cb53-194"><a href="#cb53-194" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>with <span class="in">`future.apply`</span>, use <span class="in">`future.seed = TRUE`</span>.</span>
-<span id="cb53-195"><a href="#cb53-195" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>with <span class="in">`foreach`</span> and <span class="in">`%dofuture%`</span>, include <span class="in">`.options.future = list(seed = TRUE)`</span>.</span>
-<span id="cb53-196"><a href="#cb53-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-197"><a href="#cb53-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-198"><a href="#cb53-198" aria-hidden="true" tabindex="-1"></a><span class="fu"># Rcpp</span></span>
-<span id="cb53-199"><a href="#cb53-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-200"><a href="#cb53-200" aria-hidden="true" tabindex="-1"></a>While R can interface with lots of other languages, the most fundamental is to interface with C/C++. In part this is because the R interpreter is a C program and under the hood, R data structures are C structs. In part this is because of the success of Rcpp as a wrapper that makes it easy to interface to C++ (including C) code.</span>
-<span id="cb53-201"><a href="#cb53-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-202"><a href="#cb53-202" aria-hidden="true" tabindex="-1"></a>Some comments:</span>
-<span id="cb53-203"><a href="#cb53-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-204"><a href="#cb53-204" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>Rcpp has a nice interface that makes it easy to work with R data structures in C++ and use various functions similar to those provided in R.</span>
-<span id="cb53-205"><a href="#cb53-205" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>Loops and recursion in C++ are fast, unlike in R.</span>
-<span id="cb53-206"><a href="#cb53-206" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>Rcpp allows you to make use of various libraries available in C/C++, such as the standard template library (STL), Eigen (for linear algebra), and many others.</span>
-<span id="cb53-207"><a href="#cb53-207" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>Often one will write most of one's code in R and off-load the core, slow computational parts to C++, managed from R.</span>
-<span id="cb53-208"><a href="#cb53-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-209"><a href="#cb53-209" aria-hidden="true" tabindex="-1"></a>Some good overviews of Rcpp are:</span>
-<span id="cb53-210"><a href="#cb53-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-211"><a href="#cb53-211" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span><span class="co">[</span><span class="ot">The Advanced R book by Hadley Wickham</span><span class="co">](https://adv-r.hadley.nz/rcpp.html)</span></span>
-<span id="cb53-212"><a href="#cb53-212" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span><span class="co">[</span><span class="ot">The Rcpp vignette</span><span class="co">](https://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-introduction.pdf)</span></span>
-<span id="cb53-213"><a href="#cb53-213" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span><span class="co">[</span><span class="ot">Rcpp tutorial from 2019</span><span class="co">](https://dirk.eddelbuettel.com/papers/useR2019_rcpp_tutorial.pdf)</span></span>
-<span id="cb53-214"><a href="#cb53-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-215"><a href="#cb53-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-216"><a href="#cb53-216" aria-hidden="true" tabindex="-1"></a><span class="fu">## Rcpp: compilation</span></span>
-<span id="cb53-217"><a href="#cb53-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-218"><a href="#cb53-218" aria-hidden="true" tabindex="-1"></a>Behind the scenes, the first step in using a C++ function is that the C++ code is compiled to machine (binary) code that can be called from R.</span>
-<span id="cb53-219"><a href="#cb53-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-220"><a href="#cb53-220" aria-hidden="true" tabindex="-1"></a>To use Rcpp, you'll need a C++ compiler:</span>
-<span id="cb53-221"><a href="#cb53-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-222"><a href="#cb53-222" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>for Windows: install <span class="in">`rtools`</span></span>
-<span id="cb53-223"><a href="#cb53-223" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>for MacOS: install <span class="in">`xcode`</span></span>
-<span id="cb53-224"><a href="#cb53-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-225"><a href="#cb53-225" aria-hidden="true" tabindex="-1"></a>Here's a test that your compiler works from R:</span>
-<span id="cb53-226"><a href="#cb53-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-229"><a href="#cb53-229" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb53-230"><a href="#cb53-230" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"Rcpp"</span>)</span>
-<span id="cb53-231"><a href="#cb53-231" aria-hidden="true" tabindex="-1"></a><span class="fu">evalCpp</span>(<span class="st">"2 + 2"</span>)</span>
-<span id="cb53-232"><a href="#cb53-232" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb53-233"><a href="#cb53-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-234"><a href="#cb53-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-235"><a href="#cb53-235" aria-hidden="true" tabindex="-1"></a><span class="fu">## Basic example</span></span>
-<span id="cb53-236"><a href="#cb53-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-237"><a href="#cb53-237" aria-hidden="true" tabindex="-1"></a>Here's a basic example of using C++ code via Rcpp from the Advanced R book.</span>
-<span id="cb53-238"><a href="#cb53-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-241"><a href="#cb53-241" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb53-242"><a href="#cb53-242" aria-hidden="true" tabindex="-1"></a><span class="fu">cppFunction</span>(<span class="st">'int add3(int x, int y, int z) {</span></span>
-<span id="cb53-243"><a href="#cb53-243" aria-hidden="true" tabindex="-1"></a><span class="st">  int sum = x + y + z;</span></span>
-<span id="cb53-244"><a href="#cb53-244" aria-hidden="true" tabindex="-1"></a><span class="st">  return sum;</span></span>
-<span id="cb53-245"><a href="#cb53-245" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span>)</span>
-<span id="cb53-246"><a href="#cb53-246" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-247"><a href="#cb53-247" aria-hidden="true" tabindex="-1"></a><span class="do">## The pause is because the C++ code has to be compiled.</span></span>
-<span id="cb53-248"><a href="#cb53-248" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-249"><a href="#cb53-249" aria-hidden="true" tabindex="-1"></a>add3</span>
-<span id="cb53-250"><a href="#cb53-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-251"><a href="#cb53-251" aria-hidden="true" tabindex="-1"></a><span class="fu">add3</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>)</span>
-<span id="cb53-252"><a href="#cb53-252" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb53-253"><a href="#cb53-253" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-254"><a href="#cb53-254" aria-hidden="true" tabindex="-1"></a>Note that some casting/coercing of types must be happening:</span>
-<span id="cb53-255"><a href="#cb53-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-258"><a href="#cb53-258" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb53-259"><a href="#cb53-259" aria-hidden="true" tabindex="-1"></a><span class="fu">add3</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
-<span id="cb53-260"><a href="#cb53-260" aria-hidden="true" tabindex="-1"></a><span class="fu">add3</span>(<span class="dv">1</span>L, <span class="dv">2</span>L, <span class="dv">3</span>L)</span>
-<span id="cb53-261"><a href="#cb53-261" aria-hidden="true" tabindex="-1"></a><span class="fu">add3</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="fl">3.7</span>)</span>
-<span id="cb53-262"><a href="#cb53-262" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb53-263"><a href="#cb53-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-264"><a href="#cb53-264" aria-hidden="true" tabindex="-1"></a>Notice we need to include the types of variables, since C++ is statically typed (in large part this is why it is much faster than R).</span>
-<span id="cb53-265"><a href="#cb53-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-266"><a href="#cb53-266" aria-hidden="true" tabindex="-1"></a><span class="fu">## A short but rich example: loop fusion</span></span>
-<span id="cb53-267"><a href="#cb53-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-268"><a href="#cb53-268" aria-hidden="true" tabindex="-1"></a>Consider this vectorized code.</span>
-<span id="cb53-269"><a href="#cb53-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-272"><a href="#cb53-272" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb53-273"><a href="#cb53-273" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb53-274"><a href="#cb53-274" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">exp</span>(x) <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> <span class="fu">sin</span>(x)</span>
-<span id="cb53-275"><a href="#cb53-275" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb53-276"><a href="#cb53-276" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-277"><a href="#cb53-277" aria-hidden="true" tabindex="-1"></a>Because it's vectorized, it avoids the R overhead involved in looping, with the individual calculations (<span class="in">`exp`</span>, <span class="in">`+`</span>, <span class="in">`*`</span>, and <span class="in">`sin`</span>) done in for loops in compiled C code.</span>
-<span id="cb53-278"><a href="#cb53-278" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-279"><a href="#cb53-279" aria-hidden="true" tabindex="-1"></a>However, it has a subtle disadvantage compared to this for loop version:</span>
-<span id="cb53-280"><a href="#cb53-280" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-283"><a href="#cb53-283" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb53-284"><a href="#cb53-284" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb53-285"><a href="#cb53-285" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
-<span id="cb53-286"><a href="#cb53-286" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n)</span>
-<span id="cb53-287"><a href="#cb53-287" aria-hidden="true" tabindex="-1"></a>   x[i] <span class="ot">&lt;-</span> <span class="fu">exp</span>(x[i]) <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> <span class="fu">sin</span>(x[i])</span>
-<span id="cb53-288"><a href="#cb53-288" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb53-289"><a href="#cb53-289" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-290"><a href="#cb53-290" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Question"}</span>
-<span id="cb53-291"><a href="#cb53-291" aria-hidden="true" tabindex="-1"></a>What has to happen in the vectorized code that doesn't happen in the for loop?</span>
-<span id="cb53-292"><a href="#cb53-292" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb53-293"><a href="#cb53-293" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-294"><a href="#cb53-294" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Answer" collapse="true"}</span>
-<span id="cb53-295"><a href="#cb53-295" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-296"><a href="#cb53-296" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The individual operations are done as separate vectorized calls to compiled C code.</span>
-<span id="cb53-297"><a href="#cb53-297" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Temporary vectors must be allocated and filled to carry out <span class="in">`exp`</span>, <span class="in">`sin`</span>, <span class="in">`*`</span> and <span class="in">`+`</span>.</span>
-<span id="cb53-298"><a href="#cb53-298" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Extra memory needed.</span>
-<span id="cb53-299"><a href="#cb53-299" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Time for allocation and moving values.</span>
-<span id="cb53-300"><a href="#cb53-300" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The result <span class="in">`x`</span> and the input <span class="in">`x`</span> both need to exist at one time, briefly.</span>
-<span id="cb53-301"><a href="#cb53-301" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb53-302"><a href="#cb53-302" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-303"><a href="#cb53-303" aria-hidden="true" tabindex="-1"></a>None of that needs to happen with the loop version.</span>
-<span id="cb53-304"><a href="#cb53-304" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-305"><a href="#cb53-305" aria-hidden="true" tabindex="-1"></a><span class="fu">## Loop fusion using Rcpp</span></span>
-<span id="cb53-306"><a href="#cb53-306" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-307"><a href="#cb53-307" aria-hidden="true" tabindex="-1"></a>We can write up the for loop version using Rcpp to get the benefits of loop fusion.</span>
-<span id="cb53-308"><a href="#cb53-308" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-311"><a href="#cb53-311" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb53-312"><a href="#cb53-312" aria-hidden="true" tabindex="-1"></a><span class="fu">cppFunction</span>(<span class="st">'void fuse(NumericVector x) {</span></span>
-<span id="cb53-313"><a href="#cb53-313" aria-hidden="true" tabindex="-1"></a><span class="st">  int n = x.size();</span></span>
-<span id="cb53-314"><a href="#cb53-314" aria-hidden="true" tabindex="-1"></a><span class="st">  Rcpp::Rcout &lt;&lt; "Working with a vector of length " &lt;&lt; n &lt;&lt; "." &lt;&lt; std::endl;</span></span>
-<span id="cb53-315"><a href="#cb53-315" aria-hidden="true" tabindex="-1"></a><span class="st">  for(int i = 0; i &lt; n; ++i) {</span></span>
-<span id="cb53-316"><a href="#cb53-316" aria-hidden="true" tabindex="-1"></a><span class="st">    x[i] = exp(x[i]) + 3 * sin(x[i]);</span></span>
-<span id="cb53-317"><a href="#cb53-317" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
-<span id="cb53-318"><a href="#cb53-318" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span>)</span>
-<span id="cb53-319"><a href="#cb53-319" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-320"><a href="#cb53-320" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fl">1e7</span></span>
-<span id="cb53-321"><a href="#cb53-321" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb53-322"><a href="#cb53-322" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x</span>
-<span id="cb53-323"><a href="#cb53-323" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-324"><a href="#cb53-324" aria-hidden="true" tabindex="-1"></a>rbenchmark<span class="sc">::</span><span class="fu">benchmark</span>(</span>
-<span id="cb53-325"><a href="#cb53-325" aria-hidden="true" tabindex="-1"></a> x <span class="ot">&lt;-</span> <span class="fu">exp</span>(x) <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span><span class="fu">sin</span>(x),</span>
-<span id="cb53-326"><a href="#cb53-326" aria-hidden="true" tabindex="-1"></a> <span class="fu">fuse</span>(y),</span>
-<span id="cb53-327"><a href="#cb53-327" aria-hidden="true" tabindex="-1"></a> <span class="at">replications =</span> <span class="dv">1</span>,  <span class="co"># 'x' could explode on repeated calls</span></span>
-<span id="cb53-328"><a href="#cb53-328" aria-hidden="true" tabindex="-1"></a> <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">'test'</span>, <span class="st">'replications'</span>, <span class="st">'elapsed'</span>))</span>
-<span id="cb53-329"><a href="#cb53-329" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb53-330"><a href="#cb53-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-331"><a href="#cb53-331" aria-hidden="true" tabindex="-1"></a>We could also have created a version that doesn't overwrite the input.</span>
-<span id="cb53-332"><a href="#cb53-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-335"><a href="#cb53-335" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb53-336"><a href="#cb53-336" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb53-337"><a href="#cb53-337" aria-hidden="true" tabindex="-1"></a><span class="fu">cppFunction</span>(<span class="st">'NumericVector fuse(NumericVector x) {</span></span>
-<span id="cb53-338"><a href="#cb53-338" aria-hidden="true" tabindex="-1"></a><span class="st">  int n = x.size();</span></span>
-<span id="cb53-339"><a href="#cb53-339" aria-hidden="true" tabindex="-1"></a><span class="st">  NumericVector result(n);</span></span>
-<span id="cb53-340"><a href="#cb53-340" aria-hidden="true" tabindex="-1"></a><span class="st">  for(int i = 0; i &lt; n; ++i) {</span></span>
-<span id="cb53-341"><a href="#cb53-341" aria-hidden="true" tabindex="-1"></a><span class="st">    result[i] = exp(x[i]) + 3 * sin(x[i]);</span></span>
-<span id="cb53-342"><a href="#cb53-342" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
-<span id="cb53-343"><a href="#cb53-343" aria-hidden="true" tabindex="-1"></a><span class="st">  return result;</span></span>
-<span id="cb53-344"><a href="#cb53-344" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span>)</span>
-<span id="cb53-345"><a href="#cb53-345" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb53-346"><a href="#cb53-346" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-347"><a href="#cb53-347" aria-hidden="true" tabindex="-1"></a><span class="fu">## Rcpp source code files</span></span>
-<span id="cb53-348"><a href="#cb53-348" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-349"><a href="#cb53-349" aria-hidden="true" tabindex="-1"></a>Except for quick-and-dirty work, we'd generally want the Rcpp C++ code in a code file that can be recognized by editors as C++ code rather than in quotations in R. This will also help with debugging.</span>
-<span id="cb53-350"><a href="#cb53-350" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-351"><a href="#cb53-351" aria-hidden="true" tabindex="-1"></a>See <span class="co">[</span><span class="ot">fuse.cpp</span><span class="co">](fuse.cpp)</span> for the code for the version that does not overwrite the input.</span>
-<span id="cb53-352"><a href="#cb53-352" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-355"><a href="#cb53-355" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb53-356"><a href="#cb53-356" aria-hidden="true" tabindex="-1"></a><span class="fu">sourceCpp</span>(<span class="st">'fuse.cpp'</span>)</span>
-<span id="cb53-357"><a href="#cb53-357" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-358"><a href="#cb53-358" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>)</span>
-<span id="cb53-359"><a href="#cb53-359" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">fuse</span>(x)</span>
-<span id="cb53-360"><a href="#cb53-360" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb53-361"><a href="#cb53-361" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-362"><a href="#cb53-362" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using R classes in C++</span></span>
-<span id="cb53-363"><a href="#cb53-363" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-364"><a href="#cb53-364" aria-hidden="true" tabindex="-1"></a>Rcpp provides classes that correspond to most R data structures/classes. We've already seen the use of <span class="in">`NumericVector`</span> for R's numeric vector.</span>
-<span id="cb53-365"><a href="#cb53-365" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-366"><a href="#cb53-366" aria-hidden="true" tabindex="-1"></a>Here's an example (from the Advanced R book) of working with a list (an S3 object) and manipulating its components in C++. We need to cast the vector components as <span class="in">`NumericVector`</span>s</span>
-<span id="cb53-367"><a href="#cb53-367" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-368"><a href="#cb53-368" aria-hidden="true" tabindex="-1"></a><span class="in">```{c++}</span></span>
-<span id="cb53-369"><a href="#cb53-369" aria-hidden="true" tabindex="-1"></a><span class="in">#include &lt;Rcpp.h&gt;</span></span>
-<span id="cb53-370"><a href="#cb53-370" aria-hidden="true" tabindex="-1"></a><span class="in">using namespace Rcpp;</span></span>
-<span id="cb53-371"><a href="#cb53-371" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-372"><a href="#cb53-372" aria-hidden="true" tabindex="-1"></a><span class="in">// [[Rcpp::export]]</span></span>
-<span id="cb53-373"><a href="#cb53-373" aria-hidden="true" tabindex="-1"></a><span class="in">double mpe(List mod) {</span></span>
-<span id="cb53-374"><a href="#cb53-374" aria-hidden="true" tabindex="-1"></a><span class="in">  if (!mod.inherits("lm")) stop("Input must be a linear model");</span></span>
-<span id="cb53-375"><a href="#cb53-375" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-376"><a href="#cb53-376" aria-hidden="true" tabindex="-1"></a><span class="in">  NumericVector resid = as&lt;NumericVector&gt;(mod["residuals"]);</span></span>
-<span id="cb53-377"><a href="#cb53-377" aria-hidden="true" tabindex="-1"></a><span class="in">  NumericVector fitted = as&lt;NumericVector&gt;(mod["fitted.values"]);</span></span>
-<span id="cb53-378"><a href="#cb53-378" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-379"><a href="#cb53-379" aria-hidden="true" tabindex="-1"></a><span class="in">  int n = resid.size();</span></span>
-<span id="cb53-380"><a href="#cb53-380" aria-hidden="true" tabindex="-1"></a><span class="in">  double err = 0;</span></span>
-<span id="cb53-381"><a href="#cb53-381" aria-hidden="true" tabindex="-1"></a><span class="in">  for(int i = 0; i &lt; n; ++i) {</span></span>
-<span id="cb53-382"><a href="#cb53-382" aria-hidden="true" tabindex="-1"></a><span class="in">    err += resid[i] / (fitted[i] + resid[i]);</span></span>
-<span id="cb53-383"><a href="#cb53-383" aria-hidden="true" tabindex="-1"></a><span class="in">  }</span></span>
-<span id="cb53-384"><a href="#cb53-384" aria-hidden="true" tabindex="-1"></a><span class="in">  return err / n;</span></span>
-<span id="cb53-385"><a href="#cb53-385" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
-<span id="cb53-386"><a href="#cb53-386" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb53-387"><a href="#cb53-387" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-388"><a href="#cb53-388" aria-hidden="true" tabindex="-1"></a><span class="fu">## Rcpp "sugar"</span></span>
-<span id="cb53-389"><a href="#cb53-389" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-390"><a href="#cb53-390" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">*Rcpp Sugar*</span><span class="co">](https://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-sugar.pdf)</span> provides additional functionality to make it easier to write C++ code in an R-like way.</span>
-<span id="cb53-391"><a href="#cb53-391" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-392"><a href="#cb53-392" aria-hidden="true" tabindex="-1"></a>This includes:</span>
-<span id="cb53-393"><a href="#cb53-393" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-394"><a href="#cb53-394" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Calling functions from R's C math library, e.g., <span class="in">`Rcpp::rnorm(10, 3, 0.5)`</span></span>
-<span id="cb53-395"><a href="#cb53-395" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Various functions that mimic standard R functions (e.g., <span class="in">`all`</span>, <span class="in">`is_na`</span>)</span>
-<span id="cb53-396"><a href="#cb53-396" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Using R's random number generation</span>
-<span id="cb53-397"><a href="#cb53-397" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Vectorized calls (for code clarity, not for speed!)</span>
+<div class="sourceCode" id="cb64" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Parallelization and Rcpp"</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="co">    theme: cosmo</span></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="co">    css: ../assets/styles.css</span></span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-block-bg: true</span></span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-block-border-left: "#31BAE9"</span></span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a><span class="co">  freeze: auto</span></span>
+<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a><span class="fu"># Parellelization</span></span>
+<span id="cb64-17"><a href="#cb64-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-18"><a href="#cb64-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## Computer architecture</span></span>
+<span id="cb64-19"><a href="#cb64-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-20"><a href="#cb64-20" aria-hidden="true" tabindex="-1"></a>Note to participants: It can be troublesome to use parallelization in RStudio, so we'll just run the demo code in this module in a command line R session. You can open the basic R GUI for Mac or Windows, or, on a Mac, start R in a terminal window.</span>
+<span id="cb64-21"><a href="#cb64-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-22"><a href="#cb64-22" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Modern computers have multiple processors and clusters/supercomputers have multiple networked machines, each with multiple processors.</span>
+<span id="cb64-23"><a href="#cb64-23" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>The key to increasing computational efficiency in these contexts is breaking up the work amongst the processors.</span>
+<span id="cb64-24"><a href="#cb64-24" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Processors on a single machine (or 'node') share memory and don't need to carry out explicit communication (shared memory computation)</span>
+<span id="cb64-25"><a href="#cb64-25" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Processors on separate machines need to pass data across a network, often using the MPI protocol (distributed memory computation)</span>
+<span id="cb64-26"><a href="#cb64-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-27"><a href="#cb64-27" aria-hidden="true" tabindex="-1"></a>We'll focus on shared memory computation here.</span>
+<span id="cb64-28"><a href="#cb64-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-29"><a href="#cb64-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## How do I know how many cores a computer has?</span></span>
+<span id="cb64-30"><a href="#cb64-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-31"><a href="#cb64-31" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Linux - count the processors listed in */proc/cpuinfo* or use <span class="in">`nproc`</span></span>
+<span id="cb64-32"><a href="#cb64-32" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Mac - in a terminal: <span class="in">`system_profiler | grep -i 'Cores'`</span></span>
+<span id="cb64-33"><a href="#cb64-33" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Windows - count the number of graphs shown for CPU Usage (or CPU Usage History) under "Task Manager-&gt;Performance", or <span class="co">[</span><span class="ot">try this program</span><span class="co">](http://www.cpuid.com/cpuz.php)</span> </span>
+<span id="cb64-34"><a href="#cb64-34" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb64-35"><a href="#cb64-35" aria-hidden="true" tabindex="-1"></a>To see if multiple cores are being used by your job, you can do:</span>
+<span id="cb64-36"><a href="#cb64-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-37"><a href="#cb64-37" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Mac/Linux - use *top* or *ps*</span>
+<span id="cb64-38"><a href="#cb64-38" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Windows - see the "Task Manager-&gt;Performance-&gt;CPU Usage"</span>
+<span id="cb64-39"><a href="#cb64-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-40"><a href="#cb64-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## How can we make use of multiple cores?</span></span>
+<span id="cb64-41"><a href="#cb64-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-42"><a href="#cb64-42" aria-hidden="true" tabindex="-1"></a>Some basic approaches are:</span>
+<span id="cb64-43"><a href="#cb64-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-44"><a href="#cb64-44" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Use a linear algebra package that distributes computations across 'threads'</span>
+<span id="cb64-45"><a href="#cb64-45" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Spread independent calculations (embarrassingly parallel problems) across multiple cores</span>
+<span id="cb64-46"><a href="#cb64-46" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>*for* loops with independent calculations</span>
+<span id="cb64-47"><a href="#cb64-47" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>parallelizing <span class="in">`lapply()`</span> and its variants</span>
+<span id="cb64-48"><a href="#cb64-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-49"><a href="#cb64-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-50"><a href="#cb64-50" aria-hidden="true" tabindex="-1"></a><span class="fu">## Threaded linear algebra</span></span>
+<span id="cb64-51"><a href="#cb64-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-52"><a href="#cb64-52" aria-hidden="true" tabindex="-1"></a>R comes with a default BLAS (basic linear algebra subroutines) and LAPACK (linear algebra package) that carry out the core linear algebra computations. However, you can generally improve performance (sometimes by an order of magnitude) by using a different BLAS. Furthermore a threaded BLAS will allow you to use multiple cores.</span>
+<span id="cb64-53"><a href="#cb64-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-54"><a href="#cb64-54" aria-hidden="true" tabindex="-1"></a>A 'thread' is a lightweight process, and the operating system sees multiple threads as part of a single process.</span>
+<span id="cb64-55"><a href="#cb64-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-56"><a href="#cb64-56" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>For Linux, *openBLAS* and Intel's *MKL* are both fast and threaded. </span>
+<span id="cb64-57"><a href="#cb64-57" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>For Mac, Apple's *vecLib* is fast and threaded.</span>
+<span id="cb64-58"><a href="#cb64-58" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>For Windows, you may be out of luck.</span>
+<span id="cb64-59"><a href="#cb64-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-60"><a href="#cb64-60" aria-hidden="true" tabindex="-1"></a>We'll show by demonstration that my desktop in my office is using multiple cores for linear algebra operations.</span>
+<span id="cb64-61"><a href="#cb64-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-64"><a href="#cb64-64" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-65"><a href="#cb64-65" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
+<span id="cb64-66"><a href="#cb64-66" aria-hidden="true" tabindex="-1"></a><span class="co"># note to CJP: don't run on laptop with slow BLAS</span></span>
+<span id="cb64-67"><a href="#cb64-67" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">5000</span></span>
+<span id="cb64-68"><a href="#cb64-68" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n<span class="sc">^</span><span class="dv">2</span>), n)</span>
+<span id="cb64-69"><a href="#cb64-69" aria-hidden="true" tabindex="-1"></a>U <span class="ot">&lt;-</span> <span class="fu">chol</span>(<span class="fu">crossprod</span>(x))</span>
+<span id="cb64-70"><a href="#cb64-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-71"><a href="#cb64-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-72"><a href="#cb64-72" aria-hidden="true" tabindex="-1"></a>You should see that your R process is using more than 100% of CPU. Inconceivable!</span>
+<span id="cb64-73"><a href="#cb64-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-74"><a href="#cb64-74" aria-hidden="true" tabindex="-1"></a><span class="fu">## More details on the BLAS (optional)</span></span>
+<span id="cb64-75"><a href="#cb64-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-76"><a href="#cb64-76" aria-hidden="true" tabindex="-1"></a>You can talk with your systems administrator about linking R to a fast BLAS or you can look into it yourself for your personal machine; see <span class="co">[</span><span class="ot">this FAQ</span><span class="co">](https://statistics.berkeley.edu/computing/faqs/linear-algebra-and-parallelized-linear-algebra-using-blas)</span> or the <span class="co">[</span><span class="ot">R Installation and Administration manual</span><span class="co">](http://www.cran.r-project.org/manuals.html)</span>.</span>
+<span id="cb64-77"><a href="#cb64-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-78"><a href="#cb64-78" aria-hidden="true" tabindex="-1"></a>Note that in some cases, in particular for small matrix operations, using multiple threads may actually slow down computation, so you may want to experiment, particularly with Linux. You can force the linear algebra to use only a single core by doing (assuming you're using the bash shell) <span class="in">`export OMP_NUM_THREADS=1`</span> in the terminal window *before* starting R in the same terminal. Or see the *RhpcBLASctl* package to do it from within R.</span>
+<span id="cb64-79"><a href="#cb64-79" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb64-80"><a href="#cb64-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-81"><a href="#cb64-81" aria-hidden="true" tabindex="-1"></a><span class="fu">## What is an embarrassingly parallel (EP) problem?</span></span>
+<span id="cb64-82"><a href="#cb64-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-83"><a href="#cb64-83" aria-hidden="true" tabindex="-1"></a>An EP problem is one that can be solved by doing independent computations as separate processes without communication between the processes. You can get the answer by doing separate tasks and then collecting the results. </span>
+<span id="cb64-84"><a href="#cb64-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-85"><a href="#cb64-85" aria-hidden="true" tabindex="-1"></a>Examples in statistics / data science / machine learning include</span>
+<span id="cb64-86"><a href="#cb64-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-87"><a href="#cb64-87" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>stratified analyses</span>
+<span id="cb64-88"><a href="#cb64-88" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>cross-validation</span>
+<span id="cb64-89"><a href="#cb64-89" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>simulations with many independent replicates</span>
+<span id="cb64-90"><a href="#cb64-90" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>bootstrapping</span>
+<span id="cb64-91"><a href="#cb64-91" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>random forest models</span>
+<span id="cb64-92"><a href="#cb64-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-93"><a href="#cb64-93" aria-hidden="true" tabindex="-1"></a>Some things that are not EP (at least not in a basic formulation):</span>
+<span id="cb64-94"><a href="#cb64-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-95"><a href="#cb64-95" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>optimization</span>
+<span id="cb64-96"><a href="#cb64-96" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Markov chain Monte Carlo for fitting Bayesian models</span>
+<span id="cb64-97"><a href="#cb64-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-98"><a href="#cb64-98" aria-hidden="true" tabindex="-1"></a><span class="fu"># Using the future package</span></span>
+<span id="cb64-99"><a href="#cb64-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-100"><a href="#cb64-100" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using multiple cores for EP problems: parallel *apply* using `future`</span></span>
+<span id="cb64-101"><a href="#cb64-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-102"><a href="#cb64-102" aria-hidden="true" tabindex="-1"></a>The <span class="in">`future`</span> package provides a lot of nice features for parallelization. We'll just scratch the surface here to parallelize operations over the elements of a list (note that this is essentially equivalent to <span class="in">`parLapply`</span> and <span class="in">`mclapply`</span>).</span>
+<span id="cb64-103"><a href="#cb64-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-104"><a href="#cb64-104" aria-hidden="true" tabindex="-1"></a>First, make sure your computations on the elements are independent of each other and don't involve sequential calculations!</span>
+<span id="cb64-105"><a href="#cb64-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-106"><a href="#cb64-106" aria-hidden="true" tabindex="-1"></a>We'll use the <span class="co">[</span><span class="ot">airline departure dataset</span><span class="co">](https://www.stat.berkeley.edu/~paciorek/share/airline.csv)</span>, with timing informatin for all flights from SFO over a period of several years. We'll do a stratified analysis, fitting a GAM (see Unit 6) for each of the destination airports.</span>
+<span id="cb64-107"><a href="#cb64-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-110"><a href="#cb64-110" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-111"><a href="#cb64-111" aria-hidden="true" tabindex="-1"></a>air <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>, <span class="st">'airline.csv'</span>))</span>
+<span id="cb64-112"><a href="#cb64-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-113"><a href="#cb64-113" aria-hidden="true" tabindex="-1"></a>fitFun <span class="ot">&lt;-</span> <span class="cf">function</span>(curDest) {</span>
+<span id="cb64-114"><a href="#cb64-114" aria-hidden="true" tabindex="-1"></a>            <span class="fu">library</span>(mgcv)</span>
+<span id="cb64-115"><a href="#cb64-115" aria-hidden="true" tabindex="-1"></a>            tmp <span class="ot">&lt;-</span> <span class="fu">subset</span>(air, Dest <span class="sc">==</span> curDest)</span>
+<span id="cb64-116"><a href="#cb64-116" aria-hidden="true" tabindex="-1"></a>            <span class="do">## It would better to do this with date-time functionality:</span></span>
+<span id="cb64-117"><a href="#cb64-117" aria-hidden="true" tabindex="-1"></a>            tmp<span class="sc">$</span>Hour <span class="ot">&lt;-</span> tmp<span class="sc">$</span>CRSDepTime <span class="sc">%/%</span> <span class="dv">100</span></span>
+<span id="cb64-118"><a href="#cb64-118" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb64-119"><a href="#cb64-119" aria-hidden="true" tabindex="-1"></a>            curMod <span class="ot">&lt;-</span> <span class="fu">try</span>(<span class="fu">gam</span>(DepDelay <span class="sc">~</span> Year <span class="sc">+</span> <span class="fu">s</span>(Month) <span class="sc">+</span> <span class="fu">s</span>(Hour) <span class="sc">+</span> </span>
+<span id="cb64-120"><a href="#cb64-120" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">as.factor</span>(DayOfWeek), <span class="at">data =</span> tmp))</span>
+<span id="cb64-121"><a href="#cb64-121" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span>(<span class="fu">is</span>(tmp, <span class="st">"try-error"</span>)) curMod <span class="ot">&lt;-</span> <span class="cn">NA</span> </span>
+<span id="cb64-122"><a href="#cb64-122" aria-hidden="true" tabindex="-1"></a>            <span class="fu">return</span>(curMod)</span>
+<span id="cb64-123"><a href="#cb64-123" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb64-124"><a href="#cb64-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-125"><a href="#cb64-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-126"><a href="#cb64-126" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(future.apply)</span>
+<span id="cb64-127"><a href="#cb64-127" aria-hidden="true" tabindex="-1"></a>nCores <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb64-128"><a href="#cb64-128" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(multisession, <span class="at">workers =</span> nCores)  </span>
+<span id="cb64-129"><a href="#cb64-129" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">future_lapply</span>(<span class="fu">unique</span>(air<span class="sc">$</span>Dest), fitFun)</span>
+<span id="cb64-130"><a href="#cb64-130" aria-hidden="true" tabindex="-1"></a>out[[<span class="dv">1</span>]]</span>
+<span id="cb64-131"><a href="#cb64-131" aria-hidden="true" tabindex="-1"></a>out[[<span class="dv">81</span>]]</span>
+<span id="cb64-132"><a href="#cb64-132" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-133"><a href="#cb64-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-134"><a href="#cb64-134" aria-hidden="true" tabindex="-1"></a>Note that the <span class="in">`plan`</span> statement determines how the parallelization is done behind the scenes. As shown here, it will start up workers locally on your computer, but if you have access to a cluster, you can modify the plan to make use of multiple compute nodes in a cluster.</span>
+<span id="cb64-135"><a href="#cb64-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-136"><a href="#cb64-136" aria-hidden="true" tabindex="-1"></a>One thing to keep in mind is whether the different tasks all take about the same amount of time or widely different times. In the latter case, one wants to sequentially dispatch tasks as earlier tasks finish, rather than dispatching a block of tasks to each core. See  the <span class="in">`future.scheduling`</span> argument for user control over how the allocation is done. </span>
+<span id="cb64-137"><a href="#cb64-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-138"><a href="#cb64-138" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using multiple cores for EP problems: *foreach*</span></span>
+<span id="cb64-139"><a href="#cb64-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-140"><a href="#cb64-140" aria-hidden="true" tabindex="-1"></a>First, make sure your iterations are independent and don't involve sequential calculations!</span>
+<span id="cb64-141"><a href="#cb64-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-142"><a href="#cb64-142" aria-hidden="true" tabindex="-1"></a>The *foreach* package provides a way to do a for loop using multiple cores. It can use a variety of 'back-ends' that handle the nitty-gritty of the parallelization. Happily it integrates with the <span class="in">`future`</span> package nicely. </span>
+<span id="cb64-143"><a href="#cb64-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-144"><a href="#cb64-144" aria-hidden="true" tabindex="-1"></a><span class="in">```{r cache=TRUE}</span></span>
+<span id="cb64-145"><a href="#cb64-145" aria-hidden="true" tabindex="-1"></a><span class="in">library(parallel)</span></span>
+<span id="cb64-146"><a href="#cb64-146" aria-hidden="true" tabindex="-1"></a><span class="in">library(doFuture)</span></span>
+<span id="cb64-147"><a href="#cb64-147" aria-hidden="true" tabindex="-1"></a><span class="in">library(foreach)</span></span>
+<span id="cb64-148"><a href="#cb64-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-149"><a href="#cb64-149" aria-hidden="true" tabindex="-1"></a><span class="in">nCores &lt;- 4  # actually only 2 on my laptop, but appears hyperthreaded</span></span>
+<span id="cb64-150"><a href="#cb64-150" aria-hidden="true" tabindex="-1"></a><span class="in">registerDoFuture()</span></span>
+<span id="cb64-151"><a href="#cb64-151" aria-hidden="true" tabindex="-1"></a><span class="in">plan(multisession, workers = nCores)  </span></span>
+<span id="cb64-152"><a href="#cb64-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-153"><a href="#cb64-153" aria-hidden="true" tabindex="-1"></a><span class="in">progress &lt;- FALSE</span></span>
+<span id="cb64-154"><a href="#cb64-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-155"><a href="#cb64-155" aria-hidden="true" tabindex="-1"></a><span class="in">out &lt;- foreach(dest = unique(air$Dest)) %dopar% {</span></span>
+<span id="cb64-156"><a href="#cb64-156" aria-hidden="true" tabindex="-1"></a><span class="in">    if(progress) cat("Starting job for ", dest, ".\n", sep = "")</span></span>
+<span id="cb64-157"><a href="#cb64-157" aria-hidden="true" tabindex="-1"></a><span class="in">    outSub &lt;- fitFun(dest)</span></span>
+<span id="cb64-158"><a href="#cb64-158" aria-hidden="true" tabindex="-1"></a><span class="in">    if(progress) cat("Finishing job for ", dest, ".\n", sep = "")</span></span>
+<span id="cb64-159"><a href="#cb64-159" aria-hidden="true" tabindex="-1"></a><span class="in">    outSub # this will become part of the out objec</span></span>
+<span id="cb64-160"><a href="#cb64-160" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb64-161"><a href="#cb64-161" aria-hidden="true" tabindex="-1"></a><span class="in">out[1:2]</span></span>
+<span id="cb64-162"><a href="#cb64-162" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-163"><a href="#cb64-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-164"><a href="#cb64-164" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Question"}</span>
+<span id="cb64-165"><a href="#cb64-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-166"><a href="#cb64-166" aria-hidden="true" tabindex="-1"></a>What do you think are the advantages and disadvantages of having many small tasks vs. a few large tasks?</span>
+<span id="cb64-167"><a href="#cb64-167" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb64-168"><a href="#cb64-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-169"><a href="#cb64-169" aria-hidden="true" tabindex="-1"></a><span class="fu">## Other "plans"</span></span>
+<span id="cb64-170"><a href="#cb64-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-171"><a href="#cb64-171" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`multisession`</span>: multiple R sessions on a single machine</span>
+<span id="cb64-172"><a href="#cb64-172" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`multicore`</span>: multiple forked R sessions on a single machine (less copying)</span>
+<span id="cb64-173"><a href="#cb64-173" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`cluster`</span>: multiple R sessions on one or more machines</span>
+<span id="cb64-174"><a href="#cb64-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-175"><a href="#cb64-175" aria-hidden="true" tabindex="-1"></a><span class="fu">## Parallelization and Random Number Generation</span></span>
+<span id="cb64-176"><a href="#cb64-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-177"><a href="#cb64-177" aria-hidden="true" tabindex="-1"></a>A tale of the good, the bad, and the ugly</span>
+<span id="cb64-178"><a href="#cb64-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-179"><a href="#cb64-179" aria-hidden="true" tabindex="-1"></a>Random numbers on a computer are <span class="co">[</span><span class="ot">not truly random</span><span class="co">](http://dilbert.com/strips/comic/2001-10-25)</span> but are generated as a sequence of pseudo-random numbers. The sequence is finite (but very, very, very, very long) and eventally repeats itself. </span>
+<span id="cb64-180"><a href="#cb64-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-181"><a href="#cb64-181" aria-hidden="true" tabindex="-1"></a>A random number seed determines where in the sequence one starts when generating random numbers.</span>
+<span id="cb64-182"><a href="#cb64-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-183"><a href="#cb64-183" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>The ugly: Make sure you do not use the same seed for each task</span>
+<span id="cb64-184"><a href="#cb64-184" aria-hidden="true" tabindex="-1"></a>  <span class="in">```{r}</span></span>
+<span id="cb64-185"><a href="#cb64-185" aria-hidden="true" tabindex="-1"></a><span class="in">  set.seed(1)</span></span>
+<span id="cb64-186"><a href="#cb64-186" aria-hidden="true" tabindex="-1"></a><span class="in">  rnorm(5)</span></span>
+<span id="cb64-187"><a href="#cb64-187" aria-hidden="true" tabindex="-1"></a><span class="in">  set.seed(1)</span></span>
+<span id="cb64-188"><a href="#cb64-188" aria-hidden="true" tabindex="-1"></a><span class="in">  rnorm(5)</span></span>
+<span id="cb64-189"><a href="#cb64-189" aria-hidden="true" tabindex="-1"></a><span class="in">  ```</span></span>
+<span id="cb64-190"><a href="#cb64-190" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>The (not so) bad: Use a different seed for each task or each process. It's possible the subsequences will overlap but quite unlikely.</span>
+<span id="cb64-191"><a href="#cb64-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-192"><a href="#cb64-192" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>The good: Use the L'Ecuyer algorithm to ensure distinct subsequences in each worker, which <span class="in">`future`</span> makes easy:</span>
+<span id="cb64-193"><a href="#cb64-193" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>with <span class="in">`future.apply`</span>, use <span class="in">`future.seed = TRUE`</span>.</span>
+<span id="cb64-194"><a href="#cb64-194" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>with <span class="in">`foreach`</span> and <span class="in">`%dofuture%`</span>, include <span class="in">`.options.future = list(seed = TRUE)`</span>.</span>
+<span id="cb64-195"><a href="#cb64-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-196"><a href="#cb64-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-197"><a href="#cb64-197" aria-hidden="true" tabindex="-1"></a><span class="fu"># Rcpp</span></span>
+<span id="cb64-198"><a href="#cb64-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-199"><a href="#cb64-199" aria-hidden="true" tabindex="-1"></a>While R can interface with lots of other languages, the most fundamental is to interface with C/C++. In part this is because the R interpreter is a C program and under the hood, R data structures are C structs. In part this is because of the success of Rcpp as a wrapper that makes it easy to interface to C++ (including C) code.</span>
+<span id="cb64-200"><a href="#cb64-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-201"><a href="#cb64-201" aria-hidden="true" tabindex="-1"></a>Some comments:</span>
+<span id="cb64-202"><a href="#cb64-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-203"><a href="#cb64-203" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>Rcpp has a nice interface that makes it easy to work with R data structures in C++ and use various functions similar to those provided in R.</span>
+<span id="cb64-204"><a href="#cb64-204" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>Loops and recursion in C++ are fast, unlike in R.</span>
+<span id="cb64-205"><a href="#cb64-205" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>Rcpp allows you to make use of various libraries available in C/C++, such as the standard template library (STL), Eigen (for linear algebra), and many others.</span>
+<span id="cb64-206"><a href="#cb64-206" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>Often one will write most of one's code in R and off-load the core, slow computational parts to C++, managed from R.</span>
+<span id="cb64-207"><a href="#cb64-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-208"><a href="#cb64-208" aria-hidden="true" tabindex="-1"></a>Some good overviews of Rcpp are:</span>
+<span id="cb64-209"><a href="#cb64-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-210"><a href="#cb64-210" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span><span class="co">[</span><span class="ot">The Advanced R book by Hadley Wickham</span><span class="co">](https://adv-r.hadley.nz/rcpp.html)</span></span>
+<span id="cb64-211"><a href="#cb64-211" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span><span class="co">[</span><span class="ot">The Rcpp vignette</span><span class="co">](https://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-introduction.pdf)</span></span>
+<span id="cb64-212"><a href="#cb64-212" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span><span class="co">[</span><span class="ot">Rcpp tutorial from 2019</span><span class="co">](https://dirk.eddelbuettel.com/papers/useR2019_rcpp_tutorial.pdf)</span></span>
+<span id="cb64-213"><a href="#cb64-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-214"><a href="#cb64-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-215"><a href="#cb64-215" aria-hidden="true" tabindex="-1"></a><span class="fu">## Rcpp: compilation</span></span>
+<span id="cb64-216"><a href="#cb64-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-217"><a href="#cb64-217" aria-hidden="true" tabindex="-1"></a>Behind the scenes, the first step in using a C++ function is that the C++ code is compiled to machine (binary) code that can be called from R.</span>
+<span id="cb64-218"><a href="#cb64-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-219"><a href="#cb64-219" aria-hidden="true" tabindex="-1"></a>To use Rcpp, you'll need a C++ compiler:</span>
+<span id="cb64-220"><a href="#cb64-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-221"><a href="#cb64-221" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>for Windows: install <span class="in">`rtools`</span></span>
+<span id="cb64-222"><a href="#cb64-222" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>for MacOS: install <span class="in">`xcode`</span></span>
+<span id="cb64-223"><a href="#cb64-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-224"><a href="#cb64-224" aria-hidden="true" tabindex="-1"></a>Here's a test that your compiler works from R:</span>
+<span id="cb64-225"><a href="#cb64-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-228"><a href="#cb64-228" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-229"><a href="#cb64-229" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"Rcpp"</span>)</span>
+<span id="cb64-230"><a href="#cb64-230" aria-hidden="true" tabindex="-1"></a><span class="fu">evalCpp</span>(<span class="st">"2 + 2"</span>)</span>
+<span id="cb64-231"><a href="#cb64-231" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-232"><a href="#cb64-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-233"><a href="#cb64-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-234"><a href="#cb64-234" aria-hidden="true" tabindex="-1"></a><span class="fu">## Basic example</span></span>
+<span id="cb64-235"><a href="#cb64-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-236"><a href="#cb64-236" aria-hidden="true" tabindex="-1"></a>Here's a basic example of using C++ code via Rcpp from the Advanced R book.</span>
+<span id="cb64-237"><a href="#cb64-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-240"><a href="#cb64-240" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-241"><a href="#cb64-241" aria-hidden="true" tabindex="-1"></a><span class="fu">cppFunction</span>(<span class="st">'int add3(int x, int y, int z) {</span></span>
+<span id="cb64-242"><a href="#cb64-242" aria-hidden="true" tabindex="-1"></a><span class="st">  int sum = x + y + z;</span></span>
+<span id="cb64-243"><a href="#cb64-243" aria-hidden="true" tabindex="-1"></a><span class="st">  return sum;</span></span>
+<span id="cb64-244"><a href="#cb64-244" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span>)</span>
+<span id="cb64-245"><a href="#cb64-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-246"><a href="#cb64-246" aria-hidden="true" tabindex="-1"></a><span class="do">## The pause is because the C++ code has to be compiled.</span></span>
+<span id="cb64-247"><a href="#cb64-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-248"><a href="#cb64-248" aria-hidden="true" tabindex="-1"></a>add3</span>
+<span id="cb64-249"><a href="#cb64-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-250"><a href="#cb64-250" aria-hidden="true" tabindex="-1"></a><span class="fu">add3</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>)</span>
+<span id="cb64-251"><a href="#cb64-251" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-252"><a href="#cb64-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-253"><a href="#cb64-253" aria-hidden="true" tabindex="-1"></a>Note that some casting/coercing of types by Rcpp must be happening:</span>
+<span id="cb64-254"><a href="#cb64-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-257"><a href="#cb64-257" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-258"><a href="#cb64-258" aria-hidden="true" tabindex="-1"></a><span class="fu">add3</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb64-259"><a href="#cb64-259" aria-hidden="true" tabindex="-1"></a><span class="fu">add3</span>(<span class="dv">1</span>L, <span class="dv">2</span>L, <span class="dv">3</span>L)</span>
+<span id="cb64-260"><a href="#cb64-260" aria-hidden="true" tabindex="-1"></a><span class="fu">add3</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="fl">3.7</span>)</span>
+<span id="cb64-261"><a href="#cb64-261" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-262"><a href="#cb64-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-263"><a href="#cb64-263" aria-hidden="true" tabindex="-1"></a>Notice we need to include the types of variables, since C++ is statically typed (in large part this is why it is much faster than R).</span>
+<span id="cb64-264"><a href="#cb64-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-265"><a href="#cb64-265" aria-hidden="true" tabindex="-1"></a><span class="fu">## A short but rich example: loop fusion</span></span>
+<span id="cb64-266"><a href="#cb64-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-267"><a href="#cb64-267" aria-hidden="true" tabindex="-1"></a>Consider this vectorized code.</span>
+<span id="cb64-268"><a href="#cb64-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-271"><a href="#cb64-271" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-272"><a href="#cb64-272" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb64-273"><a href="#cb64-273" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">exp</span>(x) <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> <span class="fu">sin</span>(x)</span>
+<span id="cb64-274"><a href="#cb64-274" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-275"><a href="#cb64-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-276"><a href="#cb64-276" aria-hidden="true" tabindex="-1"></a>Because it's vectorized, it avoids the R overhead involved in looping, with the individual calculations (<span class="in">`exp`</span>, <span class="in">`+`</span>, <span class="in">`*`</span>, and <span class="in">`sin`</span>) done in for loops in compiled C code.</span>
+<span id="cb64-277"><a href="#cb64-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-278"><a href="#cb64-278" aria-hidden="true" tabindex="-1"></a>However, it has a subtle disadvantage compared to this for loop version:</span>
+<span id="cb64-279"><a href="#cb64-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-282"><a href="#cb64-282" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-283"><a href="#cb64-283" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb64-284"><a href="#cb64-284" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb64-285"><a href="#cb64-285" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n)</span>
+<span id="cb64-286"><a href="#cb64-286" aria-hidden="true" tabindex="-1"></a>   x[i] <span class="ot">&lt;-</span> <span class="fu">exp</span>(x[i]) <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> <span class="fu">sin</span>(x[i])</span>
+<span id="cb64-287"><a href="#cb64-287" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-288"><a href="#cb64-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-289"><a href="#cb64-289" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Question"}</span>
+<span id="cb64-290"><a href="#cb64-290" aria-hidden="true" tabindex="-1"></a>What has to happen in the vectorized code that doesn't happen in the for loop?</span>
+<span id="cb64-291"><a href="#cb64-291" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb64-292"><a href="#cb64-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-293"><a href="#cb64-293" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Answer" collapse="true"}</span>
+<span id="cb64-294"><a href="#cb64-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-295"><a href="#cb64-295" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The individual operations are done as separate vectorized calls to compiled C code.</span>
+<span id="cb64-296"><a href="#cb64-296" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Temporary vectors must be allocated and filled to store the results of <span class="in">`exp`</span>, <span class="in">`sin`</span>, <span class="in">`*`</span> and <span class="in">`+`</span>.</span>
+<span id="cb64-297"><a href="#cb64-297" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Extra memory needed.</span>
+<span id="cb64-298"><a href="#cb64-298" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Time for allocation and moving values.</span>
+<span id="cb64-299"><a href="#cb64-299" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The result <span class="in">`x`</span> and the input <span class="in">`x`</span> both need to exist at one time, briefly.</span>
+<span id="cb64-300"><a href="#cb64-300" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb64-301"><a href="#cb64-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-302"><a href="#cb64-302" aria-hidden="true" tabindex="-1"></a>None of that needs to happen with the loop version.</span>
+<span id="cb64-303"><a href="#cb64-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-304"><a href="#cb64-304" aria-hidden="true" tabindex="-1"></a><span class="fu">## Loop fusion using Rcpp</span></span>
+<span id="cb64-305"><a href="#cb64-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-306"><a href="#cb64-306" aria-hidden="true" tabindex="-1"></a>We can write up the for loop version using Rcpp to get the benefits of loop fusion.</span>
+<span id="cb64-307"><a href="#cb64-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-310"><a href="#cb64-310" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-311"><a href="#cb64-311" aria-hidden="true" tabindex="-1"></a><span class="fu">cppFunction</span>(<span class="st">'void fuse(Rcpp::NumericVector x) {</span></span>
+<span id="cb64-312"><a href="#cb64-312" aria-hidden="true" tabindex="-1"></a><span class="st">  int n = x.size();</span></span>
+<span id="cb64-313"><a href="#cb64-313" aria-hidden="true" tabindex="-1"></a><span class="st">  Rcpp::Rcout &lt;&lt; "Working with a vector of length " &lt;&lt; n &lt;&lt; "." &lt;&lt; std::endl;</span></span>
+<span id="cb64-314"><a href="#cb64-314" aria-hidden="true" tabindex="-1"></a><span class="st">  for(int i = 0; i &lt; n; ++i) {</span></span>
+<span id="cb64-315"><a href="#cb64-315" aria-hidden="true" tabindex="-1"></a><span class="st">    x[i] = exp(x[i]) + 3 * sin(x[i]);</span></span>
+<span id="cb64-316"><a href="#cb64-316" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb64-317"><a href="#cb64-317" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span>)</span>
+<span id="cb64-318"><a href="#cb64-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-319"><a href="#cb64-319" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fl">1e7</span></span>
+<span id="cb64-320"><a href="#cb64-320" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb64-321"><a href="#cb64-321" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x</span>
+<span id="cb64-322"><a href="#cb64-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-323"><a href="#cb64-323" aria-hidden="true" tabindex="-1"></a>rbenchmark<span class="sc">::</span><span class="fu">benchmark</span>(</span>
+<span id="cb64-324"><a href="#cb64-324" aria-hidden="true" tabindex="-1"></a> x <span class="ot">&lt;-</span> <span class="fu">exp</span>(x) <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span><span class="fu">sin</span>(x),</span>
+<span id="cb64-325"><a href="#cb64-325" aria-hidden="true" tabindex="-1"></a> <span class="fu">fuse</span>(y),</span>
+<span id="cb64-326"><a href="#cb64-326" aria-hidden="true" tabindex="-1"></a> <span class="at">replications =</span> <span class="dv">1</span>,  <span class="co"># 'x' could explode on repeated calls</span></span>
+<span id="cb64-327"><a href="#cb64-327" aria-hidden="true" tabindex="-1"></a> <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">'test'</span>, <span class="st">'replications'</span>, <span class="st">'elapsed'</span>))</span>
+<span id="cb64-328"><a href="#cb64-328" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-329"><a href="#cb64-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-330"><a href="#cb64-330" aria-hidden="true" tabindex="-1"></a>When using Rcpp's built-in vector types, Rcpp reuses R memory so no copies of the inputs are made.</span>
+<span id="cb64-331"><a href="#cb64-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-332"><a href="#cb64-332" aria-hidden="true" tabindex="-1"></a>We could also have created a version that doesn't overwrite the input.</span>
+<span id="cb64-333"><a href="#cb64-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-336"><a href="#cb64-336" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-337"><a href="#cb64-337" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb64-338"><a href="#cb64-338" aria-hidden="true" tabindex="-1"></a><span class="fu">cppFunction</span>(<span class="st">'NumericVector fuse(NumericVector x) {</span></span>
+<span id="cb64-339"><a href="#cb64-339" aria-hidden="true" tabindex="-1"></a><span class="st">  int n = x.size();</span></span>
+<span id="cb64-340"><a href="#cb64-340" aria-hidden="true" tabindex="-1"></a><span class="st">  NumericVector result(n);</span></span>
+<span id="cb64-341"><a href="#cb64-341" aria-hidden="true" tabindex="-1"></a><span class="st">  for(int i = 0; i &lt; n; ++i) {</span></span>
+<span id="cb64-342"><a href="#cb64-342" aria-hidden="true" tabindex="-1"></a><span class="st">    result[i] = exp(x[i]) + 3 * sin(x[i]);</span></span>
+<span id="cb64-343"><a href="#cb64-343" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb64-344"><a href="#cb64-344" aria-hidden="true" tabindex="-1"></a><span class="st">  return result;</span></span>
+<span id="cb64-345"><a href="#cb64-345" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span>)</span>
+<span id="cb64-346"><a href="#cb64-346" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-347"><a href="#cb64-347" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-348"><a href="#cb64-348" aria-hidden="true" tabindex="-1"></a><span class="fu">## Rcpp source code files</span></span>
+<span id="cb64-349"><a href="#cb64-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-350"><a href="#cb64-350" aria-hidden="true" tabindex="-1"></a>Except for quick-and-dirty work, we'd generally want the Rcpp C++ code in a code file that can be recognized by editors as C++ code rather than in quotations in R. This will also help with debugging.</span>
+<span id="cb64-351"><a href="#cb64-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-352"><a href="#cb64-352" aria-hidden="true" tabindex="-1"></a>See <span class="co">[</span><span class="ot">fuse.cpp</span><span class="co">](fuse.cpp)</span> for the code for the version that does not overwrite the input.</span>
+<span id="cb64-353"><a href="#cb64-353" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-356"><a href="#cb64-356" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-357"><a href="#cb64-357" aria-hidden="true" tabindex="-1"></a><span class="fu">sourceCpp</span>(<span class="st">'fuse.cpp'</span>)</span>
+<span id="cb64-358"><a href="#cb64-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-359"><a href="#cb64-359" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>)</span>
+<span id="cb64-360"><a href="#cb64-360" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">fuse</span>(x)</span>
+<span id="cb64-361"><a href="#cb64-361" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-362"><a href="#cb64-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-363"><a href="#cb64-363" aria-hidden="true" tabindex="-1"></a><span class="fu">## Some notes about memory and argument passing</span></span>
+<span id="cb64-364"><a href="#cb64-364" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-365"><a href="#cb64-365" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Copy-on-change doesn't work with Rcpp functions. </span>
+<span id="cb64-366"><a href="#cb64-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-367"><a href="#cb64-367" aria-hidden="true" tabindex="-1"></a>   <span class="in">```{r}</span></span>
+<span id="cb64-368"><a href="#cb64-368" aria-hidden="true" tabindex="-1"></a><span class="in">   n &lt;- 5</span></span>
+<span id="cb64-369"><a href="#cb64-369" aria-hidden="true" tabindex="-1"></a><span class="in">   x &lt;- rnorm(n)</span></span>
+<span id="cb64-370"><a href="#cb64-370" aria-hidden="true" tabindex="-1"></a><span class="in">   y &lt;- x</span></span>
+<span id="cb64-371"><a href="#cb64-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-372"><a href="#cb64-372" aria-hidden="true" tabindex="-1"></a><span class="in">   fuse(y)</span></span>
+<span id="cb64-373"><a href="#cb64-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-374"><a href="#cb64-374" aria-hidden="true" tabindex="-1"></a><span class="in">   y</span></span>
+<span id="cb64-375"><a href="#cb64-375" aria-hidden="true" tabindex="-1"></a><span class="in">   x</span></span>
+<span id="cb64-376"><a href="#cb64-376" aria-hidden="true" tabindex="-1"></a><span class="in">   ```</span></span>
+<span id="cb64-377"><a href="#cb64-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-378"><a href="#cb64-378" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Type conversion can prevent modification</span>
+<span id="cb64-379"><a href="#cb64-379" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-380"><a href="#cb64-380" aria-hidden="true" tabindex="-1"></a>   <span class="in">```{r}</span></span>
+<span id="cb64-381"><a href="#cb64-381" aria-hidden="true" tabindex="-1"></a><span class="in">   x &lt;- 1:5</span></span>
+<span id="cb64-382"><a href="#cb64-382" aria-hidden="true" tabindex="-1"></a><span class="in">   typeof(x)</span></span>
+<span id="cb64-383"><a href="#cb64-383" aria-hidden="true" tabindex="-1"></a><span class="in">   fuse(x)</span></span>
+<span id="cb64-384"><a href="#cb64-384" aria-hidden="true" tabindex="-1"></a><span class="in">   x</span></span>
+<span id="cb64-385"><a href="#cb64-385" aria-hidden="true" tabindex="-1"></a><span class="in">   ```</span></span>
+<span id="cb64-386"><a href="#cb64-386" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-387"><a href="#cb64-387" aria-hidden="true" tabindex="-1"></a>The <span class="in">`NumericVector`</span> type can only make use of R memory for the input if the input R object is a numeric vector; above it is an integer vector, so a cast needs to be made with values copied to a new object in C++. </span>
+<span id="cb64-388"><a href="#cb64-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-389"><a href="#cb64-389" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-390"><a href="#cb64-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-391"><a href="#cb64-391" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using R classes in C++</span></span>
+<span id="cb64-392"><a href="#cb64-392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-393"><a href="#cb64-393" aria-hidden="true" tabindex="-1"></a>Rcpp provides classes that correspond to most R data structures/classes. We've already seen the use of <span class="in">`NumericVector`</span> for R's numeric vector.</span>
+<span id="cb64-394"><a href="#cb64-394" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-395"><a href="#cb64-395" aria-hidden="true" tabindex="-1"></a>Here's an example (from the Advanced R book) of working with a list (in this case an <span class="in">`lm`</span> S3 object) and manipulating its components in C++. We need to cast the vector components as <span class="in">`NumericVector`</span>s</span>
+<span id="cb64-396"><a href="#cb64-396" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-399"><a href="#cb64-399" aria-hidden="true" tabindex="-1"></a><span class="in">```{cpp}</span></span>
+<span id="cb64-400"><a href="#cb64-400" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></span>
+<span id="cb64-401"><a href="#cb64-401" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> Rcpp<span class="op">;</span></span>
+<span id="cb64-402"><a href="#cb64-402" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-403"><a href="#cb64-403" aria-hidden="true" tabindex="-1"></a><span class="co">// [[Rcpp::export]]</span></span>
+<span id="cb64-404"><a href="#cb64-404" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> mpe<span class="op">(</span>List mod<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb64-405"><a href="#cb64-405" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(!</span>mod<span class="op">.</span>inherits<span class="op">(</span><span class="st">"lm"</span><span class="op">))</span> stop<span class="op">(</span><span class="st">"Input must be a linear model"</span><span class="op">);</span></span>
+<span id="cb64-406"><a href="#cb64-406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-407"><a href="#cb64-407" aria-hidden="true" tabindex="-1"></a>  NumericVector resid <span class="op">=</span> as<span class="op">&lt;</span>NumericVector<span class="op">&gt;(</span>mod<span class="op">[</span><span class="st">"residuals"</span><span class="op">]);</span></span>
+<span id="cb64-408"><a href="#cb64-408" aria-hidden="true" tabindex="-1"></a>  NumericVector fitted <span class="op">=</span> as<span class="op">&lt;</span>NumericVector<span class="op">&gt;(</span>mod<span class="op">[</span><span class="st">"fitted.values"</span><span class="op">]);</span></span>
+<span id="cb64-409"><a href="#cb64-409" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-410"><a href="#cb64-410" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> n <span class="op">=</span> resid<span class="op">.</span>size<span class="op">();</span></span>
+<span id="cb64-411"><a href="#cb64-411" aria-hidden="true" tabindex="-1"></a>  <span class="dt">double</span> err <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb64-412"><a href="#cb64-412" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb64-413"><a href="#cb64-413" aria-hidden="true" tabindex="-1"></a>    err <span class="op">+=</span> resid<span class="op">[</span>i<span class="op">]</span> <span class="op">/</span> <span class="op">(</span>fitted<span class="op">[</span>i<span class="op">]</span> <span class="op">+</span> resid<span class="op">[</span>i<span class="op">]);</span></span>
+<span id="cb64-414"><a href="#cb64-414" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb64-415"><a href="#cb64-415" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> err <span class="op">/</span> n<span class="op">;</span></span>
+<span id="cb64-416"><a href="#cb64-416" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb64-417"><a href="#cb64-417" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-418"><a href="#cb64-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-419"><a href="#cb64-419" aria-hidden="true" tabindex="-1"></a><span class="fu">## Rcpp "sugar"</span></span>
+<span id="cb64-420"><a href="#cb64-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-421"><a href="#cb64-421" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">*Rcpp Sugar*</span><span class="co">](https://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-sugar.pdf)</span> provides additional functionality to make it easier to write C++ code in an R-like way.</span>
+<span id="cb64-422"><a href="#cb64-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-423"><a href="#cb64-423" aria-hidden="true" tabindex="-1"></a>This includes:</span>
+<span id="cb64-424"><a href="#cb64-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-425"><a href="#cb64-425" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Calling functions from R's C math library, e.g., <span class="in">`Rcpp::rnorm(10, 3, 0.5)`</span></span>
+<span id="cb64-426"><a href="#cb64-426" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Various functions that mimic standard R functions (e.g., <span class="in">`all`</span>, <span class="in">`is_na`</span>)</span>
+<span id="cb64-427"><a href="#cb64-427" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Using R's random number generation</span>
+<span id="cb64-428"><a href="#cb64-428" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Vectorized calls (for code clarity, not for speed!)</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
