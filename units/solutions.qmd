@@ -398,3 +398,108 @@ enclosed with and accessible to the function.
 5) Compare timing of some operations on the airline dataset when using `dtplyr` with `lazy_air` versus directly applying dplyr syntax to the `air` data.table obect.
 
    No solution provided.
+
+# Unit 6: Graphics
+
+## Basics
+
+1) Plot a histogram of life expectancy. 
+
+```{r}
+#| eval: false
+ggplot(data = gapminder, aes(x = lifeExp)) + geom_histogram()
+```
+
+2) Plot the gdp per capita against population. Put the x-axis on the log scale.
+
+```{r}
+#| eval: false
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + geom_point() + scale_x_log10() 
+```
+
+3) Clean up your scatterplot with a title and axis labels. Output it as a PDF and see if you'd be comfortable with including it in a report/paper.
+
+```{r}
+#| eval: false
+pdf('readAllAboutIt.pdf', height = 5, width = 5)
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + geom_point() + scale_x_log10() +
+  ggtitle("Life expectancy vs. per capita GDP") + xlab(label = "GDP per capita (dollars)") +
+  ylab(label = "life expectancy (years)")
+dev.off()
+```
+
+## Using the ideas
+
+4) Create a trellis plot of life expectancy by gdpPercap scatterplots, one subplot per continent. Use a 2x3 layout of panels in the plot. Now have the size of the points vary with population. Use `coord_cartesian()` (or `scale_x_continuous(`) to set the x-axis limits to be in the range from 100 to 50000.
+
+```{r}
+#| eval: false
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + geom_point() + scale_x_log10()  +
+            facet_wrap(~continent, nrow = 2, ncol = 3)
+
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + geom_point(aes(size = pop)) +
+            facet_wrap(~continent, nrow = 2, ncol = 3) +
+            coord_cartesian(xlim = c(100, 50000)) + 
+            scale_x_continuous(trans = "log10")
+```
+
+5) Make a boxplot of life expectancy conditional on binned values of gdp per capita.
+
+```{r}
+#| eval: false
+gapminder %>%
+    mutate(gdpBin = cut(gdpPercap, breaks = c(0, 100, 1000, 3000, 10000, 30000, 100000))) %>% 
+    ggplot(aes(x = gdpBin, y = lifeExp)) + geom_boxplot()
+
+gapminder %>% filter(gdpPercap < 100000) %>% 
+    mutate(gdpBin = cut(gdpPercap, breaks = c(0, 100, 1000, 3000, 10000, 30000, 100000))) %>% 
+    ggplot(aes(x = gdpBin, y = lifeExp)) + geom_boxplot()
+
+```
+
+
+## Advanced
+
+6) (and (7)) Create a facsimile of the [famous gapminder plot](https://s3-eu-west-1.amazonaws.com/static.gapminder.org/GapminderMedia/wp-uploads/20161019161829/screenshot2016.jpg) For simplicity just try to create a static image  (ignoring the 'play' button at bottom) for a single year such a 2007.
+
+```{r}
+#| eval: false
+## We need the alpha set for transparency so we don't hide points....
+
+gapminder %>% filter(year == 2007) %>% 
+    ggplot(aes(x = gdpPercap, y = lifeExp, size = pop)) +
+            geom_point(aes(color = continent), show.legend = FALSE, alpha = 0.7) +
+            geom_point(show.legend = FALSE, col = 'black', pch = 1) + 
+            scale_size_continuous(range = c(1,20)) +
+            scale_x_continuous(trans = scales::log_trans(2), 
+                                     breaks = c(1000,2000,4000,8000,16000,32000,64000),
+                                     labels = c('1000','2000','4000','8000','16k','32k','64k')) +
+            scale_y_continuous(breaks = seq(40, 85, by = 5)) +
+            coord_cartesian(ylim = c(35, 90)) +
+            xlab("Income per person, $/year (GDP/capita)") + ylab("") +
+            annotate("text", label = "Life expectancy, years", x = 700, y = 90, cex = 5) +
+            annotate("text", label = "Size: Population, Color: World Regions", cex = 6, x = 100000, y = 55, srt = 90, col = 'gray') +
+            theme(panel.grid = element_blank(), axis.line = element_line(), panel.background = element_blank())
+
+
+## Unless we figure out some way to make sure points are overlaid
+## from largest to smallest. Let's try 'arranging' from largest to smallest.
+## And using some hints found online:
+## https://stackoverflow.com/questions/19506630/control-point-border-thickness-in-ggplot)
+
+
+gapminder %>% filter(year == 2007) %>% arrange(desc(pop)) %>% 
+    ggplot(aes(x = gdpPercap, y = lifeExp, size = pop, fill = continent)) +
+                 geom_point(shape = 21, color = 'black', show.legend = FALSE) +
+            scale_size_continuous(range = c(1,20)) + 
+            scale_x_continuous(trans = scales::log_trans(2), 
+                                     breaks = c(1000,2000,4000,8000,16000,32000,64000),
+                                     labels = c('1000','2000','4000','8000','16k','32k','64k')) +
+            scale_y_continuous(breaks = seq(40, 85, by = 5)) +
+            coord_cartesian(ylim = c(35, 90)) + 
+            xlab("Income per person, $/year (GDP/capita)") + ylab("") +
+            annotate("text", label = "Life expectancy, years", x = 700, y = 90, cex = 5) +
+            annotate("text", label = "Size: Population, Color: World Regions", cex = 6, x = 100000, y = 55, srt = 90, col = 'gray') +
+            theme(panel.grid = element_blank(), axis.line = element_line(), panel.background = element_blank())
+```
+

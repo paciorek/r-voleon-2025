@@ -35,7 +35,7 @@ And here's some motivation - we can produce a plot like [this](gapminder.pdf) wi
 
 (Compare to the [famous gapminder plot](https://s3-eu-west-1.amazonaws.com/static.gapminder.org/GapminderMedia/wp-uploads/20161019161829/screenshot2016.jpg).)
 
-In 2018 or so, producing my version of the plot took me some time experimenting and Googling. I suspect one could do it with a ChatBot quite quickly now. But I'd be curious what errors there would be and how much debugging and knowledge of ggplot would be needed.
+In 2018 or so, producing my version of the plot took me some time experimenting and Googling. I suspect one could do it with a ChatBot quite quickly now. But I'd be curious what errors there would be and how much debugging and knowledge of ggplot would be needed. See Problem 6 of the Breakout.
 
 
 # Base graphics
@@ -79,8 +79,8 @@ barplot(gapChina$pop, width = 4, names.arg = gapChina$year,
 
 ## Object-oriented plots
 
-* Base graphics often recognizes the object type and will implement specific plot methods
-* ggplot generally doesn't exhibit this sort of behavior
+* Base graphics often recognizes the object type and will implement specific plot methods (see that `plot` is an S3 generic).
+* ggplot generally doesn't exhibit this sort of behavior.
 
 Here are two examples:
 
@@ -116,7 +116,7 @@ b) more syntactically logical (and therefore simpler, once you learn it)
 
 c) better at grouping
 
-d) able to interface with maps
+d) easy to interface with maps
 
 We'll focus on `ggplot2` as it is very powerful, very widely-used and allows one to produce very nice-looking graphics without a lot of coding.
 
@@ -128,13 +128,13 @@ The general call for `ggplot2` graphics looks something like this:
 
 ```{r, eval=FALSE}
 # NOT run
-ggplot(data = , aes(x = ,y = , [options])) + geom_xxxx() + ... + ... + ...
+ggplot(data = , mapping = aes(x = ,y = , [options])) + geom_xxxx() + ... + ... + ...
 ```
 
 Note that `ggplot2` graphs in layers in a *continuing call* (hence the endless +...+...+...), which makes additional layers in the plot.
 
 ```{r, eval=FALSE}
-... + geom_xxxx(data = , aes(x = , y = ,[options]), [options]) + ... + ... + ...
+... + geom_xxxx(mapping = aes(x = , y = ,[options]), [options]) + ... + ... + ...
 ```
 
 You can see the layering effect by comparing the same graph with different colors for each layer
@@ -178,7 +178,7 @@ ggplot(gapChina, aes(x = year, y = lifeExp)) + geom_line() +
 ggplot(gapminder, aes(x = factor(year), y = lifeExp)) + geom_boxplot() +
                           ggtitle("World's life expectancy")
 ## Histogram
-gapminder2007 <- gapminder %>% filter(year == 2007)
+gapminder2007 <- gapminder |> filter(year == 2007)
 ggplot(gapminder2007, aes(x = lifeExp)) + geom_histogram(binwidth = 5) +
                           ggtitle("World's life expectancy")
 ```
@@ -190,12 +190,12 @@ ggplot(gapminder2007, aes(x = lifeExp)) + geom_histogram(binwidth = 5) +
 
 ```{r, fig.cap = "", fig.show = "hold"}
 # This combines the subsetting and plotting into one step
-gapminder %>% filter(year == 2007) %>% 
+gapminder |> filter(year == 2007) |> 
         ggplot(aes(x = lifeExp)) + geom_histogram(binwidth = 5) +
                           ggtitle("World's life expectancy")
 ```
 
-Base graphics and ggplot have a big difference: ggplot **requires** your data to be in tidy format. For base graphics, it can actually be helpful *not* to have your data in tidy format in some cases.
+Base graphics and ggplot have a big difference: ggplot **requires** your data to be in [tidy format](tidyverse.html#tidying-data). For base graphics, it can actually be helpful *not* to have your data in tidy format in some cases.
 
 
 ## Features of ggplot
@@ -212,44 +212,48 @@ We've already seen these initial ones.
 
 These are provided for reference -- we won't spend time on each one.
 
-X-Y scatter plots: `geom_point()`
+::: {.callout-note title="X-Y scatter plots: `geom_point()`" collapse="true"}
 
 ```{r, fig.cap=" ", warning=FALSE, fig.show = "hold"}
 ggplot(gapChina, aes(x = year, y = lifeExp)) + geom_point() +
                           ggtitle("China's life expectancy")
 ```
+:::
 
-X-Y line plots: `geom_line()` or `geom_path()`
+::: {.callout-note collapse="true" title="X-Y line plots: `geom_line()` or `geom_path()`"}
 
 ```{r, fig.cap=" ", warning=FALSE, fig.show = "hold"}
 ggplot(gapChina, aes(x = year, y = lifeExp)) + geom_line() +
                           ggtitle("China's life expectancy")
 ```
+:::
 
-Histograms: `geom_histogram()`, `geom_col()`, or `geom_bar()`
+::: {.callout-note collapse="true" title="Histograms: `geom_histogram()`, `geom_col()`, or `geom_bar()`"}
 
 ```{r, fig.cap=""}
-gapminder2007 <- gapminder %>% filter(year == 2007)
+gapminder2007 <- gapminder |> filter(year == 2007)
 ggplot(gapminder2007, aes(x = lifeExp)) + geom_histogram(binwidth = 5) +
                           ggtitle("World's life expectancy")
 ```
+:::
 
-Densities: `geom_density()`, `geom_density2d()`
+::: {.callout-note collapse="true" title="Densities: `geom_density()`, `geom_density2d()`"}
 
 ```{r, fig.cap=" ", warning=FALSE, fig.show = "hold"}
 ggplot(gapminder2007, aes(x = lifeExp)) + geom_density() + 
                           ggtitle("World's life expectancy")
 ```
+:::
 
-Boxplots: `geom_boxplot()`
+::: {.callout-note collapse="true" title="Boxplots: `geom_boxplot()`"}
 
 ```{r, fig.cap=" ", warning=FALSE, fig.show = "hold"}
 # Notice that here, you must explicitly convert numeric years to factors
 ggplot(data = gapminder, aes(x = factor(year), y = lifeExp)) +
             geom_boxplot() 
 ```
-
-Contour plots: `geom_contour()`
+:::
+::: {.callout-note collapse="true" title="Contour plots: `geom_contour()`"}
 
 ```{r, fig.cap=" ", warning=FALSE, fig.show = "hold"}
 data(volcano) # Load volcano contour data
@@ -261,13 +265,15 @@ names(volcano3d) <- c("xvar", "yvar", "zvar") # Rename volcano3d columns
 ggplot(data = volcano3d, aes(x = xvar, y = yvar, z = zvar)) +
             geom_contour() 
 ```
+:::
 
-tile/image/level plots, heatmaps: `geom_tile()`, `geom_rect()`, `geom_raster()`
+::: {.callout-note collapse="true" title="Tile/Image/Level plots, heatmaps: `geom_tile()`, `geom_rect()`, `geom_raster()`"}
 
 ```{r, fig.cap=" ", warning=FALSE, fig.show = "hold"}
 ggplot(data = volcano3d, aes(x = xvar, y = yvar, z = zvar)) +
             geom_tile(aes(fill = zvar)) 
 ```
+:::
 
 ## "Trellis" plots
 
@@ -285,7 +291,7 @@ This can be quite powerful. It gives you the ability to take account of an addit
 
 ```{r, eval=FALSE}
 # NOT run
-ggplot(data = , aes(x = , y = , color = , linetype = , shape = , size = ))
+ggplot(data = , mapping = aes(x = , y = , color = , linetype = , shape = , size = ))
 ```
 
 These four aesthetic parameters (`color`, `linetype`, `shape`, `size`) can be used to show variation in *kind* (categories) and variation in *degree* (numeric).
@@ -327,7 +333,7 @@ ggplot(data = gapminder2007, aes(x = gdpPercap, y = lifeExp)) +
             geom_point(aes(shape = continent)) + scale_x_log10()
 
 ## line type as the aesthetic to differentiate by country
-gapOceania <- gapminder %>% filter(continent %in% 'Oceania')
+gapOceania <- gapminder |> filter(continent %in% 'Oceania')
 ggplot(data = gapOceania, aes(x = year, y = lifeExp)) +
             geom_line(aes(linetype = country)) + scale_x_log10()
 ```
@@ -364,13 +370,13 @@ How many variables have we represented? If we used a trellis plot we could repre
 
 Which of these ggplot2 calls will work (in the sense of not giving an error, not in the sense of being a useful plot)?
 
-1) gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) %>% geom_point()
-2) gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp))
-3) gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) + geom_point()
-4) gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp, shape = 'a')) + geom_point()
-5) gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) + geom_point(aes(shape = country), show.legend = FALSE)
-6) gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) + geom_point(shape = 'a', show.legend = FALSE)
-7) gapminder %>% ggplot() + geom_point(aes(x = gdpPercap, y = lifeExp, shape = country), show.legend = FALSE)
+1) `gapminder |> ggplot(aes(x = gdpPercap, y = lifeExp)) |> geom_point()`
+2) `gapminder |> ggplot(aes(x = gdpPercap, y = lifeExp))`
+3) `gapminder |> ggplot(aes(x = gdpPercap, y = lifeExp)) + geom_point()`
+4) `gapminder |> ggplot(aes(x = gdpPercap, y = lifeExp, shape = 'a')) + geom_point()`
+5) `gapminder |> ggplot(aes(x = gdpPercap, y = lifeExp)) + geom_point(aes(shape = country), show.legend = FALSE)`
+6) `gapminder |> ggplot(aes(x = gdpPercap, y = lifeExp)) + geom_point(shape = 'a', show.legend = FALSE)`
+7) `gapminder |> ggplot() + geom_point(aes(x = gdpPercap, y = lifeExp, shape = country), show.legend = FALSE)`
 :::
 
 ## Where do I put `aes()`? (optional)
@@ -383,16 +389,16 @@ As seen in the code snippets in the quick quiz, one can put `aes()` in the origi
 So where you put it affects the "scope" of what it affects.
 
 ```{r}
-gapminder %>% filter(continent == "Oceania") %>%
+gapminder |> filter(continent == "Oceania") |>
           ggplot(aes(x = year, y = gdpPercap, color = country)) +
           geom_line() + geom_point()
 
-gapminder %>% filter(continent == "Oceania") %>%
+gapminder |> filter(continent == "Oceania") |>
           ggplot(aes(x = year, y = gdpPercap)) +
           geom_line(aes(color = country)) + geom_point()
 
 # Yikes, this doesn't work right:
-gapminder %>% filter(continent == "Oceania") %>%
+gapminder |> filter(continent == "Oceania") |>
           ggplot(aes(x = year, y = gdpPercap)) +
           geom_point(aes(color = country)) + geom_line()
 ```
@@ -401,7 +407,7 @@ gapminder %>% filter(continent == "Oceania") %>%
 ## Scaling Aesthetics
 
 Aesthetics are handled by their very own `scale` functions which allow you to set
-the limits, breaks, tranformations, and any palletes that might determine how you want your 
+the limits, breaks, transformations, and any palletes that might determine how you want your 
 data plotted. ggplot includes a number of helpful default scale functions. For example:
 
   - `scale_x_log10` that can transform your data on the fly
@@ -477,7 +483,7 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
             geom_point(color = "red") 
 ```
 
-### Point Styles and Widths (optional)
+### Point Styles and Widths
 
 ```{r, fig.cap=" ", warning=FALSE, fig.show = "hold"}
 ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
@@ -488,7 +494,7 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
             geom_point(shape = "$", size=5) 
 ```
 
-### Line Styles and Widths (optional)
+### Line Styles and Widths
 
 ```{r, fig.cap=" ", warning=FALSE, fig.show = "hold"}
 ggplot(data = gapChina, aes(x = year, y = lifeExp)) +
@@ -520,8 +526,8 @@ For instance, perhaps you want to move the legend from the left to the bottom of
 your plot, this would be part of the plot theme. Note how you can add options to a complete theme already in the plot:
 
 ```{r}
-gapminder %>%
-  filter(country %in% c("China", "Turkey", "Italy")) %>%
+gapminder |>
+  filter(country %in% c("China", "Turkey", "Italy")) |>
   ggplot(aes(x = year, y = lifeExp)) +
   geom_line(aes(color = country)) +
   theme_minimal() + 
@@ -530,7 +536,7 @@ gapminder %>%
 
 ## Combining Multiple Plots
 
-* ggplot graphs can be combined using the `grid.arrange()` function in the `gridExtra` package
+ggplot graphs can be combined using the `grid.arrange()` function in the `gridExtra` package. This takes advantage of each plot being an object.
 
 ```{r, warning=FALSE, fig.cap=" "}
 library(gridExtra)
@@ -633,7 +639,7 @@ ggsave(filename = "example.pdf", plot = plot1, scale = , width = , height = )
 
 These questions ask you to work with the gapminder dataset.
 
-### Basics
+## Basics
 
 1) Plot a histogram of life expectancy. 
 
@@ -641,26 +647,15 @@ These questions ask you to work with the gapminder dataset.
 
 3) Clean up your scatterplot with a title and axis labels. Output it as a PDF and see if you'd be comfortable with including it in a report/paper.
 
-### Using the ideas
+## Using the ideas
 
 4) Create a trellis plot of life expectancy by gdpPercap scatterplots, one subplot per continent. Use a 2x3 layout of panels in the plot. Now have the size of the points vary with population. Use `coord_cartesian()` (or `scale_x_continuous(`) to set the x-axis limits to be in the range from 100 to 50000.
 
 5) Make a boxplot of life expectancy conditional on binned values of gdp per capita.
 
-### Advanced
+## Advanced
 
-6) Try to create a facsimile of the [famous gapminder plot](https://s3-eu-west-1.amazonaws.com/static.gapminder.org/GapminderMedia/wp-uploads/20161019161829/screenshot2016.jpg) without looking at my code by using a ChatBot, providing it with information about the gapminder dataframe. For simplicity just try to create a static image  (ignoring the 'play' button at bottom) for a single year such a 2007.
+6) Try to create a facsimile of the [famous Gapminder plot](https://s3-eu-west-1.amazonaws.com/static.gapminder.org/GapminderMedia/wp-uploads/20161019161829/screenshot2016.jpg) without looking at my code by using a ChatBot, providing it with information about the gapminder dataframe. For simplicity just try to create a static image  (ignoring the 'play' button at bottom) for a single year such as 2007.
 
-7) Alternatively (to #6), using the data for 2007, without using a ChatBot, recreate as much as you can of [this famous Gapminder plot](https://s3-eu-west-1.amazonaws.com/static.gapminder.org/GapminderMedia/wp-uploads/20161019161829/screenshot2016.jpg), where the colors are different continents. (Don't worry about the '2015' in the background and ignore the 'play' button at the bottom.)
-
-7) Create a "trellis" plot where, for a given year, each panel uses a) hollow circles to plot lifeExp as a function of log(gdpPercap), and b) a red loess smoother without standard errors to plot the trend. Turn off the grey background. Figure out how to use partially-transparent points to reduce the effect of the overplotting of points.
-
-8) In the following code, I try to plot the life expectancy over time, one line per country but where the color is by continent (in the module, we saw how to have the color vary by country).
-
-   ```{r, fig.cap="", eval=FALSE}
-   ggplot(data = gapminder, aes(x = year, y = lifeExp)) +
-               geom_line(aes(color = continent))
-   ```
-
-   This doesn't work. See if you can understand why and how to fix it. Hint, look up "group" in the ggplot2 help information in R.
+7) Alternatively (to #6), using the data for 2007, but *without* using a ChatBot, recreate as much as you can of the [famous Gapminder plot](https://s3-eu-west-1.amazonaws.com/static.gapminder.org/GapminderMedia/wp-uploads/20161019161829/screenshot2016.jpg). For simplicity just try to create a static image  (ignoring the 'play' button at bottom) for a single year such as 2007. 
 
