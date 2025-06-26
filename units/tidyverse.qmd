@@ -634,7 +634,7 @@ Basically, you tell the package what DBMS is being used on the back-end, link to
 
 Our example will use a DuckDB database. DuckDB is a nice alternative to SQLite for a simple database (i.e., just a single file) that is fast to use for data analysis work (it uses columnar storage).
 
-You can get [this example database](http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.duckdb) of information about Stack Overflow questions and answers. Stack Overflow is a website where programmers and software users can pose questions and get answers to technical problems.
+You can get [this example database](http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2021.duckdb) of information about Stack Overflow questions and answers. Stack Overflow is a website where programmers and software users can pose questions and get answers to technical problems.
 
 
 
