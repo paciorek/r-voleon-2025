@@ -229,7 +229,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#inferenceregression" id="toc-inferenceregression" class="nav-link active" data-scroll-target="#inferenceregression">Inference/Regression</a>
+  <li><a href="#regression" id="toc-regression" class="nav-link active" data-scroll-target="#regression">Regression</a>
   <ul class="collapse">
   <li><a href="#regression-output" id="toc-regression-output" class="nav-link" data-scroll-target="#regression-output">Regression output</a>
   <ul class="collapse">
@@ -249,12 +249,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#sampling-from-a-finite-set" id="toc-sampling-from-a-finite-set" class="nav-link" data-scroll-target="#sampling-from-a-finite-set">Sampling from a finite set</a></li>
   <li><a href="#the-random-seed" id="toc-the-random-seed" class="nav-link" data-scroll-target="#the-random-seed">The Random Seed</a></li>
   </ul></li>
-  <li><a href="#optimization" id="toc-optimization" class="nav-link" data-scroll-target="#optimization">Optimization</a></li>
+  <li><a href="#optimization" id="toc-optimization" class="nav-link" data-scroll-target="#optimization">Optimization</a>
+  <ul class="collapse">
+  <li><a href="#optim" id="toc-optim" class="nav-link" data-scroll-target="#optim"><code>optim</code></a></li>
+  <li><a href="#convex-optimization-and-other-solvers" id="toc-convex-optimization-and-other-solvers" class="nav-link" data-scroll-target="#convex-optimization-and-other-solvers">Convex optimization and other solvers</a></li>
+  </ul></li>
   <li><a href="#dates-and-times" id="toc-dates-and-times" class="nav-link" data-scroll-target="#dates-and-times">Dates and Times</a>
   <ul class="collapse">
   <li><a href="#dates" id="toc-dates" class="nav-link" data-scroll-target="#dates">Dates</a></li>
-  </ul></li>
   <li><a href="#time" id="toc-time" class="nav-link" data-scroll-target="#time">Time</a></li>
+  </ul></li>
   <li><a href="#breakout" id="toc-breakout" class="nav-link" data-scroll-target="#breakout">Breakout</a>
   <ul class="collapse">
   <li><a href="#basics" id="toc-basics" class="nav-link" data-scroll-target="#basics">Basics</a></li>
@@ -286,8 +290,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="inferenceregression" class="level1">
-<h1>Inference/Regression</h1>
+<section id="regression" class="level1">
+<h1>Regression</h1>
 <ul>
 <li><p><em>glm</em> fits a generalized linear model with your choice of family/link function (Gaussian, logit, Poisson, etc.)</p>
 <ul>
@@ -311,6 +315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 </ul>
+<p>Also note that a lot of causal inference methods are implemented in R.</p>
 <section id="regression-output" class="level2">
 <h2 class="anchored" data-anchor-id="regression-output">Regression output</h2>
 <section id="basic-output-in-an-s3-object" class="level3">
@@ -440,175 +445,70 @@ year                 0.2377202  0.008932106  26.614126 1.058968e-130</code></pre
 <p><code>x1:x2</code> interacts all terms in x1 with all terms in x2</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(lifeExp <span class="sc">~</span> <span class="fu">log</span>(gdpPercap) <span class="sc">+</span> <span class="fu">log</span>(pop) <span class="sc">+</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                    continent<span class="sc">:</span><span class="fu">factor</span>(year), </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                    continent<span class="sc">:</span>year, </span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data =</span> gapminder))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = lifeExp ~ log(gdpPercap) + log(pop) + continent:factor(year), 
+lm(formula = lifeExp ~ log(gdpPercap) + log(pop) + continent:year, 
     data = gapminder)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--26.5678  -2.5530   0.0044   2.9146  15.5667 
+-25.0197  -3.3027   0.3154   3.6920  15.0869 
 
-Coefficients: (1 not defined because of singularities)
-                                    Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)                         27.18384    4.68490   5.802 7.83e-09 ***
-log(gdpPercap)                       5.07950    0.16049  31.650  &lt; 2e-16 ***
-log(pop)                             0.07894    0.09427   0.837 0.402510    
-continentAfrica:factor(year)1952   -24.14252    4.11250  -5.871 5.25e-09 ***
-continentAmericas:factor(year)1952 -16.44650    4.16627  -3.948 8.23e-05 ***
-continentAsia:factor(year)1952     -19.33470    4.14083  -4.669 3.27e-06 ***
-continentEurope:factor(year)1952    -7.09176    4.13518  -1.715 0.086537 .  
-continentOceania:factor(year)1952   -6.06350    5.65111  -1.073 0.283440    
-continentAfrica:factor(year)1957   -22.49637    4.10985  -5.474 5.09e-08 ***
-continentAmericas:factor(year)1957 -14.36734    4.16433  -3.450 0.000575 ***
-continentAsia:factor(year)1957     -17.17434    4.13753  -4.151 3.48e-05 ***
-continentEurope:factor(year)1957    -5.90941    4.13272  -1.430 0.152934    
-continentOceania:factor(year)1957   -5.62997    5.65034  -0.996 0.319206    
-continentAfrica:factor(year)1962   -21.01387    4.10690  -5.117 3.47e-07 ***
-continentAmericas:factor(year)1962 -12.31354    4.16305  -2.958 0.003143 ** 
-continentAsia:factor(year)1962     -15.56258    4.13513  -3.764 0.000173 ***
-continentEurope:factor(year)1962    -5.05421    4.13082  -1.224 0.221302    
-continentOceania:factor(year)1962   -5.31223    5.64979  -0.940 0.347226    
-continentAfrica:factor(year)1967   -19.70336    4.10348  -4.802 1.72e-06 ***
-continentAmericas:factor(year)1967 -10.93238    4.16129  -2.627 0.008690 ** 
-continentAsia:factor(year)1967     -13.15690    4.13270  -3.184 0.001482 ** 
-continentEurope:factor(year)1967    -4.91343    4.12905  -1.190 0.234232    
-continentOceania:factor(year)1967   -5.77117    5.64916  -1.022 0.307122    
-continentAfrica:factor(year)1972   -18.14692    4.10075  -4.425 1.03e-05 ***
-continentAmericas:factor(year)1972  -9.65366    4.15954  -2.321 0.020417 *  
-continentAsia:factor(year)1972     -11.60139    4.12929  -2.810 0.005020 ** 
-continentEurope:factor(year)1972    -4.97628    4.12753  -1.206 0.228133    
-continentOceania:factor(year)1972   -5.80936    5.64868  -1.028 0.303891    
-continentAfrica:factor(year)1977   -16.18475    4.09960  -3.948 8.22e-05 ***
-continentAmericas:factor(year)1977  -8.33819    4.15801  -2.005 0.045092 *  
-continentAsia:factor(year)1977     -10.12201    4.12699  -2.453 0.014285 *  
-continentEurope:factor(year)1977    -4.55230    4.12667  -1.103 0.270128    
-continentOceania:factor(year)1977   -5.12322    5.64848  -0.907 0.364535    
-continentAfrica:factor(year)1982   -14.19333    4.09899  -3.463 0.000549 ***
-continentAmericas:factor(year)1982  -6.59214    4.15772  -1.586 0.113041    
-continentAsia:factor(year)1982      -7.60009    4.12571  -1.842 0.065636 .  
-continentEurope:factor(year)1982    -4.11846    4.12623  -0.998 0.318370    
-continentOceania:factor(year)1982   -4.05526    5.64827  -0.718 0.472882    
-continentAfrica:factor(year)1987   -12.18504    4.09947  -2.972 0.002998 ** 
-continentAmericas:factor(year)1987  -4.71568    4.15765  -1.134 0.256870    
-continentAsia:factor(year)1987      -5.69142    4.12491  -1.380 0.167846    
-continentEurope:factor(year)1987    -3.72976    4.12583  -0.904 0.366126    
-continentOceania:factor(year)1987   -3.51642    5.64805  -0.623 0.533640    
-continentAfrica:factor(year)1992   -11.80275    4.09942  -2.879 0.004039 ** 
-continentAmericas:factor(year)1992  -3.28548    4.15749  -0.790 0.429492    
-continentAsia:factor(year)1992      -4.38228    4.12405  -1.063 0.288113    
-continentEurope:factor(year)1992    -2.51508    4.12618  -0.610 0.542249    
-continentOceania:factor(year)1992   -1.98041    5.64799  -0.351 0.725904    
-continentAfrica:factor(year)1997   -11.95773    4.09861  -2.918 0.003576 ** 
-continentAmericas:factor(year)1997  -2.16110    4.15661  -0.520 0.603190    
-continentAsia:factor(year)1997      -3.50157    4.12279  -0.849 0.395826    
-continentEurope:factor(year)1997    -2.08430    4.12564  -0.505 0.613482    
-continentOceania:factor(year)1997   -1.44783    5.64778  -0.256 0.797710    
-continentAfrica:factor(year)2002   -12.52375    4.09722  -3.057 0.002274 ** 
-continentAmericas:factor(year)2002  -0.98980    4.15641  -0.238 0.811804    
-continentAsia:factor(year)2002      -2.67982    4.12205  -0.650 0.515707    
-continentEurope:factor(year)2002    -1.57345    4.12518  -0.381 0.702937    
-continentOceania:factor(year)2002   -0.47345    5.64768  -0.084 0.933201    
-continentAfrica:factor(year)2007   -11.65685    4.09478  -2.847 0.004472 ** 
-continentAmericas:factor(year)2007  -0.69311    4.15497  -0.167 0.867536    
-continentAsia:factor(year)2007      -2.20076    4.12023  -0.534 0.593320    
-continentEurope:factor(year)2007    -1.52841    4.12475  -0.371 0.711024    
-continentOceania:factor(year)2007         NA         NA      NA       NA    
+Coefficients:
+                         Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)            -4.548e+02  1.693e+01  -26.86   &lt;2e-16 ***
+log(gdpPercap)          5.078e+00  1.630e-01   31.16   &lt;2e-16 ***
+log(pop)                1.548e-01  9.674e-02    1.60     0.11    
+continentAfrica:year    2.347e-01  8.906e-03   26.35   &lt;2e-16 ***
+continentAmericas:year  2.391e-01  8.956e-03   26.70   &lt;2e-16 ***
+continentAsia:year      2.381e-01  8.947e-03   26.61   &lt;2e-16 ***
+continentEurope:year    2.409e-01  8.978e-03   26.83   &lt;2e-16 ***
+continentOceania:year   2.410e-01  9.006e-03   26.76   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 5.648 on 1642 degrees of freedom
-Multiple R-squared:  0.8157,    Adjusted R-squared:  0.8088 
-F-statistic: 119.1 on 61 and 1642 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 5.815 on 1696 degrees of freedom
+Multiple R-squared:  0.7982,    Adjusted R-squared:  0.7973 
+F-statistic: 958.1 on 7 and 1696 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <p><code>x1*x2</code> produces the cross of x1 and x2, or x1+x2+x1:x2</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(lifeExp <span class="sc">~</span> <span class="fu">log</span>(gdpPercap) <span class="sc">+</span> <span class="fu">log</span>(pop) <span class="sc">+</span> continent<span class="sc">*</span><span class="fu">factor</span>(year), </span>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(lifeExp <span class="sc">~</span> <span class="fu">log</span>(gdpPercap) <span class="sc">+</span> <span class="fu">log</span>(pop) <span class="sc">+</span> continent<span class="sc">*</span>year, </span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> gapminder))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
 lm(formula = lifeExp ~ log(gdpPercap) + log(pop) + continent * 
-    factor(year), data = gapminder)
+    year, data = gapminder)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--26.5678  -2.5530   0.0044   2.9146  15.5667 
+-25.0806  -2.6848   0.0841   2.9854  15.0915 
 
 Coefficients:
-                                   Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)                         3.04133    2.07409   1.466 0.142746    
-log(gdpPercap)                      5.07950    0.16049  31.650  &lt; 2e-16 ***
-log(pop)                            0.07894    0.09427   0.837 0.402510    
-continentAmericas                   7.69602    1.39324   5.524 3.85e-08 ***
-continentAsia                       4.80781    1.26567   3.799 0.000151 ***
-continentEurope                    17.05075    1.32948  12.825  &lt; 2e-16 ***
-continentOceania                   18.07902    4.08899   4.421 1.05e-05 ***
-factor(year)1957                    1.64615    1.10777   1.486 0.137470    
-factor(year)1962                    3.12865    1.10838   2.823 0.004819 ** 
-factor(year)1967                    4.43915    1.10969   4.000 6.61e-05 ***
-factor(year)1972                    5.99560    1.11134   5.395 7.85e-08 ***
-factor(year)1977                    7.95776    1.11240   7.154 1.27e-12 ***
-factor(year)1982                    9.94918    1.11336   8.936  &lt; 2e-16 ***
-factor(year)1987                   11.95748    1.11375  10.736  &lt; 2e-16 ***
-factor(year)1992                   12.33976    1.11463  11.071  &lt; 2e-16 ***
-factor(year)1997                   12.18479    1.11605  10.918  &lt; 2e-16 ***
-factor(year)2002                   11.61877    1.11805  10.392  &lt; 2e-16 ***
-factor(year)2007                   12.48567    1.12120  11.136  &lt; 2e-16 ***
-continentAmericas:factor(year)1957  0.43301    1.94383   0.223 0.823748    
-continentAsia:factor(year)1957      0.51422    1.77764   0.289 0.772410    
-continentEurope:factor(year)1957   -0.46380    1.83127  -0.253 0.800095    
-continentOceania:factor(year)1957  -1.21261    5.75524  -0.211 0.833150    
-continentAmericas:factor(year)1962  1.00431    1.94383   0.517 0.605458    
-continentAsia:factor(year)1962      0.64348    1.77767   0.362 0.717414    
-continentEurope:factor(year)1962   -1.09110    1.83146  -0.596 0.551422    
-continentOceania:factor(year)1962  -2.37738    5.75524  -0.413 0.679601    
-continentAmericas:factor(year)1967  1.07497    1.94383   0.553 0.580329    
-continentAsia:factor(year)1967      1.73865    1.77767   0.978 0.328194    
-continentEurope:factor(year)1967   -2.26082    1.83170  -1.234 0.217278    
-continentOceania:factor(year)1967  -4.14682    5.75524  -0.721 0.471302    
-continentAmericas:factor(year)1972  0.79724    1.94383   0.410 0.681756    
-continentAsia:factor(year)1972      1.73772    1.77790   0.977 0.328513    
-continentEurope:factor(year)1972   -3.88011    1.83221  -2.118 0.034348 *  
-continentOceania:factor(year)1972  -5.74146    5.75524  -0.998 0.318618    
-continentAmericas:factor(year)1977  0.15055    1.94389   0.077 0.938277    
-continentAsia:factor(year)1977      1.25493    1.77837   0.706 0.480498    
-continentEurope:factor(year)1977   -5.41829    1.83293  -2.956 0.003160 ** 
-continentOceania:factor(year)1977  -7.01748    5.75525  -1.219 0.222899    
-continentAmericas:factor(year)1982 -0.09483    1.94391  -0.049 0.961100    
-continentAsia:factor(year)1982      1.78543    1.77884   1.004 0.315670    
-continentEurope:factor(year)1982   -6.97588    1.83363  -3.804 0.000147 ***
-continentOceania:factor(year)1982  -7.94094    5.75529  -1.380 0.167847    
-continentAmericas:factor(year)1987 -0.22666    1.94400  -0.117 0.907197    
-continentAsia:factor(year)1987      1.68580    1.77960   0.947 0.343629    
-continentEurope:factor(year)1987   -8.59548    1.83497  -4.684 3.04e-06 ***
-continentOceania:factor(year)1987  -9.41040    5.75542  -1.635 0.102230    
-continentAmericas:factor(year)1992  0.82125    1.94407   0.422 0.672760    
-continentAsia:factor(year)1992      2.61266    1.78035   1.468 0.142431    
-continentEurope:factor(year)1992   -7.76308    1.83465  -4.231 2.45e-05 ***
-continentOceania:factor(year)1992  -8.25667    5.75549  -1.435 0.151599    
-continentAmericas:factor(year)1997  2.10061    1.94427   1.080 0.280118    
-continentAsia:factor(year)1997      3.64834    1.78125   2.048 0.040700 *  
-continentEurope:factor(year)1997   -7.17732    1.83581  -3.910 9.62e-05 ***
-continentOceania:factor(year)1997  -7.56911    5.75567  -1.315 0.188670    
-continentAmericas:factor(year)2002  3.83793    1.94418   1.974 0.048542 *  
-continentAsia:factor(year)2002      5.03611    1.78142   2.827 0.004755 ** 
-continentEurope:factor(year)2002   -6.10046    1.83686  -3.321 0.000916 ***
-continentOceania:factor(year)2002  -6.02872    5.75579  -1.047 0.295061    
-continentAmericas:factor(year)2007  3.26772    1.94437   1.681 0.093029 .  
-continentAsia:factor(year)2007      4.64828    1.78228   2.608 0.009188 ** 
-continentEurope:factor(year)2007   -6.92231    1.83777  -3.767 0.000171 ***
-continentOceania:factor(year)2007  -6.42217    5.75579  -1.116 0.264682    
+                         Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)            -473.03485   26.17537 -18.072  &lt; 2e-16 ***
+log(gdpPercap)            5.10118    0.15941  32.000  &lt; 2e-16 ***
+log(pop)                  0.08533    0.09408   0.907 0.364562    
+continentAmericas       -87.50791   45.46983  -1.925 0.054456 .  
+continentAsia          -155.23145   41.83591  -3.710 0.000214 ***
+continentEurope         307.16361   43.14210   7.120 1.59e-12 ***
+continentOceania        265.84261  134.56117   1.976 0.048359 *  
+year                      0.24432    0.01341  18.224  &lt; 2e-16 ***
+continentAmericas:year    0.04863    0.02297   2.117 0.034410 *  
+continentAsia:year        0.08190    0.02114   3.874 0.000111 ***
+continentEurope:year     -0.14897    0.02181  -6.831 1.17e-11 ***
+continentOceania:year    -0.12798    0.06798  -1.883 0.059922 .  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 5.648 on 1642 degrees of freedom
-Multiple R-squared:  0.8157,    Adjusted R-squared:  0.8088 
-F-statistic: 119.1 on 61 and 1642 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 5.639 on 1692 degrees of freedom
+Multiple R-squared:  0.8107,    Adjusted R-squared:  0.8094 
+F-statistic: 658.6 on 11 and 1692 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 </section>
@@ -618,7 +518,7 @@ F-statistic: 119.1 on 61 and 1642 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>Linear regression and GLMs are of course useful, but often the relationship is not linear, even on some transformed scale.</p>
 <p>Additive models and generalized additive models (GAMs) are the more flexible variants on linear models and GLMs.</p>
 <p>There are a variety of tools in R for modeling nonlinear and smooth relationships, mirroring the variety of methods in the literature.</p>
-<p>One workhorse is <code>gam()</code> in the <em>mgcv</em> package.</p>
+<p>One workhorse is <code>gam()</code> in the <em>mgcv</em> package, which uses penalized splines, implemented carefully for efficiency and numerical robustness.</p>
 <section id="mgcvgam-in-action" class="level2">
 <h2 class="anchored" data-anchor-id="mgcvgam-in-action"><code>mgcv::gam</code> in action</h2>
 <p>Do we think there should be a linear relationship of life expectancy with GDP and year?</p>
@@ -710,10 +610,10 @@ GCV = 44.315  Scale est. = 43.879    n = 1704</code></pre>
 <p>Since R was developed by statisticians, it handles distributions and simulation seamlessly.</p>
 <p>All commonly-used distributions have functions in R. Each distribution has a family of functions:</p>
 <ul>
-<li>d - probability density/mass function (PDF), e.g.&nbsp;<code>dnorm()</code></li>
-<li>r - generate a random value, e.g., <code>rnorm()</code></li>
-<li>p - cumulative distribution function (CDF), e.g., <code>pnorm()</code></li>
-<li>q - quantile function (inverse CDF), e.g., <code>qnorm()</code></li>
+<li><code>d</code> - probability density/mass function (PDF), e.g.&nbsp;<code>dnorm()</code></li>
+<li><code>r</code> - generate a random value, e.g., <code>rnorm()</code></li>
+<li><code>p</code> - cumulative distribution function (CDF), e.g., <code>pnorm()</code></li>
+<li><code>q</code> - quantile function (inverse CDF), e.g., <code>qnorm()</code></li>
 </ul>
 <p>Some of the distributions include the following (in the form of their random number generator function): <code>rnorm()</code>, <code>runif()</code>, <code>rbinom()</code>, <code>rpois()</code>, <code>rbeta()</code>, <code>rgamma()</code>, <code>rt()</code>, <code>rchisq()</code>.</p>
 <section id="distributions-in-action" class="level2">
@@ -756,12 +656,12 @@ GCV = 44.315  Scale est. = 43.879    n = 1704</code></pre>
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rmultinom</span>(<span class="dv">1</span>, <span class="dv">100</span>, <span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">1</span>, .<span class="dv">1</span>, .<span class="dv">2</span>, .<span class="dv">3</span>, .<span class="dv">25</span>, .<span class="dv">05</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1]
-[1,]    9
-[2,]   11
-[3,]   24
-[4,]   35
-[5,]   18
-[6,]    3</code></pre>
+[1,]   13
+[2,]    6
+[3,]   21
+[4,]   27
+[5,]   25
+[6,]    8</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">length =</span> <span class="dv">100</span>)</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="fu">dchisq</span>(x, <span class="at">df =</span> <span class="dv">1</span>), <span class="at">type =</span> <span class="st">'l'</span>)</span>
@@ -781,8 +681,8 @@ GCV = 44.315  Scale est. = 43.879    n = 1704</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(gapminder), <span class="dv">20</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1]  706  321  119 1516   67 1238  650  344  313 1614  120  141  717  620   40
-[16]  459 1249 1352  977  259</code></pre>
+<pre><code> [1] 1670  625  223  799 1099 1223 1144  251 1190  415  766  638 1456 1400  379
+[16] 1206   81 1486 1618  822</code></pre>
 </div>
 </div>
 <p>Here’s an example of some code that would be part of coding up a bootstrap. As I mentioned previously, this would be a weird dataset to do formal statistical inference on given it includes most of the countries in the world, though one could think about fitting models for the variation over time, treating short-term fluctuations as random.</p>
@@ -796,7 +696,7 @@ GCV = 44.315  Scale est. = 43.879    n = 1704</code></pre>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>smp <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">seq_len</span>(<span class="fu">nrow</span>(gapminder)), <span class="at">replace =</span> <span class="cn">TRUE</span>) </span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(gapminder<span class="sc">$</span>lifeExp[smp], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 60.1616</code></pre>
+<pre><code>[1] 59.7602</code></pre>
 </div>
 </div>
 <p>It’s a good idea to use <code>seq_along()</code> and <code>seq_len()</code> and not syntax like <code>1:length(gapminder)</code> in <code>sample()</code> because the outcome of <code>length()</code> might in some cases be unexpected (e.g., if you’re taking subsets of a dataset). Similar reasoning holds when setting up for loops: e.g.,</p>
@@ -843,6 +743,8 @@ GCV = 44.315  Scale est. = 43.879    n = 1704</code></pre>
 <section id="optimization" class="level1">
 <h1>Optimization</h1>
 <p>R provides functionality for optimization - finding maxima or minima of a function.</p>
+<section id="optim" class="level2">
+<h2 class="anchored" data-anchor-id="optim"><code>optim</code></h2>
 <p>A workhorse is <code>optim()</code>, which implements a number of optimization algorithms.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fields)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -887,7 +789,7 @@ $message
 NULL</code></pre>
 </div>
 </div>
-<p>We can see the progression of evaluations of the objective function:</p>
+<p>We can see the progression of evaluations of the objective function (not shown in the html):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>banana <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {   <span class="do">## Rosenbrock Banana function</span></span>
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>         <span class="fu">points</span>(x[<span class="dv">1</span>],x[<span class="dv">2</span>])</span>
@@ -900,6 +802,12 @@ NULL</code></pre>
 <span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a><span class="fu">image.plot</span>(x1s, x2s, <span class="fu">matrix</span>(<span class="fu">log</span>(fx), <span class="dv">100</span>), <span class="at">xlab =</span> <span class="st">''</span>, <span class="at">ylab =</span> <span class="st">''</span>)</span>
 <span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a><span class="fu">optim</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>,<span class="dv">0</span>), banana)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="convex-optimization-and-other-solvers" class="level2">
+<h2 class="anchored" data-anchor-id="convex-optimization-and-other-solvers">Convex optimization and other solvers</h2>
+<p>For convex optimization you could look at <code>CVXR</code> (as an alternative to <code>cvxopt</code> in Python).</p>
+<p>One can interface with commercial optimization software such as Gurobi, MOSEK and Cplex.</p>
+</section>
 </section>
 <section id="dates-and-times" class="level1">
 <h1>Dates and Times</h1>
@@ -942,9 +850,8 @@ NULL</code></pre>
 </div>
 <p>The “origin” date in R is January 1, 1970</p>
 </section>
-</section>
-<section id="time" class="level1">
-<h1>Time</h1>
+<section id="time" class="level2">
+<h2 class="anchored" data-anchor-id="time">Time</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(chron)</span>
 <span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">chron</span>(<span class="st">"12/25/2004"</span>, <span class="st">"10:37:59"</span>) </span>
@@ -975,18 +882,19 @@ NULL</code></pre>
 </div>
 <p>There’s lots more packages/functionality for dates/times: see <code>lubridate</code> (from the tidyverse) and <code>?DateTimeClasses</code></p>
 </section>
+</section>
 <section id="breakout" class="level1">
 <h1>Breakout</h1>
-<section id="basics" class="level3">
-<h3 class="anchored" data-anchor-id="basics">Basics</h3>
+<section id="basics" class="level2">
+<h2 class="anchored" data-anchor-id="basics">Basics</h2>
 <ol type="1">
 <li><p>Generate 100 random Poisson values with a population mean of 5. How close is the mean of those 100 values to the value of 5?</p></li>
 <li><p>What is the 95th percentile of a chi-square distribution with 1 degree of freedom?</p></li>
 <li><p>What’s the probability of getting a value greater than 5 if you draw from a standard normal distribution? What about a t distribution with 1 degree of freedom?</p></li>
 </ol>
 </section>
-<section id="using-the-ideas" class="level3">
-<h3 class="anchored" data-anchor-id="using-the-ideas">Using the ideas</h3>
+<section id="using-the-ideas" class="level2">
+<h2 class="anchored" data-anchor-id="using-the-ideas">Using the ideas</h2>
 <ol start="4" type="1">
 <li><p>Fit two linear regression models from the gapminder data, where the outcome is <code>lifeExp</code> and the explanatory variables are <code>log(pop)</code>, <code>log(gdpPercap)</code>, and <code>year</code>. In one model, treat <code>year</code> as a numeric variable. In the other, factorize the <code>year</code> variable. How do you interpret each model?</p></li>
 <li><p>Consider the code where we used <code>sample()</code>. Initialize a storage vector of 500 zeroes. Set up a bootstrap using a for loop, with 500 bootstrap datasets. Here are the steps within each iteration:</p></li>
@@ -1001,8 +909,8 @@ NULL</code></pre>
 <li>Modify the GAMs of lifeExp on gdpPercap and set <code>k</code> to a variety of values and see how the estimated relationships change. What about the estimated uncertainties?</li>
 </ol>
 </section>
-<section id="advanced" class="level3">
-<h3 class="anchored" data-anchor-id="advanced">Advanced</h3>
+<section id="advanced" class="level2">
+<h2 class="anchored" data-anchor-id="advanced">Advanced</h2>
 <ol start="7" type="1">
 <li><p>Fit a logistic regression model where the outcome is whether <code>lifeExp</code> is greater than or less than 60 years, exploring the use of different predictors.</p></li>
 <li><p>Suppose you wanted to do 10-fold cross-validation for some sort of regression model fit to the <em>gapminder</em> dataset. Write some R code that produces a field in the dataset that indicates which fold each observation is in. Ensure each of the folds has an equal (or as nearly equal as possible if the number of observations is not divisible by 10) number of observations. Hint: consider the <em>times</em> argument to the <code>rep()</code> function. (If you’re not familiar with 10-fold cross-validation, it requires one to divide the dataset into 10 subsets of approximately equal size.)</p></li>
@@ -1510,7 +1418,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb85-24"><a href="#cb85-24" aria-hidden="true" tabindex="-1"></a><span class="in">gapminder2007 &lt;- gapminder[gapminder$year == 2007, ]</span></span>
 <span id="cb85-25"><a href="#cb85-25" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb85-26"><a href="#cb85-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-27"><a href="#cb85-27" aria-hidden="true" tabindex="-1"></a><span class="fu"># Inference/Regression</span></span>
+<span id="cb85-27"><a href="#cb85-27" aria-hidden="true" tabindex="-1"></a><span class="fu"># Regression</span></span>
 <span id="cb85-28"><a href="#cb85-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb85-29"><a href="#cb85-29" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>*glm* fits a generalized linear model with your choice of family/link function (Gaussian, logit, Poisson, etc.)</span>
 <span id="cb85-30"><a href="#cb85-30" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>*lm* is just a standard linear regression (equivalent to glm with family = gaussian(link = "identity"))</span>
@@ -1536,303 +1444,314 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb85-50"><a href="#cb85-50" aria-hidden="true" tabindex="-1"></a><span class="in">                  data = gapminder)</span></span>
 <span id="cb85-51"><a href="#cb85-51" aria-hidden="true" tabindex="-1"></a><span class="in">  ```</span></span>
 <span id="cb85-52"><a href="#cb85-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-53"><a href="#cb85-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-54"><a href="#cb85-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## Regression output</span></span>
-<span id="cb85-55"><a href="#cb85-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-56"><a href="#cb85-56" aria-hidden="true" tabindex="-1"></a><span class="fu">### Basic output in an S3 object</span></span>
-<span id="cb85-57"><a href="#cb85-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-60"><a href="#cb85-60" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb85-61"><a href="#cb85-61" aria-hidden="true" tabindex="-1"></a><span class="co"># View components contained in the regression output</span></span>
-<span id="cb85-62"><a href="#cb85-62" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(reg)</span>
-<span id="cb85-63"><a href="#cb85-63" aria-hidden="true" tabindex="-1"></a><span class="co"># Examine regression coefficients</span></span>
-<span id="cb85-64"><a href="#cb85-64" aria-hidden="true" tabindex="-1"></a>reg<span class="sc">$</span>coefficients</span>
-<span id="cb85-65"><a href="#cb85-65" aria-hidden="true" tabindex="-1"></a><span class="co"># Examine regression degrees of freedom</span></span>
-<span id="cb85-66"><a href="#cb85-66" aria-hidden="true" tabindex="-1"></a>reg<span class="sc">$</span>df.residual</span>
-<span id="cb85-67"><a href="#cb85-67" aria-hidden="true" tabindex="-1"></a><span class="co"># See the standard (diagnostic) plots for a regression</span></span>
-<span id="cb85-68"><a href="#cb85-68" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(reg)</span>
-<span id="cb85-69"><a href="#cb85-69" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb85-70"><a href="#cb85-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-71"><a href="#cb85-71" aria-hidden="true" tabindex="-1"></a><span class="fu">### Summary method for regression</span></span>
-<span id="cb85-74"><a href="#cb85-74" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb85-75"><a href="#cb85-75" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(reg)</span>
-<span id="cb85-76"><a href="#cb85-76" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb85-77"><a href="#cb85-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-78"><a href="#cb85-78" aria-hidden="true" tabindex="-1"></a>One can also extract useful things from the summary object</span>
-<span id="cb85-79"><a href="#cb85-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-82"><a href="#cb85-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb85-83"><a href="#cb85-83" aria-hidden="true" tabindex="-1"></a><span class="co"># Store summary method results</span></span>
-<span id="cb85-84"><a href="#cb85-84" aria-hidden="true" tabindex="-1"></a>summ_reg <span class="ot">&lt;-</span> <span class="fu">summary</span>(reg)</span>
-<span id="cb85-85"><a href="#cb85-85" aria-hidden="true" tabindex="-1"></a><span class="co"># View summary method results objects</span></span>
-<span id="cb85-86"><a href="#cb85-86" aria-hidden="true" tabindex="-1"></a><span class="fu">objects</span>(summ_reg)</span>
-<span id="cb85-87"><a href="#cb85-87" aria-hidden="true" tabindex="-1"></a><span class="co"># View table of coefficients</span></span>
-<span id="cb85-88"><a href="#cb85-88" aria-hidden="true" tabindex="-1"></a>summ_reg<span class="sc">$</span>coefficients</span>
-<span id="cb85-89"><a href="#cb85-89" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb85-90"><a href="#cb85-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-91"><a href="#cb85-91" aria-hidden="true" tabindex="-1"></a>Note that, in our results, R has broken up our variables into their different factor levels (as it will do whenever your regressors have factor levels)</span>
-<span id="cb85-92"><a href="#cb85-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-93"><a href="#cb85-93" aria-hidden="true" tabindex="-1"></a>If your data aren't factorized, you can tell lm/glm to *factorize* a variable (i.e. create dummy variables on the fly), e.g.:</span>
-<span id="cb85-94"><a href="#cb85-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-95"><a href="#cb85-95" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval=FALSE}</span></span>
-<span id="cb85-96"><a href="#cb85-96" aria-hidden="true" tabindex="-1"></a><span class="in">glm(formula = y ~ x1 + x2 + factor(x3), family = family(link = "link"),</span></span>
-<span id="cb85-97"><a href="#cb85-97" aria-hidden="true" tabindex="-1"></a><span class="in">            data = )</span></span>
-<span id="cb85-98"><a href="#cb85-98" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb85-99"><a href="#cb85-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-100"><a href="#cb85-100" aria-hidden="true" tabindex="-1"></a><span class="fu">## Setting up regression interactions</span></span>
-<span id="cb85-101"><a href="#cb85-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-102"><a href="#cb85-102" aria-hidden="true" tabindex="-1"></a>There are also some useful shortcuts for regressing on interaction terms:</span>
-<span id="cb85-103"><a href="#cb85-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-104"><a href="#cb85-104" aria-hidden="true" tabindex="-1"></a><span class="in">`x1:x2`</span> interacts all terms in x1 with all terms in x2</span>
-<span id="cb85-105"><a href="#cb85-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-108"><a href="#cb85-108" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb85-109"><a href="#cb85-109" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(lifeExp <span class="sc">~</span> <span class="fu">log</span>(gdpPercap) <span class="sc">+</span> <span class="fu">log</span>(pop) <span class="sc">+</span></span>
-<span id="cb85-110"><a href="#cb85-110" aria-hidden="true" tabindex="-1"></a>                    continent<span class="sc">:</span><span class="fu">factor</span>(year), </span>
-<span id="cb85-111"><a href="#cb85-111" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data =</span> gapminder))</span>
-<span id="cb85-112"><a href="#cb85-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb85-113"><a href="#cb85-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-114"><a href="#cb85-114" aria-hidden="true" tabindex="-1"></a><span class="in">`x1*x2`</span> produces the cross of x1 and x2, or x1+x2+x1:x2</span>
-<span id="cb85-115"><a href="#cb85-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-118"><a href="#cb85-118" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb85-119"><a href="#cb85-119" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(lifeExp <span class="sc">~</span> <span class="fu">log</span>(gdpPercap) <span class="sc">+</span> <span class="fu">log</span>(pop) <span class="sc">+</span> continent<span class="sc">*</span><span class="fu">factor</span>(year), </span>
-<span id="cb85-120"><a href="#cb85-120" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> gapminder))</span>
-<span id="cb85-121"><a href="#cb85-121" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb85-122"><a href="#cb85-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-53"><a href="#cb85-53" aria-hidden="true" tabindex="-1"></a>Also note that a lot of causal inference methods are implemented in R.</span>
+<span id="cb85-54"><a href="#cb85-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-55"><a href="#cb85-55" aria-hidden="true" tabindex="-1"></a><span class="fu">## Regression output</span></span>
+<span id="cb85-56"><a href="#cb85-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-57"><a href="#cb85-57" aria-hidden="true" tabindex="-1"></a><span class="fu">### Basic output in an S3 object</span></span>
+<span id="cb85-58"><a href="#cb85-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-61"><a href="#cb85-61" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb85-62"><a href="#cb85-62" aria-hidden="true" tabindex="-1"></a><span class="co"># View components contained in the regression output</span></span>
+<span id="cb85-63"><a href="#cb85-63" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(reg)</span>
+<span id="cb85-64"><a href="#cb85-64" aria-hidden="true" tabindex="-1"></a><span class="co"># Examine regression coefficients</span></span>
+<span id="cb85-65"><a href="#cb85-65" aria-hidden="true" tabindex="-1"></a>reg<span class="sc">$</span>coefficients</span>
+<span id="cb85-66"><a href="#cb85-66" aria-hidden="true" tabindex="-1"></a><span class="co"># Examine regression degrees of freedom</span></span>
+<span id="cb85-67"><a href="#cb85-67" aria-hidden="true" tabindex="-1"></a>reg<span class="sc">$</span>df.residual</span>
+<span id="cb85-68"><a href="#cb85-68" aria-hidden="true" tabindex="-1"></a><span class="co"># See the standard (diagnostic) plots for a regression</span></span>
+<span id="cb85-69"><a href="#cb85-69" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(reg)</span>
+<span id="cb85-70"><a href="#cb85-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb85-71"><a href="#cb85-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-72"><a href="#cb85-72" aria-hidden="true" tabindex="-1"></a><span class="fu">### Summary method for regression</span></span>
+<span id="cb85-75"><a href="#cb85-75" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb85-76"><a href="#cb85-76" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(reg)</span>
+<span id="cb85-77"><a href="#cb85-77" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb85-78"><a href="#cb85-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-79"><a href="#cb85-79" aria-hidden="true" tabindex="-1"></a>One can also extract useful things from the summary object</span>
+<span id="cb85-80"><a href="#cb85-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-83"><a href="#cb85-83" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb85-84"><a href="#cb85-84" aria-hidden="true" tabindex="-1"></a><span class="co"># Store summary method results</span></span>
+<span id="cb85-85"><a href="#cb85-85" aria-hidden="true" tabindex="-1"></a>summ_reg <span class="ot">&lt;-</span> <span class="fu">summary</span>(reg)</span>
+<span id="cb85-86"><a href="#cb85-86" aria-hidden="true" tabindex="-1"></a><span class="co"># View summary method results objects</span></span>
+<span id="cb85-87"><a href="#cb85-87" aria-hidden="true" tabindex="-1"></a><span class="fu">objects</span>(summ_reg)</span>
+<span id="cb85-88"><a href="#cb85-88" aria-hidden="true" tabindex="-1"></a><span class="co"># View table of coefficients</span></span>
+<span id="cb85-89"><a href="#cb85-89" aria-hidden="true" tabindex="-1"></a>summ_reg<span class="sc">$</span>coefficients</span>
+<span id="cb85-90"><a href="#cb85-90" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb85-91"><a href="#cb85-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-92"><a href="#cb85-92" aria-hidden="true" tabindex="-1"></a>Note that, in our results, R has broken up our variables into their different factor levels (as it will do whenever your regressors have factor levels)</span>
+<span id="cb85-93"><a href="#cb85-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-94"><a href="#cb85-94" aria-hidden="true" tabindex="-1"></a>If your data aren't factorized, you can tell lm/glm to *factorize* a variable (i.e. create dummy variables on the fly), e.g.:</span>
+<span id="cb85-95"><a href="#cb85-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-96"><a href="#cb85-96" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval=FALSE}</span></span>
+<span id="cb85-97"><a href="#cb85-97" aria-hidden="true" tabindex="-1"></a><span class="in">glm(formula = y ~ x1 + x2 + factor(x3), family = family(link = "link"),</span></span>
+<span id="cb85-98"><a href="#cb85-98" aria-hidden="true" tabindex="-1"></a><span class="in">            data = )</span></span>
+<span id="cb85-99"><a href="#cb85-99" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb85-100"><a href="#cb85-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-101"><a href="#cb85-101" aria-hidden="true" tabindex="-1"></a><span class="fu">## Setting up regression interactions</span></span>
+<span id="cb85-102"><a href="#cb85-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-103"><a href="#cb85-103" aria-hidden="true" tabindex="-1"></a>There are also some useful shortcuts for regressing on interaction terms:</span>
+<span id="cb85-104"><a href="#cb85-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-105"><a href="#cb85-105" aria-hidden="true" tabindex="-1"></a><span class="in">`x1:x2`</span> interacts all terms in x1 with all terms in x2</span>
+<span id="cb85-106"><a href="#cb85-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-109"><a href="#cb85-109" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb85-110"><a href="#cb85-110" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(lifeExp <span class="sc">~</span> <span class="fu">log</span>(gdpPercap) <span class="sc">+</span> <span class="fu">log</span>(pop) <span class="sc">+</span></span>
+<span id="cb85-111"><a href="#cb85-111" aria-hidden="true" tabindex="-1"></a>                    continent<span class="sc">:</span>year, </span>
+<span id="cb85-112"><a href="#cb85-112" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data =</span> gapminder))</span>
+<span id="cb85-113"><a href="#cb85-113" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb85-114"><a href="#cb85-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-115"><a href="#cb85-115" aria-hidden="true" tabindex="-1"></a><span class="in">`x1*x2`</span> produces the cross of x1 and x2, or x1+x2+x1:x2</span>
+<span id="cb85-116"><a href="#cb85-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-119"><a href="#cb85-119" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb85-120"><a href="#cb85-120" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(lifeExp <span class="sc">~</span> <span class="fu">log</span>(gdpPercap) <span class="sc">+</span> <span class="fu">log</span>(pop) <span class="sc">+</span> continent<span class="sc">*</span>year, </span>
+<span id="cb85-121"><a href="#cb85-121" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> gapminder))</span>
+<span id="cb85-122"><a href="#cb85-122" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb85-123"><a href="#cb85-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-124"><a href="#cb85-124" aria-hidden="true" tabindex="-1"></a><span class="fu"># Smoothing</span></span>
-<span id="cb85-125"><a href="#cb85-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-126"><a href="#cb85-126" aria-hidden="true" tabindex="-1"></a>Linear regression and GLMs are of course useful, but often the relationship is not linear, even on some transformed scale.</span>
-<span id="cb85-127"><a href="#cb85-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-128"><a href="#cb85-128" aria-hidden="true" tabindex="-1"></a>Additive models and generalized additive models (GAMs) are the more flexible variants on linear models and GLMs.</span>
-<span id="cb85-129"><a href="#cb85-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-130"><a href="#cb85-130" aria-hidden="true" tabindex="-1"></a>There are a variety of tools in R for modeling nonlinear and smooth relationships, mirroring the variety of methods in the literature.</span>
-<span id="cb85-131"><a href="#cb85-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-132"><a href="#cb85-132" aria-hidden="true" tabindex="-1"></a>One workhorse is <span class="in">`gam()`</span> in the *mgcv* package.</span>
-<span id="cb85-133"><a href="#cb85-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-134"><a href="#cb85-134" aria-hidden="true" tabindex="-1"></a><span class="fu">## `mgcv::gam` in action</span></span>
-<span id="cb85-135"><a href="#cb85-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-136"><a href="#cb85-136" aria-hidden="true" tabindex="-1"></a>Do we think there should be a linear relationship of life expectancy with GDP and year?</span>
-<span id="cb85-137"><a href="#cb85-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-138"><a href="#cb85-138" aria-hidden="true" tabindex="-1"></a><span class="in">```{r gamExample, cache=TRUE, fig.width=10, fig.cap = ""}</span></span>
-<span id="cb85-139"><a href="#cb85-139" aria-hidden="true" tabindex="-1"></a><span class="in">library(mgcv)</span></span>
-<span id="cb85-140"><a href="#cb85-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-141"><a href="#cb85-141" aria-hidden="true" tabindex="-1"></a><span class="in">mod &lt;- gam(lifeExp ~ s(gdpPercap, k = 30) + s(year, k = 10), data = gapminder)</span></span>
-<span id="cb85-142"><a href="#cb85-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-143"><a href="#cb85-143" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mod)</span></span>
-<span id="cb85-144"><a href="#cb85-144" aria-hidden="true" tabindex="-1"></a><span class="in">summary(mod)</span></span>
-<span id="cb85-145"><a href="#cb85-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-146"><a href="#cb85-146" aria-hidden="true" tabindex="-1"></a><span class="in">mod2 &lt;- gam(lifeExp ~ s(log(gdpPercap), k = 30) + s(year, k = 10), data = gapminder)</span></span>
-<span id="cb85-147"><a href="#cb85-147" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mod2)</span></span>
-<span id="cb85-148"><a href="#cb85-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb85-149"><a href="#cb85-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-150"><a href="#cb85-150" aria-hidden="true" tabindex="-1"></a>Building on that, we could use the same kind of functionality as in lm/glm in terms of factors and interactions.</span>
-<span id="cb85-151"><a href="#cb85-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-152"><a href="#cb85-152" aria-hidden="true" tabindex="-1"></a><span class="fu">## How does GAM choose how much to smooth?</span></span>
-<span id="cb85-153"><a href="#cb85-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-154"><a href="#cb85-154" aria-hidden="true" tabindex="-1"></a>GAM uses the data to choose how much smoothing to do. Roughly one can think of what it is doing as carrying out cross-validation and choosing the best amount of smoothing for predicting held-out data, but without having to actually do cross-validation.</span>
-<span id="cb85-155"><a href="#cb85-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-156"><a href="#cb85-156" aria-hidden="true" tabindex="-1"></a><span class="in">`k`</span> simply sets an upper bound on the amount of smoothing (you can think of <span class="in">`k`</span> as the number of degrees of freedom - "1" would be a linear fit).</span>
-<span id="cb85-157"><a href="#cb85-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-158"><a href="#cb85-158" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>Make sure <span class="in">`k`</span> is less than the number of unique values of the predictor variable</span>
-<span id="cb85-159"><a href="#cb85-159" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>The default for <span class="in">`k`</span> is relatively small and in some cases this may overly limit the smoothness of the curve.</span>
-<span id="cb85-160"><a href="#cb85-160" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>You can try increasing <span class="in">`k`</span> and see if it improves the fit.</span>
-<span id="cb85-161"><a href="#cb85-161" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>If <span class="in">`summary`</span> reports an <span class="in">`edf`</span> that is close to <span class="in">`k`</span> that often suggests that <span class="in">`k`</span> should be increased.</span>
-<span id="cb85-162"><a href="#cb85-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-163"><a href="#cb85-163" aria-hidden="true" tabindex="-1"></a><span class="fu"># Distributions</span></span>
-<span id="cb85-164"><a href="#cb85-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-165"><a href="#cb85-165" aria-hidden="true" tabindex="-1"></a>Since R was developed by statisticians, it handles distributions and simulation seamlessly.</span>
-<span id="cb85-166"><a href="#cb85-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-167"><a href="#cb85-167" aria-hidden="true" tabindex="-1"></a>All commonly-used distributions have functions in R. Each distribution has a family of functions: </span>
-<span id="cb85-168"><a href="#cb85-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-169"><a href="#cb85-169" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>d - probability density/mass function (PDF), e.g. <span class="in">`dnorm()`</span></span>
-<span id="cb85-170"><a href="#cb85-170" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>r - generate a random value, e.g., <span class="in">`rnorm()`</span></span>
-<span id="cb85-171"><a href="#cb85-171" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>p - cumulative distribution function (CDF), e.g., <span class="in">`pnorm()`</span></span>
-<span id="cb85-172"><a href="#cb85-172" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>q - quantile function (inverse CDF), e.g., <span class="in">`qnorm()`</span></span>
-<span id="cb85-173"><a href="#cb85-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-174"><a href="#cb85-174" aria-hidden="true" tabindex="-1"></a>Some of the distributions include the following (in the form of their random number generator function): <span class="in">`rnorm()`</span>, <span class="in">`runif()`</span>, <span class="in">`rbinom()`</span>, <span class="in">`rpois()`</span>, <span class="in">`rbeta()`</span>, <span class="in">`rgamma()`</span>, <span class="in">`rt()`</span>, <span class="in">`rchisq()`</span>.</span>
-<span id="cb85-175"><a href="#cb85-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-176"><a href="#cb85-176" aria-hidden="true" tabindex="-1"></a><span class="fu">## Distributions in action</span></span>
-<span id="cb85-177"><a href="#cb85-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-178"><a href="#cb85-178" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.cap = ""}</span></span>
-<span id="cb85-179"><a href="#cb85-179" aria-hidden="true" tabindex="-1"></a><span class="in">pnorm(1.96)</span></span>
-<span id="cb85-180"><a href="#cb85-180" aria-hidden="true" tabindex="-1"></a><span class="in">qnorm(.975)</span></span>
-<span id="cb85-181"><a href="#cb85-181" aria-hidden="true" tabindex="-1"></a><span class="in">dbinom(0:10, size = 10, prob = 0.3)</span></span>
-<span id="cb85-182"><a href="#cb85-182" aria-hidden="true" tabindex="-1"></a><span class="in">dnorm(5)</span></span>
-<span id="cb85-183"><a href="#cb85-183" aria-hidden="true" tabindex="-1"></a><span class="in">dt(5, df = 1)</span></span>
-<span id="cb85-184"><a href="#cb85-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-185"><a href="#cb85-185" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;- seq(-5, 5, length = 100)</span></span>
-<span id="cb85-186"><a href="#cb85-186" aria-hidden="true" tabindex="-1"></a><span class="in">plot(x, dnorm(x), type = 'l')</span></span>
-<span id="cb85-187"><a href="#cb85-187" aria-hidden="true" tabindex="-1"></a><span class="in">lines(x, dt(x, df = 1), col = 'red')</span></span>
-<span id="cb85-188"><a href="#cb85-188" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb85-189"><a href="#cb85-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-190"><a href="#cb85-190" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.cap = ""}</span></span>
-<span id="cb85-191"><a href="#cb85-191" aria-hidden="true" tabindex="-1"></a><span class="in">rmultinom(1, 100, prob = c(.1, .1, .2, .3, .25, .05)) </span></span>
-<span id="cb85-192"><a href="#cb85-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-193"><a href="#cb85-193" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;- seq(0, 10, length = 100)</span></span>
-<span id="cb85-194"><a href="#cb85-194" aria-hidden="true" tabindex="-1"></a><span class="in">plot(x, dchisq(x, df = 1), type = 'l')</span></span>
-<span id="cb85-195"><a href="#cb85-195" aria-hidden="true" tabindex="-1"></a><span class="in">lines(x, dchisq(x, df = 2), col = 'red')</span></span>
-<span id="cb85-196"><a href="#cb85-196" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb85-197"><a href="#cb85-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-198"><a href="#cb85-198" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sampling from a finite set </span></span>
-<span id="cb85-199"><a href="#cb85-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-200"><a href="#cb85-200" aria-hidden="true" tabindex="-1"></a>We can draw a sample with or without replacement.</span>
-<span id="cb85-201"><a href="#cb85-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-204"><a href="#cb85-204" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb85-205"><a href="#cb85-205" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(gapminder), <span class="dv">20</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb85-206"><a href="#cb85-206" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb85-207"><a href="#cb85-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-208"><a href="#cb85-208" aria-hidden="true" tabindex="-1"></a>Here's an example of some code that would be part of coding up a bootstrap. As I mentioned previously, this would be a weird dataset to do formal statistical inference on given it includes most of the countries in the world, though one could think about fitting models for the variation over time, treating short-term fluctuations as random.</span>
-<span id="cb85-209"><a href="#cb85-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-212"><a href="#cb85-212" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb85-213"><a href="#cb85-213" aria-hidden="true" tabindex="-1"></a><span class="co"># actual mean</span></span>
-<span id="cb85-214"><a href="#cb85-214" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(gapminder<span class="sc">$</span>lifeExp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb85-215"><a href="#cb85-215" aria-hidden="true" tabindex="-1"></a><span class="co"># here's a bootstrap sample:</span></span>
-<span id="cb85-216"><a href="#cb85-216" aria-hidden="true" tabindex="-1"></a>smp <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">seq_len</span>(<span class="fu">nrow</span>(gapminder)), <span class="at">replace =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb85-217"><a href="#cb85-217" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(gapminder<span class="sc">$</span>lifeExp[smp], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb85-218"><a href="#cb85-218" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb85-219"><a href="#cb85-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-220"><a href="#cb85-220" aria-hidden="true" tabindex="-1"></a>It's a good idea to use <span class="in">`seq_along()`</span> and <span class="in">`seq_len()`</span> and not syntax like <span class="in">`1:length(gapminder)`</span> in <span class="in">`sample()`</span> because the outcome of <span class="in">`length()`</span> might in some cases be unexpected (e.g., if you're taking subsets of a dataset). Similar reasoning holds when setting up for loops: e.g., </span>
-<span id="cb85-221"><a href="#cb85-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-222"><a href="#cb85-222" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
-<span id="cb85-223"><a href="#cb85-223" aria-hidden="true" tabindex="-1"></a><span class="in">for(i in seq_len(nrow(gapminder))) {</span></span>
-<span id="cb85-224"><a href="#cb85-224" aria-hidden="true" tabindex="-1"></a><span class="in"># blah</span></span>
-<span id="cb85-225"><a href="#cb85-225" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
-<span id="cb85-226"><a href="#cb85-226" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb85-227"><a href="#cb85-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-228"><a href="#cb85-228" aria-hidden="true" tabindex="-1"></a><span class="fu">## The Random Seed</span></span>
-<span id="cb85-229"><a href="#cb85-229" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-230"><a href="#cb85-230" aria-hidden="true" tabindex="-1"></a>A few key facts about generating random numbers</span>
-<span id="cb85-231"><a href="#cb85-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-232"><a href="#cb85-232" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Random number generation is based on generating uniformly between 0 and 1 and then transforming to the kind of random number of interest: normal, categorical, etc.</span>
-<span id="cb85-233"><a href="#cb85-233" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Random numbers on a computer are *pseudo-random*; they are generated deterministically from a very, very, very long sequence that repeats</span>
-<span id="cb85-234"><a href="#cb85-234" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>The *seed* determines where you are in that sequence</span>
-<span id="cb85-235"><a href="#cb85-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-236"><a href="#cb85-236" aria-hidden="true" tabindex="-1"></a>To replicate any work involving random numbers, make sure to set the seed first.</span>
-<span id="cb85-237"><a href="#cb85-237" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-240"><a href="#cb85-240" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb85-241"><a href="#cb85-241" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb85-242"><a href="#cb85-242" aria-hidden="true" tabindex="-1"></a>vals <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(gapminder), <span class="dv">10</span>)</span>
-<span id="cb85-243"><a href="#cb85-243" aria-hidden="true" tabindex="-1"></a>vals</span>
-<span id="cb85-244"><a href="#cb85-244" aria-hidden="true" tabindex="-1"></a>vals <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(gapminder), <span class="dv">10</span>)</span>
-<span id="cb85-245"><a href="#cb85-245" aria-hidden="true" tabindex="-1"></a>vals</span>
-<span id="cb85-246"><a href="#cb85-246" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb85-247"><a href="#cb85-247" aria-hidden="true" tabindex="-1"></a>vals <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(gapminder), <span class="dv">15</span>)</span>
-<span id="cb85-248"><a href="#cb85-248" aria-hidden="true" tabindex="-1"></a>vals[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span>
-<span id="cb85-249"><a href="#cb85-249" aria-hidden="true" tabindex="-1"></a>vals[<span class="dv">11</span><span class="sc">:</span><span class="dv">15</span>]</span>
-<span id="cb85-250"><a href="#cb85-250" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb85-251"><a href="#cb85-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-252"><a href="#cb85-252" aria-hidden="true" tabindex="-1"></a><span class="fu"># Optimization</span></span>
-<span id="cb85-253"><a href="#cb85-253" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-254"><a href="#cb85-254" aria-hidden="true" tabindex="-1"></a>R provides functionality for optimization - finding maxima or minima of a function. </span>
-<span id="cb85-255"><a href="#cb85-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-256"><a href="#cb85-256" aria-hidden="true" tabindex="-1"></a>A workhorse is <span class="in">`optim()`</span>, which implements a number of optimization algorithms. </span>
-<span id="cb85-257"><a href="#cb85-257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-258"><a href="#cb85-258" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE, fig.cap = ""} </span></span>
-<span id="cb85-259"><a href="#cb85-259" aria-hidden="true" tabindex="-1"></a><span class="in">library(fields)  </span></span>
-<span id="cb85-260"><a href="#cb85-260" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb85-261"><a href="#cb85-261" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-262"><a href="#cb85-262" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig.width=11, fig.height=5, fig.cap = ""}</span></span>
-<span id="cb85-263"><a href="#cb85-263" aria-hidden="true" tabindex="-1"></a><span class="in"> banana &lt;- function(x) {   ## Rosenbrock Banana function</span></span>
-<span id="cb85-264"><a href="#cb85-264" aria-hidden="true" tabindex="-1"></a><span class="in">         x1 &lt;- x[1]</span></span>
-<span id="cb85-265"><a href="#cb85-265" aria-hidden="true" tabindex="-1"></a><span class="in">         x2 &lt;- x[2]</span></span>
-<span id="cb85-266"><a href="#cb85-266" aria-hidden="true" tabindex="-1"></a><span class="in">         100 * (x2 - x1 * x1)^2 + (1 - x1)^2</span></span>
-<span id="cb85-267"><a href="#cb85-267" aria-hidden="true" tabindex="-1"></a><span class="in">     }</span></span>
-<span id="cb85-268"><a href="#cb85-268" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-269"><a href="#cb85-269" aria-hidden="true" tabindex="-1"></a><span class="in">x1s &lt;- x2s &lt;- seq(-5, 5, length = 100)</span></span>
-<span id="cb85-270"><a href="#cb85-270" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;- expand.grid(x1s, x2s)</span></span>
-<span id="cb85-271"><a href="#cb85-271" aria-hidden="true" tabindex="-1"></a><span class="in">fx &lt;- apply(x, 1, banana)</span></span>
-<span id="cb85-272"><a href="#cb85-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-273"><a href="#cb85-273" aria-hidden="true" tabindex="-1"></a><span class="in">par(mfrow = c(1, 2), mai = c(.45, .4, .1, .4))</span></span>
-<span id="cb85-274"><a href="#cb85-274" aria-hidden="true" tabindex="-1"></a><span class="in">image.plot(x1s, x2s, matrix(fx, 100), xlab = '', ylab = '')</span></span>
-<span id="cb85-275"><a href="#cb85-275" aria-hidden="true" tabindex="-1"></a><span class="in">image.plot(x1s, x2s, matrix(log(fx), 100), xlab = '', ylab = '')</span></span>
-<span id="cb85-276"><a href="#cb85-276" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-277"><a href="#cb85-277" aria-hidden="true" tabindex="-1"></a><span class="in">optim(c(-2,0), banana)</span></span>
-<span id="cb85-278"><a href="#cb85-278" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb85-279"><a href="#cb85-279" aria-hidden="true" tabindex="-1"></a>We can see the progression of evaluations of the objective function:</span>
-<span id="cb85-280"><a href="#cb85-280" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE, fig.cap = ""}</span></span>
-<span id="cb85-281"><a href="#cb85-281" aria-hidden="true" tabindex="-1"></a><span class="in">banana &lt;- function(x) {   ## Rosenbrock Banana function</span></span>
-<span id="cb85-282"><a href="#cb85-282" aria-hidden="true" tabindex="-1"></a><span class="in">         points(x[1],x[2])</span></span>
-<span id="cb85-283"><a href="#cb85-283" aria-hidden="true" tabindex="-1"></a><span class="in">         Sys.sleep(.03)</span></span>
-<span id="cb85-284"><a href="#cb85-284" aria-hidden="true" tabindex="-1"></a><span class="in">         x1 &lt;- x[1]</span></span>
-<span id="cb85-285"><a href="#cb85-285" aria-hidden="true" tabindex="-1"></a><span class="in">         x2 &lt;- x[2]</span></span>
-<span id="cb85-286"><a href="#cb85-286" aria-hidden="true" tabindex="-1"></a><span class="in">         100 * (x2 - x1 * x1)^2 + (1 - x1)^2</span></span>
-<span id="cb85-287"><a href="#cb85-287" aria-hidden="true" tabindex="-1"></a><span class="in">     }</span></span>
-<span id="cb85-288"><a href="#cb85-288" aria-hidden="true" tabindex="-1"></a><span class="in">par(mfrow = c(1, 1), mai = c(.45, .4, .1, .4))</span></span>
-<span id="cb85-289"><a href="#cb85-289" aria-hidden="true" tabindex="-1"></a><span class="in">image.plot(x1s, x2s, matrix(log(fx), 100), xlab = '', ylab = '')</span></span>
-<span id="cb85-290"><a href="#cb85-290" aria-hidden="true" tabindex="-1"></a><span class="in">optim(c(-2,0), banana)</span></span>
-<span id="cb85-291"><a href="#cb85-291" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb85-292"><a href="#cb85-292" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-293"><a href="#cb85-293" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-294"><a href="#cb85-294" aria-hidden="true" tabindex="-1"></a><span class="fu"># Dates and Times</span></span>
-<span id="cb85-295"><a href="#cb85-295" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-296"><a href="#cb85-296" aria-hidden="true" tabindex="-1"></a><span class="fu">## Dates</span></span>
-<span id="cb85-297"><a href="#cb85-297" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-298"><a href="#cb85-298" aria-hidden="true" tabindex="-1"></a>R has built-in functionality to handle dates (don't reinvent the wheel!).</span>
-<span id="cb85-299"><a href="#cb85-299" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-300"><a href="#cb85-300" aria-hidden="true" tabindex="-1"></a><span class="in">```{r dates}</span></span>
-<span id="cb85-301"><a href="#cb85-301" aria-hidden="true" tabindex="-1"></a><span class="in">date1 &lt;- as.Date("03-01-2011", format = "%m-%d-%Y")</span></span>
-<span id="cb85-302"><a href="#cb85-302" aria-hidden="true" tabindex="-1"></a><span class="in">date2 &lt;- as.Date("03/02/11", format = "%m/%d/%y")</span></span>
-<span id="cb85-303"><a href="#cb85-303" aria-hidden="true" tabindex="-1"></a><span class="in">date3 &lt;- as.Date("07-May-11", format = "%d-%b-%y")</span></span>
+<span id="cb85-124"><a href="#cb85-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-125"><a href="#cb85-125" aria-hidden="true" tabindex="-1"></a><span class="fu"># Smoothing</span></span>
+<span id="cb85-126"><a href="#cb85-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-127"><a href="#cb85-127" aria-hidden="true" tabindex="-1"></a>Linear regression and GLMs are of course useful, but often the relationship is not linear, even on some transformed scale.</span>
+<span id="cb85-128"><a href="#cb85-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-129"><a href="#cb85-129" aria-hidden="true" tabindex="-1"></a>Additive models and generalized additive models (GAMs) are the more flexible variants on linear models and GLMs.</span>
+<span id="cb85-130"><a href="#cb85-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-131"><a href="#cb85-131" aria-hidden="true" tabindex="-1"></a>There are a variety of tools in R for modeling nonlinear and smooth relationships, mirroring the variety of methods in the literature.</span>
+<span id="cb85-132"><a href="#cb85-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-133"><a href="#cb85-133" aria-hidden="true" tabindex="-1"></a>One workhorse is <span class="in">`gam()`</span> in the *mgcv* package, which uses penalized splines, implemented carefully for efficiency and numerical robustness.</span>
+<span id="cb85-134"><a href="#cb85-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-135"><a href="#cb85-135" aria-hidden="true" tabindex="-1"></a><span class="fu">## `mgcv::gam` in action</span></span>
+<span id="cb85-136"><a href="#cb85-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-137"><a href="#cb85-137" aria-hidden="true" tabindex="-1"></a>Do we think there should be a linear relationship of life expectancy with GDP and year?</span>
+<span id="cb85-138"><a href="#cb85-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-139"><a href="#cb85-139" aria-hidden="true" tabindex="-1"></a><span class="in">```{r gamExample, cache=TRUE, fig.width=10, fig.cap = ""}</span></span>
+<span id="cb85-140"><a href="#cb85-140" aria-hidden="true" tabindex="-1"></a><span class="in">library(mgcv)</span></span>
+<span id="cb85-141"><a href="#cb85-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-142"><a href="#cb85-142" aria-hidden="true" tabindex="-1"></a><span class="in">mod &lt;- gam(lifeExp ~ s(gdpPercap, k = 30) + s(year, k = 10), data = gapminder)</span></span>
+<span id="cb85-143"><a href="#cb85-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-144"><a href="#cb85-144" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mod)</span></span>
+<span id="cb85-145"><a href="#cb85-145" aria-hidden="true" tabindex="-1"></a><span class="in">summary(mod)</span></span>
+<span id="cb85-146"><a href="#cb85-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-147"><a href="#cb85-147" aria-hidden="true" tabindex="-1"></a><span class="in">mod2 &lt;- gam(lifeExp ~ s(log(gdpPercap), k = 30) + s(year, k = 10), data = gapminder)</span></span>
+<span id="cb85-148"><a href="#cb85-148" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mod2)</span></span>
+<span id="cb85-149"><a href="#cb85-149" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb85-150"><a href="#cb85-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-151"><a href="#cb85-151" aria-hidden="true" tabindex="-1"></a>Building on that, we could use the same kind of functionality as in lm/glm in terms of factors and interactions.</span>
+<span id="cb85-152"><a href="#cb85-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-153"><a href="#cb85-153" aria-hidden="true" tabindex="-1"></a><span class="fu">## How does GAM choose how much to smooth?</span></span>
+<span id="cb85-154"><a href="#cb85-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-155"><a href="#cb85-155" aria-hidden="true" tabindex="-1"></a>GAM uses the data to choose how much smoothing to do. Roughly one can think of what it is doing as carrying out cross-validation and choosing the best amount of smoothing for predicting held-out data, but without having to actually do cross-validation.</span>
+<span id="cb85-156"><a href="#cb85-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-157"><a href="#cb85-157" aria-hidden="true" tabindex="-1"></a><span class="in">`k`</span> simply sets an upper bound on the amount of smoothing (you can think of <span class="in">`k`</span> as the number of degrees of freedom - "1" would be a linear fit).</span>
+<span id="cb85-158"><a href="#cb85-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-159"><a href="#cb85-159" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>Make sure <span class="in">`k`</span> is less than the number of unique values of the predictor variable</span>
+<span id="cb85-160"><a href="#cb85-160" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>The default for <span class="in">`k`</span> is relatively small and in some cases this may overly limit the smoothness of the curve.</span>
+<span id="cb85-161"><a href="#cb85-161" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>You can try increasing <span class="in">`k`</span> and see if it improves the fit.</span>
+<span id="cb85-162"><a href="#cb85-162" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>If <span class="in">`summary`</span> reports an <span class="in">`edf`</span> that is close to <span class="in">`k`</span> that often suggests that <span class="in">`k`</span> should be increased.</span>
+<span id="cb85-163"><a href="#cb85-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-164"><a href="#cb85-164" aria-hidden="true" tabindex="-1"></a><span class="fu"># Distributions</span></span>
+<span id="cb85-165"><a href="#cb85-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-166"><a href="#cb85-166" aria-hidden="true" tabindex="-1"></a>Since R was developed by statisticians, it handles distributions and simulation seamlessly.</span>
+<span id="cb85-167"><a href="#cb85-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-168"><a href="#cb85-168" aria-hidden="true" tabindex="-1"></a>All commonly-used distributions have functions in R. Each distribution has a family of functions: </span>
+<span id="cb85-169"><a href="#cb85-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-170"><a href="#cb85-170" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="in">`d`</span> - probability density/mass function (PDF), e.g. <span class="in">`dnorm()`</span></span>
+<span id="cb85-171"><a href="#cb85-171" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="in">`r`</span> - generate a random value, e.g., <span class="in">`rnorm()`</span></span>
+<span id="cb85-172"><a href="#cb85-172" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="in">`p`</span> - cumulative distribution function (CDF), e.g., <span class="in">`pnorm()`</span></span>
+<span id="cb85-173"><a href="#cb85-173" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="in">`q`</span> - quantile function (inverse CDF), e.g., <span class="in">`qnorm()`</span></span>
+<span id="cb85-174"><a href="#cb85-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-175"><a href="#cb85-175" aria-hidden="true" tabindex="-1"></a>Some of the distributions include the following (in the form of their random number generator function): <span class="in">`rnorm()`</span>, <span class="in">`runif()`</span>, <span class="in">`rbinom()`</span>, <span class="in">`rpois()`</span>, <span class="in">`rbeta()`</span>, <span class="in">`rgamma()`</span>, <span class="in">`rt()`</span>, <span class="in">`rchisq()`</span>.</span>
+<span id="cb85-176"><a href="#cb85-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-177"><a href="#cb85-177" aria-hidden="true" tabindex="-1"></a><span class="fu">## Distributions in action</span></span>
+<span id="cb85-178"><a href="#cb85-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-179"><a href="#cb85-179" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.cap = ""}</span></span>
+<span id="cb85-180"><a href="#cb85-180" aria-hidden="true" tabindex="-1"></a><span class="in">pnorm(1.96)</span></span>
+<span id="cb85-181"><a href="#cb85-181" aria-hidden="true" tabindex="-1"></a><span class="in">qnorm(.975)</span></span>
+<span id="cb85-182"><a href="#cb85-182" aria-hidden="true" tabindex="-1"></a><span class="in">dbinom(0:10, size = 10, prob = 0.3)</span></span>
+<span id="cb85-183"><a href="#cb85-183" aria-hidden="true" tabindex="-1"></a><span class="in">dnorm(5)</span></span>
+<span id="cb85-184"><a href="#cb85-184" aria-hidden="true" tabindex="-1"></a><span class="in">dt(5, df = 1)</span></span>
+<span id="cb85-185"><a href="#cb85-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-186"><a href="#cb85-186" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;- seq(-5, 5, length = 100)</span></span>
+<span id="cb85-187"><a href="#cb85-187" aria-hidden="true" tabindex="-1"></a><span class="in">plot(x, dnorm(x), type = 'l')</span></span>
+<span id="cb85-188"><a href="#cb85-188" aria-hidden="true" tabindex="-1"></a><span class="in">lines(x, dt(x, df = 1), col = 'red')</span></span>
+<span id="cb85-189"><a href="#cb85-189" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb85-190"><a href="#cb85-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-191"><a href="#cb85-191" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.cap = ""}</span></span>
+<span id="cb85-192"><a href="#cb85-192" aria-hidden="true" tabindex="-1"></a><span class="in">rmultinom(1, 100, prob = c(.1, .1, .2, .3, .25, .05)) </span></span>
+<span id="cb85-193"><a href="#cb85-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-194"><a href="#cb85-194" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;- seq(0, 10, length = 100)</span></span>
+<span id="cb85-195"><a href="#cb85-195" aria-hidden="true" tabindex="-1"></a><span class="in">plot(x, dchisq(x, df = 1), type = 'l')</span></span>
+<span id="cb85-196"><a href="#cb85-196" aria-hidden="true" tabindex="-1"></a><span class="in">lines(x, dchisq(x, df = 2), col = 'red')</span></span>
+<span id="cb85-197"><a href="#cb85-197" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb85-198"><a href="#cb85-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-199"><a href="#cb85-199" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sampling from a finite set </span></span>
+<span id="cb85-200"><a href="#cb85-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-201"><a href="#cb85-201" aria-hidden="true" tabindex="-1"></a>We can draw a sample with or without replacement.</span>
+<span id="cb85-202"><a href="#cb85-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-205"><a href="#cb85-205" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb85-206"><a href="#cb85-206" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(gapminder), <span class="dv">20</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb85-207"><a href="#cb85-207" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb85-208"><a href="#cb85-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-209"><a href="#cb85-209" aria-hidden="true" tabindex="-1"></a>Here's an example of some code that would be part of coding up a bootstrap. As I mentioned previously, this would be a weird dataset to do formal statistical inference on given it includes most of the countries in the world, though one could think about fitting models for the variation over time, treating short-term fluctuations as random.</span>
+<span id="cb85-210"><a href="#cb85-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-213"><a href="#cb85-213" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb85-214"><a href="#cb85-214" aria-hidden="true" tabindex="-1"></a><span class="co"># actual mean</span></span>
+<span id="cb85-215"><a href="#cb85-215" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(gapminder<span class="sc">$</span>lifeExp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb85-216"><a href="#cb85-216" aria-hidden="true" tabindex="-1"></a><span class="co"># here's a bootstrap sample:</span></span>
+<span id="cb85-217"><a href="#cb85-217" aria-hidden="true" tabindex="-1"></a>smp <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">seq_len</span>(<span class="fu">nrow</span>(gapminder)), <span class="at">replace =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb85-218"><a href="#cb85-218" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(gapminder<span class="sc">$</span>lifeExp[smp], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb85-219"><a href="#cb85-219" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb85-220"><a href="#cb85-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-221"><a href="#cb85-221" aria-hidden="true" tabindex="-1"></a>It's a good idea to use <span class="in">`seq_along()`</span> and <span class="in">`seq_len()`</span> and not syntax like <span class="in">`1:length(gapminder)`</span> in <span class="in">`sample()`</span> because the outcome of <span class="in">`length()`</span> might in some cases be unexpected (e.g., if you're taking subsets of a dataset). Similar reasoning holds when setting up for loops: e.g., </span>
+<span id="cb85-222"><a href="#cb85-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-223"><a href="#cb85-223" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
+<span id="cb85-224"><a href="#cb85-224" aria-hidden="true" tabindex="-1"></a><span class="in">for(i in seq_len(nrow(gapminder))) {</span></span>
+<span id="cb85-225"><a href="#cb85-225" aria-hidden="true" tabindex="-1"></a><span class="in"># blah</span></span>
+<span id="cb85-226"><a href="#cb85-226" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb85-227"><a href="#cb85-227" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb85-228"><a href="#cb85-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-229"><a href="#cb85-229" aria-hidden="true" tabindex="-1"></a><span class="fu">## The Random Seed</span></span>
+<span id="cb85-230"><a href="#cb85-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-231"><a href="#cb85-231" aria-hidden="true" tabindex="-1"></a>A few key facts about generating random numbers</span>
+<span id="cb85-232"><a href="#cb85-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-233"><a href="#cb85-233" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Random number generation is based on generating uniformly between 0 and 1 and then transforming to the kind of random number of interest: normal, categorical, etc.</span>
+<span id="cb85-234"><a href="#cb85-234" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Random numbers on a computer are *pseudo-random*; they are generated deterministically from a very, very, very long sequence that repeats</span>
+<span id="cb85-235"><a href="#cb85-235" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>The *seed* determines where you are in that sequence</span>
+<span id="cb85-236"><a href="#cb85-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-237"><a href="#cb85-237" aria-hidden="true" tabindex="-1"></a>To replicate any work involving random numbers, make sure to set the seed first.</span>
+<span id="cb85-238"><a href="#cb85-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-241"><a href="#cb85-241" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb85-242"><a href="#cb85-242" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb85-243"><a href="#cb85-243" aria-hidden="true" tabindex="-1"></a>vals <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(gapminder), <span class="dv">10</span>)</span>
+<span id="cb85-244"><a href="#cb85-244" aria-hidden="true" tabindex="-1"></a>vals</span>
+<span id="cb85-245"><a href="#cb85-245" aria-hidden="true" tabindex="-1"></a>vals <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(gapminder), <span class="dv">10</span>)</span>
+<span id="cb85-246"><a href="#cb85-246" aria-hidden="true" tabindex="-1"></a>vals</span>
+<span id="cb85-247"><a href="#cb85-247" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb85-248"><a href="#cb85-248" aria-hidden="true" tabindex="-1"></a>vals <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(gapminder), <span class="dv">15</span>)</span>
+<span id="cb85-249"><a href="#cb85-249" aria-hidden="true" tabindex="-1"></a>vals[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span>
+<span id="cb85-250"><a href="#cb85-250" aria-hidden="true" tabindex="-1"></a>vals[<span class="dv">11</span><span class="sc">:</span><span class="dv">15</span>]</span>
+<span id="cb85-251"><a href="#cb85-251" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb85-252"><a href="#cb85-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-253"><a href="#cb85-253" aria-hidden="true" tabindex="-1"></a><span class="fu"># Optimization</span></span>
+<span id="cb85-254"><a href="#cb85-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-255"><a href="#cb85-255" aria-hidden="true" tabindex="-1"></a>R provides functionality for optimization - finding maxima or minima of a function.</span>
+<span id="cb85-256"><a href="#cb85-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-257"><a href="#cb85-257" aria-hidden="true" tabindex="-1"></a><span class="fu">## `optim`</span></span>
+<span id="cb85-258"><a href="#cb85-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-259"><a href="#cb85-259" aria-hidden="true" tabindex="-1"></a>A workhorse is <span class="in">`optim()`</span>, which implements a number of optimization algorithms. </span>
+<span id="cb85-260"><a href="#cb85-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-261"><a href="#cb85-261" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE, fig.cap = ""} </span></span>
+<span id="cb85-262"><a href="#cb85-262" aria-hidden="true" tabindex="-1"></a><span class="in">library(fields)  </span></span>
+<span id="cb85-263"><a href="#cb85-263" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb85-264"><a href="#cb85-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-265"><a href="#cb85-265" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig.width=11, fig.height=5, fig.cap = ""}</span></span>
+<span id="cb85-266"><a href="#cb85-266" aria-hidden="true" tabindex="-1"></a><span class="in"> banana &lt;- function(x) {   ## Rosenbrock Banana function</span></span>
+<span id="cb85-267"><a href="#cb85-267" aria-hidden="true" tabindex="-1"></a><span class="in">         x1 &lt;- x[1]</span></span>
+<span id="cb85-268"><a href="#cb85-268" aria-hidden="true" tabindex="-1"></a><span class="in">         x2 &lt;- x[2]</span></span>
+<span id="cb85-269"><a href="#cb85-269" aria-hidden="true" tabindex="-1"></a><span class="in">         100 * (x2 - x1 * x1)^2 + (1 - x1)^2</span></span>
+<span id="cb85-270"><a href="#cb85-270" aria-hidden="true" tabindex="-1"></a><span class="in">     }</span></span>
+<span id="cb85-271"><a href="#cb85-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-272"><a href="#cb85-272" aria-hidden="true" tabindex="-1"></a><span class="in">x1s &lt;- x2s &lt;- seq(-5, 5, length = 100)</span></span>
+<span id="cb85-273"><a href="#cb85-273" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;- expand.grid(x1s, x2s)</span></span>
+<span id="cb85-274"><a href="#cb85-274" aria-hidden="true" tabindex="-1"></a><span class="in">fx &lt;- apply(x, 1, banana)</span></span>
+<span id="cb85-275"><a href="#cb85-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-276"><a href="#cb85-276" aria-hidden="true" tabindex="-1"></a><span class="in">par(mfrow = c(1, 2), mai = c(.45, .4, .1, .4))</span></span>
+<span id="cb85-277"><a href="#cb85-277" aria-hidden="true" tabindex="-1"></a><span class="in">image.plot(x1s, x2s, matrix(fx, 100), xlab = '', ylab = '')</span></span>
+<span id="cb85-278"><a href="#cb85-278" aria-hidden="true" tabindex="-1"></a><span class="in">image.plot(x1s, x2s, matrix(log(fx), 100), xlab = '', ylab = '')</span></span>
+<span id="cb85-279"><a href="#cb85-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-280"><a href="#cb85-280" aria-hidden="true" tabindex="-1"></a><span class="in">optim(c(-2,0), banana)</span></span>
+<span id="cb85-281"><a href="#cb85-281" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb85-282"><a href="#cb85-282" aria-hidden="true" tabindex="-1"></a>We can see the progression of evaluations of the objective function (not shown in the html):</span>
+<span id="cb85-283"><a href="#cb85-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-286"><a href="#cb85-286" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb85-287"><a href="#cb85-287" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb85-288"><a href="#cb85-288" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: ""</span></span>
+<span id="cb85-289"><a href="#cb85-289" aria-hidden="true" tabindex="-1"></a>banana <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {   <span class="do">## Rosenbrock Banana function</span></span>
+<span id="cb85-290"><a href="#cb85-290" aria-hidden="true" tabindex="-1"></a>         <span class="fu">points</span>(x[<span class="dv">1</span>],x[<span class="dv">2</span>])</span>
+<span id="cb85-291"><a href="#cb85-291" aria-hidden="true" tabindex="-1"></a>         <span class="fu">Sys.sleep</span>(.<span class="dv">03</span>)</span>
+<span id="cb85-292"><a href="#cb85-292" aria-hidden="true" tabindex="-1"></a>         x1 <span class="ot">&lt;-</span> x[<span class="dv">1</span>]</span>
+<span id="cb85-293"><a href="#cb85-293" aria-hidden="true" tabindex="-1"></a>         x2 <span class="ot">&lt;-</span> x[<span class="dv">2</span>]</span>
+<span id="cb85-294"><a href="#cb85-294" aria-hidden="true" tabindex="-1"></a>         <span class="dv">100</span> <span class="sc">*</span> (x2 <span class="sc">-</span> x1 <span class="sc">*</span> x1)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> x1)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb85-295"><a href="#cb85-295" aria-hidden="true" tabindex="-1"></a>     }</span>
+<span id="cb85-296"><a href="#cb85-296" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="at">mai =</span> <span class="fu">c</span>(.<span class="dv">45</span>, .<span class="dv">4</span>, .<span class="dv">1</span>, .<span class="dv">4</span>))</span>
+<span id="cb85-297"><a href="#cb85-297" aria-hidden="true" tabindex="-1"></a><span class="fu">image.plot</span>(x1s, x2s, <span class="fu">matrix</span>(<span class="fu">log</span>(fx), <span class="dv">100</span>), <span class="at">xlab =</span> <span class="st">''</span>, <span class="at">ylab =</span> <span class="st">''</span>)</span>
+<span id="cb85-298"><a href="#cb85-298" aria-hidden="true" tabindex="-1"></a><span class="fu">optim</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>,<span class="dv">0</span>), banana)</span>
+<span id="cb85-299"><a href="#cb85-299" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb85-300"><a href="#cb85-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-301"><a href="#cb85-301" aria-hidden="true" tabindex="-1"></a><span class="fu">## Convex optimization and other solvers</span></span>
+<span id="cb85-302"><a href="#cb85-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-303"><a href="#cb85-303" aria-hidden="true" tabindex="-1"></a>For convex optimization you could look at <span class="in">`CVXR`</span> (as an alternative to <span class="in">`cvxopt`</span> in Python).</span>
 <span id="cb85-304"><a href="#cb85-304" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-305"><a href="#cb85-305" aria-hidden="true" tabindex="-1"></a><span class="in">date1; date2</span></span>
-<span id="cb85-306"><a href="#cb85-306" aria-hidden="true" tabindex="-1"></a><span class="in">class(date1)</span></span>
-<span id="cb85-307"><a href="#cb85-307" aria-hidden="true" tabindex="-1"></a><span class="in">dates &lt;- c(date1, date2, date3)</span></span>
-<span id="cb85-308"><a href="#cb85-308" aria-hidden="true" tabindex="-1"></a><span class="in">weekdays(dates)</span></span>
-<span id="cb85-309"><a href="#cb85-309" aria-hidden="true" tabindex="-1"></a><span class="in">dates + 30</span></span>
-<span id="cb85-310"><a href="#cb85-310" aria-hidden="true" tabindex="-1"></a><span class="in">date3 - date2</span></span>
-<span id="cb85-311"><a href="#cb85-311" aria-hidden="true" tabindex="-1"></a><span class="in">unclass(dates)</span></span>
-<span id="cb85-312"><a href="#cb85-312" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb85-313"><a href="#cb85-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-314"><a href="#cb85-314" aria-hidden="true" tabindex="-1"></a>The "origin" date in R is January 1, 1970</span>
-<span id="cb85-315"><a href="#cb85-315" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-316"><a href="#cb85-316" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-317"><a href="#cb85-317" aria-hidden="true" tabindex="-1"></a><span class="fu"># Time</span></span>
-<span id="cb85-318"><a href="#cb85-318" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-319"><a href="#cb85-319" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, error=TRUE}</span></span>
-<span id="cb85-320"><a href="#cb85-320" aria-hidden="true" tabindex="-1"></a><span class="in">library(chron)</span></span>
-<span id="cb85-321"><a href="#cb85-321" aria-hidden="true" tabindex="-1"></a><span class="in">d1 &lt;- chron("12/25/2004", "10:37:59") </span></span>
-<span id="cb85-322"><a href="#cb85-322" aria-hidden="true" tabindex="-1"></a><span class="in"># default format of m/d/Y and h:m:s</span></span>
-<span id="cb85-323"><a href="#cb85-323" aria-hidden="true" tabindex="-1"></a><span class="in">d2 &lt;- chron("12/26/2004", "11:37:59")</span></span>
-<span id="cb85-324"><a href="#cb85-324" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-325"><a href="#cb85-325" aria-hidden="true" tabindex="-1"></a><span class="in">class(d1)</span></span>
-<span id="cb85-326"><a href="#cb85-326" aria-hidden="true" tabindex="-1"></a><span class="in">d1</span></span>
-<span id="cb85-327"><a href="#cb85-327" aria-hidden="true" tabindex="-1"></a><span class="in">d1 + 33</span></span>
-<span id="cb85-328"><a href="#cb85-328" aria-hidden="true" tabindex="-1"></a><span class="in">d2 - d1</span></span>
-<span id="cb85-329"><a href="#cb85-329" aria-hidden="true" tabindex="-1"></a><span class="in">d1 + d2  # This won't work.</span></span>
-<span id="cb85-330"><a href="#cb85-330" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb85-305"><a href="#cb85-305" aria-hidden="true" tabindex="-1"></a>One can interface with commercial optimization software such as Gurobi, MOSEK and Cplex.</span>
+<span id="cb85-306"><a href="#cb85-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-307"><a href="#cb85-307" aria-hidden="true" tabindex="-1"></a><span class="fu"># Dates and Times</span></span>
+<span id="cb85-308"><a href="#cb85-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-309"><a href="#cb85-309" aria-hidden="true" tabindex="-1"></a><span class="fu">## Dates</span></span>
+<span id="cb85-310"><a href="#cb85-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-311"><a href="#cb85-311" aria-hidden="true" tabindex="-1"></a>R has built-in functionality to handle dates (don't reinvent the wheel!).</span>
+<span id="cb85-312"><a href="#cb85-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-313"><a href="#cb85-313" aria-hidden="true" tabindex="-1"></a><span class="in">```{r dates}</span></span>
+<span id="cb85-314"><a href="#cb85-314" aria-hidden="true" tabindex="-1"></a><span class="in">date1 &lt;- as.Date("03-01-2011", format = "%m-%d-%Y")</span></span>
+<span id="cb85-315"><a href="#cb85-315" aria-hidden="true" tabindex="-1"></a><span class="in">date2 &lt;- as.Date("03/02/11", format = "%m/%d/%y")</span></span>
+<span id="cb85-316"><a href="#cb85-316" aria-hidden="true" tabindex="-1"></a><span class="in">date3 &lt;- as.Date("07-May-11", format = "%d-%b-%y")</span></span>
+<span id="cb85-317"><a href="#cb85-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-318"><a href="#cb85-318" aria-hidden="true" tabindex="-1"></a><span class="in">date1; date2</span></span>
+<span id="cb85-319"><a href="#cb85-319" aria-hidden="true" tabindex="-1"></a><span class="in">class(date1)</span></span>
+<span id="cb85-320"><a href="#cb85-320" aria-hidden="true" tabindex="-1"></a><span class="in">dates &lt;- c(date1, date2, date3)</span></span>
+<span id="cb85-321"><a href="#cb85-321" aria-hidden="true" tabindex="-1"></a><span class="in">weekdays(dates)</span></span>
+<span id="cb85-322"><a href="#cb85-322" aria-hidden="true" tabindex="-1"></a><span class="in">dates + 30</span></span>
+<span id="cb85-323"><a href="#cb85-323" aria-hidden="true" tabindex="-1"></a><span class="in">date3 - date2</span></span>
+<span id="cb85-324"><a href="#cb85-324" aria-hidden="true" tabindex="-1"></a><span class="in">unclass(dates)</span></span>
+<span id="cb85-325"><a href="#cb85-325" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb85-326"><a href="#cb85-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-327"><a href="#cb85-327" aria-hidden="true" tabindex="-1"></a>The "origin" date in R is January 1, 1970</span>
+<span id="cb85-328"><a href="#cb85-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-329"><a href="#cb85-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-330"><a href="#cb85-330" aria-hidden="true" tabindex="-1"></a><span class="fu">## Time</span></span>
 <span id="cb85-331"><a href="#cb85-331" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-332"><a href="#cb85-332" aria-hidden="true" tabindex="-1"></a>There's lots more packages/functionality for dates/times: see <span class="in">`lubridate`</span> (from the tidyverse) and <span class="in">`?DateTimeClasses`</span></span>
-<span id="cb85-333"><a href="#cb85-333" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb85-334"><a href="#cb85-334" aria-hidden="true" tabindex="-1"></a><span class="fu"># Breakout </span></span>
-<span id="cb85-335"><a href="#cb85-335" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-336"><a href="#cb85-336" aria-hidden="true" tabindex="-1"></a><span class="fu">### Basics</span></span>
+<span id="cb85-332"><a href="#cb85-332" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, error=TRUE}</span></span>
+<span id="cb85-333"><a href="#cb85-333" aria-hidden="true" tabindex="-1"></a><span class="in">library(chron)</span></span>
+<span id="cb85-334"><a href="#cb85-334" aria-hidden="true" tabindex="-1"></a><span class="in">d1 &lt;- chron("12/25/2004", "10:37:59") </span></span>
+<span id="cb85-335"><a href="#cb85-335" aria-hidden="true" tabindex="-1"></a><span class="in"># default format of m/d/Y and h:m:s</span></span>
+<span id="cb85-336"><a href="#cb85-336" aria-hidden="true" tabindex="-1"></a><span class="in">d2 &lt;- chron("12/26/2004", "11:37:59")</span></span>
 <span id="cb85-337"><a href="#cb85-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-338"><a href="#cb85-338" aria-hidden="true" tabindex="-1"></a>1) Generate 100 random Poisson values with a population mean of 5. How close is the mean of those 100 values to the value of 5?</span>
-<span id="cb85-339"><a href="#cb85-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-340"><a href="#cb85-340" aria-hidden="true" tabindex="-1"></a>2) What is the 95th percentile of a chi-square distribution with 1 degree of freedom?</span>
-<span id="cb85-341"><a href="#cb85-341" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-342"><a href="#cb85-342" aria-hidden="true" tabindex="-1"></a>3) What's the probability of getting a value greater than 5 if you draw from a standard normal distribution? What about a t distribution with 1 degree of freedom?</span>
-<span id="cb85-343"><a href="#cb85-343" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-344"><a href="#cb85-344" aria-hidden="true" tabindex="-1"></a><span class="fu">### Using the ideas</span></span>
-<span id="cb85-345"><a href="#cb85-345" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-346"><a href="#cb85-346" aria-hidden="true" tabindex="-1"></a>4) Fit two linear regression models from the gapminder data, where the outcome is <span class="in">`lifeExp`</span> and the explanatory variables are <span class="in">`log(pop)`</span>, <span class="in">`log(gdpPercap)`</span>, and <span class="in">`year`</span>. In one model, treat <span class="in">`year`</span> as a numeric variable. In the other, factorize the <span class="in">`year`</span> variable. How do you interpret each model?</span>
-<span id="cb85-347"><a href="#cb85-347" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-348"><a href="#cb85-348" aria-hidden="true" tabindex="-1"></a>5) Consider the code where we used <span class="in">`sample()`</span>.  Initialize a storage vector of 500 zeroes. Set up a bootstrap using a for loop, with 500 bootstrap datasets. Here are the steps within each iteration:</span>
-<span id="cb85-349"><a href="#cb85-349" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-350"><a href="#cb85-350" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>resample with replacement a new dataset of the same size as the actual <span class="in">`gapminder`</span> dataset</span>
-<span id="cb85-351"><a href="#cb85-351" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>assign the value of the mean of the life expectancy for the bootstrap dataset into the storage vector</span>
-<span id="cb85-352"><a href="#cb85-352" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>repeat</span>
-<span id="cb85-353"><a href="#cb85-353" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-354"><a href="#cb85-354" aria-hidden="true" tabindex="-1"></a>Now plot a histogram of the 500 values - this is an estimate of the sampling distribution of the sample mean. </span>
-<span id="cb85-355"><a href="#cb85-355" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-356"><a href="#cb85-356" aria-hidden="true" tabindex="-1"></a>6) Modify the GAMs of lifeExp on gdpPercap and set <span class="in">`k`</span> to a variety of values and see how the estimated relationships change. What about the estimated uncertainties?</span>
-<span id="cb85-357"><a href="#cb85-357" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-358"><a href="#cb85-358" aria-hidden="true" tabindex="-1"></a><span class="fu">### Advanced </span></span>
-<span id="cb85-359"><a href="#cb85-359" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-360"><a href="#cb85-360" aria-hidden="true" tabindex="-1"></a>7) Fit a logistic regression model where the outcome is whether <span class="in">`lifeExp`</span> is greater than or less than 60 years, exploring the use of different predictors.</span>
-<span id="cb85-361"><a href="#cb85-361" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-362"><a href="#cb85-362" aria-hidden="true" tabindex="-1"></a>8) Suppose you wanted to do 10-fold cross-validation for some sort of regression model fit to the *gapminder* dataset. Write some R code that produces a field in the dataset that indicates which fold each observation is in. Ensure each of the folds has an equal (or as nearly equal as possible if the number of observations is not divisible by 10) number of observations. Hint: consider the *times* argument to the <span class="in">`rep()`</span> function. (If you're not familiar with 10-fold cross-validation, it requires one to divide the dataset into 10 subsets of approximately equal size.)</span>
-<span id="cb85-363"><a href="#cb85-363" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-364"><a href="#cb85-364" aria-hidden="true" tabindex="-1"></a>9) Write some code to demonstrate the central limit theorem. Generate many different replicates of samples of size <span class="in">`n`</span> from a skewed or discrete distribution and show that if <span class="in">`n`</span> is big enough, the distribution of the means (of each sample of size <span class="in">`n`</span>) looks approximately normal in a histogram. Do it without any looping (using techniques from earlier modules)! I.e., I want you to show that if you have a large number (say 10,000) of means, each mean being the mean of <span class="in">`n`</span> values from a distribution, the distribution of the means looks approximately normal if <span class="in">`n`</span> is sufficiently big.</span>
-<span id="cb85-365"><a href="#cb85-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-338"><a href="#cb85-338" aria-hidden="true" tabindex="-1"></a><span class="in">class(d1)</span></span>
+<span id="cb85-339"><a href="#cb85-339" aria-hidden="true" tabindex="-1"></a><span class="in">d1</span></span>
+<span id="cb85-340"><a href="#cb85-340" aria-hidden="true" tabindex="-1"></a><span class="in">d1 + 33</span></span>
+<span id="cb85-341"><a href="#cb85-341" aria-hidden="true" tabindex="-1"></a><span class="in">d2 - d1</span></span>
+<span id="cb85-342"><a href="#cb85-342" aria-hidden="true" tabindex="-1"></a><span class="in">d1 + d2  # This won't work.</span></span>
+<span id="cb85-343"><a href="#cb85-343" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb85-344"><a href="#cb85-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-345"><a href="#cb85-345" aria-hidden="true" tabindex="-1"></a>There's lots more packages/functionality for dates/times: see <span class="in">`lubridate`</span> (from the tidyverse) and <span class="in">`?DateTimeClasses`</span></span>
+<span id="cb85-346"><a href="#cb85-346" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb85-347"><a href="#cb85-347" aria-hidden="true" tabindex="-1"></a><span class="fu"># Breakout </span></span>
+<span id="cb85-348"><a href="#cb85-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-349"><a href="#cb85-349" aria-hidden="true" tabindex="-1"></a><span class="fu">## Basics</span></span>
+<span id="cb85-350"><a href="#cb85-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-351"><a href="#cb85-351" aria-hidden="true" tabindex="-1"></a>1) Generate 100 random Poisson values with a population mean of 5. How close is the mean of those 100 values to the value of 5?</span>
+<span id="cb85-352"><a href="#cb85-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-353"><a href="#cb85-353" aria-hidden="true" tabindex="-1"></a>2) What is the 95th percentile of a chi-square distribution with 1 degree of freedom?</span>
+<span id="cb85-354"><a href="#cb85-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-355"><a href="#cb85-355" aria-hidden="true" tabindex="-1"></a>3) What's the probability of getting a value greater than 5 if you draw from a standard normal distribution? What about a t distribution with 1 degree of freedom?</span>
+<span id="cb85-356"><a href="#cb85-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-357"><a href="#cb85-357" aria-hidden="true" tabindex="-1"></a><span class="fu">## Using the ideas</span></span>
+<span id="cb85-358"><a href="#cb85-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-359"><a href="#cb85-359" aria-hidden="true" tabindex="-1"></a>4) Fit two linear regression models from the gapminder data, where the outcome is <span class="in">`lifeExp`</span> and the explanatory variables are <span class="in">`log(pop)`</span>, <span class="in">`log(gdpPercap)`</span>, and <span class="in">`year`</span>. In one model, treat <span class="in">`year`</span> as a numeric variable. In the other, factorize the <span class="in">`year`</span> variable. How do you interpret each model?</span>
+<span id="cb85-360"><a href="#cb85-360" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-361"><a href="#cb85-361" aria-hidden="true" tabindex="-1"></a>5) Consider the code where we used <span class="in">`sample()`</span>.  Initialize a storage vector of 500 zeroes. Set up a bootstrap using a for loop, with 500 bootstrap datasets. Here are the steps within each iteration:</span>
+<span id="cb85-362"><a href="#cb85-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-363"><a href="#cb85-363" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>resample with replacement a new dataset of the same size as the actual <span class="in">`gapminder`</span> dataset</span>
+<span id="cb85-364"><a href="#cb85-364" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>assign the value of the mean of the life expectancy for the bootstrap dataset into the storage vector</span>
+<span id="cb85-365"><a href="#cb85-365" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>repeat</span>
+<span id="cb85-366"><a href="#cb85-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-367"><a href="#cb85-367" aria-hidden="true" tabindex="-1"></a>Now plot a histogram of the 500 values - this is an estimate of the sampling distribution of the sample mean. </span>
+<span id="cb85-368"><a href="#cb85-368" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-369"><a href="#cb85-369" aria-hidden="true" tabindex="-1"></a>6) Modify the GAMs of lifeExp on gdpPercap and set <span class="in">`k`</span> to a variety of values and see how the estimated relationships change. What about the estimated uncertainties?</span>
+<span id="cb85-370"><a href="#cb85-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-371"><a href="#cb85-371" aria-hidden="true" tabindex="-1"></a><span class="fu">## Advanced </span></span>
+<span id="cb85-372"><a href="#cb85-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-373"><a href="#cb85-373" aria-hidden="true" tabindex="-1"></a>7) Fit a logistic regression model where the outcome is whether <span class="in">`lifeExp`</span> is greater than or less than 60 years, exploring the use of different predictors.</span>
+<span id="cb85-374"><a href="#cb85-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-375"><a href="#cb85-375" aria-hidden="true" tabindex="-1"></a>8) Suppose you wanted to do 10-fold cross-validation for some sort of regression model fit to the *gapminder* dataset. Write some R code that produces a field in the dataset that indicates which fold each observation is in. Ensure each of the folds has an equal (or as nearly equal as possible if the number of observations is not divisible by 10) number of observations. Hint: consider the *times* argument to the <span class="in">`rep()`</span> function. (If you're not familiar with 10-fold cross-validation, it requires one to divide the dataset into 10 subsets of approximately equal size.)</span>
+<span id="cb85-376"><a href="#cb85-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-377"><a href="#cb85-377" aria-hidden="true" tabindex="-1"></a>9) Write some code to demonstrate the central limit theorem. Generate many different replicates of samples of size <span class="in">`n`</span> from a skewed or discrete distribution and show that if <span class="in">`n`</span> is big enough, the distribution of the means (of each sample of size <span class="in">`n`</span>) looks approximately normal in a histogram. Do it without any looping (using techniques from earlier modules)! I.e., I want you to show that if you have a large number (say 10,000) of means, each mean being the mean of <span class="in">`n`</span> values from a distribution, the distribution of the means looks approximately normal if <span class="in">`n`</span> is sufficiently big.</span>
+<span id="cb85-378"><a href="#cb85-378" aria-hidden="true" tabindex="-1"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
